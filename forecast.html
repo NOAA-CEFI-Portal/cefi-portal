@@ -1,0 +1,202 @@
+
+<!-- html body start -->
+<h2>MOM6 COBALT NWA12 - Forecast</h2>
+
+<div class = "row">
+    <!-- User inputs column -->
+    <div class="userInput col-12 col-md-6">
+        <h1 class="userInputTitle"><em>Data Options</em></h1>
+        <table class="rowGap">
+            <tr>
+                <td>Variable : </td>
+                <td>
+                    <select name="variable" id="varMOMCobaltFcast"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>Initial year : </td>
+                <td>
+                    <select name="iniTime" id="iniYearMOMCobaltFcast"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>Initial month : </td>
+                <td>
+                    <select name="iniTime" id="iniMonthMOMCobaltFcast"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>Statistics : </td>
+                <td>
+                    <select name="stat" id="statMOMCobaltFcast"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>Depth : </td>
+                <td>
+                    <select name="depth" id="depthMOMCobaltFcast"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>Blocked depth : </td>
+                <td>
+                    <select name="block" id="blockMOMCobaltFcast"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>Analyses dashboard : </td>
+                <td>
+                    <select name="analysis" id="analysisMOMCobaltFcast">
+                        <option value="fcastViewVal">Forecast Spread</option>
+                        <option value="testViewVal">Test</option>
+                    </select>
+                </td>
+            </tr>
+        </table>                
+    </div> 
+
+    <!-- Seperation column -->
+    <div class="col-12 col-md-1"></div>
+    
+
+    <!-- Figure options column -->
+    <div class="userInput col-12 col-md-5">
+        <h1 class="userInputTitle"><em>Figure options</em></h1>
+        <table class="rowGap">
+            <tr>
+                <td>Maximum Value : </td>  
+                <td>
+                    <input class="figOpt" type="number" id="maxvalFcast" name="maxval">
+                </td>
+            </tr>
+            <tr>
+                <td>Minimum Value : </td>  
+                <td>
+                    <input class="figOpt" type="number" id="minvalFcast" name="minval">
+                </td>
+            </tr>
+            <tr>
+                <td>Number of Discrete Values: </td>  
+                <td>
+                    <input class="figOpt" type="number" id="nlevelFcast" name="nlevel">
+                </td>
+            </tr>
+            <tr>
+                <td>Colorbar
+                    <button type="button" class="btn btn-secondary btn-sm btn-lg btn-custom-cir" data-toggle="modal" data-target="#Modal_cbar_Fcast">
+                        ?
+                    </button> :
+                </td>  
+                <td>
+                    <select class="figOpt" name="cbar" id="cbarOptsFcast"></select>
+                </td>
+            </tr>
+        </table>
+        <div class="alignRight">
+            <button class="btn btn-psl" id="clearFigOptBtnFcast"><strong>Clear All</strong></button>
+        </div>
+    </div> 
+
+</br>
+    <div class="col-xs-12">
+        <button class="btn btn-psl" id="momCobaltBtnFcast"><strong>Create Map + Analyses</strong></button>
+    </div>
+</div>
+
+<div class="divRowSep w-100"></div>
+
+<hr class="dot-hr-plot">
+<div class="col-md-12">
+    <h3 class="sliderTitle"> Initialization : <span class="initTimeValueFcast"></span></h3>
+</div>
+<div class = "row position-relative">
+    <!-- Plotting column -->
+
+    <!-- <div class="workingTop hidden">Creating Map &#9203</div> 
+    <div class="errorTop hidden">Data not available</div> 
+    <div class="whiteTop">.</div>  -->
+    <div id="momCobaltMapFcast" class="col-md-12">
+        <iframe id="momCobaltIFrameFcast" seamless="seamless" scrolling=no src="hindcast_mom.html"></iframe>
+    </div>
+    <div id="loading-spinner-map-Fcast" class="position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
+</div>
+    
+<div class = "row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-1">
+                <div>
+                    <button class="btn btn-psl" onclick="changeLeadTimeStep(-1)">&#8592;</button>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <p class="sliderTitle"> Forecast time : <span class="timeValueFcast"></span></p>
+            </div>
+            <div class="col-md-1 alignRight">
+                <button class="btn btn-psl" onclick="changeLeadTimeStep(1)">&#8594;</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class = "row">
+    <div class="col-md-12">
+        <input type="range" class="slider" id="timeRangeFcast">
+    </div>
+</div>
+<div class = "row">
+    <div class="ticksFcast col-sm-12"></div> 
+</div>
+
+<hr class="dot-hr-plot">
+<div class="row">
+    <div class="col-xs-3 p-0 m-0 minitabDiv">
+        <input type="radio" id="fcastViewTab" class="miniinput" name="fcastAnalysestabs" checked>
+        <label class="minitab" for="fcastViewTab">Forecast Spread</label>
+    </div>
+    <div class="col-xs-3 p-0 m-0 minitabDiv">
+        <input type="radio" id="testViewTab" class="miniinput" name="fcastAnalysestabs">
+        <label class="minitab" for="testViewTab">Test</label>
+    </div>
+</div>
+
+<div id='fcastView' class='viewFcast'>
+    <h3>Forecast Spread</h3>
+    <div class = "row position-relative">
+        <div id="plotly-fcast-spread" class="col-xs-12 col-md-6"></div>
+        <div id="plotly-fcast-box" class="col-xs-6 col-md-3"></div>
+        <div id="plotly-fcast-hist" class="col-xs-6 col-md-3"></div>
+        <div id="loading-spinner-fcast-spread" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-1">
+            <button class="btn btn-psl" id="clearFcastselectBtn"><strong>Reset time series select</strong></button>
+        </div>     
+    </div>
+</div>
+
+<div id='testView' class='viewFcast hidden'>
+    <h3>Test</h3>
+</div>
+
+
+<!-- Start modal content -->
+
+<!-- Modal colorbar -->
+<div class="modal fade" id="Modal_cbar_Fcast" tabindex="-1" role="dialog" aria-labelledby="Model_cbar_title" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="Model_cbar_title">What are the available colormaps?</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <img class="img-fluid" id="modalCbarFigFcast" src="img/colormap.png" alt="Colormap list">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>

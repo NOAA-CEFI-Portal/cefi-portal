@@ -1,0 +1,38 @@
+{
+    "SymmLists": [
+        {
+            "description": "marine heatwave",
+            "symm": [
+                "marine heatwave",
+                "marine heat wave",
+                "mhw"
+            ]
+        },
+        {
+            "description": "sea surface temperature",
+            "symm": [
+                "sea surface temperature",
+                "sst",
+                "surface temperature"
+            ]
+        },
+        {
+            "description": "sea surface height",
+            "symm": [
+                "sea level",
+                "sea level height",
+                "water level",
+                "sea surface height",
+                "ssh",
+                "zos"
+            ]
+        },
+        {
+            "description": "sea surface salinity",
+            "symm": [
+                "sea surface salinity",
+                "sss"
+            ]
+        }
+    ]
+}

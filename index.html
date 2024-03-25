@@ -1,0 +1,102 @@
+<!--#set var="last2edit" value="chsu"-->
+<!--#set var="PI" value="Web and Data Group"-->
+<!--#set var="self" value="cefi-portal" -->
+<!--#set var="title" value="Climate Ecosystems and Fisheries Portal" -->
+<!--#include virtual="/nav/header.html"-->
+
+<!-- link Javascript  -->
+<script type="text/javascript" src="tabHashUrl.js"></script>
+
+<link rel="stylesheet" href="cefi.css">
+<link rel="stylesheet" type="text/css" href="forecast.css" />
+<link rel="stylesheet" type="text/css" href="hindcast.css" />
+
+<h1 class="headingCenter">Climate Ecosystems and Fisheries Initiative Portal</h1>
+<div class="row">
+     <div class="col-md-12">
+     <div class="tab" role="tabpanel" role="navigation">
+          <ul class="nav nav-tabs" id="cefiPortalTabs">
+               <li class="active"><a class="nav-link" href="#overview" data-toggle="tab">Overview<span class="sr-only">(current)</span></a></li>
+
+               <li class="dropdown">
+                    <a href="#" id="dropdownModel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Models
+                         <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                         <li><a class="nav-link" data-toggle="tab" href="#hindcast">Hindcast</a></li>
+                         <li><a class="nav-link" data-toggle="tab" href="#forecast">Forecast</a></li>
+                         <li><a class="nav-link" data-toggle="tab" href="#projection">Projection</a></li>
+                    </ul>
+               </li>
+
+               <li class="dropdown">
+                    <a href="#" id="dropdownObs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Observations
+                         <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                         <li><a class="nav-link" data-toggle="tab" href="#current">Global Historical Condition</a></li>
+                         <li><a class="nav-link" data-toggle="tab" href="#lmes">Large Marine Ecosystems Condition</a></li>
+                         <li><a class="nav-link" data-toggle="tab" href="#reanalyses">Reanalyses (Model+Observation)</a></li>
+                    </ul>
+               </li>
+
+               <li><a class="nav-link" href="#cefi_list_search" data-toggle="tab" data-target="#cefi_list_search">Information Hub</a></li>
+               <li><a class="nav-link" href="#cookbooks" data-toggle="tab">Cookbooks</a></li>
+               <li><a class="nav-link" href="#resources" data-toggle="tab">Resources</a></li>
+
+          </ul>
+
+          <div class="tab-content">
+               <div id="overview" class="tab-pane fade in active"> 
+                    <!--#include virtual="overview.html"-->
+               </div>
+
+               <div id="hindcast" class="tab-pane fade in">
+                    <!--#include virtual="hindcast.html"-->
+               </div>
+
+               <div id="forecast" class="tab-pane fade in">
+                    <!--#include virtual="forecast.html"-->
+               </div>
+
+               <div id="projection" class="tab-pane fade in">
+                    <!--#include virtual="projection.html"-->
+               </div>
+
+               <div id="current" class="tab-pane fade in">
+                    <!--#include virtual="current.html"-->
+               </div>
+
+               <div id="lmes" class="tab-pane fade in">
+                    <!--#include virtual="lme.html"-->
+               </div>
+
+               <div id="reanalyses" class="tab-pane fade in">
+                    <!--#include virtual="reanalyses.html"-->
+               </div>
+
+               <div id="cefi_list_search" class="tab-pane fade in">
+                    <!--#include virtual="cefi_list_search.html"-->
+               </div>
+
+               <div id="cookbooks" class="tab-pane fade in">
+                    <!--#include virtual="cookbooks.html"-->
+               </div>
+
+               <div id="resources" class="tab-pane fade in">
+                    <!--#include virtual="resources.html"-->
+               </div>
+          </div>
+     </div>
+     </div>
+</div>
+<!--#include virtual="/nav/footer.html"-->
+
+
+<script type="text/javascript" src="tabHashEvent.js"></script>
+<script type="text/javascript" src="hindcast.js"></script>
+<script type="text/javascript" src="forecast.js"></script>
+<!-- <script type="text/javascript" src="hcast.js"></script> -->
+

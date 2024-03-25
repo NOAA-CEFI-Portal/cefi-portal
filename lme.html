@@ -1,0 +1,601 @@
+<!-- link the tab specific css style for easier debugging  -->
+<link rel="stylesheet" type="text/css" href="lme.css" />
+
+<!-- html body start -->
+
+<h2>High Resolution Sea Surface Temperature</h2>
+
+<br>
+<div class = "row">
+    <div class="col-md-12">
+        <div class = "row">
+
+            <!-- User input column -->
+            <div class="userInput col-md-4">
+                <h1 class="userInputTitle"><em>User Options</em></h1>
+
+                <input type="radio" id="singlePlot" name="plotMode" value="single" checked="checked">
+                <label for="single">Spatial map</label>
+                <br>
+                <input type="radio" id="timeSeries" name="plotMode" value="timeSeries">
+                <label for="timeSeries">Time series</label>
+                <br>
+                <input type="radio" id="animation" name="plotMode" value="animation">
+                <label for="animation">Animation (7 days)</label>
+                <br> 
+                <input type="radio" id="comparePlot" name="plotMode" value="compare">
+                <label for="compare">Advanced - Compare statistics</label>
+                <br>
+                <input type="radio" id="compareDataset" name="plotMode" value="compareData">
+                <label for="compareData">Advanced - Compare datasets</label>
+                <br> 
+                 
+                
+                <hr class="dot-hr">
+
+                <!-- User input table for single plot (Default show) -->
+                <table class="rowGap" id="singlePlotInterface">
+                    <tr>
+                        <td>Dataset<span class="upperCase">*</span> : </td>  
+                        <td>
+                            <select name="dataset" id="datasetType" class="dataInitMon"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Region<span class="upperCase">&#8224</span> : </td>  
+                        <td>
+                            <select name="lme_num" id="lmeNum"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Frequency : </td>  
+                        <td>
+                            <select name="tFrequency" id="tFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="daily" selected>Daily</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Statistic : </td>  
+                        <td>
+                            <select name="statistic" id="stat">
+                                <option value="absolute" selected>Mean</option>
+                                <option value="anomaly">Anomaly</option>
+                                <option value="climatology">Climatology</option>
+                                <option value="90perc" id="90PercThres" class="hidden">90th percentile</option>
+                                <option value="95perc" id="95PercThres" class="hidden">95th percentile</option>
+                                <option value="99perc" id="99PercThres" class="hidden">99th percentile</option>
+                                <option value="90mhw" id="90MHW" class="hidden">90th MHW</option>
+                                <option value="95mhw" id="95MHW" class="hidden">95th MHW</option>
+                                <option value="99mhw" id="99MHW" class="hidden">99th MHW</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="yearRow">
+                        <td>Year<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="year" id="year" class="dataInitMon calenderChange"></select>
+                        </td>
+                    </tr>
+                    <tr id="monthRow">
+                        <td>Month<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="month" id="month" class="calenderChange"></select>
+                        </td>
+                    </tr>
+                    <tr id="dayRow">
+                        <td>Day<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="day" id="day"></select>
+                        </td>
+                    </tr>
+                    <tr id="singleBtnRow">
+                        <td><button class="redhHotBtn" id="btn"><strong>Plot</strong></button></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <!-- User input table for compare plot (Default to hidden) -->
+                <table class="hidden rowGap" id="comparePlotInterface">
+                    <tr>
+                        <td>Dataset<span class="upperCase">*</span> : </td>  
+                        <td>
+                            <select name="dataset1" id="datasetType1" class="dataInitMon1 dataInitMon2"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Region<span class="upperCase">&#8224</span> : </td>  
+                        <td>
+                            <select name="lme_num1" id="lmeNum1"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><hr class="dot-hr-tb"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data1 :</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Frequency : </td>  
+                        <td>
+                            <select name="tFrequency1" id="tFreq1">
+                                <option value="monthly">Monthly</option>
+                                <option value="daily" selected>Daily</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Statistic : </td>  
+                        <td>
+                            <select name="statistic1" id="stat1">
+                                <option value="absolute" selected>Mean</option>
+                                <option value="anomaly">Anomaly</option>
+                                <option value="climatology">Climatology</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="year1Row">
+                        <td>Year<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="year1" id="year1" class="dataInitMon1 calenderChange1"></select>
+                        </td>
+                    </tr>
+                    <tr id="month1Row">
+                        <td>Month<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="month1" id="month1" class="calenderChange1"></select>
+                        </td>
+                    </tr>
+                    <tr id="day1Row">
+                        <td>Day<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="day1" id="day1"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><hr class="dot-hr-tb"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data2 :</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Frequency : </td>  
+                        <td>
+                            <select name="tFrequency2" id="tFreq2">
+                                <option value="monthly">Monthly</option>
+                                <option value="daily" selected>Daily</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Statistic : </td>  
+                        <td>
+                            <select name="statistic" id="stat2">
+                                <option value="absolute" selected>Mean</option>
+                                <option value="anomaly">Anomaly</option>
+                                <option value="climatology">Climatology</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="year2Row">
+                        <td>Year<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="year2" id="year2" class="dataInitMon2 calenderChange2"></select>
+                        </td>
+                    </tr>
+                    <tr id="month2Row">
+                        <td>Month<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="month2" id="month2" class="calenderChange2"></select>
+                        </td>
+                    </tr>
+                    <tr id="day2Row">
+                        <td>Day<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="day2" id="day2"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><hr class="dot-hr-tb"></td>
+                        <td></td>
+                    </tr>
+                    <tr id="compareBtnRow">
+                        <td><button class="redhHotBtn" id="compareBtn"><strong>Compare</strong></button></td>
+                        <td></td>
+                    </tr>
+                    
+
+                </table>
+
+                <!-- User input table for compare dataset plot (Default to hidden) -->
+                <table class="hidden rowGap" id="compareDatasetInterface">
+                    <tr>
+                        <td>Region<span class="upperCase">&#8224</span> : </td>  
+                        <td>
+                            <select name="lme_numD" id="lmeNumD"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><hr class="dot-hr-tb"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dataset1 :</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Dataset<span class="upperCase">*</span> : </td>  
+                        <td>
+                            <select name="datasetD1" id="datasetTypeD1" class="dataInitMonD1"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Frequency : </td>  
+                        <td>
+                            <select name="tFrequencyD1" id="tFreqD1">
+                                <option value="monthly">Monthly</option>
+                                <option value="daily" selected>Daily</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="yearD1Row">
+                        <td>Year<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="yearD1" id="yearD1" class="dataInitMonD1 calenderChangeD1"></select>
+                        </td>
+                    </tr>
+                    <tr id="monthD1Row">
+                        <td>Month<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="monthD1" id="monthD1" class="calenderChangeD1"></select>
+                        </td>
+                    </tr>
+                    <tr id="dayD1Row">
+                        <td>Day<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="dayD1" id="dayD1"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><hr class="dot-hr-tb"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dataset2 :</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Dataset<span class="upperCase">*</span> : </td>  
+                        <td>
+                            <select name="datasetD2" id="datasetTypeD2" class="dataInitMonD2"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Frequency : </td>  
+                        <td>
+                            <select name="tFrequencyD2" id="tFreqD2">
+                                <option value="monthly">Monthly</option>
+                                <option value="daily" selected>Daily</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="yearD2Row">
+                        <td>Year<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="yearD2" id="yearD2" class="dataInitMonD2 calenderChangeD2"></select>
+                        </td>
+                    </tr>
+                    <tr id="monthD2Row">
+                        <td>Month<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="monthD2" id="monthD2" class="calenderChangeD2"></select>
+                        </td>
+                    </tr>
+                    <tr id="dayD2Row">
+                        <td>Day<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="dayD2" id="dayD2"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><hr class="dot-hr-tb"></td>
+                        <td></td>
+                    </tr>
+                    <tr id="compareDBtnRow">
+                        <td><button class="redhHotBtn" id="compareDBtn"><strong>Compare</strong></button></td>
+                        <td>
+                            <div id="waitMessage">
+                                Please allow <strong>1 min</strong> 
+                                for some large LMEs.
+                            </div>
+                        </td>
+                    </tr>
+                    
+                </table>
+
+                <!-- User input table for time series plot (Default to hidden) -->
+                <div class="hidden timeseriesInterfaceGroup">
+                    <h5>Time series from:</h5>
+                    <input type="radio" id="singlePTTS" name="tsMode" value="singlePT" >
+                    <label for="singlePT">Single longitude/latitude point</label>
+                    <br>
+                    <input type="radio" id="lmeTS" name="tsMode" value="lmeAW" checked="checked">
+                    <label for="lmeAW">Area-weighted LME</label>
+                    <br>
+                </div>
+                <table class="hidden rowGap timeseriesInterfaceGroup" id="timeseriesInterface" >
+                    <tr>
+                        <td><hr class="dot-hr-tb"></td>
+                        <td></td>
+                    </tr>
+                    <tr id="lmeAWTS">
+                        <td>Region<span class="upperCase">&#8224</span> : </td>  
+                        <td>
+                            <select name="lme_numTS" id="lmeNumTS"></select>
+                        </td>
+                    </tr>
+                    <tr class="hidden PTTS">
+                        <td>Longitude : </td>  
+                        <td>
+                            <input type="number" id="lonTS" name="lon_TS" value="120.05" step="0.05" min="-360" max="360">
+                        </td>
+                    </tr>
+                    <tr class="hidden PTTS">
+                        <td>Latitude : </td>  
+                        <td>
+                            <input type="number" id="latTS" name="lat_TS" value="10.05" step="0.05" min="-90" max="360">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Dataset<span class="upperCase">*</span> : </td>  
+                        <td>
+                            <select name="datasetTS1" id="datasetTypeTS1"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Frequency : </td>  
+                        <td>
+                            <select name="tFrequencyTS1" id="tFreqTS1">
+                                <option value="daily" selected>Daily</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Statistic : </td>  
+                        <td>
+                            <select name="tStatTS1" id="tStatTS1">
+                                <option value="absolute" selected>Mean</option>
+                                <option value="anomaly">Anomaly</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="syearRow">
+                        <td>Start Year<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="syear" id="syear"></select>
+                        </td>
+                    </tr>
+                    <tr id="fyearRow">
+                        <td>End Year<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="fyear" id="fyear"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>MHW : </td>  
+                        <td>
+                            <select name="mhw_threshold" id="threshold">
+                                <option value="90" id="90PercThres" selected>90th percentile </option>
+                                <option value="95" id="95PercThres" >95th percentile </option>
+                                <option value="99" id="99PercThres" >99th percentile </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><hr class="dot-hr-tb"></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="hidden timeseriesInterfaceGroup">
+                    <h5>Visualize time series in:</h5>
+                    <button id="timeSeriesBtn"><strong>classic line plot</strong></button>
+                    <button class="redhHotBtn" id="heatmapBtn"><strong>heat map plot <span class="upperCaseBtn">#</span></strong></button>
+                </div>
+
+                <!-- User input table for animation (Default hidden) -->
+                <table class="rowGap hidden" id="animationInterface">
+                    <tr>
+                        <td>Dataset<span class="upperCase">*</span> : </td>  
+                        <td>
+                            <select name="dataset" id="datasetTypeAM" class="dataInitMonAM"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Region<span class="upperCase">&#8224</span> : </td>  
+                        <td>
+                            <select name="lme_num" id="lmeNumAM"></select>
+                        </td>
+                    </tr>
+                    <tr id="yearRow">
+                        <td>Year<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="year" id="yearAM" class="calenderChangeAM dataInitMonAM"></select>
+                        </td>
+                    </tr>
+                    <tr id="monthRow">
+                        <td>Month<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="month" id="monthAM" class="calenderChangeAM"></select>
+                        </td>
+                    </tr>
+                    <tr id="dayRow">
+                        <td>Day<span class="upperCase">*</span> : </td>
+                        <td>
+                            <select name="day" id="dayAM"></select>
+                        </td>
+                    </tr>
+                    <tr id="animeBtnRow">
+                        <td><button class="redhHotBtn" id="animeBtn"><strong>Create</strong></button></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <!-- explanation section (foot note) -->
+                <hr class="dot-hr">
+                <p class="hidden timeseriesInterfaceGroup"><span class="upperCase">#</span> <button type="button" class="btn btn-primary btnNarrow" data-toggle="modal" data-target="#heatmapModal">Heat map</button>
+                    presents the time series in a 2-D plan with year in x-axis, day-of-year in y-axis, and color showing the magnitude of the variables.
+                </p>
+                <p><span class="upperCase">&#8224</span> <button id="lmeButton" type="button" class="btn btn-primary btnNarrow" data-toggle="modal" data-target="#lmeModal">Large Marine Ecosystems</button>
+                    (LMEs) map showing the associated ID number and name.
+                </p>
+                <p><span class="upperCase">*</span> <button type="button" class="btn btn-primary btnNarrow" data-toggle="modal" data-target="#datasetAvaiModal">Dataset</button>
+                    availibility for date (year, month, day) options.
+                </p>
+                
+                <!-- logo below user options -->
+                <!-- <hr class="dot-hr"> -->
+                <img id="noaaLogo" src="./img/noaa_web.png" alt="NOAA logo" width="90" height="90">
+                <img id="ciresLogo" src="./img/cires_web.png" alt="CIRES logo" width="120" height="80">
+            </div> 
+
+
+            <!-- Figure column -->
+
+            <div id="output" class="col-md-8">
+                <div class="working">Creating Plot &#9203</div> 
+                <div class="error hidden">Current picked date not available</div> 
+                <img id="lmePlot">
+                <div id="lmeAnime" class="hidden" style="width: 100%; height: 1000px; overflow: hidden">
+                    <iframe id="lmeAnimeIFrame" style="border:none; position: relative; top: -50px" seamless="seamless" scrolling=no></iframe>
+                </div>
+                <div id="downloadGroup">
+                    <div class="col-md-5">
+                        <a id='lmePlotDownload' class="hidden" download>
+                            Click Here to download the image
+                        </a>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-5">
+                        <a id='lmeDataDownload' class="hidden" download>
+                            Click Here to download the time series
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="lmeModal" tabindex="-1" role="dialog" aria-labelledby="lmeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="lmeModalLabel">Global View of Large Marine Ecosystems (LMEs)</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p>
+                The interactive choropleth map below shows the location and covered areas of all 66 LMEs. 
+                Using the mouse to hover over the region can give you the name and ID of the associated
+                LME which you can choose from in the "Region" dropdown.
+            </p>
+            <div id="lmePlotting" class="plotly-graph-div" style="height:550px; width:800px;"></div> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="datasetAvaiModal" tabindex="-1" role="dialog" aria-labelledby="datasetAvaiModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="datasetAvaiModalLabel">Dataset availability</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li>
+                    <a href="https://www.star.nesdis.noaa.gov/jpss/sst.php">NOAA STAR</a> : 
+                    Sep 2002 - present. 
+                    (Data source : <a href="https://podaac.jpl.nasa.gov/dataset/Geo_Polar_Blended_Night-OSPO-L4-GLOB-v1.0">OSPO Blended Night SST analysis</a>)
+                </li>
+                <li>
+                    <a href="https://www.ncei.noaa.gov/products/optimum-interpolation-sst">OISSTv2</a> : 
+                    Sep 1981 - present. 
+                    (Data source : <a href="https://psl.noaa.gov/data/gridded/data.noaa.oisst.v2.highres.html">NOAA OI SST V2 High Resolution</a>)
+                </li>
+                <li>
+                    <a href="https://podaac.jpl.nasa.gov/dataset/CMC0.1deg-CMC-L4-GLOB-v3.0">CMC</a> : 
+                    Jan 2016 - present. 
+                    (Data source : <a href="https://podaac.jpl.nasa.gov/dataset/CMC0.1deg-CMC-L4-GLOB-v3.0">GHRSST Level 4 CMC0.1deg Global Foundation Sea Surface Temperature Analysis (GDS version 2)</a>)
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="heatmapModal" tabindex="-1" role="dialog" aria-labelledby="heatmapModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="heatmapModalLabel">What is a heat map for time series?</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p>
+                A heat map of a time series (SST anomaly) is another unique way to discover 
+                how a variable changes with time. The heatmap unstacks the time series line 
+                plot (1D) to a two-dimensional plot (shown below) with the x-axis representing 
+                the year in time, the y-axis representing the date/time in the corresponding 
+                year (x-axis value), and the color representing the magnitude of the variables. 
+                The advantage of the heat map is the availability to view the evolution of 
+                variables on the same day of year across years (e.g. how the variable evolves 
+                from year to year on January 1st). By looking at the vertical stripe, user can 
+                also easily see the variation within each year (e.g. how the variable changes 
+                from day to day at 2020).  
+            </p>
+            <img id="heatmapDemo" src="img/HighRes_LME_HeatMap.png" alt="Heatmap demo" width="390" height="600">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Javascript CDN -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
+
+<!-- link Javascript  -->
+<script type="text/javascript" src="lme.js"></script>
+<!-- <script type="text/javascript" src="lmesPlotly.js"></script> -->
+<script type="text/javascript" src="lmesPlotlyMapbox.js"></script>
+
+
+
+
+
+
+
+

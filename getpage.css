@@ -1,0 +1,49 @@
+
+.item  .title {
+    font-weight: 800;
+}
+
+.item {
+    padding-bottom:5px;
+    padding-top:5px;
+    margin-left:0px;
+    margin-right:0px;
+    vertical-align: top;
+}
+
+.item img {
+    height:76px;
+    width:auto;
+}
+
+#dataTable {
+    padding-top:5px;
+}
+
+
+#dataTable > .row:nth-child(odd) {
+    background: #f9f9f9;
+}
+
+#dataTable > .row {
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    margin-bottom: -1px;
+}
+
+#dataTable > .row:hover {
+    background: #ebf2fa;
+}
+
+h2 {
+    border-bottom: 1px solid #555;
+}
+
+.filterSelect {
+    margin-bottom: 10px;
+}
+
+.filterLabel {
+    font-weight: 400;
+    margin-bottom: 0px;
+}

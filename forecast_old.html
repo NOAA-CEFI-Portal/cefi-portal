@@ -1,0 +1,90 @@
+<!-- link the css style  -->
+<link rel="stylesheet" type="text/css" href="forecast.css" />
+
+<!-- html body start -->
+<h2>High Resolution Regional MOM6</h2>
+<div class = "row">
+    <div class="col-md-12">
+        <div class="container">
+            <div class = "row">
+                <!-- User inputs column -->
+                <div class="userInput col-md-6 forecastInput">
+                    <h1 class="userInputTitle"><em>Data Options</em></h1>
+                    <table class="rowGap">
+                        <tr>
+                            <td>Variable : </td>
+                            <td>
+                                <select name="variable" id="varMOM"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Initial time : </td>
+                            <td>
+                                <select name="date" id="dateMOM"></select>
+                            </td>
+                        </tr>
+                    </table>                
+                </div> 
+
+                <!-- Seperation column
+                <div class="col-sm-1">
+                </div> -->
+
+                <!-- Figure options column -->
+                <div class="userInput col-md-5 forecastInput">
+                    <h1 class="userInputTitle"><em>Figure options</em></h1>
+                    <table class="rowGap">
+                        <tr>
+                            <td>Maximum Value : </td>  
+                            <td>
+                                <input type="number" id="maxval" name="maxval">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Minimum Value : </td>  
+                            <td>
+                                <input type="number" id="minval" name="minval">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Number of Discrete Values: </td>  
+                            <td>
+                                <input type="number" id="nlevel" name="nlevel">
+                            </td>
+                        </tr>
+                    </table>            
+                </div> 
+
+                <button class="redhHotBtn" id="momBtn"><strong>Create Animation</strong></button>
+            </div>
+        </div>
+        <div class="divRowSep w-100"></div>
+        <hr class="dot-hr-plot">
+        <div class = "row">
+            <!-- Plotting column -->
+            <div id="output" class="col-md-auto">
+                <div class="working">Creating Plot &#9203</div> 
+                <div class="error hidden">Data not available</div> 
+                <div id="momAnime" class="hidden">
+                    <iframe id="momAnimeIFrame" seamless="seamless" scrolling=no></iframe>
+                </div>
+            </div>
+        </div>
+        <hr class="dot-hr-plot">
+    </div>
+</div>
+
+
+
+
+
+
+<!-- Javascript CDN -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<!-- <script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script> -->
+
+<!-- link Javascript  -->
+<script type="text/javascript" src="forecast.js"></script>
+<!-- <script type="text/javascript" src="lmesPlotlyMapbox.js"></script> -->
+
+

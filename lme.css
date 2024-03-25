@@ -1,0 +1,160 @@
+#timeSeriesBtn {
+    background-color: #5F9DF7; 
+    border: none;
+    color: white;
+    padding: 3px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    cursor: pointer;
+	border-radius:10px;
+  }
+
+#heatmapDemo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+
+#timeSeriesBtnCol { text-align: left; }
+
+#heatmapBtnCol { text-align: right; 
+	             display: inline-block;} 
+
+#ciresLogo { 
+	float: right;
+	margin-top: 10px;
+} 
+
+#waitMessage {
+	padding: 0 1rem;
+	/* width: 2rem;
+	height: 1rem; */
+}
+
+#lmePlot {
+	width:45rem;
+	height:50rem;
+}
+
+#lmeAnimeIFrame {
+	/* width: 100%;
+	height: 1500px; */
+	width:50rem;
+	height:50rem;
+}
+
+#output {
+	text-align: center;
+}
+
+.redhHotBtn {
+    background-color: #D61C4E; 
+    border: none;
+    color: white;
+    padding: 3px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    cursor: pointer;
+	border-radius:10px;
+}
+
+.working {
+	/* top:14rem;
+	left:13rem; */
+	margin-top: 8rem;
+	width:200px;
+	background-color:black;
+	border-radius:20px;
+	border:1px solid purple;
+	font-size:20px;
+	text-align:center;
+	padding:10px;
+	display: inline-block;
+	/* padding-left:30px; */
+	color:white;
+	z-index: 1000;
+	white-space: nowrap;
+}
+
+.error {
+	/* top:14rem;
+	left:10rem; */
+	margin-top: 8rem;
+	width:350px;
+	background-color:white;
+	border-radius:20px;
+	border:1px solid purple;
+	font-size:20px;
+	text-align:center;
+	padding:10px;
+	display: inline-block;
+	/* padding-left:30px; */
+	color:black;
+	z-index: 1000;
+	white-space: nowrap;
+}
+
+.hidden {
+  display:none;
+}
+
+.userInput {
+	position: relative;
+	border: 2.5px solid #ddd;
+	border-radius:10px;
+	padding: 10px;
+}
+
+.userInputTitle {
+	/* position: absolute; */
+	width: 150px;
+	top: 0;
+	font-size: 18px;
+	line-height: 1;
+	margin: -20px 0 0px 0; /* half of font-size */
+	background: #fff;
+	padding: 0 3px 10px 3px;
+  }
+
+.rowGap {
+	border-collapse:separate;
+	border-spacing:0 5px;
+}
+
+.upperCase {
+	text-transform:uppercase;
+	color: #EF5B0C;
+	font-size: 12px;
+}
+
+.upperCaseBtn {
+	text-transform:uppercase;
+	color: #f7f4f2;
+	font-size: 12px;
+}
+
+.dot-hr {
+	border-color: #F2EBE9;
+	border-style: none;
+	border-top-style: dotted;
+	border-width: 3px;
+	width: 100%;
+	}
+
+.dot-hr-tb {
+	border-color: #F2EBE9;
+	border-style: none;
+	border-top-style: dashed;
+	border-width: 2px;
+	width: 100%;
+	}
+
+.btnNarrow {
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
