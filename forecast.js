@@ -10,7 +10,6 @@ var locationDataFcast;
 var polygonDataFcast;
 
 
-
 // Initial variable options based on dataset
 createMomCobaltVarOptFcast('MOMCobaltFcast','varMOMCobaltFcast');
 // global variable for model variable name, index, and abbreviation
@@ -47,7 +46,6 @@ var leadFoliumFcast = leadMonthList[timeSliderFcast.val()];   // global
 tValueFcast.text(leadFoliumFcast);
 generateTickFcast(leadMonthList);
 
-
 // Initial stat options
 createMomCobaltStatOptFcast();
 
@@ -59,7 +57,6 @@ createMomCobaltDepthBlockOptFcast(varValueFcast,'blockMOMCobaltFcast')
 
 // setup colorbar option
 createMomCobaltCbarOpt('cbarOptsFcast');
-
 
 // Initial dashboard plot
 $(function() {
@@ -116,6 +113,10 @@ $(function() {
 });
 
 /////////////////  event listener  ////////////////
+// add event listener on figure all clear button
+clearFigOptBtnFcast.on("click", function () {
+    $("input.figOpt").val('');
+});
 
 // add event listener on create map button
 momCobaltBtnFcast.on("click", function () {
@@ -167,7 +168,6 @@ timeSliderFcast.on("input", function() {
     tValueFcast.text(leadFoliumFcast);
 });
 
-
 // event listen for variable change
 $("#varMOMCobaltFcast").on("change", function(){
     // varname
@@ -188,11 +188,10 @@ $("#analysisMOMCobaltFcast").on("change", function(){
     var selectedValue = $('#analysisMOMCobaltFcast :selected').val();
     $('#'+selectedValue.slice(0, -3)+'Tab').prop('checked', true);
     showDiv(selectedValue.slice(0, -3),'viewFcast');
-})
+});
 
 // add event listener for the "message" event using jQuery (location click)
 $(window).on("message", receiveMessageFcast);
-
 
 // event listener for clicking the minitab
 $('input[name="fcastAnalysestabs"]').on('click', function() {
@@ -201,7 +200,7 @@ $('input[name="fcastAnalysestabs"]').on('click', function() {
     if ($(this).is(':checked')) {
         var selectedID = $(this).attr('id');
         changeSelectOpt(selectedID.slice(0, -3),'analysisMOMCobaltFcast','viewFcast')
-        console.log('Selected option id:', $(this).attr('id'));
+        // console.log('Selected option id:', $(this).attr('id'));
     }
 });
 
@@ -215,14 +214,13 @@ function generateTickFcast(tickList) {
         const span = $("<span></span>");
     
         // Set some content or attributes for the <span>
-        span.text(`${tickList[i]}`);
+        span.text(`${tickList[i]}`+' (lead = '+i+')');
         span.addClass("tickLeadTime"); 
     
         // Append the <span> to the containerTick <div>
         containerTickFcast.append(span);
     };
 };
-
 
 // function for create option for variables
 function createMomCobaltVarOptFcast(dataCobaltID,selectID) {
@@ -261,7 +259,6 @@ function createMomCobaltStatOptFcast() {
     let df = optionList(stats_list,stats_value);
     elm.appendChild(df);
 };
-
 
 // function for create option for depth
 function createMomCobaltDepthOptFcast(variable,selectID) {
@@ -304,8 +301,7 @@ function createMomCobaltDepthBlockOptFcast(variable,selectID) {
     }
 };
 
-
-// functions for generating year and date list for timeslider (daily)
+// functions for generating year and date list for timeslider (monthly)
 function generateFcastLeadMonth(iYear = 1993, iMonth = 3) {
 
     const leadIndex = Array.from(Array(12).keys());
@@ -324,7 +320,7 @@ function generateFcastLeadMonth(iYear = 1993, iMonth = 3) {
     }
 
     return [leadIndex, leadMonth];
-}
+};
 
 // function for advancing/recede to the next option in the list
 //   used directly in html page button with attribute onclick
@@ -334,18 +330,19 @@ function changeLeadTimeStep(timeStep) {
     leadFoliumFcast = leadMonthList[timeSliderFcast.val()];
     tValueFcast.text(leadFoliumFcast);
     replaceFoliumForecast();
-}
-
+};
 
 
 // function for replace folium overlap info (image and colorbar)
 let varFoliumMapFcast;
 let statMapFcast;
+let statMapFcastName;
 let depthMapFcast;
 function replaceFoliumForecast() {
     showLoadingSpinner("loading-spinner-map-Fcast");
     varFoliumMapFcast = varValueFcast;
     statMapFcast = $("#statMOMCobaltFcast").val();
+    statMapFcastName = $('#statMOMCobaltFcast').find('option:selected').text()
     depthMapFcast = $("#depthMOMCobaltFcast").val();
     let block = $("#blockMOMCobaltFcast");
     let cbar = $("#cbarOptsFcast")
@@ -441,9 +438,12 @@ function replaceFoliumForecast() {
         });
 
     // momCobaltMap.attr("src", ajaxGet)
-}
+};
 
 // function for retrieving lon lat from iframe leaflet
+//   getting the lon lat from iframe and send to 
+//   server to get
+//   1. value of the marker on the shading
 var varDataFcast = null
 function receiveMessageFcast(event) {
     // Access the data sent from the iframe
@@ -452,7 +452,7 @@ function receiveMessageFcast(event) {
 
         if (event.originalEvent.data.type === 'locationData') {
             locationDataFcast = event.originalEvent.data;
-            
+
             if (varFoliumMapFcast !== undefined && varFoliumMapFcast !== null) {
                 // // plotting the plotly ts
                 // if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
@@ -463,10 +463,29 @@ function receiveMessageFcast(event) {
                 // // plotting the plotly vertical profile
                 // plotVertProfs(locationDataFcast)
                 // grabbing the location variable value 
+                // const promisevarValFcast = new Promise((resolve, reject) => {
+                //     getvarValFcast(locationDataFcast)
+                //         .then(value => {
+                //             varDataFcast = value
+                //             // send the value back to iframe
+                //             varDataFcastJson = {
+                //                 type: 'varValFcastData',
+                //                 var: varDataFcast
+                //             };
+                //             momCobaltMapFcast[0].contentWindow.postMessage(varDataFcastJson, "*")
+                //             resolve();
+                //         })
+                //         .catch(error => {
+                //             // Handle errors here
+                //             console.error('Error in createPromiseForvarValFcast:', error);
+                //             reject(error);
+                //         });
+                // });
+                
+                // displaying the variable value on iframe marker
                 const promisevarValFcast = new Promise((resolve, reject) => {
-                    getvarValFcast(locationDataFcast)
-                        .then(value => {
-                            varDataFcast = value
+                    getvarValFcast(locationDataFcast)  // function return promise obj from fetch
+                        .then(varDataFcast => {
                             // send the value back to iframe
                             varDataFcastJson = {
                                 type: 'varValFcastData',
@@ -476,11 +495,13 @@ function receiveMessageFcast(event) {
                             resolve();
                         })
                         .catch(error => {
-                            // Handle errors here
-                            console.error('Error in createPromiseForvarValFcast:', error);
+                            console.error('Error in promisevarValFcast:', error);
                             reject(error);
                         });
                 });
+
+                // display forecast spread plotly
+                plotTSFcast(locationDataFcast)
             }
         } else if (event.originalEvent.data.type === 'polygonData') {
             // polygonDataFcast = event.originalEvent.data;
@@ -488,10 +509,7 @@ function receiveMessageFcast(event) {
             //     plotTransect(polygonDataFcast)
             // }           
         }
-        
 
-
-            
         // console.log("Received data from iframe:", locationDataFcast);
         // console.log(event.originalEvent.origin);
     };
@@ -511,7 +529,7 @@ function getvarValFcast(infoLonLat) {
     
     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
-    return fetch(ajaxGet)
+    ajaxGetPromise = fetch(ajaxGet)
         .then(response => {
             if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -529,9 +547,321 @@ function getvarValFcast(infoLonLat) {
             // Handle errors here
             console.error('Fetch variable value error:', error);
         });
-}
 
 
+    return ajaxGetPromise
+};
+
+// function for setting up promises in Forecast TS spread(execute order for async)
+//  1. input lon lat location 
+//  2. Fetch forecast TSs (setup promise)
+//  3. create plotly object on webpage (execute when promise resolved)
+function plotTSFcast(infoLonLat) {
+    showLoadingSpinner("loading-spinner-fcast-spread");
+    getTSFcasts(infoLonLat)     // the function return a promise obj from fetch
+        .then((jsonData)=>{
+            let singleList = ['ens_min_max'];
+            if (singleList.includes(statMapFcast)) {
+                plotlyForecastRange(jsonData)
+            } else {
+                plotlyForecastSpread(jsonData)
+                plotlyForecastBox(jsonData)
+            }
+            
+            hideLoadingSpinner("loading-spinner-fcast-spread");
+        })
+        .catch((error)=>{
+            console.error(error);
+        })
+};
+
+// function to fetch all forecast spread based on locationData
+//  response in the json format (testing)
+function getTSFcasts(infoLonLat) {
+    var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries_fcast.py"
+        +"?variable="+varFoliumMapFcast
+        +"&stat="+statMapFcast
+        +"&depth="+depthMapFcast
+        +"&lon="+infoLonLat.longitude
+        +"&lat="+infoLonLat.latitude
+        +"&iniyear="+$("#iniYearMOMCobaltFcast").val()
+        +"&inimonth="+$("#iniMonthMOMCobaltFcast").val()
+    
+    console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+
+    ajaxGetPromise = fetch(ajaxGet)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .catch(error => {
+            // Handle errors here
+            console.error('Fetch time series error:', error);
+        });
+
+    return ajaxGetPromise
+};
+
+// function for creating the plotly forecast spread time series
+function plotlyForecastSpread(jsonData) {
+    var yformat = decimal_format(jsonData.mean);
+
+    var trace1Color = "rgba(113, 29, 176, 0.7)";
+    var trace = {
+        x: leadMonthList,
+        y: jsonData.mean,
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { size: 5 },
+        line: { 
+            shape: 'linear',
+            color: trace1Color,
+            width: 3 
+        },
+        // name: statMap+' time series',
+        name: varnameFcast
+    };
+
+    var data = [trace];
+
+    var trace2Color = "rgba(113, 29, 176, 0.1)";
+    for (var i=1; i<=10; i++) {
+        var key = 'ens'+i
+        var trace_ens = {
+            x: leadMonthList,
+            y: jsonData[key],
+            type: 'scatter',
+            mode: 'lines+markers',
+            marker: { size: 2 },
+            line: { 
+                shape: 'linear',
+                color: trace2Color },
+            // name: statMap+' time series',
+            name: key
+        };
+        data.push(trace_ens)
+    }
+    
+
+    var layout = {
+        hovermode: 'closest',
+        showlegend: false,
+        title:
+        varnameFcast +' <br>' +
+            ' @ (lon:'+parseFloat(jsonData.lon).toFixed(2)+'E,'+
+                'lat:'+parseFloat(jsonData.lon).toFixed(2)+'N)',
+        //   autosize: true,
+        annotations: [{
+            x: 0,
+            y: 0,
+            xref: 'paper',
+            yref: 'paper',
+            text: 'Source: NOAA CEFI data portal',
+            showarrow: false
+         }],
+         width: 550,
+         height: 400,
+         margin: {
+            l: 80,
+            r: 80,
+            b: 80,
+            t: 100,
+            // pad: 4
+          },
+        xaxis: {
+            title: 'Lead time'
+        },
+        yaxis: {
+            title: {
+                text: statMapFcastName + ' (' + jsonData.units + ')',
+                standoff: 10,
+                font: { color: trace1Color }
+            },
+            tickfont: { color: trace1Color },
+            tickformat: yformat,
+            tickmode: 'auto'
+        },
+        modebar: {
+            remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
+        },
+        dragmode: "select"
+        // responsive: true
+    };
+
+    Plotly.newPlot('plotly-fcast-spread', data, layout);
+};
+
+// function for creating the plotly forecast ensemble range time series
+function plotlyForecastRange(jsonData) {
+    var yformat = decimal_format(jsonData.spread);
+
+    var trace1Color = "rgba(113, 29, 176, 0.7)";
+    var trace = {
+        x: leadMonthList,
+        y: jsonData.spread,
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { size: 5 },
+        line: { 
+            shape: 'linear',
+            color: trace1Color,
+            width: 3 
+        },
+        // name: statMap+' time series',
+        name: varnameFcast
+    };
+
+    var data = [trace];
+
+    var layout = {
+        hovermode: 'closest',
+        showlegend: false,
+        title:
+        varnameFcast +' <br>' +
+            ' @ (lon:'+parseFloat(jsonData.lon).toFixed(2)+'E,'+
+                'lat:'+parseFloat(jsonData.lon).toFixed(2)+'N)',
+        //   autosize: true,
+        annotations: [{
+            x: 0,
+            y: 0,
+            xref: 'paper',
+            yref: 'paper',
+            text: 'Source: NOAA CEFI data portal',
+            showarrow: false
+         }],
+         width: 550,
+         height: 400,
+         margin: {
+            l: 80,
+            r: 80,
+            b: 80,
+            t: 100,
+            // pad: 4
+          },
+        xaxis: {
+            title: 'Lead time'
+        },
+        yaxis: {
+            title: {
+                text: statMapFcastName + ' (' + jsonData.units + ')',
+                standoff: 10,
+                font: { color: trace1Color }
+            },
+            tickfont: { color: trace1Color },
+            tickformat: yformat,
+            tickmode: 'auto'
+        },
+        modebar: {
+            remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
+        },
+        dragmode: "select"
+        // responsive: true
+    };
+
+    Plotly.newPlot('plotly-fcast-spread', data, layout);
+};
+
+// function for creating the plotly time series box plot
+function plotlyForecastBox(jsonData) {
+    var yformat = decimal_format(jsonData.mean);
+    var trace1Color = "rgba(113, 29, 176, 0.8)";
+    var xData = leadMonthList;
+    var yData = [];
+    for (var l=0; l<=11; l++) {
+        var ens = []
+        for (var i=1; i<=10; i++) {
+            var key = 'ens'+i
+            ens.push(jsonData[key][l]);
+        }
+        yData.push(ens);
+    };
+
+    var data = [];
+
+    for ( var i = 0; i < xData.length; i ++ ) {
+        var result = {
+            type: 'box',
+            y: yData[i],
+            name: xData[i],
+            boxpoints: false,
+            // jitter: 0.3,
+            // pointpos: -1.8,
+            type: 'box',
+            boxmean: 'sd',
+            // boxpoints: 'all',
+            // jitter: 0.5,
+            whiskerwidth: 1,
+            // fillcolor: none,
+            marker: {
+                size: 1,
+                color: trace1Color 
+            },
+            line: {
+                width: 1,
+                color: trace1Color 
+            }
+        };
+        data.push(result);
+    };
+
+    layout = {
+        hovermode: 'closest',
+        showlegend: false,
+        title: 'Ensemble spread at each lead',
+        annotations: [{
+            x: 0,
+            y: 0,
+            xref: 'paper',
+            yref: 'paper',
+            text: 'Source: NOAA CEFI data portal',
+            showarrow: false
+         }],
+         width: 530,
+         height: 400,
+         margin: {
+            l: 80,
+            r: 80,
+            b: 80,
+            t: 100,
+            // pad: 4
+          },
+        xaxis: {
+            title: 'Lead time'
+        },
+        yaxis: {
+            title: {
+                text: statMapFcastName + ' (' + jsonData.units + ')',
+                standoff: 10,
+                font: { color: trace1Color }
+            },
+            tickfont: { color: trace1Color },
+            tickformat: yformat,
+            tickmode: 'auto'
+        },
+        modebar: {
+            remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
+        },
+        dragmode: "select"
+        // responsive: true
+    };
+
+    Plotly.newPlot('plotly-fcast-box', data, layout);
+
+};
+
+// function for deciding the y tick numerical format
+function decimal_format(numArray) {
+    var format = '.2f';
+    var maxVal = Math.max(...numArray);
+    var minVal = Math.min(...numArray);
+    var diff = Math.abs(maxVal-minVal);
+    if (diff< 0.01) {
+        format = '.2e';
+    }
+    return format
+};
 
 ///////// information function start /////////
 
@@ -551,7 +881,7 @@ function momCobaltVarsFcast() {
     ];
 
     return [var_options, var_values, var_freqs];
-}
+};
 
 // functions for generating year list for initial time (monthly)
 function momCobaltInitYear(startYear = 1993, endYear = 2022) {
@@ -562,21 +892,21 @@ function momCobaltInitYear(startYear = 1993, endYear = 2022) {
     }
 
     return yearList;
-}
+};
 
 // functions for generating month list for initial time (monthly)
 function momCobaltInitMonth() {
     var monthList = [3,6,9,12];
     var monthStrList = ['March','June','September','December']
     return [monthList, monthStrList];
-}
+};
 
 function momCobaltBottomFcast() {
     list_bottom = [
         'tob'
     ]
     return list_bottom
-}
+};
 
 function momCobaltStatsFcast() {
     stats_list = [
@@ -590,10 +920,10 @@ function momCobaltStatsFcast() {
         'ens_min_max'
     ]
     return [stats_list, stats_value];
-}
+};
 
 function momCobalt3DFcast() {
     list_3d = [
     ]
     return list_3d
-}
+};
