@@ -855,7 +855,7 @@ var varVal = null
 function receiveMessage(event) {
     // Access the data sent from the iframe
     if (event.originalEvent.origin === window.location.origin) {
-        console.log(event.originalEvent)
+        // console.log(event.originalEvent)
 
         if (event.originalEvent.data.type === 'locationData') {
             locationData = event.originalEvent.data;

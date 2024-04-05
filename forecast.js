@@ -373,7 +373,6 @@ function replaceFoliumForecast() {
         })
         .then(data => {
             // Process the response data here
-            // console.log(data)
 
             //replace image
             var regexImg = /^\s*"data:image\/png;base64,[^,\n]*,\n/gm;
@@ -399,6 +398,8 @@ function replaceFoliumForecast() {
             var regexCLabel = /^\s*\.text\([^)]*\);\n/gm;
             var matchCLabel = data.match(regexCLabel);
             var textVal = extractText(matchCLabel[0]);
+
+            
 
             mapDataFcast = {
                 type: 'mapData',   // used in hindcast_mom.js for type check
@@ -448,7 +449,7 @@ var varDataFcast = null
 function receiveMessageFcast(event) {
     // Access the data sent from the iframe
     if (event.originalEvent.origin === window.location.origin) {
-        console.log(event.originalEvent)
+        // console.log(event.originalEvent)
 
         if (event.originalEvent.data.type === 'locationData') {
             locationDataFcast = event.originalEvent.data;
@@ -560,9 +561,10 @@ function plotTSFcast(infoLonLat) {
     showLoadingSpinner("loading-spinner-fcast-spread");
     getTSFcasts(infoLonLat)     // the function return a promise obj from fetch
         .then((jsonData)=>{
-            let singleList = ['ens_min_max'];
+            let singleList = ['ens_min_max','lower_tercile','upper_tercile','middle_tercile'];
             if (singleList.includes(statMapFcast)) {
                 plotlyForecastRange(jsonData)
+                $('#plotly-fcast-box').empty();
             } else {
                 plotlyForecastSpread(jsonData)
                 plotlyForecastBox(jsonData)
@@ -731,7 +733,7 @@ function plotlyForecastRange(jsonData) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-         width: 550,
+         width: 1000,
          height: 400,
          margin: {
             l: 80,
@@ -912,12 +914,18 @@ function momCobaltStatsFcast() {
     stats_list = [
         'ensemble mean',
         'ensemble mean anomaly',
-        'ensemble spread'
+        'ensemble spread',
+        'lower tercile probability',
+        'middle tercile probability',
+        'upper tercile probability'
     ]
     stats_value = [
         'ensmean',
         'ensmean_anomaly',
-        'ens_min_max'
+        'ens_min_max',
+        'lower_tercile',
+        'middle_tercile',
+        'upper_tercile'
     ]
     return [stats_list, stats_value];
 };
