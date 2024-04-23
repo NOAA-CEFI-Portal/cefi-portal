@@ -718,13 +718,16 @@ function plotTSs(infoLonLat) {
         })
         .then(([firstTS,secondTS])=>{
             if (indexes()[1].indexOf($("#varMOMCobaltTS2").val()) === -1) {
+                // plotting the variable time series
                 plotlyTSadd(secondTS.tsDates,secondTS.tsValues,secondTS.lonValues,secondTS.latValues,secondTS.tsUnit,secondTS.yformat)
+                plotlyBoxadd(secondTS.tsValues,secondTS.yformat)
+                plotlyHistadd(secondTS.tsValues,secondTS.tsUnit,secondTS.yformat) 
             } else {
                 // plotting the first index (make it always the first one as observed value)
                 plotlyTSadd(secondTS.tsDates[0],secondTS.tsValues[0],firstTS.lonValues,firstTS.latValues,secondTS.tsUnit[0],secondTS.yformat[0])
+                plotlyBoxadd(secondTS.tsValues[0],secondTS.yformat[0])
+                plotlyHistadd(secondTS.tsValues[0],secondTS.tsUnit[0],secondTS.yformat[0]) 
             }
-            plotlyBoxadd(secondTS.tsValues[0],secondTS.yformat[0])
-            plotlyHistadd(secondTS.tsValues[0],secondTS.tsUnit[0],secondTS.yformat[0]) 
             hideLoadingSpinner("loading-spinner-ts");
         })
         .catch((error)=>{
