@@ -652,8 +652,8 @@ function plotlyForecastSpread(jsonData) {
         showlegend: false,
         title:
         varnameFcast +' <br>' +
-            ' @ (lon:'+parseFloat(jsonData.lon).toFixed(2)+'E,'+
-                'lat:'+parseFloat(jsonData.lon).toFixed(2)+'N)',
+            ' @ (lat:'+parseFloat(jsonData.lat).toFixed(2)+'N,'+
+                'lon:'+parseFloat(jsonData.lon).toFixed(2)+'E)',
         //   autosize: true,
         annotations: [{
             x: 0,
@@ -722,8 +722,8 @@ function plotlyForecastRange(jsonData) {
         showlegend: false,
         title:
         varnameFcast +' <br>' +
-            ' @ (lon:'+parseFloat(jsonData.lon).toFixed(2)+'E,'+
-                'lat:'+parseFloat(jsonData.lon).toFixed(2)+'N)',
+            ' @ (lat:'+parseFloat(jsonData.lat).toFixed(2)+'N,'+
+                'lon:'+parseFloat(jsonData.lon).toFixed(2)+'E)',
         //   autosize: true,
         annotations: [{
             x: 0,
