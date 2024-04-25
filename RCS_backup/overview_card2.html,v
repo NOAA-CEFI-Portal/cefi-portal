@@ -1,0 +1,35 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2023.10.20.18.07.36;	author chsu;	state Exp;
+branches;
+next	;
+
+
+desc
+@..
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@<a href="#cefi_list_search" data-toggle="tab" data-target="#cefi_list_search" title="Link to Article">
+	<div class="newsCard">
+		<img src="/cefi_portal/img/cefi_list_search.png" width="100%"
+			alt="CEFI Information Hub" title="link to webpage" />
+		<div class="newsTitle">CEFI Search Tool</span></div>
+		<div class="newsInfo">
+			<div class="newsCaption darkbg">
+				This is a searchable database for finding NOAA and other data and analysis websites relevant to CEFI.
+			</div>
+		</div>
+	</div>
+</a>@

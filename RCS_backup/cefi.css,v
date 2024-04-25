@@ -1,0 +1,142 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.2
+date	2023.11.01.17.41.24;	author chsu;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2023.10.20.18.04.34;	author chsu;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@update with toggle button
+@
+text
+@.headingCenter {
+  text-align: center;
+}
+
+.navbar-collapse-cefi {
+  background-color: #51565b; /* Replace 'your-color' with the desired background color */
+}
+
+#cefinavbar.navbar ul.nav > li > a{
+  color: #faf6f5; 
+  font-size: 12pt;
+  background-color: transparent;
+}
+
+#cefinavbar.navbar ul.nav li.active > a {
+  color: #73c779; 
+  background-color: transparent !important; 
+}
+
+#cefinavbar.navbar li.dropdown.open a.dropdown-toggle[aria-expanded="true"] {
+  color: white !important; 
+  background-color: transparent !important; 
+}
+
+#cookbookFrame {
+  height: 3100px;
+  /* width: 1150px; */
+  /* height: 100%; */
+  width: 100%;
+  border: 0px;
+  margin-top: 0px;
+  overflow: hidden;
+}
+
+.bannerContainer {
+    width: 100%; /* Set the width of the container */
+    height: 120px; /* Set the height to crop top and bottom */
+    overflow: hidden;
+}
+
+.bannerContainer img {
+  width: 100%; /* Ensure the image fills the container horizontally */
+  height: auto; /* Maintain the image's aspect ratio */
+  background-size: cover;
+  background-position: bottom; /* Adjust the position to center the lower part */
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleBtn {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.toggleBtn:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .toggleBtn {
+  background-color: #2196F3;
+}
+
+input:focus + .toggleBtn {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .toggleBtn:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.toggleBtn.round {
+  border-radius: 34px;
+}
+
+.toggleBtn.round:before {
+  border-radius: 50%;
+}@
+
+
+1.1
+log
+@*** empty log message ***
+@
+text
+@d46 60
+@

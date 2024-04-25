@@ -1,0 +1,111 @@
+head	1.3;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.3
+date	2023.11.17.17.46.11;	author chsu;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2023.11.01.17.41.24;	author chsu;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2023.10.20.18.05.53;	author chsu;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.3
+log
+@*** empty log message ***
+@
+text
+@<link href="getpage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="cefi_list_search.js"></script>
+<script type="text/javascript" src="cefi_list_search_order.js"></script>
+
+<!-- Warning banner of har refresh -->
+<div class="alert alert-danger" role="alert">
+    This website is under constant construction. Please <a class="refresh-link" onclick="location.reload(true);">hard refresh</a> your browser for the latest updates.
+</div>
+
+<!-- <h2>Information Hub</h2> -->
+<div class="bannerContainer">
+    <img src="/cefi_portal/img/cefi_list_search.png" width="100%" alt="CEFI Information Hub">
+</div>
+<h4>
+    Welcome to the <strong>Information Hub</strong>! This is a searchable database for finding NOAA and 
+other data and analysis websites relevant to CEFI.  Searches can be conducted to find a wide range of 
+atmospheric and physical, chemical and biological ocean data, including reanalysis and model output. 
+Searches can also be used to locate webtools designed to analyze and visualize data on topics such as 
+climate change and marine heatwaves. 
+</h4>
+<!--For some websites, “cookbooks” or short pieces of code are provided to assist in reading and performing basic analysis with the data.-->
+<h2>How to use the Information Hub?</h2>
+<p>
+    Select one or more filters and a list of websites matching all the criteria will be returned.
+    <strong>Feedback is welcome</strong>. If you want to contribute to the list, please  
+    <a href="https://github.com/NOAA-PSL/CEFI-info-hub-list/issues/new?assignees=chiaweh2&labels=&projects=&template=add_cefi_resource.yml&title=%5BAdd+new+CEFI+resource%5D%3A+">submit a github issue </a>
+    or <a href="mailto:webmaster.psl@@noaa.gov?subject=CEFI list suggestion&body=Hi, CEFI data portal team">send an Email</a>!
+</p>
+<div class="row">
+    <div class="col-xs-12">
+        <h2>Filters</h2>
+    </div>
+</div>
+
+<div class="row" id="searchCriteria">
+</div>
+<br>
+<div class="row">
+    <div class="col-xs-12">
+        <h2>Web Sites</h2>
+        <div class="col-xs-8">
+            <p><strong><em>Open resources in new tabs</em></strong></p>
+        </div>
+        <div class="col-xs-3"></div>  
+        <div class="col-xs-1">
+            <label class="switch">
+                <input type="checkbox" id="toggleCheckBox">
+                <span class="toggleBtn round"></span>
+            </label>
+        </div>
+              
+    </div>
+</div>
+<div id="dataTable">
+</div>
+
+@
+
+
+1.2
+log
+@update with toggle button
+@
+text
+@d44 1
+a44 3
+        <div class="col-xs-3">
+            
+        </div>  
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d41 13
+@

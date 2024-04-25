@@ -1,0 +1,30 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2023.10.20.18.06.23;	author chsu;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@<!-- <h2>Cookbooks</h2> -->
+<div class="cookbookContainer">
+  <iframe id='cookbookFrame' src="https://noaa-psl.github.io/cefi-cookbook/"></iframe>
+</div>
+
+
+
+@

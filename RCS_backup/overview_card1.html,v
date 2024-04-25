@@ -1,0 +1,34 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2023.10.20.18.07.36;	author chsu;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@<a href="#cookbooks" data-toggle="tab" data-target="#cookbooks" title="Link to Article">
+	<div class="newsCard">
+		<img src="/cefi_portal/img/cookbooks.png" width="100%"
+			alt="CEFI Information Hub" title="link to webpage" />
+		<div class="newsTitle">Data Cookbook</span></div>
+		<div class="newsInfo">
+			<div class="newsCaption darkbg">
+				This is a code recipe including guide and instruction on how to access various datasets related to CEFI.
+			</div>
+		</div>
+	</div>
+</a>@

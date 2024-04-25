@@ -1,0 +1,34 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2023.10.20.18.07.36;	author chsu;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@<a href="#lmes" data-toggle="tab" data-target="#lmes" title="Link to Article">
+	<div class="newsCard">
+		<img src="/cefi_portal/img/lme_card.png" width="100%"
+			alt="CEFI LME" title="link to webpage" />
+		<div class="newsTitle">LME conditions</span></div>
+		<div class="newsInfo">
+			<div class="newsCaption darkbg">
+				A webtool to visualize the latest high resolution SST.
+			</div>
+		</div>
+	</div>
+</a>@
