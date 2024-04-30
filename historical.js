@@ -52,7 +52,6 @@ var dateFolium = rangeValues[timeSlider.val()];   // global
 tValue.text(dateFolium);
 tickSpaceChange();
 
-
 // Initial variable options based on dataset
 createMomCobaltVarOpt('MOMCobalt','varMOMCobalt');
 
@@ -1422,7 +1421,6 @@ function plotlyTransectLine(plotlyID,parsedTran) {
 
     Plotly.newPlot(plotlyID, data, layout);
 };
-
 
 // function for creating the plotly contour transect
 function plotlyContour(plotlyID,parsedTran) {
