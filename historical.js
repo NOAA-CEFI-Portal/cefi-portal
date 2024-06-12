@@ -54,6 +54,7 @@ tickSpaceChange();
 
 // Initial variable options based on dataset
 createMomCobaltVarOpt('MOMCobalt','varMOMCobalt');
+createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');
 
 // Initial stat options
 createMomCobaltStatOpt();
@@ -2219,7 +2220,16 @@ function colorbarOpt() {
 
 
 
-
+$("#copyButton").click(function() {
+    let code = $("#codeBlock").text();
+    navigator.clipboard.writeText(code)
+      .then(function() {
+        console.log('Code copied to clipboard');
+      })
+      .catch(function(err) {
+        console.error('Failed to copy text: ', err);
+      });
+  });
 // // functions for options lists (Manual entering)
 // function momCobaltInfo() {
 //     var dateOpt = generateDateList()

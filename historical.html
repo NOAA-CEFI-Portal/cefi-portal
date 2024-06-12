@@ -3,8 +3,55 @@
 <!-- html body start -->
 <h2>MOM6 COBALT NWA12 - Historical Run</h2>
 <div class="alert alert-secondary" role="alert">
-    <a href="https://psl.noaa.gov/thredds/catalog/Projects/CEFI/regional_mom6/hist_run/catalog.html"><b>Regional MOM6 Data Access</b></a>
+    &#128452;
+    <a href="#" id='methodLinkModal' data-toggle="modal" data-target="#dataQueryModal" class="alert-link">Data Query builder</a>
+    &#128452;
 </div>
+
+<!-- For data query modal -->
+<div class="modal fade" id="dataQueryModal" tabindex="-1" role="dialog" aria-labelledby="dataQueryTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 class="modal-title" id="dataQueryTitle">Downloading the Regional MOM6 Historical Run Data</h3>
+        </div>
+        <div class="modal-body">
+            <div class="userInput col-12">
+                <h1 class="userInputTitle"><em>Data Options</em></h1>
+                <table class="rowGap">
+                    <tr>
+                        <td>Variable : </td>
+                        <td>
+                            <select id="varMOMCobaltData"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Grid : </td>
+                        <td>
+                            <select id="gridMOMCobalt">
+                                <option value="raw">Raw grid (Curvilinear)</option>
+                                <option value="regrid">Regular grid</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table> 
+            </div>
+            <br>
+            <button id="genQueryButton" class="btn btn-psl">Generate Query</button>
+            <h4>Code to download the netCDF</h3>
+            <pre id="codeBlock"><code class="codeBlockScroll">wget -O output.nc https://psl.noaa.gov/thredds/fileServer/Projects/CEFI/regional_mom6/hist_run/ocean_cobalt_daily_2d.19930101-20191231.btm_o2.nc</code></pre> 
+            <button id="copyButton" class="btn btn-psl">Copy Code</button>        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
 <div class = "row">
     <!-- User inputs column -->
