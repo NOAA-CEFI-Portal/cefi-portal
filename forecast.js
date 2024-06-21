@@ -204,6 +204,8 @@ $('input[name="fcastAnalysestabs"]').on('click', function() {
     }
 });
 
+
+
 /////////////////////// function section /////////////////////
 
 // functions for timeline tick 
@@ -352,6 +354,7 @@ function replaceFoliumForecast() {
 
     var ajaxGet = "/cgi-bin/cefi_portal/mom_folium_fcast.py"
         +"?variable="+varFoliumMapFcast
+        +"&region="+$("#regMOMCobaltFcast").val()
         +"&iniyear="+$("#iniYearMOMCobaltFcast").val()
         +"&inimonth="+$("#iniMonthMOMCobaltFcast").val()
         +"&lead="+timeSliderFcast.val()
@@ -520,6 +523,7 @@ function receiveMessageFcast(event) {
 function getvarValFcast(infoLonLat) {
     var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_variableValue_fcast.py"
         +"?variable="+varFoliumMapFcast
+        +"&region="+$("#regMOMCobaltFcast").val()
         +"&stat="+statMapFcast
         +"&depth="+depthMapFcast
         +"&lon="+infoLonLat.longitude
@@ -582,6 +586,7 @@ function plotTSFcast(infoLonLat) {
 function getTSFcasts(infoLonLat) {
     var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries_fcast.py"
         +"?variable="+varFoliumMapFcast
+        +"&region="+$("#regMOMCobaltFcast").val()
         +"&stat="+statMapFcast
         +"&depth="+depthMapFcast
         +"&lon="+infoLonLat.longitude

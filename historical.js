@@ -52,9 +52,12 @@ var dateFolium = rangeValues[timeSlider.val()];   // global
 tValue.text(dateFolium);
 tickSpaceChange();
 
+// Initial region options
+createMomCobaltOpt('reg-mom-cobalt',momCobaltRegs);      // Visual Query
+
 // Initial variable options based on dataset
-createMomCobaltVarOpt('MOMCobalt','varMOMCobalt');
-createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');
+createMomCobaltVarOpt('MOMCobalt','varMOMCobalt');      // Visual Query
+createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');  // Data Query
 
 // Initial stat options
 createMomCobaltStatOpt();
@@ -166,6 +169,7 @@ let varname2 = varnamelist2[0][varind2]
 
 
 /////////////// event listener ///////////
+
 // // add the initial time options 
 // createMomCobaltIniOpt(dataCobaltID);
 
@@ -262,6 +266,8 @@ clearFigOptBtn.on("click", function () {
     $("input.figOpt").val('');
 });
 
+
+
 // add event listener on reset time series select in plotly
 $("#clearTSselectBtn").on("click", function () {
     if (locationData !== undefined && locationData !== null) {
@@ -330,6 +336,37 @@ $('#depthMOMCobaltTS2').on("change", function () {
 $('#indexMOMCobaltTS').on("change", function () {
     plotIndexes()
 });
+
+
+//event listener for data query button click
+$('#genQueryButton').on('click', function() {
+    generateDataQuery(dataType = 'historical')     // the function return a promise obj from fetch
+        .then((jsonDataQuery)=>{
+            var wgetCode = jsonDataQuery.wget
+            $('#codeBlockWget').text(wgetCode);
+            var opendapCode = jsonDataQuery.opendap
+            $('#codeBlockOpendap').text(opendapCode);
+            var pythonCode = jsonDataQuery.python
+            $('#codeBlockPython').text(pythonCode);
+            var rCode = jsonDataQuery.r
+            $('#codeBlockR').text(rCode);
+        })
+});
+
+// data query code copy
+$("#copyButtonWget").click(function () {
+    copyCode('codeBlockWget');
+});
+$("#copyButtonOpendap").click(function () {
+    copyCode('codeBlockOpendap');
+});
+$("#copyButtonPython").click(function () {
+    copyCode('codeBlockPython');
+});
+$("#copyButtonR").click(function () {
+    copyCode('codeBlockR');
+});
+
 
 ///////// functional function start /////////
 //function for option change due to button/view change at the bottom
@@ -447,6 +484,18 @@ function optionSubgroupList(listname,listval,listsubgroup) {
     return df;
 };
 
+// function for create option for general options
+function createMomCobaltOpt(selectClass,optionListFunc) {
+    let elms = document.getElementsByClassName(selectClass);
+    let optlist = optionListFunc();
+    df = optionList(optlist[0],optlist[1]);
+    for(let i = 0; i < elms.length; i++) {
+        let clonedf = df.cloneNode(true); // Clone the child element
+        elms[i].appendChild(clonedf); // Append the cloned child to the current element
+    }
+};
+
+
 // function for create option for variables
 function createMomCobaltVarOpt(dataCobaltID,selectID) {
     let elm = document.getElementById(selectID); 
@@ -552,6 +601,7 @@ function replaceFolium() {
 
     var ajaxGet = "/cgi-bin/cefi_portal/mom_folium.py"
         +"?variable="+varFoliumMap
+        +"&region="+$("#regMOMCobalt").val()
         +"&date="+dateFolium
         +"&stat="+statMap
         +"&depth="+depthMap
@@ -924,6 +974,7 @@ function hideLoadingSpinner(divID) {
 function getVarVal(infoLonLat) {
     var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_variableValue.py"
         +"?variable="+varFoliumMap
+        +"&region="+$("#regMOMCobalt").val()
         +"&stat="+statMap
         +"&depth="+depthMap
         +"&lon="+infoLonLat.longitude
@@ -961,6 +1012,7 @@ function getTransect(infoLine) {
 
     var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_transect.py"
     +"?variable="+varFoliumMap
+    +"&region="+$("#regMOMCobalt").val()
     +"&stat="+statMap
     +"&date="+dateFolium
     +"&jsonstring="+infoLine.polygon
@@ -1028,6 +1080,7 @@ function getVerticalProfile(infoLonLat) {
 
     var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_verticalprofile.py"
     +"?stat="+statMap
+    +"&region="+$("#regMOMCobalt").val()
     +"&date="+dateFolium
     +"&lon="+infoLonLat.longitude
     +"&lat="+infoLonLat.latitude
@@ -1114,6 +1167,7 @@ function getTimeSeries(infoLonLat,addTS) {
         var depth2TS = $('#depthMOMCobaltTS2').val();
         var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries.py"
         +"?variable="+var2TS
+        +"&region="+$("#regMOMCobalt").val()
         +"&stat="+statMap
         +"&depth="+depth2TS
         +"&lon="+infoLonLat.longitude
@@ -1121,6 +1175,7 @@ function getTimeSeries(infoLonLat,addTS) {
     } else {
         var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries.py"
         +"?variable="+varFoliumMap
+        +"&region="+$("#regMOMCobalt").val()
         +"&stat="+statMap
         +"&depth="+depthMap
         +"&lon="+infoLonLat.longitude
@@ -1175,6 +1230,7 @@ function getIndex(indexID) {
     var var2TS = $(indexID).val();
     var ajaxGet = "/cgi-bin/cefi_portal/mom_get_index.py"
         +"?variable="+var2TS
+        +"&region="+$("#regMOMCobalt").val()
 
     // console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
@@ -2050,6 +2106,51 @@ function changeTimeStep(timeStep) {
 }
 
 
+// functions for generating data query 
+function generateDataQuery(dataType = 'historical') {
+    var region = $(regMOMCobaltData).val();
+    var variable = $(varMOMCobaltData).val();
+    var grid = $(gridMOMCobalt).val();
+    if (dataType === 'historical') {
+        var dirName = 'hist_run';
+    } else if (dataType === 'forecast') {
+        var dirName = 'forecast';
+    }
+
+    var ajaxGet = "/cgi-bin/cefi_portal/mom_data_query.py"
+    +"?variable="+variable
+    +"&region="+region
+    +"&grid="+grid
+    +"&datatype="+dirName
+
+    console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+
+    return fetch(ajaxGet)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .catch(error => {
+            // Handle errors here
+            console.error('Fetch json data query failed:', error);
+        });
+}
+
+function copyCode(codeBlockID) {
+    let code = $("#"+codeBlockID).text();
+    // document.getElementById(modalID).focus();
+    navigator.clipboard.writeText(code)
+      .then(function() {
+        console.log('Code copied to clipboard');
+      })
+      .catch(function(err) {
+        console.error('Failed to copy text: ', err);
+    });
+}
+
+
 ///////// information function start /////////
 // functions for options lists (Manual entering)
 function indexes(dashFlag='timeSeries') {
@@ -2088,6 +2189,18 @@ function indexes(dashFlag='timeSeries') {
     ];
 
     return [var_options, var_values, var_freqs];
+}
+
+
+// functions for regions options lists (Manual entering)
+function momCobaltRegs() {
+    let var_options = [
+        "Northwest Atlantic",
+    ];
+    let var_values = [
+        "northwest_atlantic"
+    ];
+    return [var_options, var_values];
 }
 
 
@@ -2220,16 +2333,8 @@ function colorbarOpt() {
 
 
 
-$("#copyButton").click(function() {
-    let code = $("#codeBlock").text();
-    navigator.clipboard.writeText(code)
-      .then(function() {
-        console.log('Code copied to clipboard');
-      })
-      .catch(function(err) {
-        console.error('Failed to copy text: ', err);
-      });
-  });
+
+
 // // functions for options lists (Manual entering)
 // function momCobaltInfo() {
 //     var dateOpt = generateDateList()
