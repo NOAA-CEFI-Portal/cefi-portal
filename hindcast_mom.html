@@ -265,8 +265,8 @@
         .then(data => {
             // Handle the JSON data
             geo_json_2a13e80c9d91584f92960032acd333bf
-                .addData(data)
-                .addTo(map_7079a36f74c16e1ce2ab21c4f811b35d);
+                .addData(data);
+                // .addTo(map_7079a36f74c16e1ce2ab21c4f811b35d);  // remove default display
             // console.log('Json file loaded')
         })
         .catch(error => {
@@ -346,7 +346,7 @@
 
     L.control.layers(
         layer_control_fb9b2bfb1f5a1efdaf0c4c11ed168327.base_layers,
-        layer_control_fb9b2bfb1f5a1efdaf0c4c11ed168327.overlays,
+        layer_control_fb9b2bfb1f5a1efdaf0c4c11ed168327.overlays,     // remove from default showing
         {"autoZIndex": true, "collapsed": true, "position": "topright"}
     ).addTo(map_7079a36f74c16e1ce2ab21c4f811b35d);
         
