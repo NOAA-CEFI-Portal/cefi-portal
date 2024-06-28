@@ -19,8 +19,8 @@
                <li class="active"><a class="nav-link" href="#overview" data-toggle="tab">Overview<span class="sr-only">(current)</span></a></li>
 
                <li class="dropdown">
-                    <a href="#" id="dropdownModel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                         Models
+                    <a href="#" id="dropdownMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Maps
                          <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -42,6 +42,7 @@
                     </ul>
                </li>
 
+               <li><a class="nav-link" href="#data_access" data-toggle="tab" data-target="#data_access">Data Access</a></li>
                <li><a class="nav-link" href="#cefi_list_search" data-toggle="tab" data-target="#cefi_list_search">Information Hub</a></li>
                <li><a class="nav-link" href="#cookbooks" data-toggle="tab">Cookbooks</a></li>
                <li><a class="nav-link" href="#resources" data-toggle="tab">Resources</a></li>
@@ -77,6 +78,10 @@
                     <!--#include virtual="reanalyses.html"-->
                </div>
 
+               <div id="data_access" class="tab-pane fade in">
+                    <!--#include virtual="data_access.html"-->
+               </div>
+
                <div id="cefi_list_search" class="tab-pane fade in">
                     <!--#include virtual="cefi_list_search.html"-->
                </div>
@@ -98,5 +103,6 @@
 <script type="text/javascript" src="tabHashEvent.js"></script>
 <script type="text/javascript" src="historical.js"></script>
 <script type="text/javascript" src="forecast.js"></script>
+<script type="text/javascript" src="data_access.js"></script>
 <!-- <script type="text/javascript" src="hcast.js"></script> -->
 

@@ -57,7 +57,6 @@ createMomCobaltOpt('reg-mom-cobalt',momCobaltRegs);      // Visual Query
 
 // Initial variable options based on dataset
 createMomCobaltVarOpt('MOMCobalt','varMOMCobalt');      // Visual Query
-createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');  // Data Query
 
 // Initial stat options
 createMomCobaltStatOpt();
@@ -335,36 +334,6 @@ $('#depthMOMCobaltTS2').on("change", function () {
 // add event listener on selecting depth for 3d 2nd variable
 $('#indexMOMCobaltTS').on("change", function () {
     plotIndexes()
-});
-
-
-//event listener for data query button click
-$('#genQueryButton').on('click', function() {
-    generateDataQuery(dataType = 'historical')     // the function return a promise obj from fetch
-        .then((jsonDataQuery)=>{
-            var wgetCode = jsonDataQuery.wget
-            $('#codeBlockWget').text(wgetCode);
-            var opendapCode = jsonDataQuery.opendap
-            $('#codeBlockOpendap').text(opendapCode);
-            var pythonCode = jsonDataQuery.python
-            $('#codeBlockPython').text(pythonCode);
-            var rCode = jsonDataQuery.r
-            $('#codeBlockR').text(rCode);
-        })
-});
-
-// data query code copy
-$("#copyButtonWget").click(function () {
-    copyCode('codeBlockWget');
-});
-$("#copyButtonOpendap").click(function () {
-    copyCode('codeBlockOpendap');
-});
-$("#copyButtonPython").click(function () {
-    copyCode('codeBlockPython');
-});
-$("#copyButtonR").click(function () {
-    copyCode('codeBlockR');
 });
 
 
@@ -2092,6 +2061,39 @@ function generateDailyDateList(startYear = 1993, endYear = 2019) {
     return [yearList, dateList];
 }
 
+
+// functions for generating year list for data (monthly)
+function momCobaltHistYear(startYear = 1993, endYear = 2019) {
+    var yearList = [];
+
+    for (var year = startYear; year <= endYear; year++) {
+        yearList.push(year)
+    }
+
+    return [yearList, yearList];
+};
+
+// functions for generating month list for data (monthly)
+function momCobaltHistMonth() {
+    var monthList = [1,2,3,4,5,6,7,8,9,10,11,12];
+    var monthStrList = [
+        "January", "February", "March", 
+        "April", "May", "June", 
+        "July", "August", "September",
+        "October", "November", "December"
+    ];
+    return [monthList, monthStrList];
+};
+
+// function for create option for data
+function createMomCobaltHistTimeOpt(selectTagID,timeGenFunc) {
+    let elm = document.getElementById(selectTagID);
+    let [listVal, listStr] = timeGenFunc()    
+    let df = optionList(listStr,listVal);
+    elm.appendChild(df);
+};
+
+
 // function for advancing/recede to the next option in the list
 //   used directly in html page button with attribute onclick
 function changeTimeStep(timeStep) {
@@ -2106,49 +2108,6 @@ function changeTimeStep(timeStep) {
 }
 
 
-// functions for generating data query 
-function generateDataQuery(dataType = 'historical') {
-    var region = $(regMOMCobaltData).val();
-    var variable = $(varMOMCobaltData).val();
-    var grid = $(gridMOMCobalt).val();
-    if (dataType === 'historical') {
-        var dirName = 'hist_run';
-    } else if (dataType === 'forecast') {
-        var dirName = 'forecast';
-    }
-
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_data_query.py"
-    +"?variable="+variable
-    +"&region="+region
-    +"&grid="+grid
-    +"&datatype="+dirName
-
-    console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
-
-    return fetch(ajaxGet)
-        .then(response => {
-            if (!response.ok) {
-            throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .catch(error => {
-            // Handle errors here
-            console.error('Fetch json data query failed:', error);
-        });
-}
-
-function copyCode(codeBlockID) {
-    let code = $("#"+codeBlockID).text();
-    // document.getElementById(modalID).focus();
-    navigator.clipboard.writeText(code)
-      .then(function() {
-        console.log('Code copied to clipboard');
-      })
-      .catch(function(err) {
-        console.error('Failed to copy text: ', err);
-    });
-}
 
 
 ///////// information function start /////////

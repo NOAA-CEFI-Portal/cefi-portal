@@ -19,9 +19,9 @@ let varnameFcast = varnamelistFcast[0][varindFcast]
 let varValueFcast = varnamelistFcast[1][varindFcast]
 
 // Initial initYear options
-createMomCobaltInitYearOpt();
+createMomCobaltInitYearOpt('iniYearMOMCobaltFcast');
 // Initial initMonth options
-createMomCobaltInitMonthOpt();
+createMomCobaltInitMonthOpt('iniMonthMOMCobaltFcast');
 // global variable for initial time 
 let iniYear = $("#iniYearMOMCobaltFcast").val();
 let iniMonth = $("#iniMonthMOMCobaltFcast").find("option:selected").text();
@@ -237,21 +237,20 @@ function createMomCobaltVarOptFcast(dataCobaltID,selectID) {
 };
 
 // function for create option for initial Year
-function createMomCobaltInitYearOpt() {
-    let elm = document.getElementById('iniYearMOMCobaltFcast');
+function createMomCobaltInitYearOpt(selectTagID) {
+    let elm = document.getElementById(selectTagID);
     let listInitYear = momCobaltInitYear()    
     let df = optionList(listInitYear,listInitYear);
     elm.appendChild(df);
-    $('#iniYearMOMCobaltFcast').val(listInitYear.slice(-1))
+    $('#'+selectTagID).val(listInitYear.slice(-1))
 };
 
 // function for create option for initial Month
-function createMomCobaltInitMonthOpt() {
-    let elm = document.getElementById('iniMonthMOMCobaltFcast');
+function createMomCobaltInitMonthOpt(selectTagID) {
+    let elm = document.getElementById(selectTagID);
     let [listInitMonth, listInitMonthStr] = momCobaltInitMonth()    
     let df = optionList(listInitMonthStr,listInitMonth);
     elm.appendChild(df);
-    
 };
 
 // function for create option for statistics
