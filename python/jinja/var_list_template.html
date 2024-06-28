@@ -1,0 +1,34 @@
+<style>
+    .scrollable-table {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: auto;
+        display: block;
+    }
+    .scrollable-table thead th {
+        position: sticky;
+        top: 0;
+        background: #fff;
+    }
+</style>
+
+<div class="scrollable-table">
+    <table>
+        <thead>
+            <tr>
+                {% for column in data[0].keys() %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    {% for cell in row.values() %}
+                        <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
