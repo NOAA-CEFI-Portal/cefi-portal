@@ -99,10 +99,6 @@
 	white-space: nowrap;
 }
 
-.hidden {
-  display:none;
-}
-
 .userInput {
 	position: relative;
 	border: 2.5px solid #ddd;
