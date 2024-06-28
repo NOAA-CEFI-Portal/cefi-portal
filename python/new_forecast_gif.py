@@ -23,7 +23,7 @@ def plot_noaa_em(fig,set_ax=None):
     if set_ax is None:
         set_ax=[0,0,1,1]
     ax = fig.add_axes(set_ax)
-    im = image.imread('/Datasets.private/marinehw/noaa_web.png')
+    im = image.imread(f'{os.getenv("DATASETSPRIVATE")}/marinehw/noaa_web.png')
     ax.imshow(im, zorder=-1)
     ax.tick_params(
         axis='both',          # changes apply to the x-axis
@@ -121,8 +121,8 @@ if __name__ == '__main__':
 
     for region in regions:
 
-        data_path = f'/Projects/CEFI/regional_mom6/{region}/forecast/{varname}*.nc'
-        static_path = '/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc'
+        data_path = f'{os.getenv("PROJECTS")}CEFI/regional_mom6/{region}/forecast/{varname}*.nc'
+        static_path = f'{os.getenv("PROJECTS")}CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc'
 
         ds_tob = xr.open_mfdataset(
             data_path,
