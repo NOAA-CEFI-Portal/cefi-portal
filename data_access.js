@@ -10,6 +10,20 @@ createMomCobaltInitYearOpt('iyearMOMCobaltForecastData');
 createMomCobaltInitMonthOpt('imonthMOMCobaltForecastData');
 
 
+// event lister for radio button choice
+$(document).ready(function(){
+    $("input[type='radio'].radioDataTable").change(function(){
+      if ($("#radioNWATable").is(":checked")) {
+        $('.nepTableOpt').addClass('hidden');
+        $('.nwaTableOpt').removeClass('hidden');
+      } else if ($("#radioNEPTable").is(":checked")) {
+        $('.nwaTableOpt').addClass('hidden');
+        $('.nepTableOpt').removeClass('hidden');
+      }
+    });
+});
+
+
 // event listener for changes on the first dropdown
 $('#periodMOMCobaltData').on('change', function() {
     // Clear out the variable dropdown
@@ -32,10 +46,16 @@ $(document).ready(function(){
     $("input[type='radio'].radioData").change(function(){
       if ($("#radioOpendap").is(":checked")) {
         $('.wgetOpt').addClass('hidden');
+        $('.citeOpt').addClass('hidden');
         $('.opendapOpt').removeClass('hidden');
       } else if ($("#radioWget").is(":checked")) {
         $('.opendapOpt').addClass('hidden');
+        $('.citeOpt').addClass('hidden');
         $('.wgetOpt').removeClass('hidden');
+      } else if ($("#radioCite").is(":checked")) {
+        $('.opendapOpt').addClass('hidden');
+        $('.wgetOpt').addClass('hidden');
+        $('.citeOpt').removeClass('hidden');
       }
     });
 });
@@ -53,6 +73,8 @@ $('#genQueryButton').on('click', function() {
             $('#codeBlockPython').text(pythonCode);
             var rCode = jsonDataQuery.r
             $('#codeBlockR').text(rCode);
+            var Citation = jsonDataQuery.citation
+            $('#codeBlockCite').text(Citation);
         })
 });
 
@@ -68,6 +90,9 @@ $("#copyButtonPython").click(function () {
 });
 $("#copyButtonR").click(function () {
     copyCode('codeBlockR');
+});
+$("#copyButtonCite").click(function () {
+    copyCode('codeBlockCite');
 });
 
 

@@ -1,28 +1,65 @@
-<h2>Data Access</h2>
 <div class = "row">
+  <h2>Data Access</h2>
   <div class="col-12">
     <p>
       Currently, the regional MOM6 output can be accessed through the PSL THREDDS server.
       Users have the flexibility to choose their preferred method of data retrieval from this server.
       Additionally, an alternative option involving AWS cloud storage is under consideration and may become available in the near future.
       This option is currently undergoing testing.
-      For direct access to the THREDDS server, please follow the provided link
-      <a href="https://psl.noaa.gov/thredds/catalog/Projects/CEFI/regional_mom6/catalog.html" target="_blank">https://psl.noaa.gov/thredds/catalog/Projects/CEFI/regional_mom6/catalog.html</a>.</p>
-    </p>
-
-    <h3>Data citation</h3>
-    <ul>
-      <li>Historical run (Northwest Atlantic): <a href="https://zenodo.org/records/7893387" target="_blank">DOI:10.5281/zenodo.7893386</a></li>
-      <li>Forecast (Northwest Atlantic): <a href="https://zenodo.org/records/10642295" target="_blank">DOI:10.5281/zenodo.10642294.</a></li>
-    </ul>
-      
-    <h3>Data Query Generator</h3>
-    <p>
-      The data query generator is designed to swiftly generate command line code or code snippets, facilitating user access to the data.
-      It is recommended to use the OPeNDAP server for querying data when only a subset is required.
-      However, if there's a need to download the entire dataset, the final options provide the necessary command line for data download.
+      For direct access to the THREDDS server, 
+      <a href="https://psl.noaa.gov/thredds/catalog/Projects/CEFI/regional_mom6/catalog.html" target="_blank">
+        <u> go to the <strong>catalog</strong> directly</u>
+      </a>
+      .
     </p>
   </div>
+</div>
+
+<div class = "row">
+  <h3>Varibles' Tables</h3>
+  <div class="userInput col-12">
+    <!-- <h1 class="userInputTitle"><em>Regions</em></h1> -->
+    <input type="radio" class="radioDataTable" id="radioNWATable" name="dataTableOptions" checked>
+    <label for="radioNWATable">Northwest Atlantic</label>
+    <input type="radio" class="radioDataTable" id="radioNEPTable" name="dataTableOptions">
+    <label for="radioNEPTable">Northeast Pacific (Coming soon)</label>
+    <br>
+    <br>
+    <ul class="nwaTableOpt">
+      <li>
+        Historical run:
+        <a href="var_list_northwest_atlantic_hist_run.html" target="_blank">HTML view</a>,
+        <a href="var_list_northwest_atlantic_hist_run.json" target="_blank">JSON view</a>,
+        <a href="var_list_northwest_atlantic_hist_run.xml" target="_blank">XML view</a>
+      </li>
+      <li>
+        Forecast/Reforecast:
+        <a href="var_list_northwest_atlantic_forecast.html" target="_blank">HTML view</a>,
+        <a href="var_list_northwest_atlantic_forecast.json" target="_blank">JSON view</a>,
+        <a href="var_list_northwest_atlantic_forecast.xml" target="_blank">XML view</a>
+      </li>
+    </ul>
+    <ul class="nepTableOpt hidden">
+      <li>
+        Historical run:
+      </li>
+      <li>
+        Forecast/Reforecast:
+      </li>
+    </ul>
+  </div>
+  <br>
+</div>  
+      
+<div class = "row">
+  <h3>Data Query Generator</h3>
+  <p>
+    The data query generator is designed to swiftly generate command line code or code snippets, facilitating user access to the data.
+    It is recommended to use the OPeNDAP server for querying data when only a subset is required.
+    However, if there is a need to download the entire dataset, please pick the download radio button for the wget command.
+    The query generator also provides the data citation doi depending on different region and version of dataset.
+  </p>
+  
 
   <div class="userInput col-12">
     <h1 class="userInputTitle"><em>Data Options</em></h1>
@@ -31,6 +68,8 @@
     <label for="radioOpendap">OPeNDAP</label>
     <input type="radio" class="radioData" id="radioWget" name="dataOptions">
     <label for="radioWget">Download netCDF</label>
+    <input type="radio" class="radioData" id="radioCite" name="dataOptions">
+    <label for="radioCite">Data Citation</label>
     <br>
     
     <table class="rowGap">
@@ -97,6 +136,7 @@
   
   
 <div class = "row">
+  <!-- Opendap radio activate -->
   <div class="col-12 opendapOpt">
     <h4><strong>OPeNDAP URL</strong></h4>
     <p>
@@ -112,7 +152,9 @@
         <p>
             For the following Python code to work. 
             Please following the environment setup.
-            Detail access tutorial is <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/data_access/access_opendap/python_get_cefi.html" target="_blank"><strong>here</strong></a>
+            <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/data_access/access_opendap/python_get_cefi.html" target="_blank">
+              <strong>Detail access tutorial using Python is here</strong>
+            </a>
         </p>
     <pre id="codeBlockPython"><code class="codeBlockScroll">Please generate query first!</code></pre> 
     <button id="copyButtonPython" class="btn btn-psl">Copy Python Code</button>
@@ -122,16 +164,28 @@
         <p>
             For the following R code to work. 
             Please following the environment setup.
-            Detail access tutorial is <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/data_access/access_opendap/r_get_cefi.html" target="_blank"><strong>here</strong></a>
+            <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/data_access/access_opendap/r_get_cefi.html" target="_blank">
+              <strong>Detail access tutorial using R is here</strong>
+            </a>
         </p>
     <pre id="codeBlockR"><code class="codeBlockScroll">Please generate query first!</code></pre> 
     <button id="copyButtonR" class="btn btn-psl">Copy R Code</button>            
     <hr class="dot-hr-plot">
   </div>
+
+  <!-- Wget radio activate -->
   <div class="col-12 wgetOpt hidden">
     <h4><strong>Wget</strong></h4>
     <pre id="codeBlockWget"><code class="codeBlockScroll">Please generate query first!</code></pre> 
     <button id="copyButtonWget" class="btn btn-psl">Copy Wget Code</button>
+    <hr class="dot-hr-plot">
+  </div>
+
+  <!-- Citation radio activate -->
+  <div class="col-12 citeOpt hidden">
+    <h4><strong>Citations</strong></h4>
+    <pre id="codeBlockCite"><code class="codeBlockScroll">Please generate query first!</code></pre> 
+    <button id="copyButtonCite" class="btn btn-psl">Copy Citation</button>
     <hr class="dot-hr-plot">
   </div>
 </div>
