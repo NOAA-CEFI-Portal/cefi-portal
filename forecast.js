@@ -44,7 +44,7 @@ timeSliderFcast.attr("max", leadIndex.length - 1);
 timeSliderFcast.val(0);
 var leadFoliumFcast = leadMonthList[timeSliderFcast.val()];   // global
 tValueFcast.text(leadFoliumFcast);
-generateTickFcast(leadMonthList);
+tickSpaceChangeFcast()
 
 // Initial stat options
 createMomCobaltStatOptFcast();
@@ -113,6 +113,10 @@ $(function() {
 });
 
 /////////////////  event listener  ////////////////
+$(window).resize(function() {
+    tickSpaceChangeFcast();
+});
+
 // add event listener on figure all clear button
 clearFigOptBtnFcast.on("click", function () {
     $("input.figOpt").val('');
@@ -140,7 +144,6 @@ momCobaltBtnFcast.on("click", function () {
 
     leadFoliumFcast = leadMonthList[timeSliderFcast.val()];   // global
     tValueFcast.text(leadFoliumFcast);
-    generateTickFcast(leadMonthList);
 
     // remove marker (resetting)
     var removeMarker = {
@@ -207,6 +210,28 @@ $('input[name="fcastAnalysestabs"]').on('click', function() {
 
 
 /////////////////////// function section /////////////////////
+// function for changing the tick mark of time slider
+function tickSpaceChangeFcast() {
+    if ($(window).width() < 600) {
+        var result = [];
+        for (var i = 3; i < leadMonthList.length; i += 5) {
+          result.push(i);
+        }
+        generateTickFcast(result);
+    } else if ($(window).width() < 1200) {
+        var result = [];
+        for (var i = 2; i < leadMonthList.length; i += 2) {
+          result.push(i);
+        }
+        generateTickFcast(result);
+    } else {
+        var result = [];
+        for (var i = 0; i < leadMonthList.length; i++) {
+          result.push(i);
+        }
+        generateTickFcast(result); 
+    };
+};
 
 // functions for timeline tick 
 function generateTickFcast(tickList) {
@@ -216,7 +241,9 @@ function generateTickFcast(tickList) {
         const span = $("<span></span>");
     
         // Set some content or attributes for the <span>
-        span.text(`${tickList[i]}`+' (lead = '+i+')');
+        // span.text(`${tickList[i]}`+' (lead = '+i+')');
+        var leadtime = tickList[i]+0.5
+        span.text('lead = '+leadtime);
         span.addClass("tickLeadTime"); 
     
         // Append the <span> to the containerTick <div>
