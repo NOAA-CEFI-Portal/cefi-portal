@@ -22,23 +22,6 @@ for (let i = 0; i < freq_list[2].length; i++) {
 }
 
 
-// // scroll to bottom link at the top of the page
-// let scrollToBottom = document.querySelector("#autoscroll_obs")
-// let pageBottom = document.querySelector("#bottominstr_obs_id")
-
-// scrollToBottom.addEventListener("click", function() {
-//   pageBottom.scrollIntoView()
-// })
-
-// // scroll to top link at the bottom of the page
-// let scrollToTop = document.querySelector("#autoscroll_obs2")
-// let pageTop = document.querySelector("#autoscroll_obs")
-
-// scrollToTop.addEventListener("click", function() {
-//   pageTop.scrollIntoView()
-// })
-
-
 // Default time slider related variables
 const timeSlider = $("#timeRange");
 const tValue = $(".timeValue");
@@ -52,11 +35,11 @@ var dateFolium = rangeValues[timeSlider.val()];   // global
 tValue.text(dateFolium);
 tickSpaceChange();
 
-// Initial region options
-createMomCobaltOpt('reg-mom-cobalt',momCobaltRegs);      // Visual Query
+// Initial region options (for all region options)
+createMomCobaltOpt('reg-mom-cobalt',momCobaltRegs);
 
 // Initial variable options based on dataset
-createMomCobaltVarOpt('MOMCobalt','varMOMCobalt');      // Visual Query
+createMomCobaltVarOpt('MOMCobalt','varMOMCobalt');
 
 // Initial stat options
 createMomCobaltStatOpt();
@@ -99,12 +82,12 @@ $(function() {
         name: ""
     };
   
-    var layout1 = {
+    var layoutTS = {
         title: 
-        'Create Map first & pick point on the shaded area',
+        'Click on map for time series',
         //   autosize: true,
-        width: 1000,
-        height: 400,
+        // width: 1000,
+        // height: 400,
         xaxis: { title: 'Date' },
         yaxis: { title: 'Variable' },
         hovermode: 'closest',
@@ -112,12 +95,45 @@ $(function() {
         // responsive: true
     };
 
+    var layoutBox = {
+        title: 
+        'Box plot',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layoutHist = {
+        title: 
+        'Histogram',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layoutProf = {
+        title: 
+        'Profile',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
     var layout2 = {
         title: 
-        'Create Map first & draw transect (polyline) on the shaded area',
+        'Draw polyline on map',
         //   autosize: true,
-        width: 1000,
-        height: 400,
+        // width: 1000,
+        // height: 400,
         xaxis: { title: 'Date' },
         yaxis: { title: 'Variable' },
         hovermode: 'closest',
@@ -127,19 +143,25 @@ $(function() {
 
     var layout3 = {
         title: 
-        'Pick a index',
+        'Pick an index',
         //   autosize: true,
-        width: 1000,
-        height: 400,
+        // width: 1000,
+        // height: 400,
         xaxis: { title: 'Date' },
         yaxis: { title: 'Variable' },
         hovermode: 'closest',
         showlegend: false,
         // responsive: true
     };
-    Plotly.newPlot('plotly-time-series', [trace], layout1);
-    Plotly.newPlot('plotly-vertical-t', [trace], layout1);
-    Plotly.newPlot('plotly-transect', [trace], layout2);
+
+    var config = {responsive: true}
+
+    Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
+    // Plotly.newPlot('plotly-box-plot', [trace], layoutBox,config);
+    // Plotly.newPlot('plotly-histogram', [trace], layoutHist,config);
+    Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
+    // Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
+    Plotly.newPlot('plotly-transect', [trace], layout2,config);
     // Plotly.newPlot('plotly-index', [trace], layout3)
 });
 plotIndexes()
@@ -458,6 +480,7 @@ function createMomCobaltOpt(selectClass,optionListFunc) {
     let elms = document.getElementsByClassName(selectClass);
     let optlist = optionListFunc();
     df = optionList(optlist[0],optlist[1]);
+    // loop through all region dropdown with the selectClassName
     for(let i = 0; i < elms.length; i++) {
         let clonedf = df.cloneNode(true); // Clone the child element
         elms[i].appendChild(clonedf); // Append the cloned child to the current element
@@ -1338,8 +1361,8 @@ function plotlyIndex(tsDates,tsValues,tsUnit,yformat,tsName,indexName) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-         width: 1000,
-         height: 400,
+        //  width: 1000,
+        //  height: 400,
          margin: {
             l: 80,
             r: 200,
@@ -1366,8 +1389,8 @@ function plotlyIndex(tsDates,tsValues,tsUnit,yformat,tsName,indexName) {
         dragmode: "select"
         // responsive: true
     };
-
-    Plotly.newPlot('plotly-index', data, layout);
+    var config = {responsive: true}
+    Plotly.newPlot('plotly-index', data, layout, config);
 
 };
 
@@ -1412,8 +1435,8 @@ function plotlyTransectLine(plotlyID,parsedTran) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-         width: 1000,
-         height: 400,
+        //  width: 1000,
+        //  height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -1444,8 +1467,8 @@ function plotlyTransectLine(plotlyID,parsedTran) {
         dragmode: "zoom"
         // responsive: true
     };
-
-    Plotly.newPlot(plotlyID, data, layout);
+    var config = {responsive: true}
+    Plotly.newPlot(plotlyID, data, layout, config);
 };
 
 // function for creating the plotly contour transect
@@ -1489,8 +1512,8 @@ function plotlyContour(plotlyID,parsedTran) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-         width: 1000,
-         height: 400,
+        //  width: 1000,
+        //  height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -1516,8 +1539,8 @@ function plotlyContour(plotlyID,parsedTran) {
         // dragmode: "select"
         // responsive: true
     };
-
-    Plotly.newPlot(plotlyID, [trace], layout);
+    var config = {responsive: true}
+    Plotly.newPlot(plotlyID, [trace], layout,config);
 
 };
 
@@ -1553,8 +1576,8 @@ function plotlyVP(varDepth,varValues,lonValues,latValues,varUnit,varformat,plotl
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-         width: 500,
-         height: 400,
+        //  width: 500,
+        //  height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -1582,8 +1605,9 @@ function plotlyVP(varDepth,varValues,lonValues,latValues,varUnit,varformat,plotl
         // dragmode: "select"
         // responsive: true
     };
+    var config = {responsive: true}
 
-    Plotly.newPlot(plotlyID, data, layout);
+    Plotly.newPlot(plotlyID, data, layout, config);
 
     // document.getElementById('plotly-time-series').on('plotly_selected', function(eventData) {
     //     // console.log(eventData.points)
@@ -1691,9 +1715,9 @@ function plotlyTS(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
         hovermode: 'closest',
         showlegend: false,
         title:
-            varname +' '+ statMap +
-            ' @ (lat:'+parseFloat(latValues).toFixed(2)+'N,'+
-                'lon:'+parseFloat(lonValues).toFixed(2)+'E)',
+            varname +' '+ statMap +'<br>'+
+            '(lat:'+parseFloat(latValues).toFixed(2)+'N,'+
+            'lon:'+parseFloat(lonValues).toFixed(2)+'E)',
         //   autosize: true,
         annotations: [{
             x: 0,
@@ -1703,8 +1727,8 @@ function plotlyTS(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-         width: 550,
-         height: 400,
+        //  width: 550,
+        //  height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -1731,8 +1755,9 @@ function plotlyTS(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
         dragmode: "select"
         // responsive: true
     };
+    var config = {responsive: true}
 
-    Plotly.newPlot('plotly-time-series', data, layout);
+    Plotly.newPlot('plotly-time-series', data, layout,config);
 
     document.getElementById('plotly-time-series').on('plotly_selected', function(eventData) {
         // console.log(eventData.points)
@@ -2154,7 +2179,7 @@ function indexes(dashFlag='timeSeries') {
 // functions for regions options lists (Manual entering)
 function momCobaltRegs() {
     let var_options = [
-        "Northwest Atlantic",
+        "Northwest Atlantic"
     ];
     let var_values = [
         "northwest_atlantic"
