@@ -1,8 +1,16 @@
-/* the code block scroll */
-code.codeBlockScroll {
-	white-space: nowrap;  /* Prevents the text from wrapping to the next line */
-	overflow-x: auto;    /* Enables horizontal scrolling */
+
+/* time series button */
+/* .tsButton {
+	width: 100%;
+} */
+
+/* Adjust font size for smaller screens */
+@media (max-width: 768px) {
+	.tsOptions {
+		width: 100%;
+	}
 }
+
 
 /* minitabs default no show */
 input[type="radio"].miniinput {
@@ -35,7 +43,7 @@ div.view {
 	border: 2px solid #ddd;
 	border-radius: 0 0 10px 10px;
 	width: 100%;
-    height: 550px;
+    height: 100%;
 }
 
 /* 
@@ -102,7 +110,7 @@ div.view {
     /* z-index: 1000; */
     margin-left: 50%;
     margin-top: 15%;
-    z-index: 1000;
+    z-index: 2;
 }
 
 
@@ -112,10 +120,27 @@ div.view {
 	100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-#plotly-time-series {
+/* .dashPlotlyHalf {
+	width: 27vw; 
+	height: 50vh; 
 	position: relative;
 	z-index: 1;
-}
+} */
+
+/* .dashPlotly20 {
+	width: 20vw; 
+	height: 50vh; 
+	position: relative;
+	z-index: 1;
+} */
+
+/* Adjust font size for smaller screens */
+/* @media (max-width: 768px) {
+	.dashPlotly {
+		width: 80vw; 
+	    height: 50vh;
+	}
+} */
 
 .workingTop {
     margin-bottom: 5px;

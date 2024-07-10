@@ -1,7 +1,9 @@
 <!-- <link rel="stylesheet" type="text/css" href="historical.css" /> -->
-
+<div class = "row">
+    <h2>Regional MOM6 - Historical Run</h2>
+</div>
 <!-- html body start -->
-<h2>Regional MOM6 - Historical Run</h2>
+
 
 
 <div class = "row">
@@ -102,9 +104,10 @@
     <button class="btn btn-psl" id="momCobaltBtn"><strong>Create Map + Analyses</strong></button>
 </div>
 
-<div class="divRowSep w-100"></div>
-
-<hr class="dot-hr-plot">
+<div class = "row">
+    <div class="divRowSep w-100"></div>
+    <hr class="dot-hr-plot">
+</div>
 
 <div class = "row position-relative">
     <!-- Plotting column -->
@@ -144,8 +147,9 @@
     <div class="ticks col-sm-12"></div> 
 </div>
 
-<hr class="dot-hr-plot">
+
 <div class="row">
+    <hr class="dot-hr-plot">
     <div class="col-xs-3 p-0 m-0 minitabDiv">
         <input type="radio" id="tsViewTab" class="miniinput" name="analysestabs" checked>
         <label class="minitab" for="tsViewTab">Time Series</label>
@@ -164,32 +168,36 @@
     </div>
 </div>
 
-<div id='tsView' class='view'>
-    <h3>Time Series Analyses</h3>
-    <div class="row">
-        <div class="col-md-6">
-            <label for="dropdown">Select 2nd variable:</label>
-            <select name="variableTS2" id="varMOMCobaltTS2"></select>
+<div class="row">
+    <div class="col-12">
+        <div id='tsView' class='view'>
+            <h3>Time Series Analyses</h3>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <label class='tsOptions' for="dropdown">Select 2nd variable:</label>
+                    <select name="variableTS2" id="varMOMCobaltTS2"></select>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <label class='tsOptions' for="dropdown">Select depth:</label>
+                    <select name="variableTS2depth" id="depthMOMCobaltTS2"></select>
+                </div>
+            </div>
+            <div class = "row position-relative">
+                <div id="plotly-time-series" class="col-xs-12 col-md-6"></div>
+                <div id="plotly-box-plot" class="col-xs-12 col-md-3"></div>
+                <div id="plotly-histogram" class="col-xs-12 col-md-3"></div>
+                <div id="loading-spinner-ts" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-1">
+                    <button class="btn btn-psl tsButton" id="clearTSselectBtn"><strong>Reset time series select</strong></button>
+                </div>
+                <div class="col-xs-12 col-md-8"></div>
+                <div class="col-xs-12 col-md-3">
+                    <button class="btn btn-psl tsButton" id="clearTS2Btn"><strong>Remove 2nd time series</strong></button>
+                </div>       
+            </div>
         </div>
-        <div class="col-md-3">
-            <label for="dropdown">Select depth:</label>
-            <select name="variableTS2depth" id="depthMOMCobaltTS2"></select>
-        </div>
-    </div>
-    <div class = "row position-relative">
-        <div id="plotly-time-series" class="col-xs-12 col-md-6"></div>
-        <div id="plotly-box-plot" class="col-xs-6 col-md-3"></div>
-        <div id="plotly-histogram" class="col-xs-6 col-md-3"></div>
-        <div id="loading-spinner-ts" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
-    </div>
-    <div class="row">
-        <div class="col-xs-1">
-            <button class="btn btn-psl" id="clearTSselectBtn"><strong>Reset time series select</strong></button>
-        </div>
-        <div class="col-xs-8"></div>
-        <div class="col-xs-3 alignRight">
-            <button class="btn btn-psl" id="clearTS2Btn"><strong>Remove 2nd time series</strong></button>
-        </div>       
     </div>
 </div>
 
@@ -197,8 +205,8 @@
     <!-- Content for view 2 (initially hidden) -->
     <h3>Vertical Profile | <span class="timeValue"></span></h3>
     <div class = "row position-relative">
-        <div id="plotly-vertical-t" class="col-xs-6"></div>
-        <div id="plotly-vertical-s" class="col-xs-6"></div>
+        <div id="plotly-vertical-t" class="col-xs-12 col-md-6"></div>
+        <div id="plotly-vertical-s" class="col-xs-12 col-md-6"></div>
         <div id="loading-spinner-vprof" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
     </div>
 </div>
