@@ -2,8 +2,17 @@
   text-align: center;
 }
 
-.navbar-collapse-cefi {
-  background-color: #51565b; /* Replace 'your-color' with the desired background color */
+.gifDemo {
+  width: 100%
+}
+/* .nav-tabs .dropdown-menu,
+.nav-tabs .dropdown-menu li,
+.tab .nav-tabs .active .dropdown-menu li a{
+  background-color: #edeff0 !important; 
+} */
+
+/* .navbar-collapse-cefi {
+  background-color: #51565b;
 }
 
 #cefinavbar.navbar ul.nav > li > a{
@@ -20,7 +29,7 @@
 #cefinavbar.navbar li.dropdown.open a.dropdown-toggle[aria-expanded="true"] {
   color: white !important; 
   background-color: transparent !important; 
-}
+} */
 
 #cookbookFrame {
   height: 3100px;
