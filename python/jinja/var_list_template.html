@@ -3,32 +3,47 @@
         width: 100%;
         overflow-x: auto;
         overflow-y: auto;
-        display: block;
     }
+    .scrollable-table thead th:first-child,
     .scrollable-table thead th {
         position: sticky;
         top: 0;
-        background: #fff;
+        z-index: 2;
+        background: #F9F8F8;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+    .scrollable-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+    }
+    .scrollable-table tbody td:first-child {
+        position: sticky;
+        left: 0;
+        background: rgb(192, 214, 221);
+        z-index: 1;
     }
 </style>
 
-<div class="scrollable-table">
-    <table>
-        <thead>
+
+<table class="scrollable-table">
+    <thead>
+        <tr>
+            {% for key in data.keys() %}
+                <th style="white-space: nowrap;">{{ key }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% set first_list = data.values()|first %}
+        {% set list_length = first_list|length %}
+        {% for i in range(list_length) %}
             <tr>
-                {% for column in data[0].keys() %}
-                    <th>{{ column }}</th>
+                {% for key, value in data.items() %}
+                    <td style="white-space: nowrap;">{{ value[i] }}</td>
                 {% endfor %}
             </tr>
-        </thead>
-        <tbody>
-            {% for row in data %}
-                <tr>
-                    {% for cell in row.values() %}
-                        <td>{{ cell }}</td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+        {% endfor %}
+    </tbody>
+</table>
+
