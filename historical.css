@@ -3,6 +3,29 @@
 /* .tsButton {
 	width: 100%;
 } */
+.nav-pills a{
+	color: black;
+	text-align: center;
+	font-size: 17px;
+	border-radius: 15px;
+	background-color: #ddd;
+	padding: 14px;
+	padding-left: 30px;
+	padding-right: 30px;
+	margin: 5px;
+	margin-right: 10px;
+}
+  
+  
+.nav-pills .nav-item.active a{
+	background-color: #555 !important;
+	color: white;
+}
+  
+.nav-pills .nav-item a:hover{
+	background-color: #ccc;
+    color: black;
+}
 
 /* Adjust font size for smaller screens */
 @media (max-width: 768px) {

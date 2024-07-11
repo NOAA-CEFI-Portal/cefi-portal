@@ -54,7 +54,6 @@
                 <td>
                     <select name="analysis" id="analysisMOMCobaltFcast">
                         <option value="fcastViewVal">Forecast Spread</option>
-                        <option value="testViewVal">Test</option>
                     </select>
                 </td>
             </tr>
@@ -153,30 +152,31 @@
     <div class="ticksFcast col-sm-12"></div> 
 </div>
 
-<hr class="dot-hr-plot">
-<div class="row">
-    <div class="col-xs-3 p-0 m-0 minitabDiv">
-        <input type="radio" id="fcastViewTab" class="miniinput" name="fcastAnalysestabs" checked>
-        <label class="minitab" for="fcastViewTab">Forecast Spread</label>
-    </div>
-    <div class="col-xs-3 p-0 m-0 minitabDiv">
-        <input type="radio" id="testViewTab" class="miniinput" name="fcastAnalysestabs">
-        <label class="minitab" for="testViewTab">Test</label>
+<div class = "row">
+    <hr class="dot-hr-plot">
+</div>
+
+<div class="row" id="dashNavForecast">
+    <ul class="nav nav-pills nav-justified">
+        <li class="nav-item active" id="fcastViewTabPill">
+            <a class="nav-link" href="#fcastViewTab" data-toggle="tab" aria-expanded="true" >Forecast Spread</a>
+        </li>
+    </ul>
+</div>
+
+<div class="row" id="dashContentForecast">
+    <div class="tab-content">
+        <div id='fcastView' class="tab-pane active view col-12">
+        <h3>Forecast Spread</h3>
+        <div class = "row position-relative">
+            <div id="plotly-fcast-spread" class="col-xs-12 col-md-6"></div>
+            <div id="plotly-fcast-box" class="col-xs-12 col-md-6"></div>
+            <div id="loading-spinner-fcast-spread" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
+        </div>
+        </div>
     </div>
 </div>
 
-<div id='fcastView' class='viewFcast'>
-    <h3>Forecast Spread</h3>
-    <div class = "row position-relative">
-        <div id="plotly-fcast-spread" class="col-xs-12 col-md-6"></div>
-        <div id="plotly-fcast-box" class="col-xs-12 col-md-6"></div>
-        <div id="loading-spinner-fcast-spread" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
-    </div>
-</div>
-
-<div id='testView' class='viewFcast hidden'>
-    <h3>Test</h3>
-</div>
 
 
 <!-- Start modal content -->

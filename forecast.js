@@ -186,12 +186,17 @@ $("#varMOMCobaltFcast").on("change", function(){
 
 });
 
+
 // event listen for analyses change
 $("#analysisMOMCobaltFcast").on("change", function(){
     var selectedValue = $('#analysisMOMCobaltFcast :selected').val();
-    $('#'+selectedValue.slice(0, -3)+'Tab').prop('checked', true);
-    showDiv(selectedValue.slice(0, -3),'viewFcast');
-});
+    // $('#'+selectedValue.slice(0, -3)+'Tab').prop('checked', true);
+    // showDiv(selectedValue.slice(0, -3),'view');
+    $("#dashNavForecast > ul.nav-pills > li.nav-item").removeClass("active"); 
+    $("#"+selectedValue.slice(0, -3)+'Pill').addClass("active")
+    $("#dashContentForecast div.tab-pane").removeClass("active"); 
+    $("#"+selectedValue.slice(0, -3)).addClass("active")
+})
 
 // add event listener for the "message" event using jQuery (location click)
 $(window).on("message", receiveMessageFcast);

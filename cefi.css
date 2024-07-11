@@ -1,3 +1,25 @@
+/* Style the label */
+.hoverLabel {
+  display: none; /* Initially hidden */
+  position: absolute;
+  background-color: #f9f9f9;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #06080a;
+  z-index: 1;
+}
+#cefiPortalTabs li:hover .hoverLabel {
+  display: block; /* Show label on hover */
+  width: 100%;
+}
+.dropdown-menu .nav-link:hover {
+  background-color: transparent;
+}
+
+
+
 .headingCenter {
   text-align: center;
 }

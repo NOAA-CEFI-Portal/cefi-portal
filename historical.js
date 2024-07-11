@@ -240,8 +240,12 @@ $("#varMOMCobalt").on("change", function(){
 // event listen for analyses change
 $("#analysisMOMCobalt").on("change", function(){
     var selectedValue = $('#analysisMOMCobalt :selected').val();
-    $('#'+selectedValue.slice(0, -3)+'Tab').prop('checked', true);
-    showDiv(selectedValue.slice(0, -3),'view');
+    // $('#'+selectedValue.slice(0, -3)+'Tab').prop('checked', true);
+    // showDiv(selectedValue.slice(0, -3),'view');
+    $("#dashNavHistrun > ul.nav-pills > li.nav-item").removeClass("active"); 
+    $("#"+selectedValue.slice(0, -3)+'Pill').addClass("active")
+    $("#dashContentHistrun div.tab-pane").removeClass("active"); 
+    $("#"+selectedValue.slice(0, -3)).addClass("active")
 })
 
 // event listener for clicking the minitab
