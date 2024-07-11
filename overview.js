@@ -7,7 +7,7 @@ $(document).ready(function() {
         var labelId = $(this).next('label').attr('for');
         console.log('Portal default region :', labelId);
         // change all regions to the radio options
-        chooseDefaultRegion('reg-mom-cobalt',labelId)
+        // chooseDefaultRegion('reg-mom-cobalt',labelId)
     });
 });
 
