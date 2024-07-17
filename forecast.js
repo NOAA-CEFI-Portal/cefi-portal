@@ -72,10 +72,10 @@ $(function() {
   
     var layout1 = {
         title: 
-        'Create Forecast Map first & pick point on the shaded area',
+        'Create Forecast Map first<br>& pick point on the shaded area',
         //   autosize: true,
-        width: 1000,
-        height: 400,
+        // width: 1000,
+        // height: 400,
         xaxis: { title: 'Date' },
         yaxis: { title: 'Variable' },
         hovermode: 'closest',
@@ -87,8 +87,8 @@ $(function() {
         title: 
         'Create Forecast Map first & draw transect (polyline) on the shaded area',
         //   autosize: true,
-        width: 1000,
-        height: 400,
+        // width: 1000,
+        // height: 400,
         xaxis: { title: 'Date' },
         yaxis: { title: 'Variable' },
         hovermode: 'closest',
@@ -100,15 +100,17 @@ $(function() {
         title: 
         'Pick a index',
         //   autosize: true,
-        width: 1000,
-        height: 400,
+        // width: 1000,
+        // height: 400,
         xaxis: { title: 'Date' },
         yaxis: { title: 'Variable' },
         hovermode: 'closest',
         showlegend: false,
         // responsive: true
     };
-    Plotly.newPlot('plotly-fcast-spread', [trace], layout1);
+    var config = {responsive: true}
+    Plotly.newPlot('plotly-fcast-spread', [trace], layout1, config);
+    Plotly.newPlot('plotly-fcast-box', [trace], layout1, config);
     // Plotly.newPlot('plotly-index', [trace], layout3)
 });
 
@@ -699,8 +701,8 @@ function plotlyForecastSpread(jsonData) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-         width: 550,
-         height: 400,
+        //  width: 550,
+        //  height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -769,8 +771,8 @@ function plotlyForecastRange(jsonData) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-         width: 1000,
-         height: 400,
+        //  width: 1000,
+        //  height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -797,8 +799,8 @@ function plotlyForecastRange(jsonData) {
         dragmode: "select"
         // responsive: true
     };
-
-    Plotly.newPlot('plotly-fcast-spread', data, layout);
+    var config = {responsive: true}
+    Plotly.newPlot('plotly-fcast-spread', data, layout,config);
 };
 
 // function for creating the plotly time series box plot
@@ -856,8 +858,8 @@ function plotlyForecastBox(jsonData) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-         width: 530,
-         height: 400,
+        //  width: 530,
+        //  height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -884,8 +886,9 @@ function plotlyForecastBox(jsonData) {
         dragmode: "select"
         // responsive: true
     };
+    var config = {responsive: true}
 
-    Plotly.newPlot('plotly-fcast-box', data, layout);
+    Plotly.newPlot('plotly-fcast-box', data, layout,config);
 
 };
 

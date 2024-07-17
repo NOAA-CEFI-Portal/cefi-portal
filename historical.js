@@ -160,7 +160,7 @@ $(function() {
     // Plotly.newPlot('plotly-box-plot', [trace], layoutBox,config);
     // Plotly.newPlot('plotly-histogram', [trace], layoutHist,config);
     Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
-    // Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
+    Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
     Plotly.newPlot('plotly-transect', [trace], layout2,config);
     // Plotly.newPlot('plotly-index', [trace], layout3)
 });
@@ -237,7 +237,7 @@ $("#varMOMCobalt").on("change", function(){
     tValue.text(dateFolium);
 });
 
-// event listen for analyses change
+// event listen for analyses dashboard change
 $("#analysisMOMCobalt").on("change", function(){
     var selectedValue = $('#analysisMOMCobalt :selected').val();
     // $('#'+selectedValue.slice(0, -3)+'Tab').prop('checked', true);
@@ -1356,6 +1356,7 @@ function plotlyIndex(tsDates,tsValues,tsUnit,yformat,tsName,indexName) {
         hovermode: 'closest',
         showlegend: true,
         title: indexName,
+        legend: {x: 0, y: 1.1},
         // autosize: true,
         annotations: [{
             x: 0,
@@ -1367,12 +1368,12 @@ function plotlyIndex(tsDates,tsValues,tsUnit,yformat,tsName,indexName) {
          }],
         //  width: 1000,
         //  height: 400,
-         margin: {
+        margin: {
             l: 80,
-            r: 200,
+            r: 80,
             b: 80,
             t: 100,
-            pad: 4
+            // pad: 4
           },
         xaxis: {
             title: 'Date'
@@ -1429,7 +1430,7 @@ function plotlyTransectLine(plotlyID,parsedTran) {
         showlegend: false,
         title:
             varname +' '+ statMap +
-            ' along the PolyLine',
+            '<br> along the PolyLine',
         //   autosize: true,
         annotations: [{
             x: 0,
@@ -1569,7 +1570,7 @@ function plotlyVP(varDepth,varValues,lonValues,latValues,varUnit,varformat,plotl
         showlegend: false,
         title:
             vpname +' '+ statMap +
-            ' @ (lat:'+parseFloat(latValues).toFixed(2)+'N,'+
+            '<br> @ (lat:'+parseFloat(latValues).toFixed(2)+'N,'+
                 'lon:'+parseFloat(lonValues).toFixed(2)+'E)',
         //   autosize: true,
         annotations: [{

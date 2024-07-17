@@ -1,24 +1,34 @@
+.main-svg,
+.svg-container {
+  width: 100% !important
+}
+
 /* Style the label */
 .hoverLabel {
   display: none; /* Initially hidden */
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: #a2a0a0;
   padding: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #a2a0a0;
   border-radius: 4px;
   font-size: 14px;
-  color: #06080a;
+  color: #f9f9fa;
   z-index: 1;
 }
 #cefiPortalTabs li:hover .hoverLabel {
   display: block; /* Show label on hover */
   width: 100%;
 }
-.dropdown-menu .nav-link:hover {
-  background-color: transparent;
+@media (hover: none) {
+  #cefiPortalTabs li:hover .hoverLabel {
+    display: none;
+  }
 }
 
 
+/* .dropdown-menu .nav-link:hover {
+  background-color: transparent;
+} */
 
 .headingCenter {
   text-align: center;
