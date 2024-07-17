@@ -65,7 +65,11 @@ $('#genQueryButton').on('click', function() {
     var dataType = $('#periodMOMCobaltData').val()
     generateDataQuery(dataType)     // the function return a promise obj from fetch
         .then((jsonDataQuery)=>{
-            var wgetCode = jsonDataQuery.wget
+            var dataInfo = jsonDataQuery.data_info;
+            $('#codeBlockDataInfo').text(dataInfo);
+            var http_href = jsonDataQuery.download;
+            $("#downloadHttp").attr("href", http_href);  //direct download link
+            var wgetCode = jsonDataQuery.wget;
             $('#codeBlockWget').text(wgetCode);
             var opendapCode = jsonDataQuery.opendap
             $('#codeBlockOpendap').text(opendapCode);
