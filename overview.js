@@ -11,6 +11,14 @@ $(document).ready(function() {
     });
 });
 
+// slow animate transition to CEFI detail info
+$(document).ready(function(){
+    $("#detailCEFIButton").click(function() {
+        $('html, body').animate({
+            scrollTop: $("#detailCEFI").offset().top
+        }, 1000);
+    });
+});
 
 // function for create option for general options
 function chooseDefaultRegion(selectClass,defaultValue) {
@@ -21,3 +29,7 @@ function chooseDefaultRegion(selectClass,defaultValue) {
         elms[i].value = defaultValue
     }
 };
+
+
+
+
