@@ -1,9 +1,50 @@
+.main-svg,
+.svg-container {
+  width: 100% !important
+}
+
+/* Style the label */
+.hoverLabel {
+  display: none; /* Initially hidden */
+  position: absolute;
+  background-color: #a2a0a0;
+  padding: 5px;
+  border: 1px solid #a2a0a0;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #f9f9fa;
+  z-index: 1;
+}
+#cefiPortalTabs li:hover .hoverLabel {
+  display: block; /* Show label on hover */
+  width: 100%;
+}
+@media (hover: none) {
+  #cefiPortalTabs li:hover .hoverLabel {
+    display: none;
+  }
+}
+
+
+/* .dropdown-menu .nav-link:hover {
+  background-color: transparent;
+} */
+
 .headingCenter {
   text-align: center;
 }
 
-.navbar-collapse-cefi {
-  background-color: #51565b; /* Replace 'your-color' with the desired background color */
+.gifDemo {
+  width: 100%
+}
+/* .nav-tabs .dropdown-menu,
+.nav-tabs .dropdown-menu li,
+.tab .nav-tabs .active .dropdown-menu li a{
+  background-color: #edeff0 !important; 
+} */
+
+/* .navbar-collapse-cefi {
+  background-color: #51565b;
 }
 
 #cefinavbar.navbar ul.nav > li > a{
@@ -20,7 +61,7 @@
 #cefinavbar.navbar li.dropdown.open a.dropdown-toggle[aria-expanded="true"] {
   color: white !important; 
   background-color: transparent !important; 
-}
+} */
 
 #cookbookFrame {
   height: 3100px;

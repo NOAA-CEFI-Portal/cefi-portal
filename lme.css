@@ -1,3 +1,13 @@
+#singlePlotInterface td select{
+    text-overflow: ellipsis;
+    max-width: 85%;
+}
+
+#lmePlot {
+    width: 100%;
+	height: 100%;
+}
+
 #timeSeriesBtn {
     background-color: #5F9DF7; 
     border: none;
@@ -34,10 +44,10 @@
 	height: 1rem; */
 }
 
-#lmePlot {
+/* #lmePlot {
 	width:45rem;
 	height:50rem;
-}
+} */
 
 #lmeAnimeIFrame {
 	/* width: 100%;
@@ -97,10 +107,6 @@
 	color:black;
 	z-index: 1000;
 	white-space: nowrap;
-}
-
-.hidden {
-  display:none;
 }
 
 .userInput {

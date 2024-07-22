@@ -1,0 +1,5 @@
+/* the code block scroll */
+code.codeBlockScroll {
+	white-space: nowrap;  /* Prevents the text from wrapping to the next line */
+	overflow-x: auto;    /* Enables horizontal scrolling */
+}

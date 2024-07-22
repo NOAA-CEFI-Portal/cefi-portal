@@ -19,9 +19,9 @@ let varnameFcast = varnamelistFcast[0][varindFcast]
 let varValueFcast = varnamelistFcast[1][varindFcast]
 
 // Initial initYear options
-createMomCobaltInitYearOpt();
+createMomCobaltInitYearOpt('iniYearMOMCobaltFcast');
 // Initial initMonth options
-createMomCobaltInitMonthOpt();
+createMomCobaltInitMonthOpt('iniMonthMOMCobaltFcast');
 // global variable for initial time 
 let iniYear = $("#iniYearMOMCobaltFcast").val();
 let iniMonth = $("#iniMonthMOMCobaltFcast").find("option:selected").text();
@@ -44,7 +44,7 @@ timeSliderFcast.attr("max", leadIndex.length - 1);
 timeSliderFcast.val(0);
 var leadFoliumFcast = leadMonthList[timeSliderFcast.val()];   // global
 tValueFcast.text(leadFoliumFcast);
-generateTickFcast(leadMonthList);
+tickSpaceChangeFcast()
 
 // Initial stat options
 createMomCobaltStatOptFcast();
@@ -72,10 +72,10 @@ $(function() {
   
     var layout1 = {
         title: 
-        'Create Forecast Map first & pick point on the shaded area',
+        'Create Forecast Map first<br>& pick point on the shaded area',
         //   autosize: true,
-        width: 1000,
-        height: 400,
+        // width: 1000,
+        // height: 400,
         xaxis: { title: 'Date' },
         yaxis: { title: 'Variable' },
         hovermode: 'closest',
@@ -87,8 +87,8 @@ $(function() {
         title: 
         'Create Forecast Map first & draw transect (polyline) on the shaded area',
         //   autosize: true,
-        width: 1000,
-        height: 400,
+        // width: 1000,
+        // height: 400,
         xaxis: { title: 'Date' },
         yaxis: { title: 'Variable' },
         hovermode: 'closest',
@@ -100,19 +100,25 @@ $(function() {
         title: 
         'Pick a index',
         //   autosize: true,
-        width: 1000,
-        height: 400,
+        // width: 1000,
+        // height: 400,
         xaxis: { title: 'Date' },
         yaxis: { title: 'Variable' },
         hovermode: 'closest',
         showlegend: false,
         // responsive: true
     };
-    Plotly.newPlot('plotly-fcast-spread', [trace], layout1);
+    var config = {responsive: true}
+    Plotly.newPlot('plotly-fcast-spread', [trace], layout1, config);
+    Plotly.newPlot('plotly-fcast-box', [trace], layout1, config);
     // Plotly.newPlot('plotly-index', [trace], layout3)
 });
 
 /////////////////  event listener  ////////////////
+$(window).resize(function() {
+    tickSpaceChangeFcast();
+});
+
 // add event listener on figure all clear button
 clearFigOptBtnFcast.on("click", function () {
     $("input.figOpt").val('');
@@ -140,7 +146,6 @@ momCobaltBtnFcast.on("click", function () {
 
     leadFoliumFcast = leadMonthList[timeSliderFcast.val()];   // global
     tValueFcast.text(leadFoliumFcast);
-    generateTickFcast(leadMonthList);
 
     // remove marker (resetting)
     var removeMarker = {
@@ -183,12 +188,17 @@ $("#varMOMCobaltFcast").on("change", function(){
 
 });
 
+
 // event listen for analyses change
 $("#analysisMOMCobaltFcast").on("change", function(){
     var selectedValue = $('#analysisMOMCobaltFcast :selected').val();
-    $('#'+selectedValue.slice(0, -3)+'Tab').prop('checked', true);
-    showDiv(selectedValue.slice(0, -3),'viewFcast');
-});
+    // $('#'+selectedValue.slice(0, -3)+'Tab').prop('checked', true);
+    // showDiv(selectedValue.slice(0, -3),'view');
+    $("#dashNavForecast > ul.nav-pills > li.nav-item").removeClass("active"); 
+    $("#"+selectedValue.slice(0, -3)+'Pill').addClass("active")
+    $("#dashContentForecast div.tab-pane").removeClass("active"); 
+    $("#"+selectedValue.slice(0, -3)).addClass("active")
+})
 
 // add event listener for the "message" event using jQuery (location click)
 $(window).on("message", receiveMessageFcast);
@@ -204,7 +214,31 @@ $('input[name="fcastAnalysestabs"]').on('click', function() {
     }
 });
 
+
+
 /////////////////////// function section /////////////////////
+// function for changing the tick mark of time slider
+function tickSpaceChangeFcast() {
+    if ($(window).width() < 600) {
+        var result = [];
+        for (var i = 3; i < leadMonthList.length; i += 5) {
+          result.push(i);
+        }
+        generateTickFcast(result);
+    } else if ($(window).width() < 1200) {
+        var result = [];
+        for (var i = 2; i < leadMonthList.length; i += 2) {
+          result.push(i);
+        }
+        generateTickFcast(result);
+    } else {
+        var result = [];
+        for (var i = 0; i < leadMonthList.length; i++) {
+          result.push(i);
+        }
+        generateTickFcast(result); 
+    };
+};
 
 // functions for timeline tick 
 function generateTickFcast(tickList) {
@@ -214,7 +248,9 @@ function generateTickFcast(tickList) {
         const span = $("<span></span>");
     
         // Set some content or attributes for the <span>
-        span.text(`${tickList[i]}`+' (lead = '+i+')');
+        // span.text(`${tickList[i]}`+' (lead = '+i+')');
+        var leadtime = tickList[i]+0.5
+        span.text('lead = '+leadtime);
         span.addClass("tickLeadTime"); 
     
         // Append the <span> to the containerTick <div>
@@ -235,21 +271,20 @@ function createMomCobaltVarOptFcast(dataCobaltID,selectID) {
 };
 
 // function for create option for initial Year
-function createMomCobaltInitYearOpt() {
-    let elm = document.getElementById('iniYearMOMCobaltFcast');
+function createMomCobaltInitYearOpt(selectTagID) {
+    let elm = document.getElementById(selectTagID);
     let listInitYear = momCobaltInitYear()    
     let df = optionList(listInitYear,listInitYear);
     elm.appendChild(df);
-    $('#iniYearMOMCobaltFcast').val(listInitYear.slice(-1))
+    $('#'+selectTagID).val(listInitYear.slice(-1))
 };
 
 // function for create option for initial Month
-function createMomCobaltInitMonthOpt() {
-    let elm = document.getElementById('iniMonthMOMCobaltFcast');
+function createMomCobaltInitMonthOpt(selectTagID) {
+    let elm = document.getElementById(selectTagID);
     let [listInitMonth, listInitMonthStr] = momCobaltInitMonth()    
     let df = optionList(listInitMonthStr,listInitMonth);
     elm.appendChild(df);
-    
 };
 
 // function for create option for statistics
@@ -352,6 +387,7 @@ function replaceFoliumForecast() {
 
     var ajaxGet = "/cgi-bin/cefi_portal/mom_folium_fcast.py"
         +"?variable="+varFoliumMapFcast
+        +"&region="+$("#regMOMCobaltFcast").val()
         +"&iniyear="+$("#iniYearMOMCobaltFcast").val()
         +"&inimonth="+$("#iniMonthMOMCobaltFcast").val()
         +"&lead="+timeSliderFcast.val()
@@ -520,6 +556,7 @@ function receiveMessageFcast(event) {
 function getvarValFcast(infoLonLat) {
     var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_variableValue_fcast.py"
         +"?variable="+varFoliumMapFcast
+        +"&region="+$("#regMOMCobaltFcast").val()
         +"&stat="+statMapFcast
         +"&depth="+depthMapFcast
         +"&lon="+infoLonLat.longitude
@@ -582,6 +619,7 @@ function plotTSFcast(infoLonLat) {
 function getTSFcasts(infoLonLat) {
     var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries_fcast.py"
         +"?variable="+varFoliumMapFcast
+        +"&region="+$("#regMOMCobaltFcast").val()
         +"&stat="+statMapFcast
         +"&depth="+depthMapFcast
         +"&lon="+infoLonLat.longitude
@@ -663,8 +701,8 @@ function plotlyForecastSpread(jsonData) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-         width: 550,
-         height: 400,
+        //  width: 550,
+        //  height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -733,8 +771,8 @@ function plotlyForecastRange(jsonData) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-         width: 1000,
-         height: 400,
+        //  width: 1000,
+        //  height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -761,8 +799,8 @@ function plotlyForecastRange(jsonData) {
         dragmode: "select"
         // responsive: true
     };
-
-    Plotly.newPlot('plotly-fcast-spread', data, layout);
+    var config = {responsive: true}
+    Plotly.newPlot('plotly-fcast-spread', data, layout,config);
 };
 
 // function for creating the plotly time series box plot
@@ -820,8 +858,8 @@ function plotlyForecastBox(jsonData) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-         width: 530,
-         height: 400,
+        //  width: 530,
+        //  height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -848,8 +886,9 @@ function plotlyForecastBox(jsonData) {
         dragmode: "select"
         // responsive: true
     };
+    var config = {responsive: true}
 
-    Plotly.newPlot('plotly-fcast-box', data, layout);
+    Plotly.newPlot('plotly-fcast-box', data, layout,config);
 
 };
 

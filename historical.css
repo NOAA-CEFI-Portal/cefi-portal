@@ -1,41 +1,47 @@
-/* minitabs default no show */
-input[type="radio"].miniinput {
-	display: none;
+#analysisMOMCobalt td select,
+#varMOMCobalt td select{
+    text-overflow: ellipsis;
+    max-width: 85%;
 }
-/* Show the selected minitabs */
-input[type="radio"].miniinput:checked + label {
-	display: block;
-	background-color: #656464;
+
+/* in-page navbar */
+.nav-pills a{
+    color: black;
+    text-align: center;
+    font-size: 17px;
+    border-radius: 15px;
+    background-color: #ddd;
+    padding: 14px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 5px;
+    margin-right: 10px;
+}
+.nav-pills .nav-item.active a{
+	background-color: #555 !important;
 	color: white;
 }
-/* style of the minitab */
-label.minitab {
-	width: 100%;
-	height: 50px;
-	/* display: inline-block; */
-	text-align:center;
-	padding: 10px 20px;
-	background-color: #ddd;
-	cursor: pointer;
-	border-radius: 10px 10px 0 0;
-	margin-bottom: 0px;
-}
-label.minitab:hover {
+.nav-pills .nav-item a:hover{
 	background-color: #ccc;
+color: black;
 }
+
+/* Adjust dashboard options */
+@media (max-width: 768px) {
+	.tsOptions {
+		width: 100%;
+	}
+}
+
+
 /* style of the div under the minitab */
 div.view {
 	padding: 20px;
 	border: 2px solid #ddd;
 	border-radius: 0 0 10px 10px;
 	width: 100%;
-    height: 550px;
+    height: 100%;
 }
-
-/* 
-.minitabDiv {
-	padding: 0;
-} */
 
 .hidden {
 	display: none;
@@ -96,7 +102,7 @@ div.view {
     /* z-index: 1000; */
     margin-left: 50%;
     margin-top: 15%;
-    z-index: 1000;
+    z-index: 2;
 }
 
 
@@ -106,10 +112,27 @@ div.view {
 	100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-#plotly-time-series {
+/* .dashPlotlyHalf {
+	width: 27vw; 
+	height: 50vh; 
 	position: relative;
 	z-index: 1;
-}
+} */
+
+/* .dashPlotly20 {
+	width: 20vw; 
+	height: 50vh; 
+	position: relative;
+	z-index: 1;
+} */
+
+/* Adjust font size for smaller screens */
+/* @media (max-width: 768px) {
+	.dashPlotly {
+		width: 80vw; 
+	    height: 50vh;
+	}
+} */
 
 .workingTop {
     margin-bottom: 5px;

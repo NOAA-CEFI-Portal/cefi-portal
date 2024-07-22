@@ -10,18 +10,30 @@
 <link rel="stylesheet" href="cefi.css">
 <link rel="stylesheet" type="text/css" href="forecast.css" />
 <link rel="stylesheet" type="text/css" href="historical.css" />
+<link rel="stylesheet" type="text/css" href="data_access.css" />
 
 <h1 class="headingCenter">Climate Ecosystems and Fisheries Initiative Portal</h1>
 <div class="row">
      <div class="col-md-12">
      <div class="tab" role="tabpanel" role="navigation">
           <ul class="nav nav-tabs" id="cefiPortalTabs">
-               <li class="active"><a class="nav-link" href="#overview" data-toggle="tab">Overview<span class="sr-only">(current)</span></a></li>
+               <li class="active">
+                    <a class="nav-link cefiNavbar" href="#overview" data-toggle="tab">Overview
+                         <span class="hoverLabel">What is CEFI?</span>
+                    </a>
+               </li>
+
+               <li>
+                    <a class="nav-link" href="#data_access" data-toggle="tab" data-target="#data_access">Model Data Access
+                         <span class="hoverLabel">Direct data access and download</span>
+                    </a>
+               </li>
 
                <li class="dropdown">
-                    <a href="#" id="dropdownModel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                         Models
+                    <a href="#" class="navDropdown" id="dropdownMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Model Visualization
                          <span class="caret"></span>
+                         <span class="hoverLabel">Visualization and some analysese for the regional MOM6 outputs</span>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                          <li><a class="nav-link" data-toggle="tab" href="#historical">Historical Run</a></li>
@@ -31,9 +43,10 @@
                </li>
 
                <li class="dropdown">
-                    <a href="#" id="dropdownObs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                         Observations
+                    <a href="#" class="navDropdown" id="dropdownObs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Observation Visualization
                          <span class="caret"></span>
+                         <span class="hoverLabel">Visualization and some analysese for the observational and reanalyses data</span>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                          <li><a class="nav-link" data-toggle="tab" href="#current">Global Historical Condition</a></li>
@@ -42,9 +55,21 @@
                     </ul>
                </li>
 
-               <li><a class="nav-link" href="#cefi_list_search" data-toggle="tab" data-target="#cefi_list_search">Information Hub</a></li>
-               <li><a class="nav-link" href="#cookbooks" data-toggle="tab">Cookbooks</a></li>
-               <li><a class="nav-link" href="#resources" data-toggle="tab">Resources</a></li>
+               <li>
+                    <a class="nav-link" href="#cefi_list_search" data-toggle="tab" data-target="#cefi_list_search">Information Hub
+                         <span class="hoverLabel">Search the CEFI related resources!</span>
+                    </a>
+               </li>
+               <li>
+                    <a class="nav-link" href="#cookbooks" data-toggle="tab">Cookbooks
+                         <span class="hoverLabel">Tutorial of how to use the regional MOM6 output and other resources</span>
+                    </a>
+               </li>
+               <li>
+                    <a class="nav-link" href="#resources" data-toggle="tab">Resources
+                         <span class="hoverLabel">Links to resources</span>
+                    </a>
+               </li>
 
           </ul>
 
@@ -77,6 +102,10 @@
                     <!--#include virtual="reanalyses.html"-->
                </div>
 
+               <div id="data_access" class="tab-pane fade in">
+                    <!--#include virtual="data_access.html"-->
+               </div>
+
                <div id="cefi_list_search" class="tab-pane fade in">
                     <!--#include virtual="cefi_list_search.html"-->
                </div>
@@ -98,5 +127,8 @@
 <script type="text/javascript" src="tabHashEvent.js"></script>
 <script type="text/javascript" src="historical.js"></script>
 <script type="text/javascript" src="forecast.js"></script>
+<script type="text/javascript" src="data_access.js"></script>
+<script type="text/javascript" src="overview.js"></script>
+<script type="text/javascript" src="index.js"></script>
 <!-- <script type="text/javascript" src="hcast.js"></script> -->
 

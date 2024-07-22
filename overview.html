@@ -1,9 +1,47 @@
 <!-- <h2>Overview</h2> -->
 
 <link rel="stylesheet" href="overview_card.css">
+<link rel="stylesheet" href="cefi.css">
+
+<h2 class="headingCenter">1 minute CEFI</h2>
+<p>
+  NOAA’s Climate, Ecosystems, and Fisheries Initiative (CEFI) focuses on creating an 
+  operational ocean modeling and decision support system. This system will cover 
+  <strong>various ocean regions, including the U.S. coastline,</strong> and provide actionable information to help 
+  decision-makers adapt to changing ocean conditions. 🌎🌊🐟
+</p>
+<button class="btn btn-psl" id="detailCEFIButton">More detail</button>
+<button class="btn btn-psl" target="_blank" onclick="window.open('https://www.fisheries.noaa.gov/s3//2023-05/NOAA-Climate-Ecosystems-and-Fisheries-Initiative-Fact-Sheet.pdf', '_blank')" >
+  PDF version
+</button>
+
+<h2 class="headingCenter">Know the Regions</h2>
+<div class="row">  
+  <div class="col-md-2 regionCol">
+    <input type="radio" class="radioRegionDemo" id="northwest_atlantic" name="regionOptions" checked>
+    <label for="northwest_atlantic">Northwest Atlantic</label>
+  </div>
+  <div class="col-md-3 regionCol">
+    <input type="radio" id="northeast_pacific" name="regionOptions">
+    <label for="northeast_pacific">Northeast Pacific (coming soon)</label>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 headingCenter">
+  <p><strong>Region picked here will be the default value across the portal!</strong></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <img class="gifDemo" src="img/regions_gif/regional_mom6_tos_demo.gif" alt="Regional MOM6 Northwest Atlantic Region Sea Surface Temperature Latest Forecast">
+  </div>
+</div>
 
 
-<div class="container row">
+</br>
+
+<div class="row">
   <h2 class="headingCenter">Featured Resources</h2>
 </div>
 </br>
@@ -33,7 +71,7 @@
 
 </br>
 </br>
-<div class="container">
+<div class="container" id="detailCEFI">
   <div class="row">
     <div class="col-xs-12">
       <h2 class="headingCenter">What is Climate, Ecosystems, and Fisheries Initiative (CEFI)?</h2>
