@@ -10,7 +10,7 @@ createMomCobaltInitYearOpt('iyearMOMCobaltForecastData');
 createMomCobaltInitMonthOpt('imonthMOMCobaltForecastData');
 
 
-// event lister for radio button choice
+// event lister for region radio button in the variable table section
 $(document).ready(function(){
     $("input[type='radio'].radioDataTable").change(function(){
       if ($("#radioNWATable").is(":checked")) {
@@ -24,7 +24,7 @@ $(document).ready(function(){
 });
 
 
-// event listener for changes on the first dropdown
+// event listener for changes in the modeling period
 $('#periodMOMCobaltData').on('change', function() {
     // Clear out the variable dropdown
     $('#varMOMCobaltData').empty();
@@ -34,6 +34,12 @@ $('#periodMOMCobaltData').on('change', function() {
         createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');
         $('.forecastOpt').addClass('hidden');
         $('.histrunOpt').removeClass('hidden');
+        // remove year month dropdown in download and data citation for "historical run" choice
+        if ($("#radioWget").is(":checked")) {
+            $('.histrunTimeSubset').addClass('hidden');
+        } else if ($("#radioCite").is(":checked")) {
+            $('.histrunTimeSubset').addClass('hidden');
+        }
     } else if ($('#periodMOMCobaltData').val() === 'forecast') {
         createMomCobaltVarOptFcast('MOMCobaltFcast','varMOMCobaltData');
         $('.histrunOpt').addClass('hidden');
@@ -41,21 +47,33 @@ $('#periodMOMCobaltData').on('change', function() {
     }
 });
 
-// event lister for radio button choice
+// event lister for radio button choice in data options in data query
 $(document).ready(function(){
     $("input[type='radio'].radioData").change(function(){
       if ($("#radioOpendap").is(":checked")) {
         $('.wgetOpt').addClass('hidden');
         $('.citeOpt').addClass('hidden');
         $('.opendapOpt').removeClass('hidden');
+        // show year month dropdown in opendap for "historical run" choice
+        if ($('#periodMOMCobaltData').val() === 'hist_run') {
+            $('.histrunTimeSubset').removeClass('hidden');
+        } 
       } else if ($("#radioWget").is(":checked")) {
         $('.opendapOpt').addClass('hidden');
         $('.citeOpt').addClass('hidden');
         $('.wgetOpt').removeClass('hidden');
+        // remove year month dropdown in download and data citation for "historical run" choice
+        if ($('#periodMOMCobaltData').val() === 'hist_run') {
+            $('.histrunTimeSubset').addClass('hidden');
+        } 
       } else if ($("#radioCite").is(":checked")) {
         $('.opendapOpt').addClass('hidden');
         $('.wgetOpt').addClass('hidden');
         $('.citeOpt').removeClass('hidden');
+        // remove year month dropdown in download and data citation for "historical run" choice
+        if ($('#periodMOMCobaltData').val() === 'hist_run') {
+            $('.histrunTimeSubset').addClass('hidden');
+        } 
       }
     });
 });
