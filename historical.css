@@ -264,3 +264,7 @@ img#modalCbarFig {
 	height: 18px;
 	font-size: 12px;
 }
+
+select {
+	text-overflow: ellipsis;
+}
