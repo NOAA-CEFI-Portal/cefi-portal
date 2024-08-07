@@ -153,9 +153,9 @@
 </div>
 
 <div class="row" id="dashNavHistrun">
-    <ul class="nav nav-pills nav-justified">
+    <ul class="nav nav-pills nav-justified hidden-xs" id="pills-hist">
         <li class="nav-item active" id="tsViewPill">
-            <a class="nav-link" href="#tsView" data-toggle="tab" aria-expanded="true" >Time Series</a>
+            <a class="nav-link" href="#tsView" data-toggle="tab" aria-expanded="true">Time Series</a>
         </li>
         <li class="nav-item" id="profileViewPill">
             <a class="nav-link" href="#profileView" data-toggle="tab" aria-expanded="true">Vertical Profile</a>
@@ -167,6 +167,20 @@
             <a class="nav-link" href="#indexView" data-toggle="tab" aria-expanded="true">Indexes</a>
         </li>
     </ul>
+        <ul class="nav nav-tabs nav-justified visible-xs" id="tabs-hist">
+        <li class="nav-item active" id="tsViewTab">
+            <a class="nav-link" href="#tsView" data-toggle="tab" aria-expanded="false">Time Series</a>
+        </li>
+        <li class="nav-item" id="profileViewTab">
+            <a class="nav-link" href="#profileView" data-toggle="tab" aria-expanded="false">Vertical Profile</a>
+        </li>
+        <li class="nav-item" id="transectViewTab">
+            <a class="nav-link" href="#transectView" data-toggle="tab" aria-expanded="false">Transect</a>
+        </li>
+        <li class="nav-item" id="indexViewTab">
+            <a class="nav-link" href="#indexView" data-toggle="tab" aria-expanded="false">Indexes</a>
+        </li>
+    </ul>
 </div>
 
 <div class="row" id="dashContentHistrun">
@@ -176,7 +190,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-6">
                     <label class='tsOptions' for="dropdown">Select 2nd variable:</label>
-                    <select name="variableTS2" id="varMOMCobaltTS2"></select>
+                    <select name="variableTS2" id="varMOMCobaltTS2" class="col-xs-12 col-md-6"></select>
                 </div>
                 <div class="col-xs-12 col-md-3">
                     <label class='tsOptions' for="dropdown">Select depth:</label>
