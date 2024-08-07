@@ -302,7 +302,7 @@ $(document).ready(function () {
       $(targetId).addClass('show active');
     }
 
-    $('#pills-tab .nav-link, #tabs-tab .nav-link').on('click', function (e) {
+    $('#pills-hist .nav-link, #tabs-hist .nav-link').on('click', function (e) {
       e.preventDefault();
       var targetId = $(this).attr('href');
       syncTabs(targetId);
