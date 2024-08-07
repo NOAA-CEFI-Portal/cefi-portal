@@ -196,6 +196,8 @@ $("#analysisMOMCobaltFcast").on("change", function(){
     // showDiv(selectedValue.slice(0, -3),'view');
     $("#dashNavForecast > ul.nav-pills > li.nav-item").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)+'Pill').addClass("active")
+    $("#dashNavHistrun > ul.nav-tabs > li.nav-item").removeClass("active"); 
+    $("#"+selectedValue.slice(0, -3)+'Tab').addClass("active")
     $("#dashContentForecast div.tab-pane").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)).addClass("active")
 })
@@ -214,7 +216,24 @@ $('input[name="fcastAnalysestabs"]').on('click', function() {
     }
 });
 
+$(document).ready(function () {
+    function syncTabs(targetId) {
+      $('.nav-link').removeClass('active');
+      $('[href="' + targetId + '"]').addClass('active');
+      $('.tab-pane').removeClass('show active');
+      $(targetId).addClass('show active');
+    }
 
+    $('#pills-fcast .nav-link, #tabs-fcast .nav-link').on('click', function (e) {
+      e.preventDefault();
+      var targetId = $(this).attr('href');
+      syncTabs(targetId);
+    });
+
+    // Automatically sync the active tab on page load
+    var activeTabId = $('.nav-link.active').attr('href');
+    syncTabs(activeTabId);
+});
 
 /////////////////////// function section /////////////////////
 // function for changing the tick mark of time slider
