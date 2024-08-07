@@ -244,6 +244,8 @@ $("#analysisMOMCobalt").on("change", function(){
     // showDiv(selectedValue.slice(0, -3),'view');
     $("#dashNavHistrun > ul.nav-pills > li.nav-item").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)+'Pill').addClass("active")
+    $("#dashNavHistrun > ul.nav-tabs > li.nav-item").removeClass("active"); 
+    $("#"+selectedValue.slice(0, -3)+'Tab').addClass("active")
     $("#dashContentHistrun div.tab-pane").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)).addClass("active")
 })
@@ -291,7 +293,25 @@ clearFigOptBtn.on("click", function () {
     $("input.figOpt").val('');
 });
 
+//add event listener on nav bar to sync tabs and pills
+$(document).ready(function () {
+    function syncTabs(targetId) {
+      $('.nav-link').removeClass('active');
+      $('[href="' + targetId + '"]').addClass('active');
+      $('.tab-pane').removeClass('show active');
+      $(targetId).addClass('show active');
+    }
 
+    $('#pills-tab .nav-link, #tabs-tab .nav-link').on('click', function (e) {
+      e.preventDefault();
+      var targetId = $(this).attr('href');
+      syncTabs(targetId);
+    });
+
+    // Automatically sync the active tab on page load
+    var activeTabId = $('.nav-link.active').attr('href');
+    syncTabs(activeTabId);
+});
 
 // add event listener on reset time series select in plotly
 $("#clearTSselectBtn").on("click", function () {
