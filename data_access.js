@@ -1,9 +1,5 @@
 // default historical run options
 createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');  // Data Query
-// default Year options for Historical run
-createMomCobaltHistTimeOpt('yearMOMCobaltHistrunData',momCobaltHistYear)
-// default Month options for Historical run
-createMomCobaltHistTimeOpt('monthMOMCobaltHistrunData',momCobaltHistMonth)
 // default initYear options for forecast
 createMomCobaltInitYearOpt('iyearMOMCobaltForecastData');
 // default initMonth options for forecast
@@ -33,16 +29,8 @@ $('#periodMOMCobaltData').on('change', function() {
     if ($('#periodMOMCobaltData').val() === 'hist_run') {
         createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');
         $('.forecastOpt').addClass('hidden');
-        $('.histrunOpt').removeClass('hidden');
-        // remove year month dropdown in download and data citation for "historical run" choice
-        if ($("#radioWget").is(":checked")) {
-            $('.histrunTimeSubset').addClass('hidden');
-        } else if ($("#radioCite").is(":checked")) {
-            $('.histrunTimeSubset').addClass('hidden');
-        }
     } else if ($('#periodMOMCobaltData').val() === 'forecast') {
         createMomCobaltVarOptFcast('MOMCobaltFcast','varMOMCobaltData');
-        $('.histrunOpt').addClass('hidden');
         $('.forecastOpt').removeClass('hidden');
     }
 });
@@ -54,26 +42,14 @@ $(document).ready(function(){
         $('.wgetOpt').addClass('hidden');
         $('.citeOpt').addClass('hidden');
         $('.opendapOpt').removeClass('hidden');
-        // show year month dropdown in opendap for "historical run" choice
-        if ($('#periodMOMCobaltData').val() === 'hist_run') {
-            $('.histrunTimeSubset').removeClass('hidden');
-        } 
       } else if ($("#radioWget").is(":checked")) {
         $('.opendapOpt').addClass('hidden');
         $('.citeOpt').addClass('hidden');
         $('.wgetOpt').removeClass('hidden');
-        // remove year month dropdown in download and data citation for "historical run" choice
-        if ($('#periodMOMCobaltData').val() === 'hist_run') {
-            $('.histrunTimeSubset').addClass('hidden');
-        } 
       } else if ($("#radioCite").is(":checked")) {
         $('.opendapOpt').addClass('hidden');
         $('.wgetOpt').addClass('hidden');
         $('.citeOpt').removeClass('hidden');
-        // remove year month dropdown in download and data citation for "historical run" choice
-        if ($('#periodMOMCobaltData').val() === 'hist_run') {
-            $('.histrunTimeSubset').addClass('hidden');
-        } 
       }
     });
 });
@@ -124,12 +100,9 @@ function generateDataQuery(dataType) {
     var region = $(regMOMCobaltData).val();
     var variable = $(varMOMCobaltData).val();
     var grid = $(gridMOMCobalt).val();
-    var year
-    var month
-    if (dataType === 'hist_run') {
-        year = $(yearMOMCobaltHistrunData).val();
-        month = $(monthMOMCobaltHistrunData).val();
-    } else if (dataType === 'forecast') {
+    var year = -99
+    var month = -99
+    if (dataType === 'forecast') {
         year = $(iyearMOMCobaltForecastData).val();
         month = $(imonthMOMCobaltForecastData).val();
     }

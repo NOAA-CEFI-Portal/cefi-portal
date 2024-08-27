@@ -2092,37 +2092,6 @@ function generateDailyDateList(startYear = 1993, endYear = 2019) {
 }
 
 
-// functions for generating year list for data (monthly)
-function momCobaltHistYear(startYear = 1993, endYear = 2019) {
-    var yearList = [];
-
-    for (var year = startYear; year <= endYear; year++) {
-        yearList.push(year)
-    }
-
-    return [yearList, yearList];
-};
-
-// functions for generating month list for data (monthly)
-function momCobaltHistMonth() {
-    var monthList = [1,2,3,4,5,6,7,8,9,10,11,12];
-    var monthStrList = [
-        "January", "February", "March", 
-        "April", "May", "June", 
-        "July", "August", "September",
-        "October", "November", "December"
-    ];
-    return [monthList, monthStrList];
-};
-
-// function for create option for data
-function createMomCobaltHistTimeOpt(selectTagID,timeGenFunc) {
-    let elm = document.getElementById(selectTagID);
-    let [listVal, listStr] = timeGenFunc()    
-    let df = optionList(listStr,listVal);
-    elm.appendChild(df);
-};
-
 
 // function for advancing/recede to the next option in the list
 //   used directly in html page button with attribute onclick
