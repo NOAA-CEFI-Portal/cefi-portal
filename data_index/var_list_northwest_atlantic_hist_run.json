@@ -1,0 +1,410 @@
+{
+    "data1": {
+        "Variable_Name": "tos",
+        "Output_Frequency": "daily",
+        "Long_Name": "Sea Surface Temperature",
+        "Unit": "degC",
+        "File_Name": "ocean_daily.19930101-20191231.tos.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_daily.19930101-20191231.tos.nc"
+    },
+    "data2": {
+        "Variable_Name": "ssu_rotate",
+        "Output_Frequency": "daily",
+        "Long_Name": "Sea Surface Zonal Velocity",
+        "Unit": "m s-1",
+        "File_Name": "ocean_daily.19930101-20191231.ssu_rotate.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_daily.19930101-20191231.ssu_rotate.nc"
+    },
+    "data3": {
+        "Variable_Name": "ssu",
+        "Output_Frequency": "daily",
+        "Long_Name": "Sea Surface Zonal Velocity",
+        "Unit": "m s-1",
+        "File_Name": "ocean_daily.19930101-20191231.ssu.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_daily.19930101-20191231.ssu.nc"
+    },
+    "data4": {
+        "Variable_Name": "ssh",
+        "Output_Frequency": "daily",
+        "Long_Name": "Sea Surface Height",
+        "Unit": "m",
+        "File_Name": "ocean_daily.19930101-20191231.ssh.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_daily.19930101-20191231.ssh.nc"
+    },
+    "data5": {
+        "Variable_Name": "sos",
+        "Output_Frequency": "daily",
+        "Long_Name": "Sea Surface Salinity",
+        "Unit": "psu",
+        "File_Name": "ocean_daily.19930101-20191231.sos.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_daily.19930101-20191231.sos.nc"
+    },
+    "data6": {
+        "Variable_Name": "sob",
+        "Output_Frequency": "daily",
+        "Long_Name": "Sea Water Salinity at Sea Floor",
+        "Unit": "psu",
+        "File_Name": "ocean_daily.19930101-20191231.sob.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_daily.19930101-20191231.sob.nc"
+    },
+    "data7": {
+        "Variable_Name": "tob",
+        "Output_Frequency": "daily",
+        "Long_Name": "Sea Water Potential Temperature at Sea Floor",
+        "Unit": "degC",
+        "File_Name": "ocean_daily.19930101-20191231.tob.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_daily.19930101-20191231.tob.nc"
+    },
+    "data8": {
+        "Variable_Name": "ssv",
+        "Output_Frequency": "daily",
+        "Long_Name": "Sea Surface Meridional Velocity",
+        "Unit": "m s-1",
+        "File_Name": "ocean_daily.19930101-20191231.ssv.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_daily.19930101-20191231.ssv.nc"
+    },
+    "data9": {
+        "Variable_Name": "ssv_rotate",
+        "Output_Frequency": "daily",
+        "Long_Name": "Sea Surface Meridional Velocity",
+        "Unit": "m s-1",
+        "File_Name": "ocean_daily.19930101-20191231.ssv_rotate.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_daily.19930101-20191231.ssv_rotate.nc"
+    },
+    "data10": {
+        "Variable_Name": "btm_o2",
+        "Output_Frequency": "daily",
+        "Long_Name": "Bottom Oxygen",
+        "Unit": "mol kg-1",
+        "File_Name": "ocean_cobalt_daily_2d.19930101-20191231.btm_o2.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_cobalt_daily_2d.19930101-20191231.btm_o2.nc"
+    },
+    "data11": {
+        "Variable_Name": "sos",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Sea Surface Salinity",
+        "Unit": "psu",
+        "File_Name": "ocean_monthly.199301-201912.sos.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_monthly.199301-201912.sos.nc"
+    },
+    "data12": {
+        "Variable_Name": "ssh",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Sea Surface Height",
+        "Unit": "m",
+        "File_Name": "ocean_monthly.199301-201912.ssh.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_monthly.199301-201912.ssh.nc"
+    },
+    "data13": {
+        "Variable_Name": "tob",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Sea Water Potential Temperature at Sea Floor",
+        "Unit": "degC",
+        "File_Name": "ocean_monthly.199301-201912.tob.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_monthly.199301-201912.tob.nc"
+    },
+    "data14": {
+        "Variable_Name": "tos",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Sea Surface Temperature",
+        "Unit": "degC",
+        "File_Name": "ocean_monthly.199301-201912.tos.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_monthly.199301-201912.tos.nc"
+    },
+    "data15": {
+        "Variable_Name": "so",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Sea Water Salinity",
+        "Unit": "psu",
+        "File_Name": "ocean_monthly_z.199301-201912.so.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_monthly_z.199301-201912.so.nc"
+    },
+    "data16": {
+        "Variable_Name": "MLD_003",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Mixed layer depth (delta rho = 0.03)",
+        "Unit": "m",
+        "File_Name": "ocean_monthly.199301-201912.MLD_003.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_monthly.199301-201912.MLD_003.nc"
+    },
+    "data17": {
+        "Variable_Name": "siconc",
+        "Output_Frequency": "monthly",
+        "Long_Name": "ice concentration",
+        "Unit": "0-1",
+        "File_Name": "ice_monthly.199301-201912.siconc.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ice_monthly.199301-201912.siconc.nc"
+    },
+    "data18": {
+        "Variable_Name": "thetao",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Sea Water Potential Temperature",
+        "Unit": "degC",
+        "File_Name": "ocean_monthly_z.199301-201912.thetao.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_monthly_z.199301-201912.thetao.nc"
+    },
+    "data19": {
+        "Variable_Name": "sfc_po4",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Surface PO4",
+        "Unit": "mol kg-1",
+        "File_Name": "ocean_cobalt_sfc.199301-201912.sfc_po4.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_cobalt_sfc.199301-201912.sfc_po4.nc"
+    },
+    "data20": {
+        "Variable_Name": "sfc_no3",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Surface NO3",
+        "Unit": "mol kg-1",
+        "File_Name": "ocean_cobalt_sfc.199301-201912.sfc_no3.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_cobalt_sfc.199301-201912.sfc_no3.nc"
+    },
+    "data21": {
+        "Variable_Name": "sfc_co3_sol_arag",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Surface Carbonate Ion Solubility for Aragonite",
+        "Unit": "mol kg-1",
+        "File_Name": "ocean_cobalt_sfc.199301-201912.sfc_co3_sol_arag.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_cobalt_sfc.199301-201912.sfc_co3_sol_arag.nc"
+    },
+    "data22": {
+        "Variable_Name": "sfc_co3_ion",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Surface Carbonate Ion",
+        "Unit": "mol kg-1",
+        "File_Name": "ocean_cobalt_sfc.199301-201912.sfc_co3_ion.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_cobalt_sfc.199301-201912.sfc_co3_ion.nc"
+    },
+    "data23": {
+        "Variable_Name": "talkos",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Surface Total Alkalinity",
+        "Unit": "mol m-3",
+        "File_Name": "ocean_cobalt_omip_sfc.199301-201912.talkos.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_cobalt_omip_sfc.199301-201912.talkos.nc"
+    },
+    "data24": {
+        "Variable_Name": "dissicos",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Surface Dissolved Inorganic Carbon Concentration",
+        "Unit": "mol m-3",
+        "File_Name": "ocean_cobalt_omip_sfc.199301-201912.dissicos.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_cobalt_omip_sfc.199301-201912.dissicos.nc"
+    },
+    "data25": {
+        "Variable_Name": "chlos",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Surface Mass Concentration of Total Phytoplankton expressed as Chlorophyll in sea water",
+        "Unit": "kg m-3",
+        "File_Name": "ocean_cobalt_omip_sfc.199301-201912.chlos.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_cobalt_omip_sfc.199301-201912.chlos.nc"
+    },
+    "data26": {
+        "Variable_Name": "mesozoo_200",
+        "Output_Frequency": "monthly",
+        "Long_Name": "Mesozooplankton biomass, 200m integral",
+        "Unit": "mol m-2",
+        "File_Name": "ocean_cobalt_tracers_int.199301-201912.mesozoo_200.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_cobalt_tracers_int.199301-201912.mesozoo_200.nc"
+    },
+    "data27": {
+        "Variable_Name": "geolat_u",
+        "Output_Frequency": "static",
+        "Long_Name": "Latitude of zonal velocity (Cu) points",
+        "Unit": "degrees_north",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data28": {
+        "Variable_Name": "geolat_v",
+        "Output_Frequency": "static",
+        "Long_Name": "Latitude of meridional velocity (Cv) points",
+        "Unit": "degrees_north",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data29": {
+        "Variable_Name": "geolon",
+        "Output_Frequency": "static",
+        "Long_Name": "Longitude of tracer (T) points",
+        "Unit": "degrees_east",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data30": {
+        "Variable_Name": "geolon_c",
+        "Output_Frequency": "static",
+        "Long_Name": "Longitude of corner (Bu) points",
+        "Unit": "degrees_east",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data31": {
+        "Variable_Name": "sftof",
+        "Output_Frequency": "static",
+        "Long_Name": "Sea Area Fraction",
+        "Unit": "%",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data32": {
+        "Variable_Name": "geolon_v",
+        "Output_Frequency": "static",
+        "Long_Name": "Longitude of meridional velocity (Cv) points",
+        "Unit": "degrees_east",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data33": {
+        "Variable_Name": "geolat_c",
+        "Output_Frequency": "static",
+        "Long_Name": "Latitude of corner (Bu) points",
+        "Unit": "degrees_north",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data34": {
+        "Variable_Name": "wet",
+        "Output_Frequency": "static",
+        "Long_Name": "0 if land, 1 if ocean at tracer points",
+        "Unit": "unitless",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data35": {
+        "Variable_Name": "wet_c",
+        "Output_Frequency": "static",
+        "Long_Name": "0 if land, 1 if ocean at corner (Bu) points",
+        "Unit": "unitless",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data36": {
+        "Variable_Name": "geolon_u",
+        "Output_Frequency": "static",
+        "Long_Name": "Longitude of zonal velocity (Cu) points",
+        "Unit": "degrees_east",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data37": {
+        "Variable_Name": "geolat",
+        "Output_Frequency": "static",
+        "Long_Name": "Latitude of tracer (T) points",
+        "Unit": "degrees_north",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data38": {
+        "Variable_Name": "dxt",
+        "Output_Frequency": "static",
+        "Long_Name": "Delta(x) at thickness/tracer points (meter)",
+        "Unit": "m",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data39": {
+        "Variable_Name": "dyCv",
+        "Output_Frequency": "static",
+        "Long_Name": "Delta(y) at v points (meter)",
+        "Unit": "m",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data40": {
+        "Variable_Name": "dyCu",
+        "Output_Frequency": "static",
+        "Long_Name": "Delta(y) at u points (meter)",
+        "Unit": "m",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data41": {
+        "Variable_Name": "dxCv",
+        "Output_Frequency": "static",
+        "Long_Name": "Delta(x) at v points (meter)",
+        "Unit": "m",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data42": {
+        "Variable_Name": "dxCu",
+        "Output_Frequency": "static",
+        "Long_Name": "Delta(x) at u points (meter)",
+        "Unit": "m",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data43": {
+        "Variable_Name": "deptho",
+        "Output_Frequency": "static",
+        "Long_Name": "Sea Floor Depth",
+        "Unit": "m",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data44": {
+        "Variable_Name": "areacello_cv",
+        "Output_Frequency": "static",
+        "Long_Name": "Ocean Grid-Cell Area",
+        "Unit": "m2",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data45": {
+        "Variable_Name": "areacello_cu",
+        "Output_Frequency": "static",
+        "Long_Name": "Ocean Grid-Cell Area",
+        "Unit": "m2",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data46": {
+        "Variable_Name": "areacello_bu",
+        "Output_Frequency": "static",
+        "Long_Name": "Ocean Grid-Cell Area",
+        "Unit": "m2",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data47": {
+        "Variable_Name": "areacello",
+        "Output_Frequency": "static",
+        "Long_Name": "Ocean Grid-Cell Area",
+        "Unit": "m2",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data48": {
+        "Variable_Name": "Coriolis",
+        "Output_Frequency": "static",
+        "Long_Name": "Coriolis parameter at corner (Bu) points",
+        "Unit": "s-1",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data49": {
+        "Variable_Name": "wet_u",
+        "Output_Frequency": "static",
+        "Long_Name": "0 if land, 1 if ocean at zonal velocity (Cu) points",
+        "Unit": "unitless",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data50": {
+        "Variable_Name": "dyt",
+        "Output_Frequency": "static",
+        "Long_Name": "Delta(y) at thickness/tracer points (meter)",
+        "Unit": "m",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    },
+    "data51": {
+        "Variable_Name": "wet_v",
+        "Output_Frequency": "static",
+        "Long_Name": "0 if land, 1 if ocean at meridional velocity (Cv) points",
+        "Unit": "unitless",
+        "File_Name": "ocean_static.nc",
+        "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc"
+    }
+}

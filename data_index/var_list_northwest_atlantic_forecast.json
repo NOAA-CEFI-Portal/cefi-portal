@@ -1,6 +1,6 @@
 {
     "data1": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1993-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -8,7 +8,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199303.nc"
     },
     "data2": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1993-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -16,7 +16,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199303.nc"
     },
     "data3": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1993-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -24,7 +24,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199306.nc"
     },
     "data4": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1993-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -32,7 +32,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199306.nc"
     },
     "data5": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1993-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -40,7 +40,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199309.nc"
     },
     "data6": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1993-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -48,7 +48,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199309.nc"
     },
     "data7": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1993-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -56,7 +56,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199312.nc"
     },
     "data8": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1993-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -64,7 +64,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199312.nc"
     },
     "data9": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1994-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -72,7 +72,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199403.nc"
     },
     "data10": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1994-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -80,7 +80,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199403.nc"
     },
     "data11": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1994-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -88,7 +88,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199406.nc"
     },
     "data12": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1994-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -96,7 +96,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199406.nc"
     },
     "data13": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1994-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -104,7 +104,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199409.nc"
     },
     "data14": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1994-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -112,7 +112,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199409.nc"
     },
     "data15": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1994-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -120,7 +120,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199412.nc"
     },
     "data16": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1994-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -128,7 +128,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199412.nc"
     },
     "data17": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1995-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -136,7 +136,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199503.nc"
     },
     "data18": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1995-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -144,7 +144,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199503.nc"
     },
     "data19": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1995-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -152,7 +152,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199506.nc"
     },
     "data20": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1995-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -160,7 +160,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199506.nc"
     },
     "data21": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1995-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -168,7 +168,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199509.nc"
     },
     "data22": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1995-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -176,7 +176,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199509.nc"
     },
     "data23": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1995-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -184,7 +184,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199512.nc"
     },
     "data24": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1995-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -192,7 +192,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199512.nc"
     },
     "data25": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1996-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -200,7 +200,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199603.nc"
     },
     "data26": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1996-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -208,7 +208,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199603.nc"
     },
     "data27": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1996-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -216,7 +216,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199606.nc"
     },
     "data28": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1996-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -224,7 +224,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199606.nc"
     },
     "data29": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1996-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -232,7 +232,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199609.nc"
     },
     "data30": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1996-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -240,7 +240,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199609.nc"
     },
     "data31": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1996-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -248,7 +248,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199612.nc"
     },
     "data32": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1996-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -256,7 +256,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199612.nc"
     },
     "data33": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1997-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -264,7 +264,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199703.nc"
     },
     "data34": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1997-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -272,7 +272,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199703.nc"
     },
     "data35": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1997-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -280,7 +280,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199706.nc"
     },
     "data36": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1997-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -288,7 +288,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199706.nc"
     },
     "data37": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1997-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -296,7 +296,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199709.nc"
     },
     "data38": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1997-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -304,7 +304,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199709.nc"
     },
     "data39": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1997-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -312,7 +312,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199712.nc"
     },
     "data40": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1997-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -320,7 +320,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199712.nc"
     },
     "data41": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1998-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -328,7 +328,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199803.nc"
     },
     "data42": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1998-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -336,7 +336,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199803.nc"
     },
     "data43": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1998-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -344,7 +344,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199806.nc"
     },
     "data44": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1998-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -352,7 +352,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199806.nc"
     },
     "data45": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1998-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -360,7 +360,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199809.nc"
     },
     "data46": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1998-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -368,7 +368,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199809.nc"
     },
     "data47": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1998-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -376,7 +376,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199812.nc"
     },
     "data48": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1998-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -384,7 +384,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199812.nc"
     },
     "data49": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1999-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -392,7 +392,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199903.nc"
     },
     "data50": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1999-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -400,7 +400,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199903.nc"
     },
     "data51": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1999-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -408,7 +408,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199906.nc"
     },
     "data52": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1999-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -416,7 +416,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199906.nc"
     },
     "data53": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1999-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -424,7 +424,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199909.nc"
     },
     "data54": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1999-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -432,7 +432,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199909.nc"
     },
     "data55": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "1999-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -440,7 +440,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199912.nc"
     },
     "data56": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "1999-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -448,7 +448,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i199912.nc"
     },
     "data57": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2000-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -456,7 +456,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200003.nc"
     },
     "data58": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2000-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -464,7 +464,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200003.nc"
     },
     "data59": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2000-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -472,7 +472,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200006.nc"
     },
     "data60": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2000-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -480,7 +480,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200006.nc"
     },
     "data61": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2000-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -488,7 +488,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200009.nc"
     },
     "data62": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2000-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -496,7 +496,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200009.nc"
     },
     "data63": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2000-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -504,7 +504,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200012.nc"
     },
     "data64": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2000-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -512,7 +512,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200012.nc"
     },
     "data65": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2001-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -520,7 +520,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200103.nc"
     },
     "data66": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2001-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -528,7 +528,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200103.nc"
     },
     "data67": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2001-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -536,7 +536,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200106.nc"
     },
     "data68": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2001-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -544,7 +544,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200106.nc"
     },
     "data69": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2001-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -552,7 +552,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200109.nc"
     },
     "data70": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2001-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -560,7 +560,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200109.nc"
     },
     "data71": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2001-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -568,7 +568,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200112.nc"
     },
     "data72": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2001-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -576,7 +576,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200112.nc"
     },
     "data73": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2002-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -584,7 +584,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200203.nc"
     },
     "data74": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2002-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -592,7 +592,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200203.nc"
     },
     "data75": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2002-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -600,7 +600,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200206.nc"
     },
     "data76": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2002-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -608,7 +608,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200206.nc"
     },
     "data77": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2002-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -616,7 +616,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200209.nc"
     },
     "data78": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2002-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -624,7 +624,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200209.nc"
     },
     "data79": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2002-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -632,7 +632,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200212.nc"
     },
     "data80": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2002-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -640,7 +640,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200212.nc"
     },
     "data81": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2003-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -648,7 +648,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200303.nc"
     },
     "data82": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2003-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -656,7 +656,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200303.nc"
     },
     "data83": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2003-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -664,7 +664,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200306.nc"
     },
     "data84": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2003-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -672,7 +672,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200306.nc"
     },
     "data85": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2003-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -680,7 +680,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200309.nc"
     },
     "data86": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2003-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -688,7 +688,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200309.nc"
     },
     "data87": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2003-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -696,7 +696,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200312.nc"
     },
     "data88": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2003-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -704,7 +704,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200312.nc"
     },
     "data89": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2004-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -712,7 +712,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200403.nc"
     },
     "data90": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2004-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -720,7 +720,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200403.nc"
     },
     "data91": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2004-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -728,7 +728,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200406.nc"
     },
     "data92": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2004-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -736,7 +736,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200406.nc"
     },
     "data93": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2004-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -744,7 +744,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200409.nc"
     },
     "data94": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2004-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -752,7 +752,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200409.nc"
     },
     "data95": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2004-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -760,7 +760,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200412.nc"
     },
     "data96": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2004-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -768,7 +768,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200412.nc"
     },
     "data97": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2005-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -776,7 +776,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200503.nc"
     },
     "data98": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2005-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -784,7 +784,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200503.nc"
     },
     "data99": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2005-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -792,7 +792,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200506.nc"
     },
     "data100": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2005-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -800,7 +800,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200506.nc"
     },
     "data101": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2005-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -808,7 +808,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200509.nc"
     },
     "data102": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2005-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -816,7 +816,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200509.nc"
     },
     "data103": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2005-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -824,7 +824,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200512.nc"
     },
     "data104": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2005-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -832,7 +832,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200512.nc"
     },
     "data105": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2006-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -840,7 +840,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200603.nc"
     },
     "data106": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2006-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -848,7 +848,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200603.nc"
     },
     "data107": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2006-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -856,7 +856,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200606.nc"
     },
     "data108": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2006-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -864,7 +864,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200606.nc"
     },
     "data109": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2006-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -872,7 +872,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200609.nc"
     },
     "data110": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2006-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -880,7 +880,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200609.nc"
     },
     "data111": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2006-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -888,7 +888,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200612.nc"
     },
     "data112": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2006-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -896,7 +896,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200612.nc"
     },
     "data113": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2007-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -904,7 +904,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200703.nc"
     },
     "data114": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2007-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -912,7 +912,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200703.nc"
     },
     "data115": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2007-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -920,7 +920,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200706.nc"
     },
     "data116": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2007-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -928,7 +928,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200706.nc"
     },
     "data117": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2007-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -936,7 +936,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200709.nc"
     },
     "data118": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2007-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -944,7 +944,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200709.nc"
     },
     "data119": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2007-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -952,7 +952,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200712.nc"
     },
     "data120": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2007-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -960,7 +960,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200712.nc"
     },
     "data121": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2008-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -968,7 +968,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200803.nc"
     },
     "data122": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2008-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -976,7 +976,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200803.nc"
     },
     "data123": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2008-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -984,7 +984,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200806.nc"
     },
     "data124": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2008-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -992,7 +992,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200806.nc"
     },
     "data125": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2008-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1000,7 +1000,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200809.nc"
     },
     "data126": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2008-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1008,7 +1008,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200809.nc"
     },
     "data127": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2008-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1016,7 +1016,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200812.nc"
     },
     "data128": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2008-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1024,7 +1024,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200812.nc"
     },
     "data129": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2009-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1032,7 +1032,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200903.nc"
     },
     "data130": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2009-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1040,7 +1040,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200903.nc"
     },
     "data131": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2009-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1048,7 +1048,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200906.nc"
     },
     "data132": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2009-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1056,7 +1056,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200906.nc"
     },
     "data133": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2009-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1064,7 +1064,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200909.nc"
     },
     "data134": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2009-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1072,7 +1072,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200909.nc"
     },
     "data135": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2009-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1080,7 +1080,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200912.nc"
     },
     "data136": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2009-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1088,7 +1088,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i200912.nc"
     },
     "data137": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2010-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1096,7 +1096,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201003.nc"
     },
     "data138": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2010-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1104,7 +1104,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201003.nc"
     },
     "data139": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2010-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1112,7 +1112,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201006.nc"
     },
     "data140": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2010-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1120,7 +1120,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201006.nc"
     },
     "data141": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2010-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1128,7 +1128,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201009.nc"
     },
     "data142": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2010-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1136,7 +1136,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201009.nc"
     },
     "data143": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2010-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1144,7 +1144,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201012.nc"
     },
     "data144": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2010-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1152,7 +1152,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201012.nc"
     },
     "data145": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2011-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1160,7 +1160,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201103.nc"
     },
     "data146": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2011-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1168,7 +1168,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201103.nc"
     },
     "data147": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2011-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1176,7 +1176,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201106.nc"
     },
     "data148": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2011-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1184,7 +1184,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201106.nc"
     },
     "data149": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2011-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1192,7 +1192,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201109.nc"
     },
     "data150": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2011-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1200,7 +1200,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201109.nc"
     },
     "data151": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2011-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1208,7 +1208,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201112.nc"
     },
     "data152": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2011-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1216,7 +1216,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201112.nc"
     },
     "data153": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2012-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1224,7 +1224,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201203.nc"
     },
     "data154": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2012-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1232,7 +1232,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201203.nc"
     },
     "data155": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2012-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1240,7 +1240,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201206.nc"
     },
     "data156": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2012-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1248,7 +1248,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201206.nc"
     },
     "data157": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2012-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1256,7 +1256,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201209.nc"
     },
     "data158": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2012-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1264,7 +1264,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201209.nc"
     },
     "data159": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2012-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1272,7 +1272,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201212.nc"
     },
     "data160": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2012-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1280,7 +1280,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201212.nc"
     },
     "data161": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2013-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1288,7 +1288,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201303.nc"
     },
     "data162": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2013-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1296,7 +1296,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201303.nc"
     },
     "data163": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2013-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1304,7 +1304,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201306.nc"
     },
     "data164": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2013-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1312,7 +1312,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201306.nc"
     },
     "data165": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2013-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1320,7 +1320,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201309.nc"
     },
     "data166": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2013-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1328,7 +1328,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201309.nc"
     },
     "data167": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2013-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1336,7 +1336,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201312.nc"
     },
     "data168": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2013-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1344,7 +1344,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201312.nc"
     },
     "data169": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2014-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1352,7 +1352,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201403.nc"
     },
     "data170": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2014-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1360,7 +1360,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201403.nc"
     },
     "data171": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2014-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1368,7 +1368,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201406.nc"
     },
     "data172": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2014-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1376,7 +1376,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201406.nc"
     },
     "data173": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2014-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1384,7 +1384,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201409.nc"
     },
     "data174": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2014-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1392,7 +1392,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201409.nc"
     },
     "data175": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2014-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1400,7 +1400,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201412.nc"
     },
     "data176": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2014-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1408,7 +1408,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201412.nc"
     },
     "data177": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2015-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1416,7 +1416,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201503.nc"
     },
     "data178": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2015-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1424,7 +1424,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201503.nc"
     },
     "data179": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2015-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1432,7 +1432,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201506.nc"
     },
     "data180": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2015-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1440,7 +1440,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201506.nc"
     },
     "data181": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2015-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1448,7 +1448,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201509.nc"
     },
     "data182": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2015-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1456,7 +1456,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201509.nc"
     },
     "data183": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2015-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1464,7 +1464,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201512.nc"
     },
     "data184": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2015-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1472,7 +1472,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201512.nc"
     },
     "data185": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2016-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1480,7 +1480,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201603.nc"
     },
     "data186": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2016-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1488,7 +1488,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201603.nc"
     },
     "data187": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2016-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1496,7 +1496,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201606.nc"
     },
     "data188": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2016-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1504,7 +1504,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201606.nc"
     },
     "data189": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2016-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1512,7 +1512,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201609.nc"
     },
     "data190": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2016-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1520,7 +1520,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201609.nc"
     },
     "data191": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2016-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1528,7 +1528,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201612.nc"
     },
     "data192": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2016-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1536,7 +1536,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201612.nc"
     },
     "data193": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2017-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1544,7 +1544,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201703.nc"
     },
     "data194": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2017-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1552,7 +1552,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201703.nc"
     },
     "data195": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2017-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1560,7 +1560,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201706.nc"
     },
     "data196": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2017-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1568,7 +1568,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201706.nc"
     },
     "data197": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2017-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1576,7 +1576,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201709.nc"
     },
     "data198": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2017-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1584,7 +1584,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201709.nc"
     },
     "data199": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2017-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1592,7 +1592,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201712.nc"
     },
     "data200": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2017-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1600,7 +1600,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201712.nc"
     },
     "data201": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2018-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1608,7 +1608,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201803.nc"
     },
     "data202": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2018-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1616,7 +1616,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201803.nc"
     },
     "data203": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2018-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1624,7 +1624,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201806.nc"
     },
     "data204": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2018-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1632,7 +1632,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201806.nc"
     },
     "data205": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2018-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1640,7 +1640,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201809.nc"
     },
     "data206": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2018-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1648,7 +1648,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201809.nc"
     },
     "data207": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2018-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1656,7 +1656,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201812.nc"
     },
     "data208": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2018-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1664,7 +1664,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201812.nc"
     },
     "data209": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2019-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1672,7 +1672,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201903.nc"
     },
     "data210": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2019-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1680,7 +1680,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201903.nc"
     },
     "data211": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2019-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1688,7 +1688,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201906.nc"
     },
     "data212": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2019-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1696,7 +1696,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201906.nc"
     },
     "data213": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2019-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1704,7 +1704,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201909.nc"
     },
     "data214": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2019-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1712,7 +1712,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201909.nc"
     },
     "data215": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2019-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1720,7 +1720,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201912.nc"
     },
     "data216": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2019-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1728,7 +1728,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i201912.nc"
     },
     "data217": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2020-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1736,7 +1736,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202003.nc"
     },
     "data218": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2020-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1744,7 +1744,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202003.nc"
     },
     "data219": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2020-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1752,7 +1752,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202006.nc"
     },
     "data220": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2020-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1760,7 +1760,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202006.nc"
     },
     "data221": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2020-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1768,7 +1768,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202009.nc"
     },
     "data222": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2020-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1776,7 +1776,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202009.nc"
     },
     "data223": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2020-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1784,7 +1784,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202012.nc"
     },
     "data224": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2020-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1792,7 +1792,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202012.nc"
     },
     "data225": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2021-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1800,7 +1800,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202103.nc"
     },
     "data226": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2021-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1808,7 +1808,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202103.nc"
     },
     "data227": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2021-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1816,7 +1816,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202106.nc"
     },
     "data228": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2021-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1824,7 +1824,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202106.nc"
     },
     "data229": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2021-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1832,7 +1832,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202109.nc"
     },
     "data230": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2021-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1840,7 +1840,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202109.nc"
     },
     "data231": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2021-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1848,7 +1848,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202112.nc"
     },
     "data232": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2021-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1856,7 +1856,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202112.nc"
     },
     "data233": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2022-03",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1864,7 +1864,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202203.nc"
     },
     "data234": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2022-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1872,7 +1872,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202203.nc"
     },
     "data235": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2022-06",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1880,7 +1880,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202206.nc"
     },
     "data236": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2022-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1888,7 +1888,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202206.nc"
     },
     "data237": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2022-09",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1896,7 +1896,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202209.nc"
     },
     "data238": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2022-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1904,7 +1904,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202209.nc"
     },
     "data239": {
-        "Varible_Name": "tob",
+        "Variable_Name": "tob",
         "Time_of_Initialization": "2022-12",
         "Long_Name": "Sea Water Potential Temperature at Sea Floor",
         "Unit": "degC",
@@ -1912,7 +1912,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202212.nc"
     },
     "data240": {
-        "Varible_Name": "tob_anom",
+        "Variable_Name": "tob_anom",
         "Time_of_Initialization": "2022-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1920,7 +1920,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tob_forecast_i202212.nc"
     },
     "data241": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1993-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -1928,7 +1928,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199303.nc"
     },
     "data242": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1993-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1936,7 +1936,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199303.nc"
     },
     "data243": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1993-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -1944,7 +1944,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199306.nc"
     },
     "data244": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1993-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1952,7 +1952,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199306.nc"
     },
     "data245": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1993-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -1960,7 +1960,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199309.nc"
     },
     "data246": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1993-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1968,7 +1968,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199309.nc"
     },
     "data247": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1993-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -1976,7 +1976,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199312.nc"
     },
     "data248": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1993-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -1984,7 +1984,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199312.nc"
     },
     "data249": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1994-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -1992,7 +1992,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199403.nc"
     },
     "data250": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1994-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2000,7 +2000,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199403.nc"
     },
     "data251": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1994-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2008,7 +2008,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199406.nc"
     },
     "data252": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1994-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2016,7 +2016,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199406.nc"
     },
     "data253": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1994-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2024,7 +2024,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199409.nc"
     },
     "data254": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1994-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2032,7 +2032,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199409.nc"
     },
     "data255": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1994-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2040,7 +2040,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199412.nc"
     },
     "data256": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1994-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2048,7 +2048,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199412.nc"
     },
     "data257": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1995-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2056,7 +2056,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199503.nc"
     },
     "data258": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1995-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2064,7 +2064,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199503.nc"
     },
     "data259": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1995-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2072,7 +2072,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199506.nc"
     },
     "data260": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1995-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2080,7 +2080,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199506.nc"
     },
     "data261": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1995-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2088,7 +2088,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199509.nc"
     },
     "data262": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1995-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2096,7 +2096,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199509.nc"
     },
     "data263": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1995-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2104,7 +2104,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199512.nc"
     },
     "data264": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1995-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2112,7 +2112,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199512.nc"
     },
     "data265": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1996-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2120,7 +2120,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199603.nc"
     },
     "data266": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1996-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2128,7 +2128,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199603.nc"
     },
     "data267": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1996-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2136,7 +2136,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199606.nc"
     },
     "data268": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1996-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2144,7 +2144,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199606.nc"
     },
     "data269": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1996-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2152,7 +2152,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199609.nc"
     },
     "data270": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1996-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2160,7 +2160,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199609.nc"
     },
     "data271": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1996-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2168,7 +2168,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199612.nc"
     },
     "data272": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1996-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2176,7 +2176,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199612.nc"
     },
     "data273": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1997-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2184,7 +2184,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199703.nc"
     },
     "data274": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1997-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2192,7 +2192,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199703.nc"
     },
     "data275": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1997-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2200,7 +2200,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199706.nc"
     },
     "data276": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1997-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2208,7 +2208,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199706.nc"
     },
     "data277": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1997-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2216,7 +2216,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199709.nc"
     },
     "data278": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1997-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2224,7 +2224,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199709.nc"
     },
     "data279": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1997-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2232,7 +2232,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199712.nc"
     },
     "data280": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1997-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2240,7 +2240,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199712.nc"
     },
     "data281": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1998-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2248,7 +2248,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199803.nc"
     },
     "data282": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1998-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2256,7 +2256,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199803.nc"
     },
     "data283": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1998-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2264,7 +2264,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199806.nc"
     },
     "data284": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1998-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2272,7 +2272,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199806.nc"
     },
     "data285": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1998-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2280,7 +2280,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199809.nc"
     },
     "data286": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1998-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2288,7 +2288,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199809.nc"
     },
     "data287": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1998-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2296,7 +2296,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199812.nc"
     },
     "data288": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1998-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2304,7 +2304,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199812.nc"
     },
     "data289": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1999-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2312,7 +2312,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199903.nc"
     },
     "data290": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1999-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2320,7 +2320,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199903.nc"
     },
     "data291": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1999-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2328,7 +2328,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199906.nc"
     },
     "data292": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1999-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2336,7 +2336,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199906.nc"
     },
     "data293": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1999-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2344,7 +2344,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199909.nc"
     },
     "data294": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1999-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2352,7 +2352,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199909.nc"
     },
     "data295": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "1999-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2360,7 +2360,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199912.nc"
     },
     "data296": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "1999-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2368,7 +2368,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i199912.nc"
     },
     "data297": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2000-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2376,7 +2376,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200003.nc"
     },
     "data298": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2000-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2384,7 +2384,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200003.nc"
     },
     "data299": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2000-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2392,7 +2392,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200006.nc"
     },
     "data300": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2000-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2400,7 +2400,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200006.nc"
     },
     "data301": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2000-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2408,7 +2408,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200009.nc"
     },
     "data302": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2000-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2416,7 +2416,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200009.nc"
     },
     "data303": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2000-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2424,7 +2424,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200012.nc"
     },
     "data304": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2000-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2432,7 +2432,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200012.nc"
     },
     "data305": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2001-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2440,7 +2440,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200103.nc"
     },
     "data306": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2001-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2448,7 +2448,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200103.nc"
     },
     "data307": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2001-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2456,7 +2456,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200106.nc"
     },
     "data308": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2001-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2464,7 +2464,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200106.nc"
     },
     "data309": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2001-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2472,7 +2472,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200109.nc"
     },
     "data310": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2001-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2480,7 +2480,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200109.nc"
     },
     "data311": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2001-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2488,7 +2488,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200112.nc"
     },
     "data312": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2001-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2496,7 +2496,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200112.nc"
     },
     "data313": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2002-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2504,7 +2504,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200203.nc"
     },
     "data314": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2002-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2512,7 +2512,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200203.nc"
     },
     "data315": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2002-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2520,7 +2520,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200206.nc"
     },
     "data316": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2002-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2528,7 +2528,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200206.nc"
     },
     "data317": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2002-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2536,7 +2536,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200209.nc"
     },
     "data318": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2002-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2544,7 +2544,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200209.nc"
     },
     "data319": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2002-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2552,7 +2552,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200212.nc"
     },
     "data320": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2002-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2560,7 +2560,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200212.nc"
     },
     "data321": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2003-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2568,7 +2568,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200303.nc"
     },
     "data322": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2003-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2576,7 +2576,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200303.nc"
     },
     "data323": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2003-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2584,7 +2584,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200306.nc"
     },
     "data324": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2003-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2592,7 +2592,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200306.nc"
     },
     "data325": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2003-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2600,7 +2600,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200309.nc"
     },
     "data326": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2003-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2608,7 +2608,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200309.nc"
     },
     "data327": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2003-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2616,7 +2616,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200312.nc"
     },
     "data328": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2003-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2624,7 +2624,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200312.nc"
     },
     "data329": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2004-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2632,7 +2632,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200403.nc"
     },
     "data330": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2004-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2640,7 +2640,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200403.nc"
     },
     "data331": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2004-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2648,7 +2648,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200406.nc"
     },
     "data332": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2004-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2656,7 +2656,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200406.nc"
     },
     "data333": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2004-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2664,7 +2664,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200409.nc"
     },
     "data334": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2004-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2672,7 +2672,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200409.nc"
     },
     "data335": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2004-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2680,7 +2680,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200412.nc"
     },
     "data336": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2004-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2688,7 +2688,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200412.nc"
     },
     "data337": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2005-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2696,7 +2696,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200503.nc"
     },
     "data338": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2005-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2704,7 +2704,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200503.nc"
     },
     "data339": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2005-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2712,7 +2712,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200506.nc"
     },
     "data340": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2005-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2720,7 +2720,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200506.nc"
     },
     "data341": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2005-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2728,7 +2728,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200509.nc"
     },
     "data342": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2005-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2736,7 +2736,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200509.nc"
     },
     "data343": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2005-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2744,7 +2744,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200512.nc"
     },
     "data344": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2005-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2752,7 +2752,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200512.nc"
     },
     "data345": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2006-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2760,7 +2760,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200603.nc"
     },
     "data346": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2006-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2768,7 +2768,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200603.nc"
     },
     "data347": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2006-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2776,7 +2776,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200606.nc"
     },
     "data348": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2006-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2784,7 +2784,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200606.nc"
     },
     "data349": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2006-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2792,7 +2792,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200609.nc"
     },
     "data350": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2006-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2800,7 +2800,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200609.nc"
     },
     "data351": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2006-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2808,7 +2808,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200612.nc"
     },
     "data352": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2006-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2816,7 +2816,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200612.nc"
     },
     "data353": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2007-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2824,7 +2824,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200703.nc"
     },
     "data354": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2007-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2832,7 +2832,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200703.nc"
     },
     "data355": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2007-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2840,7 +2840,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200706.nc"
     },
     "data356": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2007-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2848,7 +2848,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200706.nc"
     },
     "data357": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2007-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2856,7 +2856,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200709.nc"
     },
     "data358": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2007-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2864,7 +2864,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200709.nc"
     },
     "data359": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2007-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2872,7 +2872,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200712.nc"
     },
     "data360": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2007-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2880,7 +2880,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200712.nc"
     },
     "data361": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2008-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2888,7 +2888,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200803.nc"
     },
     "data362": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2008-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2896,7 +2896,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200803.nc"
     },
     "data363": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2008-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2904,7 +2904,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200806.nc"
     },
     "data364": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2008-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2912,7 +2912,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200806.nc"
     },
     "data365": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2008-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2920,7 +2920,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200809.nc"
     },
     "data366": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2008-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2928,7 +2928,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200809.nc"
     },
     "data367": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2008-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2936,7 +2936,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200812.nc"
     },
     "data368": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2008-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2944,7 +2944,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200812.nc"
     },
     "data369": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2009-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2952,7 +2952,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200903.nc"
     },
     "data370": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2009-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2960,7 +2960,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200903.nc"
     },
     "data371": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2009-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2968,7 +2968,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200906.nc"
     },
     "data372": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2009-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2976,7 +2976,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200906.nc"
     },
     "data373": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2009-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -2984,7 +2984,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200909.nc"
     },
     "data374": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2009-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -2992,7 +2992,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200909.nc"
     },
     "data375": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2009-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3000,7 +3000,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200912.nc"
     },
     "data376": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2009-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3008,7 +3008,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i200912.nc"
     },
     "data377": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2010-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3016,7 +3016,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201003.nc"
     },
     "data378": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2010-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3024,7 +3024,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201003.nc"
     },
     "data379": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2010-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3032,7 +3032,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201006.nc"
     },
     "data380": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2010-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3040,7 +3040,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201006.nc"
     },
     "data381": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2010-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3048,7 +3048,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201009.nc"
     },
     "data382": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2010-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3056,7 +3056,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201009.nc"
     },
     "data383": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2010-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3064,7 +3064,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201012.nc"
     },
     "data384": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2010-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3072,7 +3072,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201012.nc"
     },
     "data385": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2011-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3080,7 +3080,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201103.nc"
     },
     "data386": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2011-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3088,7 +3088,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201103.nc"
     },
     "data387": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2011-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3096,7 +3096,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201106.nc"
     },
     "data388": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2011-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3104,7 +3104,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201106.nc"
     },
     "data389": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2011-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3112,7 +3112,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201109.nc"
     },
     "data390": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2011-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3120,7 +3120,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201109.nc"
     },
     "data391": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2011-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3128,7 +3128,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201112.nc"
     },
     "data392": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2011-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3136,7 +3136,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201112.nc"
     },
     "data393": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2012-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3144,7 +3144,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201203.nc"
     },
     "data394": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2012-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3152,7 +3152,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201203.nc"
     },
     "data395": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2012-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3160,7 +3160,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201206.nc"
     },
     "data396": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2012-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3168,7 +3168,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201206.nc"
     },
     "data397": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2012-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3176,7 +3176,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201209.nc"
     },
     "data398": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2012-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3184,7 +3184,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201209.nc"
     },
     "data399": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2012-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3192,7 +3192,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201212.nc"
     },
     "data400": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2012-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3200,7 +3200,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201212.nc"
     },
     "data401": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2013-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3208,7 +3208,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201303.nc"
     },
     "data402": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2013-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3216,7 +3216,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201303.nc"
     },
     "data403": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2013-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3224,7 +3224,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201306.nc"
     },
     "data404": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2013-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3232,7 +3232,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201306.nc"
     },
     "data405": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2013-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3240,7 +3240,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201309.nc"
     },
     "data406": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2013-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3248,7 +3248,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201309.nc"
     },
     "data407": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2013-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3256,7 +3256,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201312.nc"
     },
     "data408": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2013-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3264,7 +3264,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201312.nc"
     },
     "data409": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2014-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3272,7 +3272,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201403.nc"
     },
     "data410": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2014-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3280,7 +3280,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201403.nc"
     },
     "data411": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2014-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3288,7 +3288,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201406.nc"
     },
     "data412": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2014-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3296,7 +3296,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201406.nc"
     },
     "data413": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2014-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3304,7 +3304,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201409.nc"
     },
     "data414": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2014-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3312,7 +3312,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201409.nc"
     },
     "data415": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2014-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3320,7 +3320,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201412.nc"
     },
     "data416": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2014-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3328,7 +3328,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201412.nc"
     },
     "data417": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2015-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3336,7 +3336,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201503.nc"
     },
     "data418": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2015-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3344,7 +3344,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201503.nc"
     },
     "data419": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2015-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3352,7 +3352,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201506.nc"
     },
     "data420": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2015-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3360,7 +3360,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201506.nc"
     },
     "data421": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2015-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3368,7 +3368,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201509.nc"
     },
     "data422": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2015-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3376,7 +3376,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201509.nc"
     },
     "data423": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2015-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3384,7 +3384,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201512.nc"
     },
     "data424": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2015-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3392,7 +3392,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201512.nc"
     },
     "data425": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2016-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3400,7 +3400,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201603.nc"
     },
     "data426": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2016-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3408,7 +3408,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201603.nc"
     },
     "data427": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2016-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3416,7 +3416,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201606.nc"
     },
     "data428": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2016-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3424,7 +3424,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201606.nc"
     },
     "data429": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2016-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3432,7 +3432,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201609.nc"
     },
     "data430": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2016-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3440,7 +3440,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201609.nc"
     },
     "data431": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2016-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3448,7 +3448,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201612.nc"
     },
     "data432": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2016-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3456,7 +3456,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201612.nc"
     },
     "data433": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2017-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3464,7 +3464,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201703.nc"
     },
     "data434": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2017-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3472,7 +3472,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201703.nc"
     },
     "data435": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2017-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3480,7 +3480,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201706.nc"
     },
     "data436": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2017-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3488,7 +3488,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201706.nc"
     },
     "data437": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2017-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3496,7 +3496,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201709.nc"
     },
     "data438": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2017-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3504,7 +3504,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201709.nc"
     },
     "data439": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2017-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3512,7 +3512,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201712.nc"
     },
     "data440": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2017-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3520,7 +3520,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201712.nc"
     },
     "data441": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2018-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3528,7 +3528,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201803.nc"
     },
     "data442": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2018-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3536,7 +3536,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201803.nc"
     },
     "data443": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2018-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3544,7 +3544,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201806.nc"
     },
     "data444": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2018-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3552,7 +3552,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201806.nc"
     },
     "data445": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2018-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3560,7 +3560,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201809.nc"
     },
     "data446": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2018-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3568,7 +3568,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201809.nc"
     },
     "data447": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2018-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3576,7 +3576,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201812.nc"
     },
     "data448": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2018-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3584,7 +3584,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201812.nc"
     },
     "data449": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2019-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3592,7 +3592,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201903.nc"
     },
     "data450": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2019-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3600,7 +3600,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201903.nc"
     },
     "data451": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2019-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3608,7 +3608,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201906.nc"
     },
     "data452": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2019-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3616,7 +3616,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201906.nc"
     },
     "data453": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2019-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3624,7 +3624,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201909.nc"
     },
     "data454": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2019-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3632,7 +3632,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201909.nc"
     },
     "data455": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2019-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3640,7 +3640,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201912.nc"
     },
     "data456": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2019-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3648,7 +3648,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i201912.nc"
     },
     "data457": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2020-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3656,7 +3656,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202003.nc"
     },
     "data458": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2020-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3664,7 +3664,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202003.nc"
     },
     "data459": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2020-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3672,7 +3672,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202006.nc"
     },
     "data460": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2020-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3680,7 +3680,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202006.nc"
     },
     "data461": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2020-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3688,7 +3688,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202009.nc"
     },
     "data462": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2020-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3696,7 +3696,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202009.nc"
     },
     "data463": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2020-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3704,7 +3704,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202012.nc"
     },
     "data464": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2020-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3712,7 +3712,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202012.nc"
     },
     "data465": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2021-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3720,7 +3720,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202103.nc"
     },
     "data466": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2021-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3728,7 +3728,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202103.nc"
     },
     "data467": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2021-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3736,7 +3736,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202106.nc"
     },
     "data468": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2021-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3744,7 +3744,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202106.nc"
     },
     "data469": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2021-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3752,7 +3752,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202109.nc"
     },
     "data470": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2021-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3760,7 +3760,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202109.nc"
     },
     "data471": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2021-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3768,7 +3768,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202112.nc"
     },
     "data472": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2021-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3776,7 +3776,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202112.nc"
     },
     "data473": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2022-03",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3784,7 +3784,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202203.nc"
     },
     "data474": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2022-03",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3792,7 +3792,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202203.nc"
     },
     "data475": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2022-06",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3800,7 +3800,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202206.nc"
     },
     "data476": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2022-06",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3808,7 +3808,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202206.nc"
     },
     "data477": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2022-09",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3816,7 +3816,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202209.nc"
     },
     "data478": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2022-09",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
@@ -3824,7 +3824,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202209.nc"
     },
     "data479": {
-        "Varible_Name": "tos",
+        "Variable_Name": "tos",
         "Time_of_Initialization": "2022-12",
         "Long_Name": "Sea Surface Temperature",
         "Unit": "degC",
@@ -3832,7 +3832,7 @@
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/forecast/tos_forecast_i202212.nc"
     },
     "data480": {
-        "Varible_Name": "tos_anom",
+        "Variable_Name": "tos_anom",
         "Time_of_Initialization": "2022-12",
         "Long_Name": "No long_name provided in netCDF",
         "Unit": "No unit provided in netCDF",
