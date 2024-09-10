@@ -63,114 +63,13 @@ $('#depthMOMCobaltTS2').val('');
 
 // Initial variable options based on dataset for second TS
 createMomCobaltVarOpt('onlyIndexes','indexMOMCobaltTS');
-// $('#indexMOMCobalt').val('');
 
-// // Default minidiv show
-// $(document).ready(function() {
-//     showDiv('tsView');
-// });
+// initialize plotly
+initializePlotly('all');
 
-// Initial dashboard plot
-$(function() {
-    var trace = {
-        x: "",
-        y: "",
-        type: 'scatter',
-        mode: 'lines+markers',
-        marker: { size: 8 },
-        line: { shape: 'linear' },
-        name: ""
-    };
-  
-    var layoutTS = {
-        title: 
-        'Click on map for time series',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        xaxis: { title: 'Date' },
-        yaxis: { title: 'Variable' },
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
+// plot index
+plotIndexes();
 
-    var layoutBox = {
-        title: 
-        'Box plot',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layoutHist = {
-        title: 
-        'Histogram',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layoutProf = {
-        title: 
-        'Profile',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layout2 = {
-        title: 
-        'Draw polyline on map',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        xaxis: { title: 'Date' },
-        yaxis: { title: 'Variable' },
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layout3 = {
-        title: 
-        'Pick an index',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        xaxis: { title: 'Date' },
-        yaxis: { title: 'Variable' },
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var config = {responsive: true}
-
-    Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
-    // Plotly.newPlot('plotly-box-plot', [trace], layoutBox,config);
-    // Plotly.newPlot('plotly-histogram', [trace], layoutHist,config);
-    Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
-    Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
-    Plotly.newPlot('plotly-transect', [trace], layout2,config);
-    // Plotly.newPlot('plotly-index', [trace], layout3)
-});
-plotIndexes()
-// window.onresize = function() {
-//     Plotly.relayout('plotly-index', {
-//         'xaxis.autorange': true,
-//         'yaxis.autorange': true
-//     });
-// };
 
 
 /// setup the variable for variable options in the page
@@ -388,6 +287,111 @@ $('#indexMOMCobaltTS').on("change", function () {
 
 
 ///////// functional function start /////////
+// intialize the plotly plot
+// Initial dashboard plot
+function initializePlotly(flag) {
+    var trace = {
+        x: "",
+        y: "",
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { size: 8 },
+        line: { shape: 'linear' },
+        name: ""
+    };
+  
+    var layoutTS = {
+        title: 
+        'Click on map for time series',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        xaxis: { title: 'Date' },
+        yaxis: { title: 'Variable' },
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layoutBox = {
+        title: 
+        'Box plot',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layoutHist = {
+        title: 
+        'Histogram',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layoutProf = {
+        title: 
+        'Profile',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layout2 = {
+        title: 
+        'Draw polyline on map',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        xaxis: { title: 'Date' },
+        yaxis: { title: 'Variable' },
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layout3 = {
+        title: 
+        'Pick an index',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        xaxis: { title: 'Date' },
+        yaxis: { title: 'Variable' },
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var config = {responsive: true}
+
+    if (flag ==='all'){
+        Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
+        // Plotly.newPlot('plotly-box-plot', [trace], layoutBox,config);
+        // Plotly.newPlot('plotly-histogram', [trace], layoutHist,config);
+        Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
+        Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
+        Plotly.newPlot('plotly-transect', [trace], layout2,config);
+        // Plotly.newPlot('plotly-index', [trace], layout3)
+    } else if (flag ==='vertical') {
+        Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
+        Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
+    } else if (flag ==='tseries') {
+        Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
+    } else if (flag ==='transect') {
+        Plotly.newPlot('plotly-transect', [trace], layout2,config);
+    }
+};
+
 //function for option change due to button/view change at the bottom
 function changeSelectOpt(divId,optionID,tabContentClass) {
     showDiv(divId,tabContentClass);
@@ -689,14 +693,24 @@ function replaceFolium() {
                         plotTS1(locationData);
                     }
                 }
+                //// current function only allowed in monthly data
                 if (dateFolium.length === 7){
-                    plotVertProfs(locationData)
+                    plotVertProfs(locationData);
+                } else {
+                    // initialize plotly
+                    initializePlotly('vertical');
                 }
             }
             // get same polyline transect when polyline and variable are defined
             if (polygonData !== undefined && polygonData !== null) {
                 if (varFoliumMap !== undefined && varFoliumMap !== null) {
-                    plotTransect(polygonData)
+                    //// current function only allowed in monthly data
+                    if (dateFolium.length === 7){
+                        plotTransect(polygonData);
+                    } else {
+                        // initialize plotly
+                        initializePlotly('transect');
+                    }
                 }
             }
 
