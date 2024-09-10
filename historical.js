@@ -212,9 +212,11 @@ $("#varMOMCobalt").on("change", function(){
     $("#blockMOMCobalt").empty();
     createMomCobaltDepthBlockOpt($("#varMOMCobalt").val());
 
-    // time slider change    
-    // console.log(dateFolium)
-    if (monthly_list.indexOf($(this).val()) === -1) {
+
+    // time slider change
+    var selectVarIndex = $("#varMOMCobalt").prop('selectedIndex');
+    if (freq_list[2][selectVarIndex] === 'daily'){
+        // change if dateFolium is origianly in monthly format
         if (dateFolium.length === 7){
             [yearValues, rangeValues] = generateDailyDateList();
             timeSlider.attr("min", 0);
@@ -223,7 +225,8 @@ $("#varMOMCobalt").on("change", function(){
             timeSlider.val(foundIndex);
             dateFolium = rangeValues[timeSlider.val()];
         }
-    } else if (daily_list.indexOf($(this).val()) === -1) {
+    } else if (freq_list[2][selectVarIndex] === 'monthly'){
+        // change if dateFolium is origianly in daily format
         if (dateFolium.length === 10){
             [yearValues, rangeValues] = generateDateList();
             timeSlider.attr("min", 0);
@@ -232,7 +235,28 @@ $("#varMOMCobalt").on("change", function(){
             timeSlider.val(foundIndex);
             dateFolium = rangeValues[timeSlider.val()];
         }
-    }
+    };
+    
+    // console.log(dateFolium)
+    // if (monthly_list.indexOf($(this).val()) === -1) {
+    //     if (dateFolium.length === 7){
+    //         [yearValues, rangeValues] = generateDailyDateList();
+    //         timeSlider.attr("min", 0);
+    //         timeSlider.attr("max", rangeValues.length - 1);
+    //         const foundIndex = rangeValues.indexOf(dateFolium+"-01");
+    //         timeSlider.val(foundIndex);
+    //         dateFolium = rangeValues[timeSlider.val()];
+    //     }
+    // } else if (daily_list.indexOf($(this).val()) === -1) {
+    //     if (dateFolium.length === 10){
+    //         [yearValues, rangeValues] = generateDateList();
+    //         timeSlider.attr("min", 0);
+    //         timeSlider.attr("max", rangeValues.length - 1);
+    //         const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
+    //         timeSlider.val(foundIndex);
+    //         dateFolium = rangeValues[timeSlider.val()];
+    //     }
+    // }
     // console.log(dateFolium)
     tValue.text(dateFolium);
 });
@@ -665,7 +689,9 @@ function replaceFolium() {
                         plotTS1(locationData);
                     }
                 }
-                plotVertProfs(locationData)
+                if (dateFolium.length === 7){
+                    plotVertProfs(locationData)
+                }
             }
             // get same polyline transect when polyline and variable are defined
             if (polygonData !== undefined && polygonData !== null) {
@@ -916,8 +942,11 @@ function receiveMessage(event) {
                 } else {
                     plotTS1(locationData);
                 }
-                // plotting the plotly vertical profile
-                plotVertProfs(locationData)
+                // plotting the plotly vertical profile (only in monthly setting)
+                if (dateFolium.length === 7){
+                    plotVertProfs(locationData)
+                }
+
                 // grabbing the location variable value 
                 const promiseVarVal = new Promise((resolve, reject) => {
                     getVarVal(locationData)
@@ -1149,6 +1178,20 @@ function getVerticalProfile(infoLonLat) {
 }
 
 
+function getMockDate(freqString) {
+    // making mockDate imitating the file date frequency for 2nd time series
+    //  this is required due to the multiple file for same varname with 
+    //  different frequency in the backend.
+    var mockDate;
+    if (freqString.includes('da')){
+        mockDate = 'YYYY-MM-DD';
+    } else if (freqString.includes('mon')){
+        mockDate = 'YYYY-MM';
+    } else if (freqString.includes('ann')){
+        mockDate = 'YYYY';
+    }
+    return mockDate
+}        
 
 // function to get time series based on locationData
 //  the time series only change 
@@ -1159,11 +1202,20 @@ function getVerticalProfile(infoLonLat) {
 function getTimeSeries(infoLonLat,addTS) {
     // showLoadingSpinner();
     if (addTS) {
+        // find data frequency and create mock date for TS2
+        var selectVar2Index = $("#varMOMCobaltTS2").prop('selectedIndex');
+        var varlist = momCobaltVars();
+        var indexlist = indexes();
+        var freqlist = varlist[2].concat(indexlist[2]); // for data freqnecy
+        var freqString = freqlist[selectVar2Index];
+        var mockDate = getMockDate(freqString)
+
         var var2TS = $('#varMOMCobaltTS2').val();
         var depth2TS = $('#depthMOMCobaltTS2').val();
         var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries.py"
         +"?variable="+var2TS
         +"&region="+$("#regMOMCobalt").val()
+        +"&date="+mockDate
         +"&stat="+statMap
         +"&depth="+depth2TS
         +"&lon="+infoLonLat.longitude
@@ -1172,6 +1224,7 @@ function getTimeSeries(infoLonLat,addTS) {
         var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries.py"
         +"?variable="+varFoliumMap
         +"&region="+$("#regMOMCobalt").val()
+        +"&date="+dateFolium
         +"&stat="+statMap
         +"&depth="+depthMap
         +"&lon="+infoLonLat.longitude
@@ -2181,7 +2234,14 @@ function momCobaltVars() {
         "NO3",
         "PO4",
         "Mesozooplankton (0-200m)",
-        "Bottom Oxygen"
+        "Bottom oxygen",
+        "Bottom salinity",
+        "Bottom temperature",
+        "Sea surface temperature",
+        "Sea surface salinity",
+        "Sea surface height",
+        "Sea surface velocity (U)",
+        "Sea surface velocity (V)"
     ];
     let var_values = [
         "tos",
@@ -2200,7 +2260,14 @@ function momCobaltVars() {
         "sfc_no3",
         "sfc_po4",
         "mesozoo_200",
-        "btm_o2"
+        "btm_o2",
+        "sob",
+        "tob",
+        "tos",
+        "sos",
+        "ssh",
+        "ssu_rotate",
+        "ssv_rotate" 
     ];
     let var_freqs = [
         "monthly",
@@ -2219,6 +2286,13 @@ function momCobaltVars() {
         "monthly",
         "monthly",
         "monthly",
+        "daily",
+        "daily",
+        "daily",
+        "daily",
+        "daily",
+        "daily",
+        "daily",
         "daily"
     ];
 
@@ -2247,7 +2321,8 @@ function momCobalt3D() {
 function momCobaltBottom() {
     list_bottom = [
         'tob',
-        'btm_o2'
+        'btm_o2',
+        'sob'
     ]
     return list_bottom
 }
