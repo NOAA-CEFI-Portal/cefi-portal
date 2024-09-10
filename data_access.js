@@ -106,10 +106,16 @@ function generateDataQuery(dataType) {
         year = $(iyearMOMCobaltForecastData).val();
         month = $(imonthMOMCobaltForecastData).val();
     }
+    // find data frequency and create mock date for TS2
+    var selectVarDataIndex = $("#varMOMCobaltData").prop('selectedIndex');
+    var varlist = momCobaltVars();
+    var varFreq = varlist[2][selectVarDataIndex]
+    var mockDate = getMockDate(varFreq)
 
     var ajaxGet = "/cgi-bin/cefi_portal/mom_data_query.py"
     +"?variable="+variable
     +"&region="+region
+    +"&date="+mockDate
     +"&grid="+grid
     +"&datatype="+dataType
     +"&year="+year
