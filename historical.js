@@ -63,114 +63,13 @@ $('#depthMOMCobaltTS2').val('');
 
 // Initial variable options based on dataset for second TS
 createMomCobaltVarOpt('onlyIndexes','indexMOMCobaltTS');
-// $('#indexMOMCobalt').val('');
 
-// // Default minidiv show
-// $(document).ready(function() {
-//     showDiv('tsView');
-// });
+// initialize plotly
+initializePlotly('all');
 
-// Initial dashboard plot
-$(function() {
-    var trace = {
-        x: "",
-        y: "",
-        type: 'scatter',
-        mode: 'lines+markers',
-        marker: { size: 8 },
-        line: { shape: 'linear' },
-        name: ""
-    };
-  
-    var layoutTS = {
-        title: 
-        'Click on map for time series',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        xaxis: { title: 'Date' },
-        yaxis: { title: 'Variable' },
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
+// plot index
+plotIndexes();
 
-    var layoutBox = {
-        title: 
-        'Box plot',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layoutHist = {
-        title: 
-        'Histogram',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layoutProf = {
-        title: 
-        'Profile',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layout2 = {
-        title: 
-        'Draw polyline on map',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        xaxis: { title: 'Date' },
-        yaxis: { title: 'Variable' },
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layout3 = {
-        title: 
-        'Pick an index',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        xaxis: { title: 'Date' },
-        yaxis: { title: 'Variable' },
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var config = {responsive: true}
-
-    Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
-    // Plotly.newPlot('plotly-box-plot', [trace], layoutBox,config);
-    // Plotly.newPlot('plotly-histogram', [trace], layoutHist,config);
-    Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
-    Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
-    Plotly.newPlot('plotly-transect', [trace], layout2,config);
-    // Plotly.newPlot('plotly-index', [trace], layout3)
-});
-plotIndexes()
-// window.onresize = function() {
-//     Plotly.relayout('plotly-index', {
-//         'xaxis.autorange': true,
-//         'yaxis.autorange': true
-//     });
-// };
 
 
 /// setup the variable for variable options in the page
@@ -212,9 +111,11 @@ $("#varMOMCobalt").on("change", function(){
     $("#blockMOMCobalt").empty();
     createMomCobaltDepthBlockOpt($("#varMOMCobalt").val());
 
-    // time slider change    
-    // console.log(dateFolium)
-    if (monthly_list.indexOf($(this).val()) === -1) {
+
+    // time slider change
+    var selectVarIndex = $("#varMOMCobalt").prop('selectedIndex');
+    if (freq_list[2][selectVarIndex] === 'daily'){
+        // change if dateFolium is origianly in monthly format
         if (dateFolium.length === 7){
             [yearValues, rangeValues] = generateDailyDateList();
             timeSlider.attr("min", 0);
@@ -223,7 +124,8 @@ $("#varMOMCobalt").on("change", function(){
             timeSlider.val(foundIndex);
             dateFolium = rangeValues[timeSlider.val()];
         }
-    } else if (daily_list.indexOf($(this).val()) === -1) {
+    } else if (freq_list[2][selectVarIndex] === 'monthly'){
+        // change if dateFolium is origianly in daily format
         if (dateFolium.length === 10){
             [yearValues, rangeValues] = generateDateList();
             timeSlider.attr("min", 0);
@@ -232,7 +134,28 @@ $("#varMOMCobalt").on("change", function(){
             timeSlider.val(foundIndex);
             dateFolium = rangeValues[timeSlider.val()];
         }
-    }
+    };
+    
+    // console.log(dateFolium)
+    // if (monthly_list.indexOf($(this).val()) === -1) {
+    //     if (dateFolium.length === 7){
+    //         [yearValues, rangeValues] = generateDailyDateList();
+    //         timeSlider.attr("min", 0);
+    //         timeSlider.attr("max", rangeValues.length - 1);
+    //         const foundIndex = rangeValues.indexOf(dateFolium+"-01");
+    //         timeSlider.val(foundIndex);
+    //         dateFolium = rangeValues[timeSlider.val()];
+    //     }
+    // } else if (daily_list.indexOf($(this).val()) === -1) {
+    //     if (dateFolium.length === 10){
+    //         [yearValues, rangeValues] = generateDateList();
+    //         timeSlider.attr("min", 0);
+    //         timeSlider.attr("max", rangeValues.length - 1);
+    //         const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
+    //         timeSlider.val(foundIndex);
+    //         dateFolium = rangeValues[timeSlider.val()];
+    //     }
+    // }
     // console.log(dateFolium)
     tValue.text(dateFolium);
 });
@@ -243,9 +166,9 @@ $("#analysisMOMCobalt").on("change", function(){
     // $('#'+selectedValue.slice(0, -3)+'Tab').prop('checked', true);
     // showDiv(selectedValue.slice(0, -3),'view');
     $("#dashNavHistrun > ul.nav-pills > li.nav-item").removeClass("active"); 
-    $("#"+selectedValue.slice(0, -3)+'Pill').addClass("active")
+    $("#"+selectedValue.slice(0, -3)+'Pill').addClass("active");
     $("#dashContentHistrun div.tab-pane").removeClass("active"); 
-    $("#"+selectedValue.slice(0, -3)).addClass("active")
+    $("#"+selectedValue.slice(0, -3)).addClass("active");
 })
 
 // event listener for clicking the minitab
@@ -364,6 +287,111 @@ $('#indexMOMCobaltTS').on("change", function () {
 
 
 ///////// functional function start /////////
+// intialize the plotly plot
+// Initial dashboard plot
+function initializePlotly(flag) {
+    var trace = {
+        x: "",
+        y: "",
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { size: 8 },
+        line: { shape: 'linear' },
+        name: ""
+    };
+  
+    var layoutTS = {
+        title: 
+        'Click on map for time series',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        xaxis: { title: 'Date' },
+        yaxis: { title: 'Variable' },
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layoutBox = {
+        title: 
+        'Box plot',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layoutHist = {
+        title: 
+        'Histogram',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layoutProf = {
+        title: 
+        'Profile',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layout2 = {
+        title: 
+        'Draw polyline on map',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        xaxis: { title: 'Date' },
+        yaxis: { title: 'Variable' },
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layout3 = {
+        title: 
+        'Pick an index',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        xaxis: { title: 'Date' },
+        yaxis: { title: 'Variable' },
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var config = {responsive: true}
+
+    if (flag ==='all'){
+        Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
+        // Plotly.newPlot('plotly-box-plot', [trace], layoutBox,config);
+        // Plotly.newPlot('plotly-histogram', [trace], layoutHist,config);
+        Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
+        Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
+        Plotly.newPlot('plotly-transect', [trace], layout2,config);
+        // Plotly.newPlot('plotly-index', [trace], layout3)
+    } else if (flag ==='vertical') {
+        Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
+        Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
+    } else if (flag ==='tseries') {
+        Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
+    } else if (flag ==='transect') {
+        Plotly.newPlot('plotly-transect', [trace], layout2,config);
+    }
+};
+
 //function for option change due to button/view change at the bottom
 function changeSelectOpt(divId,optionID,tabContentClass) {
     showDiv(divId,tabContentClass);
@@ -665,12 +693,24 @@ function replaceFolium() {
                         plotTS1(locationData);
                     }
                 }
-                plotVertProfs(locationData)
+                //// current function only allowed in monthly data
+                if (dateFolium.length === 7){
+                    plotVertProfs(locationData);
+                } else {
+                    // initialize plotly
+                    initializePlotly('vertical');
+                }
             }
             // get same polyline transect when polyline and variable are defined
             if (polygonData !== undefined && polygonData !== null) {
                 if (varFoliumMap !== undefined && varFoliumMap !== null) {
-                    plotTransect(polygonData)
+                    //// current function only allowed in monthly data
+                    if (dateFolium.length === 7){
+                        plotTransect(polygonData);
+                    } else {
+                        // initialize plotly
+                        initializePlotly('transect');
+                    }
                 }
             }
 
@@ -916,8 +956,11 @@ function receiveMessage(event) {
                 } else {
                     plotTS1(locationData);
                 }
-                // plotting the plotly vertical profile
-                plotVertProfs(locationData)
+                // plotting the plotly vertical profile (only in monthly setting)
+                if (dateFolium.length === 7){
+                    plotVertProfs(locationData)
+                }
+
                 // grabbing the location variable value 
                 const promiseVarVal = new Promise((resolve, reject) => {
                     getVarVal(locationData)
@@ -1149,6 +1192,20 @@ function getVerticalProfile(infoLonLat) {
 }
 
 
+function getMockDate(freqString) {
+    // making mockDate imitating the file date frequency for 2nd time series
+    //  this is required due to the multiple file for same varname with 
+    //  different frequency in the backend.
+    var mockDate;
+    if (freqString.includes('da')){
+        mockDate = 'YYYY-MM-DD';
+    } else if (freqString.includes('mon')){
+        mockDate = 'YYYY-MM';
+    } else if (freqString.includes('ann')){
+        mockDate = 'YYYY';
+    }
+    return mockDate
+}        
 
 // function to get time series based on locationData
 //  the time series only change 
@@ -1159,11 +1216,20 @@ function getVerticalProfile(infoLonLat) {
 function getTimeSeries(infoLonLat,addTS) {
     // showLoadingSpinner();
     if (addTS) {
+        // find data frequency and create mock date for TS2
+        var selectVar2Index = $("#varMOMCobaltTS2").prop('selectedIndex');
+        var varlist = momCobaltVars();
+        var indexlist = indexes();
+        var freqlist = varlist[2].concat(indexlist[2]); // for data freqnecy
+        var freqString = freqlist[selectVar2Index];
+        var mockDate = getMockDate(freqString)
+
         var var2TS = $('#varMOMCobaltTS2').val();
         var depth2TS = $('#depthMOMCobaltTS2').val();
         var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries.py"
         +"?variable="+var2TS
         +"&region="+$("#regMOMCobalt").val()
+        +"&date="+mockDate
         +"&stat="+statMap
         +"&depth="+depth2TS
         +"&lon="+infoLonLat.longitude
@@ -1172,6 +1238,7 @@ function getTimeSeries(infoLonLat,addTS) {
         var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries.py"
         +"?variable="+varFoliumMap
         +"&region="+$("#regMOMCobalt").val()
+        +"&date="+dateFolium
         +"&stat="+statMap
         +"&depth="+depthMap
         +"&lon="+infoLonLat.longitude
@@ -2092,37 +2159,6 @@ function generateDailyDateList(startYear = 1993, endYear = 2019) {
 }
 
 
-// functions for generating year list for data (monthly)
-function momCobaltHistYear(startYear = 1993, endYear = 2019) {
-    var yearList = [];
-
-    for (var year = startYear; year <= endYear; year++) {
-        yearList.push(year)
-    }
-
-    return [yearList, yearList];
-};
-
-// functions for generating month list for data (monthly)
-function momCobaltHistMonth() {
-    var monthList = [1,2,3,4,5,6,7,8,9,10,11,12];
-    var monthStrList = [
-        "January", "February", "March", 
-        "April", "May", "June", 
-        "July", "August", "September",
-        "October", "November", "December"
-    ];
-    return [monthList, monthStrList];
-};
-
-// function for create option for data
-function createMomCobaltHistTimeOpt(selectTagID,timeGenFunc) {
-    let elm = document.getElementById(selectTagID);
-    let [listVal, listStr] = timeGenFunc()    
-    let df = optionList(listStr,listVal);
-    elm.appendChild(df);
-};
-
 
 // function for advancing/recede to the next option in the list
 //   used directly in html page button with attribute onclick
@@ -2212,7 +2248,14 @@ function momCobaltVars() {
         "NO3",
         "PO4",
         "Mesozooplankton (0-200m)",
-        "Bottom Oxygen"
+        "Bottom oxygen",
+        "Bottom salinity",
+        "Bottom temperature",
+        "Sea surface temperature",
+        "Sea surface salinity",
+        "Sea surface height",
+        "Sea surface velocity (U)",
+        "Sea surface velocity (V)"
     ];
     let var_values = [
         "tos",
@@ -2231,7 +2274,14 @@ function momCobaltVars() {
         "sfc_no3",
         "sfc_po4",
         "mesozoo_200",
-        "btm_o2"
+        "btm_o2",
+        "sob",
+        "tob",
+        "tos",
+        "sos",
+        "ssh",
+        "ssu_rotate",
+        "ssv_rotate" 
     ];
     let var_freqs = [
         "monthly",
@@ -2250,6 +2300,13 @@ function momCobaltVars() {
         "monthly",
         "monthly",
         "monthly",
+        "daily",
+        "daily",
+        "daily",
+        "daily",
+        "daily",
+        "daily",
+        "daily",
         "daily"
     ];
 
@@ -2278,7 +2335,8 @@ function momCobalt3D() {
 function momCobaltBottom() {
     list_bottom = [
         'tob',
-        'btm_o2'
+        'btm_o2',
+        'sob'
     ]
     return list_bottom
 }

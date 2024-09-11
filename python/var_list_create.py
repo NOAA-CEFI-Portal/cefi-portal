@@ -3,6 +3,7 @@ import glob
 import jinja2
 import json
 import numpy as np
+import pandas as pd
 import xarray as xr
 import xml.etree.ElementTree as ET
 
@@ -37,7 +38,7 @@ def find_ncfiles_info_forecast(
     -------
     dict
         the keys of the dictionary includes 
-        'Varible Name', 'Output Frequency','Long Name',
+        'Variable Name', 'Output Frequency','Long Name',
         'Unit'. The values is a list of the corresponding info.
 
     """
@@ -58,19 +59,23 @@ def find_ncfiles_info_forecast(
 
         filename = file[len(dirpath):]
 
-
         # find file variable name
         variables = list(ds.keys())
         for var in variables:
             varname = var
-            filename_list.append(filename)
-            var_list.append(varname)
 
             # find initial month
-            year = int(ds[f'{idim_name}.year'].data)
-            month = int(ds[f'{idim_name}.month'].data)
-            init_list.append(f'{year:04d}-{month:02d}')
+            try:
+                year = int(ds[f'{idim_name}.year'].data)
+                month = int(ds[f'{idim_name}.month'].data)
+                init_list.append(f'{year:04d}-{month:02d}')
+            except KeyError:
+                print('Not Forecast file/variables')
+                continue
 
+            filename_list.append(filename)
+            var_list.append(varname)
+            
             # find variable long name
             try:
                 long_name_list.append(ds[varname].long_name)
@@ -86,15 +91,17 @@ def find_ncfiles_info_forecast(
             # opendap url
             opendap_list.append(f'{opendap_root_url}{dirpath}{filename}')
 
-
-    return {
-        'Varible_Name':var_list,
+    dict_info = {
+        'Variable_Name':var_list,
         'Time_of_Initialization':init_list,
         'Long_Name':long_name_list,
         'Unit':unit_list,
         'File_Name':filename_list,
         'OPeNDAP_URL':opendap_list
     }
+    # df = pd.DataFrame(dict_info)
+
+    return dict_info
 
 
 def find_ncfiles_info_hist_run(
@@ -118,7 +125,7 @@ def find_ncfiles_info_hist_run(
     -------
     dict
         the keys of the dictionary includes 
-        'Varible Name', 'Output Frequency','Long Name',
+        'Variable Name', 'Output Frequency','Long Name',
         'Unit'. The values is a list of the corresponding info.
 
     """
@@ -191,14 +198,17 @@ def find_ncfiles_info_hist_run(
             # opendap url
             opendap_list.append(f'{opendap_root_url}{dirpath}{filename}')
 
-    return {
-        'Varible_Name':var_list,
+    dict_info = {
+        'Variable_Name':var_list,
         'Output_Frequency':freq_list,
         'Long_Name':long_name_list,
         'Unit':unit_list,
         'File_Name':filename_list,
         'OPeNDAP_URL':opendap_list
     }
+    df = pd.DataFrame(dict_info)
+
+    return df.sort_values(by='Output_Frequency').reset_index(drop=True).to_dict()
 
 if __name__ == '__main__':
     regions = ['northwest_atlantic']
@@ -224,7 +234,6 @@ if __name__ == '__main__':
                     idim_name='init',
                     opendap_root_url=opendap_root
                 )
-    
 
             # Load your Jinja2 template
             template_dir = f'{coderoot}cefi_portal/python/jinja/'
@@ -238,7 +247,7 @@ if __name__ == '__main__':
 
             # output html to webserver
             webserver_dir = f'{os.environ.get("HTTPTEST")}cefi_portal/'
-            with open(f'{webserver_dir}var_list_{region}_{data_type}.html', 'w', encoding='UTF-8') as f:
+            with open(f'{webserver_dir}data_index/var_list_{region}_{data_type}.html', 'w', encoding='UTF-8') as f:
                 f.write(html)
 
             # reformat to one item info concat for json better for possible xml extention
@@ -253,10 +262,10 @@ if __name__ == '__main__':
             json_data = json.dumps(dict_ncfile_json, indent=4)
 
             # output json format to browser
-            with open(f'{webserver_dir}var_list_{region}_{data_type}.json', "w", encoding='UTF-8') as json_file:
+            with open(f'{webserver_dir}data_index/var_list_{region}_{data_type}.json', "w", encoding='UTF-8') as json_file:
                 json_file.write(json_data)
 
             root = dict_to_xml(f'{region}_{data_type}', dict_ncfile_json)
             tree = ET.ElementTree(root)
-            tree.write(f'{webserver_dir}var_list_{region}_{data_type}.xml', encoding='utf-8', xml_declaration=True)
+            tree.write(f'{webserver_dir}data_index/var_list_{region}_{data_type}.xml', encoding='utf-8', xml_declaration=True)
 

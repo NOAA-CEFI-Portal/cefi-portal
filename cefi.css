@@ -1,3 +1,8 @@
+
+.refresh-link {
+  cursor: pointer;
+}
+
 .main-svg,
 .svg-container {
   width: 100% !important

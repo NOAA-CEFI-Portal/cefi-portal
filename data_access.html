@@ -1,5 +1,14 @@
 <div class = "row">
   <h2>Data Access</h2>
+  <div class="alert alert-warning" role="alert">
+    <!-- Forced refresh for getting the newest data server status -->
+    <a class="refresh-link" onclick="location.reload(true);"><strong>Press</strong></a> to get latest data server status &#x27A0;
+    <!-- Using api to refresh status badge (need to implement when the tab is not in active dev) -->
+    <!-- <img alt="OPeNDAP Badge" src="https://img.shields.io/badge/OPeNDAP_server-available-blue?style=flat"> -->
+    <!-- Forced refresh for getting the newest data server status -->
+    <a class="refresh-link" onclick="location.reload(true);"><img src="img/opendap_status.png" alt="OPeNDAP statusBadge"></a>
+  </div>
+  
   <div class="col-12">
     <p>
       Currently, the regional MOM6 output can be accessed through the PSL THREDDS server.
@@ -16,9 +25,10 @@
 </div>
 
 <div class = "row">
-  <h3>Varibles' Tables</h3>
+  <h3>Varible Lists</h3>
   <div class="userInput col-12">
     <!-- <h1 class="userInputTitle"><em>Regions</em></h1> -->
+    <!-- The Radio group for different region queries -->
     <input type="radio" class="radioDataTable" id="radioNWATable" name="dataTableOptions" checked>
     <label for="radioNWATable">Northwest Atlantic</label>
     <input type="radio" class="radioDataTable" id="radioNEPTable" name="dataTableOptions">
@@ -28,15 +38,15 @@
     <ul class="nwaTableOpt">
       <li>
         Historical run:
-        <a href="var_list_northwest_atlantic_hist_run.html" target="_blank">HTML view</a>,
-        <a href="var_list_northwest_atlantic_hist_run.json" target="_blank">JSON view</a>,
-        <a href="var_list_northwest_atlantic_hist_run.xml" target="_blank">XML view</a>
+        <a href="data_index/var_list_northwest_atlantic_hist_run.html" target="_blank">HTML view</a>,
+        <a href="data_index/var_list_northwest_atlantic_hist_run.json" target="_blank">JSON view</a>,
+        <a href="data_index/var_list_northwest_atlantic_hist_run.xml" target="_blank">XML view</a>
       </li>
       <li>
         Forecast/Reforecast:
-        <a href="var_list_northwest_atlantic_forecast.html" target="_blank">HTML view</a>,
-        <a href="var_list_northwest_atlantic_forecast.json" target="_blank">JSON view</a>,
-        <a href="var_list_northwest_atlantic_forecast.xml" target="_blank">XML view</a>
+        <a href="data_index/var_list_northwest_atlantic_forecast.html" target="_blank">HTML view</a>,
+        <a href="data_index/var_list_northwest_atlantic_forecast.json" target="_blank">JSON view</a>,
+        <a href="data_index/var_list_northwest_atlantic_forecast.xml" target="_blank">XML view</a>
       </li>
     </ul>
     <ul class="nepTableOpt hidden">
@@ -56,7 +66,7 @@
   <p>
     The data query generator is designed to swiftly generate command line code or code snippets, facilitating user access to the data.
     It is recommended to use the OPeNDAP server for querying data when only a subset is required.
-    However, if there is a need to download the entire dataset, please pick the download radio button for the wget command.
+    However, if there is a need to download the entire dataset, please pick the download radio button for the wget command and button click download.
     The query generator also provides the data citation doi depending on different region and version of dataset.
   </p>
   
@@ -71,7 +81,7 @@
     <input type="radio" class="radioData" id="radioCite" name="dataOptions">
     <label for="radioCite">Data Citation</label>
     <br>
-    
+
     <table class="rowGap">
         <tr>
           <td>Region : </td>
@@ -101,18 +111,6 @@
                   <option value="raw">Raw grid (Curvilinear)</option>
                   <option value="regrid">Regular grid</option>
               </select>
-          </td>
-        </tr>
-        <tr class="histrunOpt histrunTimeSubset">
-          <td>Year : </td>
-          <td>
-              <select id="yearMOMCobaltHistrunData"></select>
-          </td>
-        </tr>
-        <tr class="histrunOpt histrunTimeSubset">
-          <td>Month : </td>
-          <td>
-              <select id="monthMOMCobaltHistrunData"></select>
           </td>
         </tr>
         <tr class="forecastOpt hidden">
@@ -149,11 +147,14 @@
     <hr class="dot-hr-plot">
 
     <h4><strong>OPeNDAP (Python)</strong></h4>
-        <p>
-            For the following Python code to work. 
-            Please following the environment setup.
+        <p> 
+            Please follow the 
+            <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/how_to_conda.html" target="_blank">
+              <strong>environment setup</strong>
+            </a>
+            for the following Python code to work. 
             <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/data_access/access_opendap/python_get_cefi.html" target="_blank">
-              <strong>Detail access tutorial using Python is here</strong>
+              <strong>A comprehensive tutorial (Python) can be found here</strong>
             </a>
         </p>
     <pre id="codeBlockPython"><code class="codeBlockScroll">Please generate query first!</code></pre> 
@@ -162,10 +163,13 @@
 
     <h4><strong>OPeNDAP (R)</strong></h4>
         <p>
-            For the following R code to work. 
-            Please following the environment setup.
+            Please follow the 
+            <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/how_to_conda.html" target="_blank">
+              <strong>environment setup</strong>
+            </a>
+            for the following R code to work. 
             <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/data_access/access_opendap/r_get_cefi.html" target="_blank">
-              <strong>Detail access tutorial using R is here</strong>
+              <strong>A comprehensive tutorial (R) can be found here</strong>
             </a>
         </p>
     <pre id="codeBlockR"><code class="codeBlockScroll">Please generate query first!</code></pre> 
