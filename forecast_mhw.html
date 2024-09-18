@@ -1,0 +1,177 @@
+
+<!-- html body start -->
+<h2>MOM6 COBALT - Marine Heatwave Forecast</h2>
+
+<div class = "row">
+    <!-- User inputs column -->
+    <div class="userInput col-12 col-md-6">
+        <h1 class="userInputTitle"><em>Data Options</em></h1>
+        <table class="rowGap">
+            <tr>
+                <td>Region : </td>
+                <td>
+                    <select name="region" id="regMOMCobaltFcastMHW" class="reg-mom-cobalt"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>Initial year : </td>
+                <td>
+                    <select name="iniTime" id="iniYearMOMCobaltFcastMHW"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>Initial month : </td>
+                <td>
+                    <select name="iniTime" id="iniMonthMOMCobaltFcastMHW"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>Statistics : </td>
+                <td>
+                    <select name="stat" id="statMOMCobaltFcastMHW"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>Analyses dashboard : </td>
+                <td>
+                    <select name="analysis" id="analysisMOMCobaltFcastMHW">
+                        <option value="fcastViewVal">Forecast Spread</option>
+                    </select>
+                </td>
+            </tr>
+        </table>                
+    </div> 
+
+    <!-- Seperation column -->
+    <div class="col-12 col-md-1"></div>
+    
+
+    <!-- Figure options column -->
+    <div class="userInput col-12 col-md-5">
+        <h1 class="userInputTitle"><em>Figure options</em></h1>
+        <table class="rowGap">
+            <tr>
+                <td>Maximum Value : </td>  
+                <td>
+                    <input class="figOpt" type="number" id="maxvalFcastMHW" name="maxval">
+                </td>
+            </tr>
+            <tr>
+                <td>Minimum Value : </td>  
+                <td>
+                    <input class="figOpt" type="number" id="minvalFcastMHW" name="minval">
+                </td>
+            </tr>
+            <tr>
+                <td>Number of Discrete Values: </td>  
+                <td>
+                    <input class="figOpt" type="number" id="nlevelFcastMHW" name="nlevel">
+                </td>
+            </tr>
+            <tr>
+                <td>Colorbar
+                    <button type="button" class="btn btn-secondary btn-sm btn-lg btn-custom-cir" data-toggle="modal" data-target="#Modal_cbar_FcastMHW">
+                        ?
+                    </button> :
+                </td>  
+                <td>
+                    <select class="figOpt" name="cbar" id="cbarOptsFcastMHW"></select>
+                </td>
+            </tr>
+        </table>
+        <div class="alignRight">
+            <button class="btn btn-psl" id="clearFigOptBtnFcastMHW"><strong>Clear All</strong></button>
+        </div>
+    </div> 
+
+</br>
+    <div class="col-xs-12">
+        <button class="btn btn-psl" id="momCobaltBtnFcastMHW"><strong>Create Map + Analyses</strong></button>
+    </div>
+</div>
+
+<div class="divRowSep w-100"></div>
+
+<hr class="dot-hr-plot">
+<div class="col-md-12">
+    <h3 class="sliderTitle"> Initialization : <span class="initTimeValueFcastMHW"></span></h3>
+</div>
+<div class = "row position-relative">
+    <!-- Plotting column -->
+    <div id="momCobaltMapFcastMHW" class="col-12">
+        <iframe id="momCobaltIFrameFcastMHW" class='leafletIframe' seamless="seamless" scrolling=no src="hindcast_mom.html"></iframe>
+    </div>
+    <div id="loading-spinner-map-Fcastmhw" class="position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
+</div>
+    
+<div class = "row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-1">
+                <div>
+                    <button class="btn btn-psl" onclick="changeLeadTimeStepMHW(-1)">&#8592;</button>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <p class="sliderTitle"> Forecast time : <span class="timeValueFcastMHW"></span></p>
+            </div>
+            <div class="col-md-1 alignRight">
+                <button class="btn btn-psl" onclick="changeLeadTimeStepMHW(1)">&#8594;</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class = "row">
+    <div class="col-md-12">
+        <input type="range" class="slider" id="timeRangeFcastMHW">
+    </div>
+</div>
+<div class = "row">
+    <div class="ticksFcast col-sm-12"></div> 
+</div>
+
+<div class = "row">
+    <hr class="dot-hr-plot">
+</div>
+
+<div class="row" id="dashNavForecastMHW">
+    <ul class="nav nav-pills nav-justified">
+        <li class="nav-item active" id="fcastViewMHWTabPill">
+            <a class="nav-link" href="#fcastViewMHWTab" data-toggle="tab" aria-expanded="true" >Forecast Spread</a>
+        </li>
+    </ul>
+</div>
+
+<div class="row" id="dashContentForecastMHW">
+    <div class="tab-content">
+        <div id='fcastViewMHW' class="tab-pane active view col-12">
+        <h3>Forecast Spread</h3>
+        <div class = "row position-relative">
+            <div id="plotly-fcastmhw-spread" class="col-xs-12 col-md-6"></div>
+            <div id="plotly-fcastmhw-box" class="col-xs-12 col-md-6"></div>
+            <div id="loading-spinner-fcastmhw-spread" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal colorbar -->
+<div class="modal fade" id="Modal_cbar_FcastMHW" tabindex="-1" role="dialog" aria-labelledby="Model_cbar_title" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="Model_cbar_title">What are the available colormaps?</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <img class="img-fluid" id="modalCbarFigFcast" src="img/colormap.png" alt="Colormap list">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
