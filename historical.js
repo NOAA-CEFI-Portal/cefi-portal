@@ -507,6 +507,14 @@ function optionSubgroupList(listname,listval,listsubgroup) {
     return df;
 };
 
+// function for create option for general options (single ID)
+function createMomCobaltOpt_singleID(selectID,optionListFunc) {
+    let elm = document.getElementById(selectID);
+    let optlist = optionListFunc();
+    df = optionList(optlist[0],optlist[1]);
+    elm.appendChild(df);
+};
+
 // function for create option for general options
 function createMomCobaltOpt(selectClass,optionListFunc) {
     let elms = document.getElementsByClassName(selectClass);
@@ -593,14 +601,14 @@ function createMomCobaltDepthBlockOpt(variable,blockOptID='blockMOMCobalt') {
 };
 
 // function for create option for depth
-function createMomCobaltCbarOpt(cbarOptID='cbarOpts') {
+function createMomCobaltCbarOpt(cbarOptID='cbarOpts',defaultCbar='RdBu_r') {
     let elm = document.getElementById(cbarOptID);
     let list_cbar = colorbarOpt()    
     let df = optionList(list_cbar,list_cbar);
 
     return new Promise((resolve) => {
         elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
-        elm.selectedIndex = list_cbar.indexOf('RdBu_r');
+        elm.selectedIndex = list_cbar.indexOf(defaultCbar);
         // console.log("Async work completed!");
         resolve(); // Resolve the promise when done
     });
