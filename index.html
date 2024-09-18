@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="forecast.css" />
 <link rel="stylesheet" type="text/css" href="historical.css" />
 <link rel="stylesheet" type="text/css" href="data_access.css" />
+<link rel="stylesheet" type="text/css" href="forecast_mhw.css" />
 
 <h1 class="headingCenter">Climate Ecosystems and Fisheries Initiative Portal</h1>
 <div class="row">
@@ -39,6 +40,7 @@
                          <li><a class="nav-link" data-toggle="tab" href="#historical">Historical Run</a></li>
                          <li><a class="nav-link" data-toggle="tab" href="#forecast">Forecast/Reforecast</a></li>
                          <li><a class="nav-link" data-toggle="tab" href="#projection">Projection</a></li>
+                         <li><a class="nav-link" data-toggle="tab" href="#mhw">Marine Heatwave</a></li>
                     </ul>
                </li>
 
@@ -90,6 +92,10 @@
                     <!--#include virtual="projection.html"-->
                </div>
 
+               <div id="mhw" class="tab-pane fade in">
+                    <!--#include virtual="forecast_mhw.html"-->
+               </div>
+
                <div id="current" class="tab-pane fade in">
                     <!--#include virtual="current.html"-->
                </div>
@@ -130,5 +136,6 @@
 <script type="text/javascript" src="data_access.js"></script>
 <script type="text/javascript" src="overview.js"></script>
 <script type="text/javascript" src="index.js"></script>
+<script type="module" src="forecast_mhw.js"></script>
 <!-- <script type="text/javascript" src="hcast.js"></script> -->
 
