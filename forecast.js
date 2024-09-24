@@ -203,16 +203,16 @@ $("#analysisMOMCobaltFcast").on("change", function(){
 // add event listener for the "message" event using jQuery (location click)
 $(window).on("message", receiveMessageFcast);
 
-// event listener for clicking the minitab
-$('input[name="fcastAnalysestabs"]').on('click', function() {
-    console.log('Selected option id:', $(this).attr('id'));
-    // Check which radio button is clicked
-    if ($(this).is(':checked')) {
-        var selectedID = $(this).attr('id');
-        changeSelectOpt(selectedID.slice(0, -3),'analysisMOMCobaltFcast','viewFcast')
-        // console.log('Selected option id:', $(this).attr('id'));
-    }
-});
+// // event listener for clicking the minitab
+// $('input[name="fcastAnalysestabs"]').on('click', function() {
+//     console.log('Selected option id:', $(this).attr('id'));
+//     // Check which radio button is clicked
+//     if ($(this).is(':checked')) {
+//         var selectedID = $(this).attr('id');
+//         changeSelectOpt(selectedID.slice(0, -3),'analysisMOMCobaltFcast','viewFcast')
+//         // console.log('Selected option id:', $(this).attr('id'));
+//     }
+// });
 
 
 
