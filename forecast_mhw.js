@@ -1,5 +1,8 @@
 // global constant for object ID
 const momCobaltMapFcastMHW = $('#momCobaltIFrameFcastMHW');
+const dashDropDownID = 'analysisMOMCobaltFcastMHW'
+const dashNavPillID = 'dashNavForecastMHW'
+const dashContentID = 'dashContentForecastMHW'
 
 // global info
 var mapDataFcastMHW = {};   // parsed html output
@@ -17,7 +20,9 @@ let iniMonthMHW = $("#iniMonthMOMCobaltFcastMHW").find("option:selected").text()
 
 // global time slider related variables
 const timeSliderFcastMHW = $("#timeRangeFcastMHW");
+// forecast time title
 const tValueFcastMHW = $(".timeValueFcastMHW");
+// initial time title
 const initTValueFcastMHW = $(".initTimeValueFcastMHW");
 
 // default initial time
@@ -37,17 +42,17 @@ timeSliderFcastMHW.attr("min", 0);
 timeSliderFcastMHW.attr("max", leadIndexMHW.length - 1);
 timeSliderFcastMHW.val(0);
 
-// set forecast time title
+// set default forecast time title
 var leadFoliumFcastMHW = leadMonthListMHW[timeSliderFcastMHW.val()];   // global
 tValueFcastMHW.text(leadFoliumFcastMHW);
 
-// screen size specific adjustment
+// screen size specific adjustment (using forecast.js function)
 window.tickSpaceChangeFcast(leadMonthListMHW)
 
-// Initial stat options
+// Initial stat options (using historical.js function)
 window.createMomCobaltOpt_singleID('statMOMCobaltFcastMHW',momCobaltStatsFcastMHW)
 
-// setup colorbar option
+// setup colorbar option (using historical.js function)
 window.createMomCobaltCbarOpt('cbarOptsFcastMHW','inferno');
 
 
@@ -55,6 +60,14 @@ window.createMomCobaltCbarOpt('cbarOptsFcastMHW','inferno');
 // screen size adjustment trigger by window resizing
 $(window).resize(function() {
     window.tickSpaceChangeFcast(leadMonthListMHW);
+});
+
+// add event listener on figure all clear button
+$("#tMHWButtonMinusOne").on("click", function () {
+    changeLeadTimeStep(-1);
+});
+$("#tMHWButtonPlusOne").on("click", function () {
+    changeLeadTimeStep(1);
 });
 
 // add event listener on figure all clear button
@@ -117,34 +130,38 @@ timeSliderFcastMHW.on("input", function() {
 });
 
 
-// event listener for analyses change
-$("#analysisMOMCobaltFcastMHW").on("change", function(){
-    var selectedValue = $('#analysisMOMCobaltFcastMHW :selected').val();
-    $("#dashNavForecastMHW > ul.nav-pills > li.nav-item").removeClass("active"); 
+// event listen for analyses dashboard dropdown change
+$("#"+dashDropDownID).on("change", function(){
+    // Related ID name 
+    //    dropdown option ID = xxxVal
+    //    content ID = xxx
+    //    navpil ID = xxxPill
+    // get the dropdown option ID name
+    var selectedValue = $('#'+dashDropDownID+' :selected').val();
+    // change the active navpil
+    $("#"+dashNavPillID+" > ul.nav-pills > li.nav-item").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)+'Pill').addClass("active");
-    $("#dashContentForecastMHW div.tab-pane").removeClass("active"); 
+    // change the active navpil content
+    $("#"+dashContentID+" div.tab-pane").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)).addClass("active");
 })
 
+// event listener for navpil being clicked
+$("#"+dashNavPillID+" > ul.nav-pills > li.nav-item > .nav-link").on('click',function(){
+    let hrefID = $(this).attr('href')
+    let hrefIDText = hrefID.slice(1)
+    // reuse changeDashSelect (historical.js) 
+    window.changeDashSelect(dashDropDownID,hrefIDText+'Val')
+}); 
+
 // event listener for the "message" event when map location click
 $(window).on("message", receiveMessageFcastMHW);
-
-// event listener for clicking the minitab
-$('input[name="fcastAnalysestabs"]').on('click', function() {
-    console.log('Selected option id:', $(this).attr('id'));
-    // Check which radio button is clicked
-    if ($(this).is(':checked')) {
-        var selectedID = $(this).attr('id');
-        window.changeSelectOpt(selectedID.slice(0, -3),'analysisMOMCobaltFcast','viewFcast')
-        // console.log('Selected option id:', $(this).attr('id'));
-    }
-});
 
 
 /////////////////////// function section /////////////////////
 // function for advancing/recede to the next option in the list
 //   used directly in html page button with attribute onclick
-function changeLeadTimeStepMHW(timeStep) {
+function changeLeadTimeStep(timeStep) {
     var nextTime = parseInt(timeSliderFcastMHW.val())+timeStep;
     timeSliderFcastMHW.val(nextTime);
     leadFoliumFcastMHW = leadMonthListMHW[timeSliderFcastMHW.val()];
@@ -182,45 +199,18 @@ function replaceFoliumForecastMHW() {
             if (!response.ok) {
             throw new Error('Network response was not ok for forecast map fetch');
             }
-            return response.text();
+            return response.json();
         })
-        .then(data => {
+        .then(jsonData => {
             // Process the response data here
-
-            //replace image
-            var regexImg = /^\s*"data:image\/png;base64,[^,\n]*,\n/gm;
-            var matcheImg = data.match(regexImg);
-            var image = matcheImg[0].match(/"([^"]+)"/)[0].slice(1,-1)
-            // var image = extractText(matcheImg[0]);
-
-            //replace colorbar
-            var regexDom = /^\s*\.domain\([^)]*\)\n/gm;
-            var matchDoms = data.match(regexDom);
-            var domainArray1 = text2Array(matchDoms[0]);
-            var domainArray2 = text2Array(matchDoms[1]);
-            var regexRange = /^\s*\.range\([^)]*\);\n/gm;
-            var matchRanges = data.match(regexRange);
-            var rangeArray = text2Array(matchRanges[0].replace(/'/g, '"'));
-            
-            //replace tickmark
-            var regexTickVal = /^\s*\.tickValues\([^)]*\);\n/gm;
-            var matchTickVal = data.match(regexTickVal);
-            var tickValArray = text2Array(matchTickVal[0]);
-            
-            //replace colorbar label
-            var regexCLabel = /^\s*\.text\([^)]*\);\n/gm;
-            var matchCLabel = data.match(regexCLabel);
-            var textVal = extractText(matchCLabel[0]);
-
-            
             mapDataFcastMHW = {
                 type: 'mapData',   // used in hindcast_mom.js for type check
-                image: image,
-                domain1: domainArray1,
-                domain2: domainArray2,
-                range: rangeArray,
-                tick: tickValArray,
-                label: textVal
+                image: jsonData.image,
+                domain1: jsonData.domain1,
+                domain2: jsonData.domain2,
+                range: jsonData.range,
+                tick: jsonData.tick,
+                label: jsonData.label
             };
             // console.log(mapDataFcastMHW)
             momCobaltMapFcastMHW[0].contentWindow.postMessage(mapDataFcastMHW, "*")

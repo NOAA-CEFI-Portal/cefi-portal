@@ -1,6 +1,8 @@
 
 <!-- html body start -->
-<h2>MOM6 COBALT - Marine Heatwave Forecast</h2>
+<div class = "row">
+<h2>Regional MOM6 COBALT - Marine Heatwave Forecast/Reforecast</h2>
+</div>
 
 <div class = "row">
     <!-- User inputs column -->
@@ -35,7 +37,8 @@
                 <td>Analyses dashboard : </td>
                 <td>
                     <select name="analysis" id="analysisMOMCobaltFcastMHW">
-                        <option value="fcastViewVal">Forecast Spread</option>
+                        <option value="mhwProbVal">Probability Forecast</option>
+                        <option value="mhwDistVal">Forecast Spread</option>
                     </select>
                 </td>
             </tr>
@@ -109,14 +112,14 @@
         <div class="row">
             <div class="col-md-1">
                 <div>
-                    <button class="btn btn-psl" onclick="changeLeadTimeStepMHW(-1)">&#8592;</button>
+                    <button id='tMHWButtonMinusOne' class="btn btn-psl">&#8592;</button>
                 </div>
             </div>
             <div class="col-md-10">
                 <p class="sliderTitle"> Forecast time : <span class="timeValueFcastMHW"></span></p>
             </div>
             <div class="col-md-1 alignRight">
-                <button class="btn btn-psl" onclick="changeLeadTimeStepMHW(1)">&#8594;</button>
+                <button id='tMHWButtonPlusOne' class="btn btn-psl">&#8594;</button>
             </div>
         </div>
     </div>
@@ -136,21 +139,29 @@
 
 <div class="row" id="dashNavForecastMHW">
     <ul class="nav nav-pills nav-justified">
-        <li class="nav-item active" id="fcastViewMHWTabPill">
-            <a class="nav-link" href="#fcastViewMHWTab" data-toggle="tab" aria-expanded="true" >Forecast Spread</a>
+        <li class="nav-item active" id="mhwProbPill">
+            <a class="nav-link" href="#mhwProb" data-toggle="tab" aria-expanded="true" >Probability Forecast</a>
+        </li>
+        <li class="nav-item" id="mhwDistPill">
+            <a class="nav-link" href="#mhwDist" data-toggle="tab" aria-expanded="true">Forecast Spread</a>
         </li>
     </ul>
 </div>
 
 <div class="row" id="dashContentForecastMHW">
     <div class="tab-content">
-        <div id='fcastViewMHW' class="tab-pane active view col-12">
-        <h3>Forecast Spread</h3>
-        <div class = "row position-relative">
-            <div id="plotly-fcastmhw-spread" class="col-xs-12 col-md-6"></div>
-            <div id="plotly-fcastmhw-box" class="col-xs-12 col-md-6"></div>
-            <div id="loading-spinner-fcastmhw-spread" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
+        <div id='mhwProb' class="tab-pane view col-12 active">
+            <h3>Probability Forecast</h3>
+            <div class = "row position-relative">
+                <div id="plotly-fcastmhw-spread" class="col-xs-12 col-md-6"></div>
+                <div id="plotly-fcastmhw-box" class="col-xs-12 col-md-6"></div>
+                <div id="loading-spinner-fcastmhw-spread" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
+            </div>
         </div>
+        <div id='mhwDist' class="tab-pane view col-12">
+            <h3>Forecast Spread</h3>
+            <div class = "row position-relative">
+            </div>
         </div>
     </div>
 </div>
