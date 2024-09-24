@@ -1,9 +1,9 @@
-// default historical run options
-createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');  // Data Query
-// default initYear options for forecast
-createMomCobaltInitYearOpt('iyearMOMCobaltForecastData');
-// default initMonth options for forecast
-createMomCobaltInitMonthOpt('imonthMOMCobaltForecastData');
+// create variable dropdown options
+createMomCobaltVarDataOpt('varMOMCobaltData','hist_run');  // Data Query
+// default initYear options for forecast (use forecast.js)
+window.createMomCobaltInitYearOpt('iyearMOMCobaltForecastData');
+// default initMonth options for forecast (use forecast.js)
+window.createMomCobaltInitMonthOpt('imonthMOMCobaltForecastData');
 
 
 // event lister for region radio button in the variable table section
@@ -27,10 +27,12 @@ $('#periodMOMCobaltData').on('change', function() {
 
     // Create variable option and year month select based on period selection
     if ($('#periodMOMCobaltData').val() === 'hist_run') {
-        createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');
+        // createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');
+        createMomCobaltVarDataOpt('varMOMCobaltData','hist_run');
         $('.forecastOpt').addClass('hidden');
     } else if ($('#periodMOMCobaltData').val() === 'forecast') {
-        createMomCobaltVarOptFcast('MOMCobaltFcast','varMOMCobaltData');
+        // createMomCobaltVarOptFcast('MOMCobaltFcast','varMOMCobaltData');
+        createMomCobaltVarDataOpt('varMOMCobaltData','forecast');
         $('.forecastOpt').removeClass('hidden');
     }
 });
@@ -147,3 +149,35 @@ function copyCode(codeBlockID) {
         console.error('Failed to copy text: ', err);
     });
 }
+
+
+// async fetching the data access json files 
+async function fetchDataAccessJson(region, dataType) {
+  try {
+    const response = await fetch('data_option_json/data_access_' + region + '_' + dataType + '.json');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();  // JSON data 
+    // console.log('JSON data:', data);
+    return data;
+  } catch (error) {
+    console.error('There was a problem when async fetchDataAccessJson:', error);
+  }
+}
+
+
+// async function for create option for data access after fetch complete
+async function createMomCobaltVarDataOpt(selectID,dataType='hist_run') {
+  let elm = document.getElementById(selectID); 
+  let regVal = $("#regMOMCobaltData").val()
+  let varJson = await fetchDataAccessJson(regVal,dataType);
+  // console.log(varJson)
+  let varlist = [
+      varJson.var_values,
+      varJson.var_options,
+      varJson.var_freqs
+  ];
+  df = window.optionSubgroupList(varlist[1],varlist[0],varlist[2]);
+  elm.appendChild(df);
+};

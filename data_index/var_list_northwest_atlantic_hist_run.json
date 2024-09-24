@@ -10,7 +10,7 @@
     "data2": {
         "Variable_Name": "ssu_rotate",
         "Output_Frequency": "daily",
-        "Long_Name": "Sea Surface Zonal Velocity",
+        "Long_Name": "Rotated Sea Surface Zonal Velocity",
         "Unit": "m s-1",
         "File_Name": "ocean_daily.19930101-20191231.ssu_rotate.nc",
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_daily.19930101-20191231.ssu_rotate.nc"
@@ -66,7 +66,7 @@
     "data9": {
         "Variable_Name": "ssv_rotate",
         "Output_Frequency": "daily",
-        "Long_Name": "Sea Surface Meridional Velocity",
+        "Long_Name": "Rotated Sea Surface Meridional Velocity",
         "Unit": "m s-1",
         "File_Name": "ocean_daily.19930101-20191231.ssv_rotate.nc",
         "OPeNDAP_URL": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_daily.19930101-20191231.ssv_rotate.nc"

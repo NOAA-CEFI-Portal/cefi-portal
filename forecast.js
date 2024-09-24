@@ -44,7 +44,7 @@ timeSliderFcast.attr("max", leadIndex.length - 1);
 timeSliderFcast.val(0);
 var leadFoliumFcast = leadMonthList[timeSliderFcast.val()];   // global
 tValueFcast.text(leadFoliumFcast);
-tickSpaceChangeFcast()
+tickSpaceChangeFcast(leadMonthList)
 
 // Initial stat options
 createMomCobaltStatOptFcast();
@@ -116,7 +116,7 @@ $(function() {
 
 /////////////////  event listener  ////////////////
 $(window).resize(function() {
-    tickSpaceChangeFcast();
+    tickSpaceChangeFcast(leadMonthList);
 });
 
 // add event listener on figure all clear button
@@ -203,37 +203,37 @@ $("#analysisMOMCobaltFcast").on("change", function(){
 // add event listener for the "message" event using jQuery (location click)
 $(window).on("message", receiveMessageFcast);
 
-// event listener for clicking the minitab
-$('input[name="fcastAnalysestabs"]').on('click', function() {
-    console.log('Selected option id:', $(this).attr('id'));
-    // Check which radio button is clicked
-    if ($(this).is(':checked')) {
-        var selectedID = $(this).attr('id');
-        changeSelectOpt(selectedID.slice(0, -3),'analysisMOMCobaltFcast','viewFcast')
-        // console.log('Selected option id:', $(this).attr('id'));
-    }
-});
+// // event listener for clicking the minitab
+// $('input[name="fcastAnalysestabs"]').on('click', function() {
+//     console.log('Selected option id:', $(this).attr('id'));
+//     // Check which radio button is clicked
+//     if ($(this).is(':checked')) {
+//         var selectedID = $(this).attr('id');
+//         changeSelectOpt(selectedID.slice(0, -3),'analysisMOMCobaltFcast','viewFcast')
+//         // console.log('Selected option id:', $(this).attr('id'));
+//     }
+// });
 
 
 
 /////////////////////// function section /////////////////////
 // function for changing the tick mark of time slider
-function tickSpaceChangeFcast() {
+function tickSpaceChangeFcast(list) {
     if ($(window).width() < 600) {
         var result = [];
-        for (var i = 3; i < leadMonthList.length; i += 5) {
+        for (var i = 3; i < list.length; i += 5) {
           result.push(i);
         }
         generateTickFcast(result);
     } else if ($(window).width() < 1200) {
         var result = [];
-        for (var i = 2; i < leadMonthList.length; i += 2) {
+        for (var i = 2; i < list.length; i += 2) {
           result.push(i);
         }
         generateTickFcast(result);
     } else {
         var result = [];
-        for (var i = 0; i < leadMonthList.length; i++) {
+        for (var i = 0; i < list.length; i++) {
           result.push(i);
         }
         generateTickFcast(result); 
