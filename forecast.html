@@ -131,18 +131,19 @@
 <div class = "row">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-1">
-                <div>
-                    <button class="btn btn-psl" onclick="changeLeadTimeStep(-1)">&#8592;</button>
-                </div>
-            </div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <p class="sliderTitle"> Forecast time : <span class="timeValueFcast"></span></p>
             </div>
-            <div class="col-md-1 alignRight">
-                <button class="btn btn-psl" onclick="changeLeadTimeStep(1)">&#8594;</button>
-            </div>
         </div>
+        <div class="row">
+		    <div class="col-xs-2">
+			    <button class="btn btn-psl" onclick="changeLeadTimeStep(-1)">&#8592;</button>
+		    </div>
+		    <div class="col-xs-8"></div>
+		    <div class="col-xs-2 alignRight">
+			    <button class="btn btn-psl" onclick="changeLeadTimeStep(1)">&#8594;</button>
+		    </div>
+	    </div>
     </div>
 </div>
 <div class = "row">
@@ -159,9 +160,14 @@
 </div>
 
 <div class="row" id="dashNavForecast">
-    <ul class="nav nav-pills nav-justified">
+    <ul class="nav nav-pills nav-justified hidden-xs" id="pills-fcast">
         <li class="nav-item active" id="fcastViewTabPill">
             <a class="nav-link" href="#fcastViewTab" data-toggle="tab" aria-expanded="true" >Forecast Spread</a>
+        </li>
+    </ul>
+    <ul class="nav nav-tabs nav-justified visible-xs" id="tabs-fcast">
+        <li class="nav-item active" id="fcastViewTabTab">
+            <a class="nav-link" href="#fcastViewTab" data-toggle="tab" aria-expanded="false" >Forecast Spread</a>
         </li>
     </ul>
 </div>
