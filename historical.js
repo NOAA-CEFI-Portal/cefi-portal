@@ -402,7 +402,8 @@ function initializePlotly(flag) {
     } else if (flag ==='transect') {
         Plotly.newPlot('plotly-transect', [trace], layout2,config);
     } else if (flag ==='mhwForecast') {
-
+        Plotly.newPlot('plotly-fcastmhw-prob', [trace], layoutTS,config);
+        Plotly.newPlot('plotly-fcastmhw-mag', [trace], layoutTS,config);
     }
 };
 

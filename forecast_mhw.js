@@ -55,6 +55,8 @@ window.createMomCobaltOpt_singleID('statMOMCobaltFcastMHW',momCobaltStatsFcastMH
 // setup colorbar option (using historical.js function)
 window.createMomCobaltCbarOpt('cbarOptsFcastMHW','inferno');
 
+// initialize the plotly
+window.initializePlotly('mhwForecast')
 
 /////////////////  event listener  ////////////////
 // screen size adjustment trigger by window resizing
