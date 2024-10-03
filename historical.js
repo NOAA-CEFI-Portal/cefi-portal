@@ -65,7 +65,10 @@ $('#depthMOMCobaltTS2').val('');
 createMomCobaltVarOpt('onlyIndexes','indexMOMCobaltTS');
 
 // initialize plotly
-initializePlotly('all');
+$(document).ready(function() {
+    asyncInitializePlotlyResize('all')
+});
+// initializePlotly('all');
 
 // plot index
 plotIndexes();
@@ -174,6 +177,7 @@ $("#analysisMOMCobalt").on("change", function(){
     // change the active navpil content
     $("#dashContentHistrun div.tab-pane").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)).addClass("active");
+    
 })
 
 // event listener for navpil being clicked
@@ -181,6 +185,7 @@ $("#dashNavHistrun > ul.nav-pills > li.nav-item > .nav-link").on('click',functio
     let hrefID = $(this).attr('href')
     let hrefIDText = hrefID.slice(1)
     changeDashSelect('analysisMOMCobalt',hrefIDText+'Val')
+    window.dispatchEvent(new Event('resize'));
 }); 
 
 // // event listener for clicking the minitab
@@ -301,6 +306,16 @@ $('#indexMOMCobaltTS').on("change", function () {
 ///////// functional function start /////////
 // intialize the plotly plot
 // Initial dashboard plot
+function asyncInitializePlotlyResize(flag) {
+    return initializePlotly(flag)
+        .then(() => {
+            window.dispatchEvent(new Event('resize'));
+        })
+        .catch(error => {
+            console.error('Error in async plotly initialization:', error);
+        });
+}
+
 function initializePlotly(flag) {
     var trace = {
         x: "",
@@ -371,9 +386,9 @@ function initializePlotly(flag) {
         // responsive: true
     };
 
-    var layout3 = {
+    var layoutFcst = {
         title: 
-        'Pick an index',
+        'Create Forecast Map first<br>& pick point on the shaded area',
         //   autosize: true,
         // width: 1000,
         // height: 400,
@@ -401,10 +416,18 @@ function initializePlotly(flag) {
         Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
     } else if (flag ==='transect') {
         Plotly.newPlot('plotly-transect', [trace], layout2,config);
+    } else if (flag ==='forecast') {
+        Plotly.newPlot('plotly-fcast-spread', [trace], layoutFcst, config);
+        Plotly.newPlot('plotly-fcast-box', [trace], layoutFcst, config);
     } else if (flag ==='mhwForecast') {
         Plotly.newPlot('plotly-fcastmhw-prob', [trace], layoutTS,config);
         Plotly.newPlot('plotly-fcastmhw-mag', [trace], layoutTS,config);
     }
+
+    return new Promise(resolve => {
+        console.log('Initial Plotly created');
+        resolve();
+    });
 };
 
 // //function for option change due to button/view change at the bottom
