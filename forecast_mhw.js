@@ -56,7 +56,9 @@ window.createMomCobaltOpt_singleID('statMOMCobaltFcastMHW',momCobaltStatsFcastMH
 window.createMomCobaltCbarOpt('cbarOptsFcastMHW','inferno');
 
 // initialize the plotly
-window.initializePlotly('mhwForecast')
+$(document).ready(function() {
+    window.asyncInitializePlotlyResize('mhwForecast')
+});
 
 /////////////////  event listener  ////////////////
 // screen size adjustment trigger by window resizing
@@ -154,6 +156,8 @@ $("#"+dashNavPillID+" > ul.nav-pills > li.nav-item > .nav-link").on('click',func
     let hrefIDText = hrefID.slice(1)
     // reuse changeDashSelect (historical.js) 
     window.changeDashSelect(dashDropDownID,hrefIDText+'Val')
+    // Manually trigger a resize event for triggering plotly resizing 
+    window.dispatchEvent(new Event('resize'));
 }); 
 
 // event listener for the "message" event when map location click
@@ -305,13 +309,17 @@ function getvarValFcastMHW(infoLonLat) {
 //  2. fetch forecast TSs (return promise)
 //  3. create plotly object on webpage (execute when promise resolved)
 function plotFcast(infoLonLat) {
+    showLoadingSpinner("loading-spinner-fcastmhw-prob");
     showLoadingSpinner("loading-spinner-fcastmhw-spread");
     // get promise obj from fetch
     fetchFcastsTS(infoLonLat)     
         .then((jsonData)=>{
-            plotlyFcastsProb(jsonData)
-            plotlyForecastSpread(jsonData)
-            hideLoadingSpinner("loading-spinner-fcast-spread");
+            plotlyFcastsProb(jsonData);
+            plotlyForecastSpread(jsonData);
+        })
+        .then(()=>{
+            hideLoadingSpinner("loading-spinner-fcastmhw-prob");
+            hideLoadingSpinner("loading-spinner-fcastmhw-spread");
         })
         .catch((error)=>{
             console.error('Plotting MHW time series error:',error);
@@ -321,7 +329,7 @@ function plotFcast(infoLonLat) {
 // function to fetch all forecast ts based on locationData
 //  response in the json format
 function fetchFcastsTS(infoLonLat) {
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_variableValue_fcast_mhw.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries_fcast_mhw.py"
         +"?region="+$("#regMOMCobaltFcastMHW").val()
         +"&lon="+infoLonLat.longitude
         +"&lat="+infoLonLat.latitude
@@ -362,7 +370,7 @@ function plotlyFcastsProb(jsonData) {
             color: trace1Color,
             width: 3 
         },
-        // plotly figure title
+        // legend
         name: jsonData.mhw_prob90.varname
     };
 
@@ -372,10 +380,10 @@ function plotlyFcastsProb(jsonData) {
         hovermode: 'closest',
         showlegend: false,
         title:
-        varnameFcast +' <br>' +
+        'MHW Probability <br>' +
             ' @ (lat:'+parseFloat(jsonData.location.lat).toFixed(2)+'N,'+
                 'lon:'+parseFloat(jsonData.location.lon).toFixed(2)+'E)',
-        //   autosize: true,
+        autosize: true,
         annotations: [{
             x: 0,
             y: 0,
@@ -434,7 +442,7 @@ function plotlyForecastSpread(jsonData) {
             color: trace1Color,
             width: 3 
         },
-        name: jsonData.ssta_avg.varname
+        name: 'ssta ens mean'
     };
     var data = [trace];
 
@@ -453,18 +461,40 @@ function plotlyForecastSpread(jsonData) {
                 color: trace2Color },
             name: key
         };
-        data.push(trace_ens)
+        data.push(trace_ens);
     }
     
+    // threshold
+    var trace3Color = "rgba(203, 128, 171, 0.9)";
+    var trace_thres = {
+        x: leadMonthListMHW,
+        y: jsonData.tos_threshold90.ts,
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { size: 2 },
+        line: { 
+            shape: 'linear',
+            color: trace3Color,
+            dash: 'dash'
+        },
+        name: '90% threshold'
+    };
+    data.push(trace_thres);
+
     // plotly figure layout
     var layout = {
         hovermode: 'closest',
-        showlegend: false,
+        showlegend: true,
+        legend: {
+            x: 1,  // Positioning on the right
+            y: 0,
+            xanchor: 'left' // Anchor the legend to avoid it getting cut off
+        },
         title:
-        varnameFcast +' <br>' +
+        'MHW Magnitude <br>' +
             ' @ (lat:'+parseFloat(jsonData.location.lat).toFixed(2)+'N,'+
                 'lon:'+parseFloat(jsonData.location.lon).toFixed(2)+'E)',
-        //   autosize: true,
+        autosize: true,
         annotations: [{
             x: 0,
             y: 0,
@@ -477,7 +507,7 @@ function plotlyForecastSpread(jsonData) {
         //  height: 400,
          margin: {
             l: 80,
-            r: 80,
+            r: 150,
             b: 80,
             t: 100,
             // pad: 4
