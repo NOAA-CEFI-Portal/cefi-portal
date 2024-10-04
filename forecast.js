@@ -58,60 +58,9 @@ createMomCobaltDepthBlockOptFcast(varValueFcast,'blockMOMCobaltFcast')
 // setup colorbar option
 createMomCobaltCbarOpt('cbarOptsFcast');
 
-// Initial dashboard plot
-$(function() {
-    var trace = {
-        x: "",
-        y: "",
-        type: 'scatter',
-        mode: 'lines+markers',
-        marker: { size: 8 },
-        line: { shape: 'linear' },
-        name: ""
-    };
-  
-    var layout1 = {
-        title: 
-        'Create Forecast Map first<br>& pick point on the shaded area',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        xaxis: { title: 'Date' },
-        yaxis: { title: 'Variable' },
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layout2 = {
-        title: 
-        'Create Forecast Map first & draw transect (polyline) on the shaded area',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        xaxis: { title: 'Date' },
-        yaxis: { title: 'Variable' },
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layout3 = {
-        title: 
-        'Pick a index',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        xaxis: { title: 'Date' },
-        yaxis: { title: 'Variable' },
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-    var config = {responsive: true}
-    Plotly.newPlot('plotly-fcast-spread', [trace], layout1, config);
-    Plotly.newPlot('plotly-fcast-box', [trace], layout1, config);
-    // Plotly.newPlot('plotly-index', [trace], layout3)
+// initialize plotly
+$(document).ready(function() {
+    window.asyncInitializePlotlyResize('forecast')
 });
 
 /////////////////  event listener  ////////////////
@@ -199,6 +148,8 @@ $("#analysisMOMCobaltFcast").on("change", function(){
     $("#dashContentForecast div.tab-pane").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)).addClass("active");
 })
+
+
 
 // add event listener for the "message" event using jQuery (location click)
 $(window).on("message", receiveMessageFcast);
