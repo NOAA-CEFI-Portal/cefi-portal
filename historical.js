@@ -174,6 +174,9 @@ $("#analysisMOMCobalt").on("change", function(){
     // change the active navpil
     $("#dashNavHistrun > ul.nav-pills > li.nav-item").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)+'Pill').addClass("active");
+    // change the active navtab
+    $("#dashNavHistrun > ul.nav-tabs > li.nav-item").removeClass("active");
+    $("#"+selectedValue.slice(0, -3)+'Tab').addClass("active");
     // change the active navpil content
     $("#dashContentHistrun div.tab-pane").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)).addClass("active");
@@ -187,6 +190,13 @@ $("#dashNavHistrun > ul.nav-pills > li.nav-item > .nav-link").on('click',functio
     changeDashSelect('analysisMOMCobalt',hrefIDText+'Val')
     window.dispatchEvent(new Event('resize'));
 }); 
+
+// event listener for navtab being clicked
+$("#dashNavHistrun > ul.nav-tabs > li.nav-item > .nav-link").on('click',function(){
+    let hrefID = $(this).attr('href')
+    let hrefIDText = hrefID.slice(1)
+    changeDashSelect('analysisMOMCobalt',hrefIDText+'Val')
+});
 
 // // event listener for clicking the minitab
 // $('input[name="analysestabs"]').click(function() {

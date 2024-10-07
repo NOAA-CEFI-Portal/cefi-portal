@@ -145,6 +145,9 @@ $("#"+dashDropDownID).on("change", function(){
     // change the active navpil
     $("#"+dashNavPillID+" > ul.nav-pills > li.nav-item").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)+'Pill').addClass("active");
+    // change the active navtab
+    $("#"+dashNavPillID+" > ul.nav-tabs > li.nav-item").removeClass("active"); 
+    $("#"+selectedValue.slice(0, -3)+'Tab').addClass("active");
     // change the active navpil content
     $("#"+dashContentID+" div.tab-pane").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)).addClass("active");
@@ -156,6 +159,15 @@ $("#"+dashNavPillID+" > ul.nav-pills > li.nav-item > .nav-link").on('click',func
     let hrefIDText = hrefID.slice(1)
     // reuse changeDashSelect (historical.js) 
     window.changeDashSelect(dashDropDownID,hrefIDText+'Val')
+});
+
+// event listener for navtab being clicked
+$("#"+dashNavPillID+" > ul.nav-tabs > li.nav-item > .nav-link").on('click',function(){
+    let hrefID = $(this).attr('href')
+    let hrefIDText = hrefID.slice(1)
+    // reuse changeDashSelect (historical.js) 
+    window.changeDashSelect(dashDropDownID,hrefIDText+'Val')
+
     // Manually trigger a resize event for triggering plotly resizing 
     window.dispatchEvent(new Event('resize'));
 }); 
