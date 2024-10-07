@@ -24,6 +24,7 @@
         "ssh",
         "tob",
         "tos",
+        "rhopot0",
         "so",
         "thetao"
     ],
@@ -52,6 +53,7 @@
         "Sea Surface Height",
         "Sea Water Potential Temperature at Sea Floor",
         "Sea Surface Temperature",
+        "Potential density referenced to surface",
         "Sea Water Salinity",
         "Sea Water Potential Temperature"
     ],
@@ -75,6 +77,7 @@
         "daily",
         "daily",
         "daily",
+        "monthly",
         "monthly",
         "monthly",
         "monthly",
