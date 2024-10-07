@@ -180,22 +180,25 @@ $("#analysisMOMCobalt").on("change", function(){
     // change the active navpil content
     $("#dashContentHistrun div.tab-pane").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)).addClass("active");
+    // Manually trigger a resize event for triggering plotly resizing 
+    window.dispatchEvent(new Event('resize'));
     
 })
 
 // event listener for navpil being clicked
 $("#dashNavHistrun > ul.nav-pills > li.nav-item > .nav-link").on('click',function(){
-    let hrefID = $(this).attr('href')
-    let hrefIDText = hrefID.slice(1)
-    changeDashSelect('analysisMOMCobalt',hrefIDText+'Val')
+    let hrefID = $(this).attr('href');
+    let hrefIDText = hrefID.slice(1);
+    changeDashSelect('analysisMOMCobalt',hrefIDText+'Val');
     window.dispatchEvent(new Event('resize'));
 }); 
 
 // event listener for navtab being clicked
 $("#dashNavHistrun > ul.nav-tabs > li.nav-item > .nav-link").on('click',function(){
-    let hrefID = $(this).attr('href')
-    let hrefIDText = hrefID.slice(1)
-    changeDashSelect('analysisMOMCobalt',hrefIDText+'Val')
+    let hrefID = $(this).attr('href');
+    let hrefIDText = hrefID.slice(1);
+    changeDashSelect('analysisMOMCobalt',hrefIDText+'Val');
+    window.dispatchEvent(new Event('resize'));
 });
 
 // // event listener for clicking the minitab

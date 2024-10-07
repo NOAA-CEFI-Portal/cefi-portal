@@ -151,6 +151,8 @@ $("#"+dashDropDownID).on("change", function(){
     // change the active navpil content
     $("#"+dashContentID+" div.tab-pane").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)).addClass("active");
+    // Manually trigger a resize event for triggering plotly resizing 
+    window.dispatchEvent(new Event('resize'));
 })
 
 // event listener for navpil being clicked
@@ -159,6 +161,9 @@ $("#"+dashNavPillID+" > ul.nav-pills > li.nav-item > .nav-link").on('click',func
     let hrefIDText = hrefID.slice(1)
     // reuse changeDashSelect (historical.js) 
     window.changeDashSelect(dashDropDownID,hrefIDText+'Val')
+
+    // Manually trigger a resize event for triggering plotly resizing 
+    window.dispatchEvent(new Event('resize'));
 });
 
 // event listener for navtab being clicked
