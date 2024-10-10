@@ -1264,11 +1264,11 @@ function getMockDate(freqString) {
     //  this is required due to the multiple file for same varname with 
     //  different frequency in the backend.
     var mockDate;
-    if (freqString.includes('da')){
+    if (freqString.toLowerCase().includes('da')){
         mockDate = 'YYYY-MM-DD';
-    } else if (freqString.includes('mon')){
+    } else if (freqString.toLowerCase().includes('mon')){
         mockDate = 'YYYY-MM';
-    } else if (freqString.includes('ann')){
+    } else if (freqString.toLowerCase().includes('ann')){
         mockDate = 'YYYY';
     }
     return mockDate

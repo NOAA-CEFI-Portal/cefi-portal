@@ -98,21 +98,21 @@ $("#copyButtonCite").click(function () {
 
 
 // functions for generating data query 
-function generateDataQuery(dataType) {
-    var region = $(regMOMCobaltData).val();
-    var variable = $(varMOMCobaltData).val();
-    var grid = $(gridMOMCobalt).val();
+async function generateDataQuery(dataType) {
+    var region = $('#regMOMCobaltData').val();
+    var variable = $('#varMOMCobaltData').val();
+    var grid = $('#gridMOMCobalt').val();
     var year = -99
     var month = -99
     if (dataType === 'forecast') {
-        year = $(iyearMOMCobaltForecastData).val();
-        month = $(imonthMOMCobaltForecastData).val();
+        year = $('#iyearMOMCobaltForecastData').val();
+        month = $('#imonthMOMCobaltForecastData').val();
     }
-    // find data frequency and create mock date for TS2
+    // find data frequency and create mock date for data query variable
     var selectVarDataIndex = $("#varMOMCobaltData").prop('selectedIndex');
-    var varlist = momCobaltVars();
-    var varFreq = varlist[2][selectVarDataIndex]
-    var mockDate = getMockDate(varFreq)
+    var varFreq = groupList[selectVarDataIndex]
+    // find out mockDate using (historical.js)
+    var mockDate = window.getMockDate(varFreq)
 
     var ajaxGet = "/cgi-bin/cefi_portal/mom_data_query.py"
     +"?variable="+variable
@@ -168,6 +168,10 @@ async function fetchDataAccessJson(region, dataType) {
 
 
 // async function for create option for data access after fetch complete
+// Arrays to store the results
+var valuesList = [];
+var textList = [];
+var groupList = [];
 async function createMomCobaltVarDataOpt(selectID,dataType='hist_run') {
   let elm = document.getElementById(selectID); 
   let regVal = $("#regMOMCobaltData").val()
@@ -180,4 +184,29 @@ async function createMomCobaltVarDataOpt(selectID,dataType='hist_run') {
   ];
   df = window.optionSubgroupList(varlist[1],varlist[0],varlist[2]);
   elm.appendChild(df);
+
+  // Loop through the select dropdown to store the reordered dropdown list
+  $("#varMOMCobaltData").children().each(function() {
+      // Check if the element is an optgroup
+      if ($(this).is('optgroup')) {
+          var groupLabel = $(this).attr('label'); // Get the optgroup label
+          
+          // Now loop through each option inside the optgroup
+          $(this).children('option').each(function() {
+              var optionValue = $(this).val();   // Get the option's value
+              var optionText = $(this).text();   // Get the option's display text
+
+              // Store in the lists
+              valuesList.push(optionValue);
+              textList.push(optionText);
+              groupList.push(groupLabel);
+          });
+      } else if ($(this).is('option')) {
+          // Handle options outside of optgroups, if any exist
+          console.log('Error! one variable options does not have optgroup')
+      }
+  });
+
+
+
 };
