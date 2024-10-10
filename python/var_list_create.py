@@ -1,7 +1,11 @@
+"""Script to on cron job to auto genearte 
+the variable list provided in the cefi portal
+"""
 import os
 import glob
-import jinja2
 import json
+from typing import Literal
+import jinja2
 import numpy as np
 import pandas as pd
 import xarray as xr
@@ -9,6 +13,20 @@ import xml.etree.ElementTree as ET
 
 
 def dict_to_xml(tag, dict_obj):
+    """converting dictionary to xml output
+
+    Parameters
+    ----------
+    tag : str
+        tag for the entire dataset
+    dict_obj : dict
+        dictionary to convert
+
+    Returns
+    -------
+    xml element
+        xml root element to be written to output
+    """
     elem = ET.Element(tag)
     for key, val in dict_obj.items():
         child = dict_to_xml(key, val) if isinstance(val, dict) else ET.Element(key, text=val)
@@ -61,6 +79,7 @@ def find_ncfiles_info_forecast(
 
         # find file variable name
         variables = list(ds.keys())
+
         for var in variables:
             varname = var
 
@@ -107,7 +126,9 @@ def find_ncfiles_info_forecast(
 def find_ncfiles_info_hist_run(
         dirpath: str,
         tdim_name: str='time',
-        opendap_root_url: str='http://psl.noaa.gov/thredds/dodsC'
+        opendap_root_url: str='http://psl.noaa.gov/thredds/dodsC',
+        exclude_static : bool = False,
+        output_format : Literal['dataframe', 'dictionary'] = 'dataframe'
     )->dict:
     """Get meta data from data itself.
     This function is designed for hist_run file structure
@@ -160,6 +181,8 @@ def find_ncfiles_info_hist_run(
             filename_list.append(filename)
         except IndexError:
             freq = 'static'
+            if exclude_static:
+                continue
 
         # find file variable name
         variables = list(ds.keys())
@@ -206,9 +229,13 @@ def find_ncfiles_info_hist_run(
         'File_Name':filename_list,
         'OPeNDAP_URL':opendap_list
     }
-    df = pd.DataFrame(dict_info)
-
-    return df.sort_values(by='Output_Frequency').reset_index(drop=True).to_dict()
+    if output_format == 'dictionary':
+        return dict_info
+    elif output_format == 'dataframe':
+        df = pd.DataFrame(dict_info)
+        return df.sort_values(by='Output_Frequency').reset_index(drop=True).to_dict()
+    else:
+        raise IndexError('Please enter dictionary/dataframe for kwarg "output_format"')
 
 if __name__ == '__main__':
     regions = ['northwest_atlantic']

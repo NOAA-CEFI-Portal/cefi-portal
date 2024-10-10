@@ -65,7 +65,10 @@ $('#depthMOMCobaltTS2').val('');
 createMomCobaltVarOpt('onlyIndexes','indexMOMCobaltTS');
 
 // initialize plotly
-initializePlotly('all');
+$(document).ready(function() {
+    asyncInitializePlotlyResize('all')
+});
+// initializePlotly('all');
 
 // plot index
 plotIndexes();
@@ -160,26 +163,53 @@ $("#varMOMCobalt").on("change", function(){
     tValue.text(dateFolium);
 });
 
-// event listen for analyses dashboard change
+// event listen for analyses dashboard dropdown change with nav pil
 $("#analysisMOMCobalt").on("change", function(){
+    // Related ID name 
+    //    dropdown option ID = xxxVal
+    //    content ID = xxx
+    //    navpil ID = xxxPill
+    // get the dropdown option ID name
     var selectedValue = $('#analysisMOMCobalt :selected').val();
-    // $('#'+selectedValue.slice(0, -3)+'Tab').prop('checked', true);
-    // showDiv(selectedValue.slice(0, -3),'view');
+    // change the active navpil
     $("#dashNavHistrun > ul.nav-pills > li.nav-item").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)+'Pill').addClass("active");
+    // change the active navtab
+    $("#dashNavHistrun > ul.nav-tabs > li.nav-item").removeClass("active");
+    $("#"+selectedValue.slice(0, -3)+'Tab').addClass("active");
+    // change the active navpil content
     $("#dashContentHistrun div.tab-pane").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)).addClass("active");
+    // Manually trigger a resize event for triggering plotly resizing 
+    window.dispatchEvent(new Event('resize'));
+    
 })
 
-// event listener for clicking the minitab
-$('input[name="analysestabs"]').on('click', function() {
-    // Check which radio button is clicked
-    if ($(this).is(':checked')) {
-        var selectedID = $(this).attr('id');
-        changeSelectOpt(selectedID.slice(0, -3),'analysisMOMCobalt','view')
-        // console.log('Selected option id:', $(this).attr('id'));
-    }
+// event listener for navpil being clicked
+$("#dashNavHistrun > ul.nav-pills > li.nav-item > .nav-link").on('click',function(){
+    let hrefID = $(this).attr('href');
+    let hrefIDText = hrefID.slice(1);
+    changeDashSelect('analysisMOMCobalt',hrefIDText+'Val');
+    window.dispatchEvent(new Event('resize'));
+}); 
+
+// event listener for navtab being clicked
+$("#dashNavHistrun > ul.nav-tabs > li.nav-item > .nav-link").on('click',function(){
+    let hrefID = $(this).attr('href');
+    let hrefIDText = hrefID.slice(1);
+    changeDashSelect('analysisMOMCobalt',hrefIDText+'Val');
+    window.dispatchEvent(new Event('resize'));
 });
+
+// // event listener for clicking the minitab
+// $('input[name="analysestabs"]').click(function() {
+//     // Check which radio button is clicked
+//     if ($(this).is(':checked')) {
+//         var selectedID = $(this).attr('id');
+//         changeSelectOpt(selectedID.slice(0, -3),'analysisMOMCobalt','view')
+//         // console.log('Selected option id:', $(this).attr('id'));
+//     }
+// });
 
 
 // Update the figure (when mouse up the slider handle)
@@ -289,6 +319,16 @@ $('#indexMOMCobaltTS').on("change", function () {
 ///////// functional function start /////////
 // intialize the plotly plot
 // Initial dashboard plot
+function asyncInitializePlotlyResize(flag) {
+    return initializePlotly(flag)
+        .then(() => {
+            window.dispatchEvent(new Event('resize'));
+        })
+        .catch(error => {
+            console.error('Error in async plotly initialization:', error);
+        });
+}
+
 function initializePlotly(flag) {
     var trace = {
         x: "",
@@ -359,9 +399,9 @@ function initializePlotly(flag) {
         // responsive: true
     };
 
-    var layout3 = {
+    var layoutFcst = {
         title: 
-        'Pick an index',
+        'Create Forecast Map first<br>& pick point on the shaded area',
         //   autosize: true,
         // width: 1000,
         // height: 400,
@@ -389,27 +429,44 @@ function initializePlotly(flag) {
         Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
     } else if (flag ==='transect') {
         Plotly.newPlot('plotly-transect', [trace], layout2,config);
+    } else if (flag ==='forecast') {
+        Plotly.newPlot('plotly-fcast-spread', [trace], layoutFcst, config);
+        Plotly.newPlot('plotly-fcast-box', [trace], layoutFcst, config);
+    } else if (flag ==='mhwForecast') {
+        Plotly.newPlot('plotly-fcastmhw-prob', [trace], layoutTS,config);
+        Plotly.newPlot('plotly-fcastmhw-mag', [trace], layoutTS,config);
     }
+
+    return new Promise(resolve => {
+        console.log('Initial Plotly created');
+        resolve();
+    });
 };
 
-//function for option change due to button/view change at the bottom
-function changeSelectOpt(divId,optionID,tabContentClass) {
-    showDiv(divId,tabContentClass);
+// //function for option change due to button/view change at the bottom
+// function changeSelectOpt(divId,optionID,tabContentClass) {
+//     showDiv(divId,tabContentClass);
+//     // change pick option
+//     $('#' + optionID).val(divId + 'Val').change();
+// }
+
+// function for option change due to nav pill change at the bottom
+function changeDashSelect(dashDropDownID,optionVal) {
     // change pick option
-    $('#' + optionID).val(divId + 'Val').change();
+    $('#' + dashDropDownID).val(optionVal).change();
 }
 
-// function for mini navbar in a bootstrap page
-function showDiv(divId,tabContentClass) {
-    // Hide all divs
-    $('.'+tabContentClass).addClass("hidden")
+// // function for mini navbar in a bootstrap page
+// function showDiv(divId,tabContentClass) {
+//     // Hide all divs
+//     $('.'+tabContentClass).addClass("hidden")
 
-    // Show the selected div
-    $('#' + divId).removeClass("hidden");
+//     // Show the selected div
+//     $('#' + divId).removeClass("hidden");
 
-    // // Show click button 
-    // showClick(divId+'Btn');
-}
+//     // // Show click button 
+//     // showClick(divId+'Btn');
+// }
 
 // // function for minitab in a bootstrap page
 // function showClick(buttonId) {
@@ -507,6 +564,14 @@ function optionSubgroupList(listname,listval,listsubgroup) {
     return df;
 };
 
+// function for create option for general options (single ID)
+function createMomCobaltOpt_singleID(selectID,optionListFunc) {
+    let elm = document.getElementById(selectID);
+    let optlist = optionListFunc();
+    df = optionList(optlist[0],optlist[1]);
+    elm.appendChild(df);
+};
+
 // function for create option for general options
 function createMomCobaltOpt(selectClass,optionListFunc) {
     let elms = document.getElementsByClassName(selectClass);
@@ -520,25 +585,27 @@ function createMomCobaltOpt(selectClass,optionListFunc) {
 };
 
 
-// function for create option for variables
+// function for create option for variables (optimized for different purposes)
 function createMomCobaltVarOpt(dataCobaltID,selectID) {
     let elm = document.getElementById(selectID); 
     let varlist = momCobaltVars();
     if (dataCobaltID == "MOMCobalt") {
+        // for historical run var
         varlist = momCobaltVars();
     } else if (dataCobaltID == "MOMCobalt+Index") {
+        // for second time series comp
         varlist = momCobaltVars();
         indexlist = indexes();
         varlist[0] = varlist[0].concat(indexlist[0]);
         varlist[1] = varlist[1].concat(indexlist[1]);
         varlist[2] = varlist[2].concat(indexlist[2]);
     } else if (dataCobaltID == "onlyIndexes") {
+        // for index
         indexlist = indexes("onlyIndex");
         varlist[0] = indexlist[0];
         varlist[1] = indexlist[1];
         varlist[2] = indexlist[2];
     };
-
     // df = optionList(varlist[0],varlist[1]);
     df = optionSubgroupList(varlist[0],varlist[1],varlist[2]);
     elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
@@ -593,14 +660,14 @@ function createMomCobaltDepthBlockOpt(variable,blockOptID='blockMOMCobalt') {
 };
 
 // function for create option for depth
-function createMomCobaltCbarOpt(cbarOptID='cbarOpts') {
+function createMomCobaltCbarOpt(cbarOptID='cbarOpts',defaultCbar='RdBu_r') {
     let elm = document.getElementById(cbarOptID);
     let list_cbar = colorbarOpt()    
     let df = optionList(list_cbar,list_cbar);
 
     return new Promise((resolve) => {
         elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
-        elm.selectedIndex = list_cbar.indexOf('RdBu_r');
+        elm.selectedIndex = list_cbar.indexOf(defaultCbar);
         // console.log("Async work completed!");
         resolve(); // Resolve the promise when done
     });
@@ -1197,11 +1264,11 @@ function getMockDate(freqString) {
     //  this is required due to the multiple file for same varname with 
     //  different frequency in the backend.
     var mockDate;
-    if (freqString.includes('da')){
+    if (freqString.toLowerCase().includes('da')){
         mockDate = 'YYYY-MM-DD';
-    } else if (freqString.includes('mon')){
+    } else if (freqString.toLowerCase().includes('mon')){
         mockDate = 'YYYY-MM';
-    } else if (freqString.includes('ann')){
+    } else if (freqString.toLowerCase().includes('ann')){
         mockDate = 'YYYY';
     }
     return mockDate

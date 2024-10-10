@@ -1,9 +1,9 @@
-// default historical run options
-createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');  // Data Query
-// default initYear options for forecast
-createMomCobaltInitYearOpt('iyearMOMCobaltForecastData');
-// default initMonth options for forecast
-createMomCobaltInitMonthOpt('imonthMOMCobaltForecastData');
+// create variable dropdown options
+createMomCobaltVarDataOpt('varMOMCobaltData','hist_run');  // Data Query
+// default initYear options for forecast (use forecast.js)
+window.createMomCobaltInitYearOpt('iyearMOMCobaltForecastData');
+// default initMonth options for forecast (use forecast.js)
+window.createMomCobaltInitMonthOpt('imonthMOMCobaltForecastData');
 
 
 // event lister for region radio button in the variable table section
@@ -27,10 +27,12 @@ $('#periodMOMCobaltData').on('change', function() {
 
     // Create variable option and year month select based on period selection
     if ($('#periodMOMCobaltData').val() === 'hist_run') {
-        createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');
+        // createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');
+        createMomCobaltVarDataOpt('varMOMCobaltData','hist_run');
         $('.forecastOpt').addClass('hidden');
     } else if ($('#periodMOMCobaltData').val() === 'forecast') {
-        createMomCobaltVarOptFcast('MOMCobaltFcast','varMOMCobaltData');
+        // createMomCobaltVarOptFcast('MOMCobaltFcast','varMOMCobaltData');
+        createMomCobaltVarDataOpt('varMOMCobaltData','forecast');
         $('.forecastOpt').removeClass('hidden');
     }
 });
@@ -96,21 +98,21 @@ $("#copyButtonCite").click(function () {
 
 
 // functions for generating data query 
-function generateDataQuery(dataType) {
-    var region = $(regMOMCobaltData).val();
-    var variable = $(varMOMCobaltData).val();
-    var grid = $(gridMOMCobalt).val();
+async function generateDataQuery(dataType) {
+    var region = $('#regMOMCobaltData').val();
+    var variable = $('#varMOMCobaltData').val();
+    var grid = $('#gridMOMCobalt').val();
     var year = -99
     var month = -99
     if (dataType === 'forecast') {
-        year = $(iyearMOMCobaltForecastData).val();
-        month = $(imonthMOMCobaltForecastData).val();
+        year = $('#iyearMOMCobaltForecastData').val();
+        month = $('#imonthMOMCobaltForecastData').val();
     }
-    // find data frequency and create mock date for TS2
+    // find data frequency and create mock date for data query variable
     var selectVarDataIndex = $("#varMOMCobaltData").prop('selectedIndex');
-    var varlist = momCobaltVars();
-    var varFreq = varlist[2][selectVarDataIndex]
-    var mockDate = getMockDate(varFreq)
+    var varFreq = groupList[selectVarDataIndex]
+    // find out mockDate using (historical.js)
+    var mockDate = window.getMockDate(varFreq)
 
     var ajaxGet = "/cgi-bin/cefi_portal/mom_data_query.py"
     +"?variable="+variable
@@ -147,3 +149,64 @@ function copyCode(codeBlockID) {
         console.error('Failed to copy text: ', err);
     });
 }
+
+
+// async fetching the data access json files 
+async function fetchDataAccessJson(region, dataType) {
+  try {
+    const response = await fetch('data_option_json/data_access_' + region + '_' + dataType + '.json');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();  // JSON data 
+    // console.log('JSON data:', data);
+    return data;
+  } catch (error) {
+    console.error('There was a problem when async fetchDataAccessJson:', error);
+  }
+}
+
+
+// async function for create option for data access after fetch complete
+// Arrays to store the results
+var valuesList = [];
+var textList = [];
+var groupList = [];
+async function createMomCobaltVarDataOpt(selectID,dataType='hist_run') {
+  let elm = document.getElementById(selectID); 
+  let regVal = $("#regMOMCobaltData").val()
+  let varJson = await fetchDataAccessJson(regVal,dataType);
+  // console.log(varJson)
+  let varlist = [
+      varJson.var_values,
+      varJson.var_options,
+      varJson.var_freqs
+  ];
+  df = window.optionSubgroupList(varlist[1],varlist[0],varlist[2]);
+  elm.appendChild(df);
+
+  // Loop through the select dropdown to store the reordered dropdown list
+  $("#varMOMCobaltData").children().each(function() {
+      // Check if the element is an optgroup
+      if ($(this).is('optgroup')) {
+          var groupLabel = $(this).attr('label'); // Get the optgroup label
+          
+          // Now loop through each option inside the optgroup
+          $(this).children('option').each(function() {
+              var optionValue = $(this).val();   // Get the option's value
+              var optionText = $(this).text();   // Get the option's display text
+
+              // Store in the lists
+              valuesList.push(optionValue);
+              textList.push(optionText);
+              groupList.push(groupLabel);
+          });
+      } else if ($(this).is('option')) {
+          // Handle options outside of optgroups, if any exist
+          console.log('Error! one variable options does not have optgroup')
+      }
+  });
+
+
+
+};
