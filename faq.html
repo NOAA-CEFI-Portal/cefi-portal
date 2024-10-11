@@ -1,0 +1,308 @@
+<div class = "row">
+    <h2>Frequently Ask Questions</h2>
+    <div class="panel-group" id="accordion">
+        <!-- expanding panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse0">
+                <i class="fas fa-plus-circle"></i> What is the goal of CEFI?</a>
+                </h4>
+            </div>
+
+            <div id="collapse0" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                        The goal of the Climate Ecosystem and Fisheries Initiative (CEFI) is to provide information about past and future conditions for US coastal regions. 
+                        Models need to be at a sufficient resolution to represent general coastal processes (on the order of 8-10 km horizontal resolution, 
+                        although the grid may be of finer scale in the near future). In addition to historical simulation, seasonal forecasts (out to 1 year), 
+                        decadal forecasts (out to 10 years) and long term projections (out to 2100) will be made for several regions, including: 
+                        <ol>
+                            <li>the Northwest Atlantic (US east coast, Gulf of Mexico and the Caribbean)</li>
+                            <li>the Northeast Pacific (from Baja California to the Chukchi Sea in the Arctic)</li>
+                            <li>the Arctic</li>
+                            <li>Pacific Islands including Hawaii</li>
+                            <li>Great Lakes</li>
+                        </ol>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- expanding panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                <i class="fas fa-plus-circle"></i> How to Access the Regional MOM6 Data?</a>
+                </h4>
+            </div>
+
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                        Currently, the regional MOM6 output can be accessed through the PSL THREDDS server. 
+                        Users have the flexibility to choose their preferred method of data retrieval from this server. 
+                        Additionally, an alternative option involving AWS cloud storage is under consideration and may become available in the near future. 
+                        This option is currently undergoing testing. For direct access to the THREDDS server, go to the 
+                        <a href="https://psl.noaa.gov/thredds/catalog/Projects/CEFI/regional_mom6/catalog.html">catalog directly</a>.    
+                    </p>
+                    <p>
+                        <strong>
+                            To access/download the data, the CEFI portal
+                            <a href="https://psl.noaa.gov/cefi_portal/#data_access">model data access</a> 
+                            offer couple different options.
+                        </strong> 
+                        <ul>
+                            <li>A list of available variable tables in different coastal regions is provided in multiple format (html, json, and xml)</li>
+                            <li>A data query generator to generate code to access the data through OPeNDAP</li>
+                            <li>A data query generator to provide direct download</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- expanding panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                <i class="fas fa-plus-circle"></i> Why regional MOM6? How is it different from other operational models?</a>
+                </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                        Regional models have some benefits over global models, including being able to represent finer scale features more rapidly. 
+                        They can also be “tuned” (have their many parameter values adjusted) to better represent conditions in the region of interest. 
+                        While regional ocean models including the Regional Ocean Modeling System (<a href="https://www.myroms.org">ROMS</a>) and Finite Volume Coastal Ocean Model (<a href="https://csdms.colorado.edu/wiki/Model:FVCOM">FVCOM</a>) 
+                        have been developed and used for many years, NOAA did not have regional ocean model capability. Building off the expertise in 
+                        developing global models, the regional version of MOM6 has been developed particularly with fishery and ocean habitat applications in mind.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- expanding panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                <i class="fas fa-plus-circle"></i> Are regional models the same as climate models?</a>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                        The climate system is often simulated by coupling models representing different parts of the earth system together.  
+                        Common components include the atmosphere, ocean, sea ice, land, land vegetation, and ocean biogeochemistry.  
+                        Terminology varies depending on which components are included:
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>Earth system model (ESM)</strong>: Earth system models couple all of the components listed in the previous section. 
+                            They are global and their dynamics are almost entirely emergent from their internal dynamics; in general, 
+                            the only inputs provided to these models are solar forcing, volcanic aerosols, and human-produced greenhouse gas emissions.
+                        </li>
+                        <li>
+                            <strong>General circulation model (GCM, also sometimes called global climate models)</strong>: 
+                            These are similar to ESMs, but without ocean biogeochemistry and a simplified version of vegetation on land.  
+                            (In the past, the term “general circulation model” was used to describe just the atmosphere or ocean component models)
+                        </li>
+                        <li>
+                            <strong>Atmospheric model</strong>: can be both global or regional where the sea surface temperatures are specified as boundary 
+                            conditions with an interactive land component.
+                        </li>
+                        <li>
+                            <strong>Ocean model</strong>: Ocean models remove the atmospheric and land components and focus only on the ocean; 
+                            they often include sea ice and ocean biogeochemistry as well.  These are less computationally intensive than fully coupled ESMs, 
+                            and also provide extra  flexibility in experimental design since the atmospheric components are provided as user inputs.  
+                            They can be very useful to address research questions where the feedback of ocean dynamics on the atmosphere can be ignored or approximated via input setup.
+                        </li>
+                        <li>
+                            <strong>Regional ocean model</strong>: A regional ocean simulates only a specific section of the globe.  
+                            This adds extra lateral boundaries to the setup relative to a global model, which introduces additional computational complexities.  
+                            However, the limited spatial extent allows simulation at higher resolution than a global model given the same computing resources.  
+                            Regional models also allow for tailoring of input model components and input parameters to capture dynamics specific to a region 
+                            that may not be applicable globally.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- expanding panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                <i class="fas fa-plus-circle"></i> Is regional MOM6 the same as global MOM6?</a>
+                </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                        <a href="https://www.gfdl.noaa.gov/mom-ocean-model/">The Modular Ocean Model, version 6 (MOM6)</a> is the ocean component of the NOAA Geophysical Fluid Dynamics Laboratory 
+                        (GFDL)’s earth system model (ESM4). This model has been developed over several decades and is one of the world’s 
+                        premier ESMs. The MOM6 ocean model simulates physical ocean dynamics like ocean currents, temperature, and salinity, 
+                        and can be coupled to a sea ice model (SIS2) that simulates formation and melting of sea ice and an ocean biogeochemical 
+                        model (COBALT) that simulates nutrient cycling and lower trophic level dynamics.
+                    </p>
+                    <p>
+                        While the global version of MOM6 has existed for many decades, the regional version has been  developed much more recently 
+                        and is still being improved.  Simulating open lateral boundaries is a complex task, and it took time to add these capabilities 
+                        in a manner compatible with the global MOM6 configuration.  A description of how these boundary conditions are implemented can 
+                        be found in the <a href="https://gmd.copernicus.org/articles/16/6943/2023/">documentation paper</a> for the northwest Atlantic implementation. Both the global and regional implementations use the same underlying code base.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- expanding panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                <i class="fas fa-plus-circle"></i> Are the boundary conditions part of a regional model?</a>
+                </h4>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                        A regional ocean model always requires external input to prescribe what is happening at the surface and lateral boundaries; 
+                        that input usually comes from the output of a larger- and coarser-scale global model or a reanalysis, which combines a model 
+                        with observations.  These boundary conditions play a strong driving role in any simulation, and a regional model will inherit 
+                        some of both the skill and biases of its parent model/reanalysis.  A regional model is more than just a high-resolution filter 
+                        for the parent model; it can resolve dynamics not possible at a coarser scale, and also can add new processes not present in 
+                        the parent (for example, extra biological complexity).  This can alleviate biases from the parent model.  But at the same time, 
+                        some biases can be amplified in the regional model output.  The resulting features in a regional model will always be a combination 
+                        of the parent model’s dynamics and its own internal dynamics.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- expanding panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+                <i class="fas fa-plus-circle"></i> What are differences between historical run, forecast, and projection?</a>
+                </h4>
+            </div>
+            <div id="collapse6" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                        Different types of regional simulations can be run by pairing a regional MOM6 domain with different types of parent 
+                        models/datasets for its atmospheric and boundary condition forcing.  The terminology for these different simulation 
+                        types -- historical, forecast, projection, etc. -- is not standardized across the field and can be confusing.  
+                        Here's a brief summary of the CEFI simulations and our chosen terminology:
+                    </p>
+                    <ul>
+                        <li>
+                            <p>
+                                <strong>Historical simulations</strong>: CEFI's historical simulations attempt to simulate real-world conditions in the recent past. 
+                                They derive their input forcing from a global reanalysis.  Reanalyses combine model dynamics and observations using 
+                                a process known as data assimilation. Regional historical runs can be used to measure the skill of the model compared 
+                                to observations.  They also play many roles in research and ecosystem management: to fill in spatiotemporal gaps in 
+                                observations, provide a physical basis to drive fisheries and other ecosystem models, initialize forecasts, and many more.  
+                                Note that our historical simulations do not themselves assimilate observations; they are simply forced by a data-assimilative 
+                                parent model.  Sometimes historical simulations are referred to as “hindcasts”.
+                            </p>
+                            <p>
+                                Note on terminology: In some contexts, "historical" ESM or climate model simulations can refer the historical experiment 
+                                output of an earth system model intercomparison project (e.g., [CMIP6](https://doi.org/10.5194/gmd-9-1937-2016)). 
+                                Unlike a reanalysis model, these ESMs are not directly tied to observations on initialization. They usually start from 
+                                a simulation designed to bring the internal dynamics into equilibrium under pre-industrial conditions (i.e. letting the 
+                                model approach its long-term average climate). They do not assimilate data and are tied to specific time periods only by 
+                                prescribed greenhouse gas emissions and atmospheric aerosols. A skillful ESM/GCM will capture real-world statistical variability 
+                                across interannual and decadal scales, but will not have a year-to-year match to the real world.  For example, they will produce 
+                                warm or cold events like ENSO, but not specific heat waves when they occur in the real world.  The CEFI suite does not currently 
+                                include this type of CMIP historical experiment simulation.
+                            </p>
+                        </li>
+                        <li>
+                            <strong>Short-term forecasts</strong>: Regional forecast simulations derive their atmospheric and boundary forcing from a global seasonal forecast model.  
+                            CEFI uses the seasonal simulations from [SPEAR](https://www.gfdl.noaa.gov/spear/), GFDL's MOM6-based seasonal and decadal forecasts.  
+                            Global earth system model seasonal forecasts are initialized from real-world conditions, then integrated forward in time in a freely-evolving 
+                            manner for anywhere from a few months to a decade.  The CEFI suite includes 1-year seasonal forecasts, initialized 4 times per year; 
+                        </li>
+                        <li>
+                            <p>
+                                <strong>Long-term forecasts</strong>: Decadal forecasts that are initialized once per year and extend to 10 years will be added.
+                            </p>
+                            <p>
+                                Forecast ensembles: Due to the chaotic nature of the climate system, very small differences in conditions at one 
+                                time can lead to large differences in future values.  The SPEAR simulations account for this by running multiple 
+                                forecast simulations with slight differences in their initial conditions, producing an ensemble of forecasts that 
+                                can be used to quantify the uncertainty of predictions. The CEFI regional seasonal forecasts downscale 10 of these ensemble members.
+                            </p>
+                            <p>
+                                Note on terminology: Forecasts are usually run starting from near-present conditions to predict the future.  
+                                But they can also be initialized from past conditions. This type of forecast is sometimes referred to as a 
+                                retrospective forecast/reforecast.  These differ from the historical simulations because they are not tied 
+                                to real-world data during the simulation period, only at their initialization time.  The primary purpose of 
+                                these simulations is to assess the skill of a forecast model by comparing the forecasts to real-world data 
+                                (or to a reanalysis or historical simulation).
+                            </p>
+                        </li>
+                        <li>
+                            <strong>Long-term projections</strong>: Long-term projections focus on predicting the change in the climate system over time scales of 100 years.  
+                            On these time scales, the conditions at the start of the simulation are much less important than in short-term forecasts.  
+                            Instead, changes in long-term drivers, especially the concentrations of CO2 and other greenhouse gasses in the atmosphere, 
+                            control the outcomes.  ESM projections are a key part of Coupled Model Intercomparison Projects (CMIP), and encompass a wide 
+                            variety of simulations with different assumptions about the future trajectory of greenhouse gas emissions, land use, etc. 
+                            The CEFI suite will include downscaled versions of selected simulations across parent models and scenarios.  These simulations will extend to 2100.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- expanding panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+                <i class="fas fa-plus-circle"></i> What is COBALT? And how is it related to MOM6?</a>
+                </h4>
+            </div>
+            <div id="collapse7" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                        Carbon, Ocean Biogeochemistry and Lower Trophics (COBALT) (version 2 <a href="https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2019MS002043">COBALTv2</a>, with enhancements for regional MOM6) 
+                        is the ocean biogeochemical model associated with MOM6.  COBALTv3 includes 40 state variables that simulate nutrient 
+                        cycling for carbon, alkalinity, oxygen, nitrogen, phosphorus, iron, silica, calcium carbonate, and lithogenic minerals, 
+                        as well as the food web dynamics of phytoplankton and zooplankton.
+                    </p>
+                    <p>
+                        The COBALT source code is included within the MOM6 component, and when active there is two-way feedback between ocean 
+                        and biogeochemical state variables (for example, temperature influences many of the biological rate parameters, while 
+                        phytoplankton biomass impacts solar radiation reaching and hence heating the water column).
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- expanding panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">
+                <i class="fas fa-plus-circle"></i> What is z* vertical coordinate? Why not use the regular height coordinate?</a>
+                </h4>
+            </div>
+            <div id="collapse8" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                        The regional MOM6 simulations use z* as the vertical coordinate. It’s essentially a height (z) based system but 
+                        shares some similarity with a terrain following (σ) coordinate system. Indeed, z*  only differs from z when the 
+                        free-surface elevation is non-zero.The  coordinate system transforms the moving boundary problem of the oceans free surface into a fixed domain.
+                    </p>
+                    <p>
+                        Alistair Adcroft, A., Jean-Michel Campin, J.-M., 2004: Rescaled height coordinates for accurate representation of 
+                        free-surface flows in ocean circulation models, Ocean Modelling, 7, 3–4,269-284, <a href="https://doi.org/10.1016/j.ocemod.2003.09.003">https://doi.org/10.1016/j.ocemod.2003.09.003</a>.
+                    </p>
+                    <p>
+                        Note that this is the model coordinate system - output is archived at set depth levels.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
