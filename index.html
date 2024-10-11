@@ -25,8 +25,8 @@
                </li>
 
                <li>
-                    <a class="nav-link" href="#data_access" data-toggle="tab" data-target="#data_access">Model Data Access
-                         <span class="hoverLabel">Direct data access and download</span>
+                    <a class="nav-link" href="#data_access" data-toggle="tab" data-target="#data_access">Data Access
+                         <span class="hoverLabel">Access and download regional MOM6 outputs</span>
                     </a>
                </li>
 
@@ -34,7 +34,7 @@
                     <a href="#" class="navDropdown" id="dropdownMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                          Model Visualization
                          <span class="caret"></span>
-                         <span class="hoverLabel">Visualization and some analysese for the regional MOM6 outputs</span>
+                         <span class="hoverLabel">Visualization of regional MOM6 outputs</span>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                          <li><a class="nav-link" data-toggle="tab" href="#historical">Historical Run</a></li>
@@ -48,7 +48,7 @@
                     <a href="#" class="navDropdown" id="dropdownObs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                          Observation Visualization
                          <span class="caret"></span>
-                         <span class="hoverLabel">Visualization and some analysese for the observational and reanalyses data</span>
+                         <span class="hoverLabel">Visualization of the observational and reanalyses data</span>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                          <li><a class="nav-link" data-toggle="tab" href="#current">Global Historical Condition</a></li>
@@ -59,17 +59,22 @@
 
                <li>
                     <a class="nav-link" href="#cefi_list_search" data-toggle="tab" data-target="#cefi_list_search">Information Hub
-                         <span class="hoverLabel">Search the CEFI related resources!</span>
+                         <span class="hoverLabel">CEFI resource database</span>
                     </a>
                </li>
                <li>
                     <a class="nav-link" href="#cookbooks" data-toggle="tab">Cookbooks
-                         <span class="hoverLabel">Tutorial of how to use the regional MOM6 output and other resources</span>
+                         <span class="hoverLabel">Tutorial on regional MOM6 output and other CEFI resources</span>
                     </a>
                </li>
                <li>
-                    <a class="nav-link" href="#resources" data-toggle="tab">Resources
-                         <span class="hoverLabel">Links to resources</span>
+                    <a class="nav-link" href="#faq" data-toggle="tab">FAQ
+                         <span class="hoverLabel">Frequently ask questions</span>
+                    </a>
+               </li>
+               <li>
+                    <a class="nav-link" href="#resources" data-toggle="tab">Links
+                         <span class="hoverLabel">CEFI related links</span>
                     </a>
                </li>
 
@@ -120,6 +125,10 @@
                     <!--#include virtual="cookbooks.html"-->
                </div>
 
+               <div id="faq" class="tab-pane fade in">
+                    <!--#include virtual="faq.html"-->
+               </div>
+
                <div id="resources" class="tab-pane fade in">
                     <!--#include virtual="resources.html"-->
                </div>
@@ -129,6 +138,25 @@
 </div>
 <!--#include virtual="/nav/footer.html"-->
 
+<!-- Modal Feedback form -->
+<div class="modal fade" id="Modalfeedback" tabindex="-1" role="dialog" aria-labelledby="Modalfeedback_title" aria-hidden="true">
+     <div class="modal-dialog modal-lg" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h3 class="modal-title" id="Modalfeedback_title">Thank you for providing feedback!</h3>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <div class="modal-body">
+           <iframe class="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSesSklSuR9YI5e5JBvtAz2sPstKFFrIvKVqeowFOoWP_JEkaw/viewform?embedded=true" scrolling=no frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+       </div>
+     </div>
+</div>
 
 <script type="text/javascript" src="tabHashEvent.js"></script>
 <script type="text/javascript" src="historical.js"></script>
