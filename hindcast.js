@@ -590,7 +590,7 @@ function createMomCobaltVarOpt(dataCobaltID,selectID) {
     let elm = document.getElementById(selectID); 
     let varlist = momCobaltVars();
     if (dataCobaltID == "MOMCobalt") {
-        // for historical run var
+        // for hindcast run var
         varlist = momCobaltVars();
     } else if (dataCobaltID == "MOMCobalt+Index") {
         // for second time series comp

@@ -15,7 +15,7 @@
                     <p>
                         The goal of the Climate Ecosystem and Fisheries Initiative (CEFI) is to provide information about past and future conditions for US coastal regions. 
                         Models need to be at a sufficient resolution to represent general coastal processes (on the order of 8-10 km horizontal resolution, 
-                        although the grid may be of finer scale in the near future). In addition to historical simulation, seasonal forecasts (out to 1 year), 
+                        although the grid may be of finer scale in the near future). In addition to hindcast simulation, seasonal forecasts (out to 1 year), 
                         decadal forecasts (out to 10 years) and long term projections (out to 2100) will be made for several regions, including: 
                         <ol>
                             <li>the Northwest Atlantic (US east coast, Gulf of Mexico and the Caribbean)</li>
@@ -182,7 +182,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
-                <i class="fas fa-plus-circle"></i> What are differences between historical run, forecast, and projection?</a>
+                <i class="fas fa-plus-circle"></i> What are differences between hindcast, forecast, and projection?</a>
                 </h4>
             </div>
             <div id="collapse6" class="panel-collapse collapse">
@@ -190,21 +190,21 @@
                     <p>
                         Different types of regional simulations can be run by pairing a regional MOM6 domain with different types of parent 
                         models/datasets for its atmospheric and boundary condition forcing.  The terminology for these different simulation 
-                        types -- historical, forecast, projection, etc. -- is not standardized across the field and can be confusing.  
+                        types -- hindcast, forecast, projection, etc. -- is not standardized across the field and can be confusing.  
                         Here's a brief summary of the CEFI simulations and our chosen terminology:
                     </p>
                     <ul>
                         <li>
                             <p>
-                                <strong>Historical simulations</strong>: CEFI's historical simulations attempt to simulate real-world conditions in the recent past. 
+                                <strong>Hindcast simulations</strong>: CEFI's hindcast simulations attempt to simulate real-world conditions in the recent past. 
                                 They derive their input forcing from a global reanalysis.  Reanalyses combine model dynamics and observations using 
-                                a process known as data assimilation. Regional historical runs can be used to measure the skill of the model compared 
+                                a process known as data assimilation. Regional hindcast runs can be used to measure the skill of the model compared 
                                 to observations.  They also play many roles in research and ecosystem management: to fill in spatiotemporal gaps in 
                                 observations, provide a physical basis to drive fisheries and other ecosystem models, initialize forecasts, and many more.  
-                                Note that our historical simulations do not themselves assimilate observations; they are simply forced by a data-assimilative 
-                                parent model.  Sometimes historical simulations are referred to as “hindcasts”.
+                                Note that our hindcast simulations do not themselves assimilate observations; they are simply forced by a data-assimilative 
+                                parent model.
                             </p>
-                            <p>
+                            <!-- <p>
                                 Note on terminology: In some contexts, "historical" ESM or climate model simulations can refer the historical experiment 
                                 output of an earth system model intercomparison project (e.g., [CMIP6](https://doi.org/10.5194/gmd-9-1937-2016)). 
                                 Unlike a reanalysis model, these ESMs are not directly tied to observations on initialization. They usually start from 
@@ -214,7 +214,7 @@
                                 across interannual and decadal scales, but will not have a year-to-year match to the real world.  For example, they will produce 
                                 warm or cold events like ENSO, but not specific heat waves when they occur in the real world.  The CEFI suite does not currently 
                                 include this type of CMIP historical experiment simulation.
-                            </p>
+                            </p> -->
                         </li>
                         <li>
                             <strong>Short-term forecasts</strong>: Regional forecast simulations derive their atmospheric and boundary forcing from a global seasonal forecast model.  
@@ -235,10 +235,10 @@
                             <p>
                                 Note on terminology: Forecasts are usually run starting from near-present conditions to predict the future.  
                                 But they can also be initialized from past conditions. This type of forecast is sometimes referred to as a 
-                                retrospective forecast/reforecast.  These differ from the historical simulations because they are not tied 
+                                retrospective forecast/reforecast.  These differ from the hindcast simulations because they are not tied 
                                 to real-world data during the simulation period, only at their initialization time.  The primary purpose of 
                                 these simulations is to assess the skill of a forecast model by comparing the forecasts to real-world data 
-                                (or to a reanalysis or historical simulation).
+                                (or to a reanalysis or hindcast simulation).
                             </p>
                         </li>
                         <li>
