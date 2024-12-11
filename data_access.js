@@ -37,25 +37,6 @@ $('#periodMOMCobaltData').on('change', function() {
     }
 });
 
-// event lister for radio button choice in data options in data query
-$(document).ready(function(){
-    $("input[type='radio'].radioData").change(function(){
-      if ($("#radioOpendap").is(":checked")) {
-        $('.wgetOpt').addClass('hidden');
-        $('.citeOpt').addClass('hidden');
-        $('.opendapOpt').removeClass('hidden');
-      } else if ($("#radioWget").is(":checked")) {
-        $('.opendapOpt').addClass('hidden');
-        $('.citeOpt').addClass('hidden');
-        $('.wgetOpt').removeClass('hidden');
-      } else if ($("#radioCite").is(":checked")) {
-        $('.opendapOpt').addClass('hidden');
-        $('.wgetOpt').addClass('hidden');
-        $('.citeOpt').removeClass('hidden');
-      }
-    });
-});
-
 // event listener for data query button click
 $('#genQueryButton').on('click', function() {
     var dataType = $('#periodMOMCobaltData').val()

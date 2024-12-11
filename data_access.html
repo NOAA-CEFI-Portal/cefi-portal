@@ -77,13 +77,13 @@
     <br>
     <br>
 
-    <input type="radio" class="radioData" id="radioOpendap" name="dataOptions" checked>
+    <!-- <input type="radio" class="radioData" id="radioOpendap" name="dataOptions" checked>
     <label for="radioOpendap">OPeNDAP</label>
     <input type="radio" class="radioData" id="radioWget" name="dataOptions">
     <label for="radioWget">Download netCDF</label>
     <input type="radio" class="radioData" id="radioCite" name="dataOptions">
     <label for="radioCite">Data Citation</label>
-    <br>
+    <br> -->
 
     <table class="rowGap">
         <tr>
@@ -128,13 +128,13 @@
               <select id="imonthMOMCobaltForecastData"></select>
           </td>
         </tr>
-    </table> 
+    </table>
+    <hr class="dot-hr-plot">
+    <button id="genQueryButton" class="btn btn-psl">Generate Queries</button>
   </div>
-  <br>
-  <button id="genQueryButton" class="btn btn-psl">Generate Queries</button>
-  <hr class="dot-hr-plot">
 </div>
-  
+<br> 
+
 <!-- creating the tab under bootstrap tab using navpil -->
 <div class="row" id="dashNavDataAcess">
   <ul class="nav nav-pills nav-justified hidden-xs" id="pills-data">
@@ -163,7 +163,7 @@
 
 <div class="row" id="dashContentDataAcess">
   <div class="tab-content">
-      <!-- opendap -->
+      <!-- opendap pill -->
       <div id='opendapView' class="tab-pane active view col-12">
         <!-- URL -->
         <h4><strong>OPeNDAP URL</strong></h4>
@@ -206,75 +206,30 @@
         <button id="copyButtonR" class="btn btn-psl">Copy R Code</button>            
         <hr class="dot-hr-plot">
       </div>      
-  </div>
-</div>
 
+      <!-- netcdf download pill -->
+      <div id='downloadView' class="tab-pane view col-12">
+        <!-- button download -->
+        <h4><strong>Direct download</strong></h4>
+        <pre id="codeBlockDataInfo"><code class="codeBlockScroll">Please generate query first!</code></pre> 
+        <a id="downloadHttp">
+          <button id="downloadButton" class="btn btn-psl">Download netCDF</button>
+        </a>
+        <hr class="dot-hr-plot">
+        <!-- Wget -->
+        <h4><strong>Wget (Unix/Linux terminal command)</strong></h4>
+        <pre id="codeBlockWget"><code class="codeBlockScroll">Please generate query first!</code></pre> 
+        <button id="copyButtonWget" class="btn btn-psl">Copy Wget Code</button>
+        <hr class="dot-hr-plot">
+      </div>
 
-
-<div class = "row">
-  <!-- Opendap radio activate -->
-  <div class="col-12 opendapOpt">
-    <h4><strong>OPeNDAP URL</strong></h4>
-    <p>
-        Using OPeNDAP can subset the data to a smaller region or time frame.
-        The OPeNDAP server has a <strong>500MB</strong> limit per request.
-        A loop is suggested to load data that is larger than 500 MB.
-    </p>
-    <pre id="codeBlockOpendap"><code class="codeBlockScroll">Please generate query first!</code></pre> 
-    <button id="copyButtonOpendap" class="btn btn-psl">Copy OPeNDAP URL</button>
-    <hr class="dot-hr-plot">
-
-    <h4><strong>OPeNDAP (Python)</strong></h4>
-        <p> 
-            Please follow the 
-            <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/how_to_conda.html" target="_blank">
-              <strong>environment setup</strong>
-            </a>
-            for the following Python code to work. 
-            <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/data_access/access_opendap/python_get_cefi.html" target="_blank">
-              <strong>A comprehensive tutorial (Python) can be found here</strong>
-            </a>
-        </p>
-    <pre id="codeBlockPython"><code class="codeBlockScroll">Please generate query first!</code></pre> 
-    <button id="copyButtonPython" class="btn btn-psl">Copy Python Code</button>
-    <hr class="dot-hr-plot">
-
-    <h4><strong>OPeNDAP (R)</strong></h4>
-        <p>
-            Please follow the 
-            <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/how_to_conda.html" target="_blank">
-              <strong>environment setup</strong>
-            </a>
-            for the following R code to work. 
-            <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/data_access/access_opendap/r_get_cefi.html" target="_blank">
-              <strong>A comprehensive tutorial (R) can be found here</strong>
-            </a>
-        </p>
-    <pre id="codeBlockR"><code class="codeBlockScroll">Please generate query first!</code></pre> 
-    <button id="copyButtonR" class="btn btn-psl">Copy R Code</button>            
-    <hr class="dot-hr-plot">
-  </div>
-
-  <!-- Wget radio activate -->
-  <div class="col-12 wgetOpt hidden">
-    <h4><strong>Direct download</strong></h4>
-    <pre id="codeBlockDataInfo"><code class="codeBlockScroll">Please generate query first!</code></pre> 
-    <a id="downloadHttp">
-      <button id="downloadButton" class="btn btn-psl">Download netCDF</button>
-    </a>
-    <hr class="dot-hr-plot">
-    <h4><strong>Wget (Unix/Linux terminal command)</strong></h4>
-    <pre id="codeBlockWget"><code class="codeBlockScroll">Please generate query first!</code></pre> 
-    <button id="copyButtonWget" class="btn btn-psl">Copy Wget Code</button>
-    <hr class="dot-hr-plot">
-  </div>
-
-  <!-- Citation radio activate -->
-  <div class="col-12 citeOpt hidden">
-    <h4><strong>Citations</strong></h4>
-    <pre id="codeBlockCite"><code class="codeBlockScroll">Please generate query first!</code></pre> 
-    <button id="copyButtonCite" class="btn btn-psl">Copy Citation</button>
-    <hr class="dot-hr-plot">
+      <!-- data citation pill -->
+      <div id='citationView' class="tab-pane view col-12">
+        <h4><strong>Citations</strong></h4>
+        <pre id="codeBlockCite"><code class="codeBlockScroll">Please generate query first!</code></pre> 
+        <button id="copyButtonCite" class="btn btn-psl">Copy Citation</button>
+        <hr class="dot-hr-plot">
+      </div>  
   </div>
 </div>
 
