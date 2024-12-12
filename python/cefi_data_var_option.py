@@ -78,17 +78,36 @@ def get_variable_options(dict_cefi_available:dict)->dict:
         dictionary include the available unique variable options
     """
     # initialize the dict with empty set as value to deal with duplication when add
-    dictset_var_options = defaultdict(set)
+    dict_var_options = defaultdict(list)
     for _,dict_file_infos in dict_cefi_available.items():
         for _,dict_file_info in dict_file_infos.items():
             variable_name = dict_file_info['cefi_variable']
             variable_long_name = dict_file_info['cefi_long_name']
             variable_freqs = dict_file_info['cefi_output_frequency']
-            dictset_var_options['var_values'].add(variable_name)
-            dictset_var_options['var_options'].add(variable_long_name)
-            dictset_var_options['var_freqs'].add(variable_freqs)
+            dict_var_options['var_values'].append(variable_name)
+            dict_var_options['var_options'].append(variable_long_name)
+            dict_var_options['var_freqs'].append(variable_freqs)
 
-    dict_var = {key: list(options) for key, options in dictset_var_options.items()}
+    # Step 1: Find unique elements in list1
+    unique_options = list(dict.fromkeys(dict_var_options['var_options']))  # Removing duplicates while preserving order
+
+    # Step 2: Create a new list2 that only contains elements corresponding to unique values in list1
+    unique_names = []
+    freq = []
+    ori_unique_options = unique_options.copy()
+
+    for i in range(len(dict_var_options['var_options'])):
+        if dict_var_options['var_options'][i] in unique_options:
+            unique_names.append(dict_var_options['var_values'][i])
+            freq.append(dict_var_options['var_freqs'][i])
+
+            # Remove the element after using it
+            unique_options.remove(dict_var_options['var_options'][i])
+
+    dict_var = {}
+    dict_var['var_values'] = unique_names
+    dict_var['var_options'] = ori_unique_options
+    dict_var['var_freqs'] = freq
 
     # sorting based on the long name
     # zip the lists that need to sorted together
@@ -124,11 +143,17 @@ if __name__ == '__main__':
     )
 
     # get all dirpath that has files
+    dict_structure_cut = {}
+    structure_cut_subdirs = []
     for dirpath, dict_files in dict_cefi_all.items():
 
         # creata like-cefi-filename structure to name the option json file
         cefi_filename_list = dirpath.strip("/").split('/')
         file_name_info = ".".join(cefi_filename_list)
+
+        # for structure cut option json file
+        structure_cut_subdirs.append(cefi_filename_list[-1])
+        file_name_structure_cut = ".".join(cefi_filename_list[:-1])
 
         # get available data under each dirpath
         dict_cefi_exp = find_ncfiles_info(
@@ -174,16 +199,14 @@ if __name__ == '__main__':
         ) as json_file:
             json_file.write(json_var_options)
 
+        
+    dict_structure_cut[structure_cut_name] = structure_cut_subdirs
+    json_structure_cut_options =json.dumps(dict_structure_cut, indent=4)
 
-
-
-
-    
-
-
-
-
-
-    
-
-
+    # output json format to browser
+    with open(
+        f'{webserver_dir}data_option_json/cefi_{structure_cut_name}_options.{file_name_structure_cut}.json',
+        "w",
+        encoding='UTF-8'
+    ) as json_file:
+        json_file.write(json_structure_cut_options)

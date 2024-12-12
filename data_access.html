@@ -16,7 +16,7 @@
       Additionally, an alternative option involving AWS cloud storage is under consideration and may become available in the near future.
       This option is currently undergoing testing.
       For direct access to the THREDDS server, 
-      <a href="https://psl.noaa.gov/thredds/catalog/Projects/CEFI/regional_mom6/catalog.html" target="_blank">
+      <a href="https://psl.noaa.gov/thredds/catalog/Projects/CEFI/regional_mom6/cefi_portal/catalog.html" target="_blank">
         <u> go to the <strong>catalog</strong> directly</u>
       </a>
       .
@@ -70,64 +70,53 @@
 
   <div class="userInput col-12">
     <h1 class="userInputTitle"><em>Data Options</em></h1>
-    <input type="radio" class="radioDataQuery" id="radioNWAQuery" name="dataQueryOptions" checked>
+    <!-- region and subdomain radio button should be created seperately -->
+    <input type="radio" class="radioDataQuery" id="radioNWAQuery" name="dataQueryOptions" value="northwest_atlantic" checked>
     <label for="radioNWAQuery">Northwest Atlantic</label>
-    <input type="radio" class="radioDataQuery" id="radioNEPQuery" name="dataQueryOptions">
+    <input type="radio" class="radioDataQuery" id="radioNEPQuery" name="dataQueryOptions" value="northeast_pacific">
     <label for="radioNEPQuery">Northeast Pacific (Coming soon)</label>
     <br>
     <br>
 
-    <!-- <input type="radio" class="radioData" id="radioOpendap" name="dataOptions" checked>
-    <label for="radioOpendap">OPeNDAP</label>
-    <input type="radio" class="radioData" id="radioWget" name="dataOptions">
-    <label for="radioWget">Download netCDF</label>
-    <input type="radio" class="radioData" id="radioCite" name="dataOptions">
-    <label for="radioCite">Data Citation</label>
-    <br> -->
-
     <table class="rowGap">
         <tr>
-          <td>Region : </td>
+          <td>Experiment Type : </td>
           <td>
-              <select name="region" id="regMOMCobaltData" class="reg-mom-cobalt"></select>
+              <select id="expTypeDataQuery"></select>
           </td>
         </tr>
         <tr>
-          <td>Period : </td>
+          <td>Output Frequency : </td>
           <td>
-              <select id="periodMOMCobaltData">
-                <option value="hist_run">Historical Run</option>
-                <option value="forecast">Forecast/reforecast</option>
-              </select>
+              <select id="outFreqDataQuery"></select>
           </td>
         </tr>
         <tr>
-          <td>Variable : </td>
+          <td>Grid Type : </td>
           <td>
-              <select id="varMOMCobaltData"></select>
+              <select id="gridTypeDataQuery"></select>
           </td>
         </tr>
         <tr>
-          <td>Grid : </td>
+          <td>Release : </td>
           <td>
-              <select id="gridMOMCobalt">
-                  <option value="raw">Raw grid (Curvilinear)</option>
-                  <option value="regrid">Regular grid</option>
-              </select>
+              <select id="releaseDataQuery"></select>
           </td>
         </tr>
+        <tr>
+          <td>Variables : </td>
+          <td>
+              <select id="variableDataQuery"></select>
+          </td>
+        </tr>
+
         <tr class="forecastOpt hidden">
-          <td>Initial year : </td>
+          <td>Initial Date : </td>
           <td>
-              <select id="iyearMOMCobaltForecastData"></select>
+              <select id="initialDate"></select>
           </td>
         </tr>
-        <tr class="forecastOpt hidden">
-          <td>Initial month : </td>
-          <td>
-              <select id="imonthMOMCobaltForecastData"></select>
-          </td>
-        </tr>
+
     </table>
     <hr class="dot-hr-plot">
     <button id="genQueryButton" class="btn btn-psl">Generate Queries</button>

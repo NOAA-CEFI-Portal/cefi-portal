@@ -1,9 +1,22 @@
+// setup local global variable
+var region;
+var subdomain;
+var experiment_type;
+var output_frequency;
+var grid_type;
+var release;
+var variable;
+var iyyyymm;
+
 // create variable dropdown options
-createMomCobaltVarDataOpt('varMOMCobaltData','hist_run');  // Data Query
-// default initYear options for forecast (use forecast.js)
-window.createMomCobaltInitYearOpt('iyearMOMCobaltForecastData');
-// default initMonth options for forecast (use forecast.js)
-window.createMomCobaltInitMonthOpt('imonthMOMCobaltForecastData');
+// createMomCobaltVarDataOpt('varMOMCobaltData','hist_run');  // Data Query
+createDataAccessAll('northwest_atlantic') // default data query options create
+
+
+// // default initYear options for forecast (use forecast.js)
+// window.createMomCobaltInitYearOpt('iyearMOMCobaltForecastData');
+// // default initMonth options for forecast (use forecast.js)
+// window.createMomCobaltInitMonthOpt('imonthMOMCobaltForecastData');
 
 
 // event lister for region radio button in the variable table section
@@ -19,28 +32,203 @@ $(document).ready(function(){
     });
 });
 
+// event listener for region radio button in the data query
+//  the regionSubdomain value determine the data_option_json
+//  cefi_data_option to create the dropdown options 
+$(document).ready(function(){
+    $("input[type='radio'].radioDataQuery").change(function(){
+        var regionSubdomain = $('input[name="dataQueryOptions"]:checked').val();
+        // clear experiement type when changing radio
+        $('#expTypeDataQuery').empty();
+        createDataAccessAll(regionSubdomain)
+    });
+});
+
+// Async function that depends on createDataAccessExpType
+//  !!!!!!add elseif when radio region and subdomain increase!!!!!!
+async function createDataAccessAll(regSubdom) {
+
+    // radio value decipher
+    if (regSubdom === 'northwest_atlantic'){
+        region = 'northwest_atlantic';
+        subdomain = 'full_domain';
+    };
+
+    // Call the function and wait for it to complete
+    await createDataAccessExpType(region,subdomain);
+    experiment_type = $('#expTypeDataQuery').val();
+
+    // Add your additional commands here
+    await createDataAccessOthers(region,subdomain,experiment_type);
+}
+
+
+// async function for creating Experiment type options
+//  !!!!!!add elseif when radio region and subdomain increase!!!!!!
+async function createDataAccessExpType(reg,subDom){
+    let elm = document.getElementById('expTypeDataQuery'); 
+    let varJson = await fetchExperimentTypeOption(reg,subDom);
+    let expTypeOptions = varJson.experiment_type;
+    let df = window.optionList(expTypeOptions,expTypeOptions);
+    elm.appendChild(df);
+
+}
+
+// async fetching the data_access_json cefi_experiment_type_option
+async function fetchExperimentTypeOption(reg, subDom) {
+    try {
+      const response = await fetch(
+        'data_option_json/cefi_experiment_type_options.Projects.CEFI.regional_mom6.cefi_portal.'+
+        reg+
+        '.'+
+        subDom+
+        '.json'
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();  // JSON data 
+      // console.log('JSON data:', data);
+      return data;
+    } catch (error) {
+      console.error('There was a problem when async fetchExperimentTypeOption:', error);
+    }
+};
+
+
+// async function for creating other options besides variables
+async function createDataAccessOthers(reg,subDom,expType){
+    let dataAccessJson = await fetchDataOption(reg,subDom,expType);
+    let variableJson = await fetchVarOption(reg,subDom,expType);
+
+    // Output Frequency :
+    let elm = document.getElementById('outFreqDataQuery'); 
+    let avaiOptions = dataAccessJson.output_frequency;
+    let df = window.optionList(avaiOptions,avaiOptions);   
+    elm.appendChild(df);
+
+    // Grid Type :
+    elm = document.getElementById('gridTypeDataQuery'); 
+    avaiOptions = dataAccessJson.grid_type;
+    df = window.optionList(avaiOptions,avaiOptions);   
+    elm.appendChild(df);
+
+    // Release :
+    elm = document.getElementById('releaseDataQuery'); 
+    avaiOptions = dataAccessJson.release;
+    df = window.optionList(avaiOptions,avaiOptions);   
+    elm.appendChild(df);
+
+    // Variables :
+    elm = document.getElementById('variableDataQuery'); 
+    let valueOptions = variableJson.var_values;
+    let nameOptions = variableJson.var_options;
+    df = window.optionList(nameOptions,valueOptions);   
+    elm.appendChild(df);
+
+}
+
+// async fetching the data_access_json cefi_data_option
+async function fetchDataOption(reg,subDom,expType) {
+    try {
+      const response = await fetch(
+        'data_option_json/cefi_data_options.Projects.CEFI.regional_mom6.cefi_portal.'+
+        reg+
+        '.'+
+        subDom+
+        '.'+
+        expType+
+        '.json'
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();  // JSON data 
+      // console.log('JSON data:', data);
+      return data;
+    } catch (error) {
+      console.error('There was a problem when async fetchDataOption:', error);
+    }
+}
+
+// async fetching the data_access_json cefi_var_option
+async function fetchVarOption(reg,subDom,expType) {
+    try {
+      const response = await fetch(
+        'data_option_json/cefi_var_options.Projects.CEFI.regional_mom6.cefi_portal.'+
+        reg+
+        '.'+
+        subDom+
+        '.'+
+        expType+
+        '.json'
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();  // JSON data 
+      // console.log('JSON data:', data);
+      return data;
+    } catch (error) {
+      console.error('There was a problem when async fetchVarOption:', error);
+    }
+}
+
+
+
+
+// // event listener for changes in the modeling period
+// $('#periodMOMCobaltData').on('change', function() {
+//     // Clear out the variable dropdown
+//     $('#varMOMCobaltData').empty();
+
+//     // Create variable option and year month select based on period selection
+//     if ($('#periodMOMCobaltData').val() === 'hist_run') {
+//         // createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');
+//         createMomCobaltVarDataOpt('varMOMCobaltData','hist_run');
+//         $('.forecastOpt').addClass('hidden');
+//     } else if ($('#periodMOMCobaltData').val() === 'forecast') {
+//         // createMomCobaltVarOptFcast('MOMCobaltFcast','varMOMCobaltData');
+//         createMomCobaltVarDataOpt('varMOMCobaltData','forecast');
+//         $('.forecastOpt').removeClass('hidden');
+//     }
+// });
+
+// function to clear all option below experiement type
+function data_access_all_clear(){
+
+    $('#outFreqDataQuery').empty();
+    $('#gridTypeDataQuery').empty();
+    $('#releaseDataQuery').empty();
+    $('#variableDataQuery').empty();
+
+};
 
 // event listener for changes in the modeling period
-$('#periodMOMCobaltData').on('change', function() {
-    // Clear out the variable dropdown
-    $('#varMOMCobaltData').empty();
+$('#expTypeDataQuery').on('change', function() {
+    // update experiement type
+    experiment_type = $(this).val();
 
-    // Create variable option and year month select based on period selection
-    if ($('#periodMOMCobaltData').val() === 'hist_run') {
-        // createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');
-        createMomCobaltVarDataOpt('varMOMCobaltData','hist_run');
-        $('.forecastOpt').addClass('hidden');
-    } else if ($('#periodMOMCobaltData').val() === 'forecast') {
-        // createMomCobaltVarOptFcast('MOMCobaltFcast','varMOMCobaltData');
-        createMomCobaltVarDataOpt('varMOMCobaltData','forecast');
+    // clear all options below experiement type
+    data_access_all_clear();
+
+    // recreate options below experiment type due to changes
+    createDataAccessOthers(region,subdomain,$(this).val());
+
+    // turn on forecast or reforecast related options
+    if ($(this).val().includes('forecast')) {
+        // creating the initialDate options needed!!!!!
         $('.forecastOpt').removeClass('hidden');
+    } else {
+        $('.forecastOpt').addClass('hidden');
     }
+
 });
+
 
 // event listener for data query button click
 $('#genQueryButton').on('click', function() {
-    var dataType = $('#periodMOMCobaltData').val()
-    generateDataQuery(dataType)     // the function return a promise obj from fetch
+    generateDataQuery()     // the function return a promise obj from fetch
         .then((jsonDataQuery)=>{
             var dataInfo = jsonDataQuery.data_info;
             $('#codeBlockDataInfo').text(dataInfo);
@@ -58,6 +246,42 @@ $('#genQueryButton').on('click', function() {
             $('#codeBlockCite').text(Citation);
         })
 });
+
+// functions for generating data query 
+async function generateDataQuery() {
+    output_frequency = $('#outFreqDataQuery').val();
+    grid_type = $('#gridTypeDataQuery').val();
+    release = $('#releaseDataQuery').val();
+    variable = $('#variableDataQuery').val();
+    iyyyymm = 'i999999';
+    if (experiment_type.includes('forecast')) {
+        iyyyymm = $('#initialDate').val();
+    }
+
+    var ajaxGet = "/cgi-bin/cefi_portal/generate_data_query.py"
+    +"?region="+region
+    +"&subdomain="+subdomain
+    +"&experiment_type="+experiment_type
+    +"&output_frequency="+output_frequency
+    +"&grid_type="+grid_type
+    +"&release="+release
+    +"&variable="+variable
+    +"&iyyyymm="+iyyyymm
+
+    console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+
+    return fetch(ajaxGet)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .catch(error => {
+            // Handle errors here
+            console.error('Fetch json data query failed:', error);
+        });
+}
 
 //event listener for data query code copy
 $("#copyButtonWget").click(function () {
@@ -78,46 +302,46 @@ $("#copyButtonCite").click(function () {
 
 
 
-// functions for generating data query 
-async function generateDataQuery(dataType) {
-    var region = $('#regMOMCobaltData').val();
-    var variable = $('#varMOMCobaltData').val();
-    var grid = $('#gridMOMCobalt').val();
-    var year = -99
-    var month = -99
-    if (dataType === 'forecast') {
-        year = $('#iyearMOMCobaltForecastData').val();
-        month = $('#imonthMOMCobaltForecastData').val();
-    }
-    // find data frequency and create mock date for data query variable
-    var selectVarDataIndex = $("#varMOMCobaltData").prop('selectedIndex');
-    var varFreq = groupList[selectVarDataIndex]
-    // find out mockDate using (historical.js)
-    var mockDate = window.getMockDate(varFreq)
+// // functions for generating data query 
+// async function generateDataQuery(dataType) {
+//     var region = $('#regMOMCobaltData').val();
+//     var variable = $('#varMOMCobaltData').val();
+//     var grid = $('#gridMOMCobalt').val();
+//     var year = -99
+//     var month = -99
+//     if (dataType === 'forecast') {
+//         year = $('#iyearMOMCobaltForecastData').val();
+//         month = $('#imonthMOMCobaltForecastData').val();
+//     }
+//     // find data frequency and create mock date for data query variable
+//     var selectVarDataIndex = $("#varMOMCobaltData").prop('selectedIndex');
+//     var varFreq = groupList[selectVarDataIndex]
+//     // find out mockDate using (historical.js)
+//     var mockDate = window.getMockDate(varFreq)
 
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_data_query.py"
-    +"?variable="+variable
-    +"&region="+region
-    +"&date="+mockDate
-    +"&grid="+grid
-    +"&datatype="+dataType
-    +"&year="+year
-    +"&month="+month
+//     var ajaxGet = "/cgi-bin/cefi_portal/mom_data_query.py"
+//     +"?variable="+variable
+//     +"&region="+region
+//     +"&date="+mockDate
+//     +"&grid="+grid
+//     +"&datatype="+dataType
+//     +"&year="+year
+//     +"&month="+month
 
-    console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+//     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
-    return fetch(ajaxGet)
-        .then(response => {
-            if (!response.ok) {
-            throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .catch(error => {
-            // Handle errors here
-            console.error('Fetch json data query failed:', error);
-        });
-}
+//     return fetch(ajaxGet)
+//         .then(response => {
+//             if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//             }
+//             return response.json();
+//         })
+//         .catch(error => {
+//             // Handle errors here
+//             console.error('Fetch json data query failed:', error);
+//         });
+// }
 
 function copyCode(codeBlockID) {
     let code = $("#"+codeBlockID).text();
@@ -132,62 +356,62 @@ function copyCode(codeBlockID) {
 }
 
 
-// async fetching the data access json files 
-async function fetchDataAccessJson(region, dataType) {
-  try {
-    const response = await fetch('data_option_json/data_access_' + region + '_' + dataType + '.json');
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();  // JSON data 
-    // console.log('JSON data:', data);
-    return data;
-  } catch (error) {
-    console.error('There was a problem when async fetchDataAccessJson:', error);
-  }
-}
 
 
-// async function for create option for data access after fetch complete
-// Arrays to store the results
-var valuesList = [];
-var textList = [];
-var groupList = [];
-async function createMomCobaltVarDataOpt(selectID,dataType='hist_run') {
-  let elm = document.getElementById(selectID); 
-  let regVal = $("#regMOMCobaltData").val()
-  let varJson = await fetchDataAccessJson(regVal,dataType);
-  // console.log(varJson)
-  let varlist = [
-      varJson.var_values,
-      varJson.var_options,
-      varJson.var_freqs
-  ];
-  df = window.optionSubgroupList(varlist[1],varlist[0],varlist[2]);
-  elm.appendChild(df);
 
-  // Loop through the select dropdown to store the reordered dropdown list
-  $("#varMOMCobaltData").children().each(function() {
-      // Check if the element is an optgroup
-      if ($(this).is('optgroup')) {
-          var groupLabel = $(this).attr('label'); // Get the optgroup label
+// // async fetching the data access json files 
+// async function fetchDataAccessJson(region, dataType) {
+//   try {
+//     const response = await fetch('data_option_json/data_access_' + region + '_' + dataType + '.json');
+//     if (!response.ok) {
+//       throw new Error('Network response was not ok');
+//     }
+//     const data = await response.json();  // JSON data 
+//     // console.log('JSON data:', data);
+//     return data;
+//   } catch (error) {
+//     console.error('There was a problem when async fetchDataAccessJson:', error);
+//   }
+// }
+
+
+// // async function for create option for data access after fetch complete
+// // Arrays to store the results
+// var valuesList = [];
+// var textList = [];
+// var groupList = [];
+// async function createMomCobaltVarDataOpt(selectID,dataType='hist_run') {
+//   let elm = document.getElementById(selectID); 
+//   let regVal = $("#regMOMCobaltData").val()
+//   let varJson = await fetchDataAccessJson(regVal,dataType);
+//   // console.log(varJson)
+//   let varlist = [
+//       varJson.var_values,
+//       varJson.var_options,
+//       varJson.var_freqs
+//   ];
+//   df = window.optionSubgroupList(varlist[1],varlist[0],varlist[2]);
+//   elm.appendChild(df);
+
+//   // Loop through the select dropdown to store the reordered dropdown list
+//   $("#varMOMCobaltData").children().each(function() {
+//       // Check if the element is an optgroup
+//       if ($(this).is('optgroup')) {
+//           var groupLabel = $(this).attr('label'); // Get the optgroup label
           
-          // Now loop through each option inside the optgroup
-          $(this).children('option').each(function() {
-              var optionValue = $(this).val();   // Get the option's value
-              var optionText = $(this).text();   // Get the option's display text
+//           // Now loop through each option inside the optgroup
+//           $(this).children('option').each(function() {
+//               var optionValue = $(this).val();   // Get the option's value
+//               var optionText = $(this).text();   // Get the option's display text
 
-              // Store in the lists
-              valuesList.push(optionValue);
-              textList.push(optionText);
-              groupList.push(groupLabel);
-          });
-      } else if ($(this).is('option')) {
-          // Handle options outside of optgroups, if any exist
-          console.log('Error! one variable options does not have optgroup')
-      }
-  });
-
-
-
-};
+//               // Store in the lists
+//               valuesList.push(optionValue);
+//               textList.push(optionText);
+//               groupList.push(groupLabel);
+//           });
+//       } else if ($(this).is('option')) {
+//           // Handle options outside of optgroups, if any exist
+//           console.log('Error! one variable options does not have optgroup')
+//       }
+//   });
+// };
