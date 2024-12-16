@@ -80,40 +80,67 @@
 
     <table class="rowGap">
         <tr>
-          <td>Experiment Type : </td>
+          <td>Experiment Types : </td>
           <td>
               <select id="expTypeDataQuery"></select>
           </td>
         </tr>
         <tr>
-          <td>Output Frequency : </td>
+          <td>Output Frequencies : </td>
           <td>
-              <select id="outFreqDataQuery"></select>
+              <select id="outFreqDataQuery">
+                <!-- <option class="default-option" selected disabled>Select an output frequency</option> -->
+              </select>
           </td>
         </tr>
         <tr>
-          <td>Grid Type : </td>
+          <td>Grid Types : </td>
           <td>
-              <select id="gridTypeDataQuery"></select>
+              <select id="gridTypeDataQuery">
+                <!-- <option class="default-option" selected disabled>Select a grid type</option> -->
+              </select>
           </td>
         </tr>
         <tr>
-          <td>Release : </td>
+          <td>Releases : </td>
           <td>
-              <select id="releaseDataQuery"></select>
+              <select id="releaseDataQuery">
+                <!-- <option class="default-option" selected disabled>Select a release date</option> -->
+              </select>
           </td>
         </tr>
         <tr>
           <td>Variables : </td>
           <td>
-              <select id="variableDataQuery"></select>
+              <select id="variableDataQuery">
+                <!-- <option class="default-option" selected disabled>Select a variable</option> -->
+              </select>
           </td>
         </tr>
 
         <tr class="forecastOpt hidden">
-          <td>Initial Date : </td>
+          <td>Initial Dates : </td>
           <td>
-              <select id="initialDate"></select>
+              <select class="default-option" id="initialDateFcastDataQuery">Select initialization date (iYYYYMM)</select>
+          </td>
+        </tr>
+        <tr class="forecastOpt hidden">
+          <td>Ensemble Options : </td>
+          <td>
+              <select class="default-option" id="ensOptionFcastDataQuery">Select ensemble options</select>
+          </td>
+        </tr>
+
+        <tr class="projectOpt hidden">
+          <td>Scenarios : </td>
+          <td>
+              <select class="default-option" id="scenarioProjDataQuery">Select scenario</select>
+          </td>
+        </tr>
+        <tr class="projectOpt hidden">
+          <td>Ensemble Options : </td>
+          <td>
+              <select class="default-option" id="ensOptionProjDataQuery">Select ensemble options</select>
           </td>
         </tr>
 

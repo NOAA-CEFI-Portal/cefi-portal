@@ -1,4 +1,4 @@
-// setup local global variable
+// setup local global variable (data structure and filenaming structure)
 var region;
 var subdomain;
 var experiment_type;
@@ -7,17 +7,11 @@ var grid_type;
 var release;
 var variable;
 var iyyyymm;
+var ens_opt;
+var scenario;
 
-// create variable dropdown options
-// createMomCobaltVarDataOpt('varMOMCobaltData','hist_run');  // Data Query
-createDataAccessAll('northwest_atlantic') // default data query options create
-
-
-// // default initYear options for forecast (use forecast.js)
-// window.createMomCobaltInitYearOpt('iyearMOMCobaltForecastData');
-// // default initMonth options for forecast (use forecast.js)
-// window.createMomCobaltInitMonthOpt('imonthMOMCobaltForecastData');
-
+// initializing the data query dropdown options
+createDataAccessAll('northwest_atlantic')
 
 // event lister for region radio button in the variable table section
 $(document).ready(function(){
@@ -38,11 +32,13 @@ $(document).ready(function(){
 $(document).ready(function(){
     $("input[type='radio'].radioDataQuery").change(function(){
         var regionSubdomain = $('input[name="dataQueryOptions"]:checked').val();
-        // clear experiement type when changing radio
+        // clear experiement type when changing radio 
+        // (needed to avoid stacking more options)
         $('#expTypeDataQuery').empty();
         createDataAccessAll(regionSubdomain)
     });
 });
+
 
 // Async function that depends on createDataAccessExpType
 //  !!!!!!add elseif when radio region and subdomain increase!!!!!!
@@ -104,7 +100,7 @@ async function createDataAccessOthers(reg,subDom,expType){
     // Output Frequency :
     let elm = document.getElementById('outFreqDataQuery'); 
     let avaiOptions = dataAccessJson.output_frequency;
-    let df = window.optionList(avaiOptions,avaiOptions);   
+    let df = window.optionList(avaiOptions,avaiOptions);   //hindcast.js
     elm.appendChild(df);
 
     // Grid Type :
@@ -123,7 +119,16 @@ async function createDataAccessOthers(reg,subDom,expType){
     elm = document.getElementById('variableDataQuery'); 
     let valueOptions = variableJson.var_values;
     let nameOptions = variableJson.var_options;
-    df = window.optionList(nameOptions,valueOptions);   
+    df = window.optionList(nameOptions,valueOptions);
+    // Create the default empty option for variable that force user choose that related to a event listener
+    //  need this dynamically to be recreated when empty the dropdown
+    //  by other user actions
+    let defaultOption = document.createElement('option');
+    defaultOption.selected = true;  // Make it selected
+    defaultOption.disabled = true; // Make it disabled
+    defaultOption.appendChild(document.createTextNode('Select a variable')); // Set the text
+    df.insertBefore(defaultOption, df.firstChild)
+    // df.appendChild(defaultOption); // Append the default option to the fragment
     elm.appendChild(df);
 
 }
@@ -174,26 +179,6 @@ async function fetchVarOption(reg,subDom,expType) {
     }
 }
 
-
-
-
-// // event listener for changes in the modeling period
-// $('#periodMOMCobaltData').on('change', function() {
-//     // Clear out the variable dropdown
-//     $('#varMOMCobaltData').empty();
-
-//     // Create variable option and year month select based on period selection
-//     if ($('#periodMOMCobaltData').val() === 'hist_run') {
-//         // createMomCobaltVarOpt('MOMCobalt','varMOMCobaltData');
-//         createMomCobaltVarDataOpt('varMOMCobaltData','hist_run');
-//         $('.forecastOpt').addClass('hidden');
-//     } else if ($('#periodMOMCobaltData').val() === 'forecast') {
-//         // createMomCobaltVarOptFcast('MOMCobaltFcast','varMOMCobaltData');
-//         createMomCobaltVarDataOpt('varMOMCobaltData','forecast');
-//         $('.forecastOpt').removeClass('hidden');
-//     }
-// });
-
 // function to clear all option below experiement type
 function data_access_all_clear(){
 
@@ -204,26 +189,167 @@ function data_access_all_clear(){
 
 };
 
-// event listener for changes in the modeling period
+// event listener for changes in the experiment type
 $('#expTypeDataQuery').on('change', function() {
     // update experiement type
     experiment_type = $(this).val();
 
     // clear all options below experiement type
+    // (needed to avoid stacking more options)
     data_access_all_clear();
 
     // recreate options below experiment type due to changes
     createDataAccessOthers(region,subdomain,$(this).val());
 
-    // turn on forecast or reforecast related options
-    if ($(this).val().includes('forecast')) {
-        // creating the initialDate options needed!!!!!
-        $('.forecastOpt').removeClass('hidden');
+    // turn on/off forecast/projection related options
+    if (experiment_type.includes('forecast')) {
+      // creating the initialDate options needed!!!!!
+      $('.forecastOpt').removeClass('hidden');
+      $('.projectOpt').addClass('hidden');
+    } else if (experiment_type.includes('projection')) {
+      $('.projectOpt').removeClass('hidden');
+      $('.forecastOpt').addClass('hidden');
     } else {
-        $('.forecastOpt').addClass('hidden');
-    }
+      $('.projectOpt').addClass('hidden');
+      $('.forecastOpt').addClass('hidden');
+    };
+
 
 });
+
+
+// function to clear option below variable (experiemet specific)
+function variable_below_all_clear(){
+
+  $('#initialDateFcastDataQuery').empty();
+  $('#ensOptionFcastDataQuery').empty();
+  $('#forcingProjDataQuery').empty();
+  $('#ensOptionProjDataQuery').empty();
+
+};
+
+// event listener for variable pick (need to be generic for all experiment)
+//  this event listener should create and show options that narrow down 
+//  to single file in different experiment
+$('#variableDataQuery').on('change', function() {
+  // update variable
+  variable = $(this).val();
+
+  // clear all options below experiement type
+  // (needed to avoid stacking more options)
+  variable_below_all_clear();
+
+  // recreate options below experiment type due to changes
+  var ens_options_fcast;
+  var init_date_fcast;
+  var ens_options_proj;
+  var scenario_proj;
+  createVariableSpecOptions()    // the function return a promise obj from fetch
+    .then((jsonData)=>{
+      // Check if an attribute exists
+      if ('ens_options_fcast' in jsonData) {
+        ens_options_fcast = jsonData.ens_options_fcast;
+        // ens_options_fcast :
+        let elm = document.getElementById('ensOptionFcastDataQuery'); 
+        let valueOptions = ens_options_fcast;
+        let nameOptions = ens_options_fcast;
+        df = window.optionList(nameOptions,valueOptions);
+        // // Create the default empty option for variable that force user choose that related to a event listener
+        // //  need this dynamically to be recreated when empty the dropdown
+        // //  by other user actions
+        // let defaultOption = document.createElement('option');
+        // defaultOption.selected = true;  // Make it selected
+        // defaultOption.disabled = true; // Make it disabled
+        // defaultOption.appendChild(document.createTextNode('Select an ensemble option')); // Set the text
+        // df.insertBefore(defaultOption, df.firstChild)
+        // // df.appendChild(defaultOption); // Append the default option to the fragment
+        elm.appendChild(df);
+      };
+      if ('init_date_fcast' in jsonData) {
+        init_date_fcast = jsonData.init_date_fcast;
+        // init_date_fcast :
+        let elm = document.getElementById('initialDateFcastDataQuery'); 
+        let valueOptions = init_date_fcast;
+        let nameOptions = init_date_fcast;
+        df = window.optionList(nameOptions,valueOptions);
+        // // Create the default empty option for variable that force user choose that related to a event listener
+        // //  need this dynamically to be recreated when empty the dropdown
+        // //  by other user actions
+        // let defaultOption = document.createElement('option');
+        // defaultOption.selected = true;  // Make it selected
+        // defaultOption.disabled = true; // Make it disabled
+        // defaultOption.appendChild(document.createTextNode('Select an initial date')); // Set the text
+        // df.insertBefore(defaultOption, df.firstChild)
+        // // df.appendChild(defaultOption); // Append the default option to the fragment
+        elm.appendChild(df);
+      }; 
+      if ('ens_options_proj' in jsonData) {
+        ens_options_proj = jsonData.ens_options_proj;
+        // ens_options_proj :
+        let elm = document.getElementById('ensOptionProjDataQuery'); 
+        let valueOptions = ens_options_proj;
+        let nameOptions = ens_options_proj;
+        df = window.optionList(nameOptions,valueOptions);
+        // // Create the default empty option for variable that force user choose that related to a event listener
+        // //  need this dynamically to be recreated when empty the dropdown
+        // //  by other user actions
+        // let defaultOption = document.createElement('option');
+        // defaultOption.selected = true;  // Make it selected
+        // defaultOption.disabled = true; // Make it disabled
+        // defaultOption.appendChild(document.createTextNode('Select an ensemble option')); // Set the text
+        // df.insertBefore(defaultOption, df.firstChild)
+        // // df.appendChild(defaultOption); // Append the default option to the fragment
+        elm.appendChild(df);
+      };
+      if ('scenario_proj' in jsonData) {
+        scenario_proj = jsonData.scenario_proj;
+        // scenario_proj :
+        let elm = document.getElementById('scenarioProjDataQuery'); 
+        let valueOptions = scenario_proj;
+        let nameOptions = scenario_proj;
+        df = window.optionList(nameOptions,valueOptions);
+        // // Create the default empty option for variable that force user choose that related to a event listener
+        // //  need this dynamically to be recreated when empty the dropdown
+        // //  by other user actions
+        // let defaultOption = document.createElement('option');
+        // defaultOption.selected = true;  // Make it selected
+        // defaultOption.disabled = true; // Make it disabled
+        // defaultOption.appendChild(document.createTextNode('Select a scenario')); // Set the text
+        // df.insertBefore(defaultOption, df.firstChild)
+        // // df.appendChild(defaultOption); // Append the default option to the fragment
+        elm.appendChild(df);
+      };
+  });
+
+});
+
+// async functions for fetching variable and experiment specific option from backend
+async function createVariableSpecOptions() {
+  var ajaxGet = "/cgi-bin/cefi_portal/create_variable_spec_options.py"
+  +"?region="+region
+  +"&subdomain="+subdomain
+  +"&experiment_type="+$('#expTypeDataQuery').val()
+  +"&output_frequency="+$('#outFreqDataQuery').val()
+  +"&grid_type="+$('#gridTypeDataQuery').val()
+  +"&release="+$('#releaseDataQuery').val()
+  +"&variable="+$('#variableDataQuery').val();
+
+
+  console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+
+  return fetch(ajaxGet)
+      .then(response => {
+          if (!response.ok) {
+          throw new Error('Network response was not ok');
+          }
+          return response.json();
+      })
+      .catch(error => {
+          // Handle errors here
+          console.error('Fetch json failed when creating variable specific options:', error);
+      });
+}
+
 
 
 // event listener for data query button click
@@ -255,8 +381,13 @@ async function generateDataQuery() {
     variable = $('#variableDataQuery').val();
     iyyyymm = 'i999999';
     if (experiment_type.includes('forecast')) {
-        iyyyymm = $('#initialDate').val();
-    }
+      iyyyymm = $('#initialDateFcastDataQuery').val();
+      ens_opt = $('#ensOptionFcastDataQuery').val();
+    };
+    if (experiment_type.includes('projection')) {
+      scenario = $('#scenarioProjDataQuery').val();
+      ens_opt = $('#ensOptionProjDataQuery').val();
+    };
 
     var ajaxGet = "/cgi-bin/cefi_portal/generate_data_query.py"
     +"?region="+region
@@ -267,6 +398,8 @@ async function generateDataQuery() {
     +"&release="+release
     +"&variable="+variable
     +"&iyyyymm="+iyyyymm
+    +"&scenario="+scenario
+    +"&ens_opt="+ens_opt
 
     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
