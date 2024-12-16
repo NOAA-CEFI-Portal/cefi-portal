@@ -130,8 +130,8 @@ if __name__ == '__main__':
     structure_cut_name = 'experiment_type'
     dataroot = os.path.join(os.environ.get("PROJECTS"),'CEFI/regional_mom6/cefi_portal')
     coderoot = os.environ.get("MYHOME")
-    webserver_dir = f'{coderoot}cefi_portal/'
-    # webserver_dir = f'{os.environ.get("HTTPTEST")}cefi_portal/'
+    # webserver_dir = f'{coderoot}cefi_portal/'
+    webserver_dir = f'{os.environ.get("HTTPTEST")}cefi_portal/'
     opendap_root = 'http://psl.noaa.gov/thredds/dodsC'
 
     # get the information for all file in dict
