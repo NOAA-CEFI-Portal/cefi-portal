@@ -89,20 +89,21 @@ def get_variable_options(dict_cefi_available:dict)->dict:
             dict_var_options['var_freqs'].append(variable_freqs)
 
     # Step 1: Find unique elements in list1
-    unique_options = list(dict.fromkeys(dict_var_options['var_options']))  # Removing duplicates while preserving order
+    # Removing duplicates while preserving order
+    unique_options = list(dict.fromkeys(dict_var_options['var_options']))
 
     # Step 2: Create a new list2 that only contains elements corresponding to unique values in list1
     unique_names = []
     freq = []
     ori_unique_options = unique_options.copy()
 
-    for i in range(len(dict_var_options['var_options'])):
-        if dict_var_options['var_options'][i] in unique_options:
-            unique_names.append(dict_var_options['var_values'][i])
-            freq.append(dict_var_options['var_freqs'][i])
+    for ii in range(len(dict_var_options['var_options'])):
+        if dict_var_options['var_options'][ii] in unique_options:
+            unique_names.append(dict_var_options['var_values'][ii])
+            freq.append(dict_var_options['var_freqs'][ii])
 
             # Remove the element after using it
-            unique_options.remove(dict_var_options['var_options'][i])
+            unique_options.remove(dict_var_options['var_options'][ii])
 
     dict_var = {}
     dict_var['var_values'] = unique_names
@@ -176,7 +177,7 @@ if __name__ == '__main__':
             dict_data_options[dirname] = dict_options[i]
         json_options = json.dumps(dict_data_options, indent=4)
 
-        # output json format to browser
+        # output json format for data options other than experiment type
         with open(
             f'{webserver_dir}data_option_json/cefi_data_options.{file_name_info}.json',
             "w",
@@ -188,10 +189,10 @@ if __name__ == '__main__':
         #  this is assuming under all experiement type there should be
         #  almost having the same variable options. if not the website
         #  will response with data not available
-        dict_var_options = get_variable_options(dict_cefi_exp)
-        json_var_options =json.dumps(dict_var_options, indent=4)
+        dict_var_opts = get_variable_options(dict_cefi_exp)
+        json_var_options =json.dumps(dict_var_opts, indent=4)
 
-        # output json format to browser
+        # output json format for variable options
         with open(
             f'{webserver_dir}data_option_json/cefi_var_options.{file_name_info}.json',
             "w",
@@ -199,13 +200,13 @@ if __name__ == '__main__':
         ) as json_file:
             json_file.write(json_var_options)
 
-        
-    dict_structure_cut[structure_cut_name] = structure_cut_subdirs
+    dict_structure_cut[structure_cut_name] = sorted(structure_cut_subdirs)
     json_structure_cut_options =json.dumps(dict_structure_cut, indent=4)
 
-    # output json format to browser
+    # output json format for the experiement type options
     with open(
-        f'{webserver_dir}data_option_json/cefi_{structure_cut_name}_options.{file_name_structure_cut}.json',
+        f'{webserver_dir}data_option_json/'+
+        f'cefi_{structure_cut_name}_options.{file_name_structure_cut}.json',
         "w",
         encoding='UTF-8'
     ) as json_file:
