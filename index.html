@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" href="cefi.css">
 <link rel="stylesheet" type="text/css" href="forecast.css" />
-<link rel="stylesheet" type="text/css" href="historical.css" />
+<link rel="stylesheet" type="text/css" href="hindcast.css" />
 <link rel="stylesheet" type="text/css" href="data_access.css" />
 <link rel="stylesheet" type="text/css" href="forecast_mhw.css" />
 
@@ -37,10 +37,10 @@
                          <span class="hoverLabel">Visualization of regional MOM6 outputs</span>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                         <li><a class="nav-link" data-toggle="tab" href="#historical">Historical Run</a></li>
-                         <li><a class="nav-link" data-toggle="tab" href="#forecast">Forecast/Reforecast</a></li>
+                         <li><a class="nav-link" data-toggle="tab" href="#hindcast">Hindcast</a></li>
+                         <li><a class="nav-link" data-toggle="tab" href="#forecast">Reforecast</a></li>
                          <li><a class="nav-link" data-toggle="tab" href="#projection">Projection</a></li>
-                         <li><a class="nav-link" data-toggle="tab" href="#mhw">Marine Heatwave</a></li>
+                         <li><a class="nav-link" data-toggle="tab" href="#mhw">Experimental Marine Heatwave Forecast</a></li>
                     </ul>
                </li>
 
@@ -85,8 +85,8 @@
                     <!--#include virtual="overview.html"-->
                </div>
 
-               <div id="historical" class="tab-pane fade in">
-                    <!--#include virtual="historical.html"-->
+               <div id="hindcast" class="tab-pane fade in">
+                    <!--#include virtual="hindcast.html"-->
                </div>
 
                <div id="forecast" class="tab-pane fade in">
@@ -159,11 +159,11 @@
 </div>
 
 <script type="text/javascript" src="tabHashEvent.js"></script>
-<script type="text/javascript" src="historical.js"></script>
+<script type="text/javascript" src="hindcast.js"></script>
 <script type="text/javascript" src="forecast.js"></script>
-<script type="text/javascript" src="data_access.js"></script>
 <script type="text/javascript" src="overview.js"></script>
 <script type="text/javascript" src="index.js"></script>
 <script type="module" src="forecast_mhw.js"></script>
+<script type="module" src="data_access.js"></script>
 <!-- <script type="text/javascript" src="hcast.js"></script> -->
 
