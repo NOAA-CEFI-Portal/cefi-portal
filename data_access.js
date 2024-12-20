@@ -32,10 +32,11 @@ $(document).ready(function(){
 $(document).ready(function(){
     $("input[type='radio'].radioDataQuery").change(function(){
         var regionSubdomain = $('input[name="dataQueryOptions"]:checked').val();
-        // clear experiement type when changing radio 
+        // clear experiement type and all other options when changing radio 
         // (needed to avoid stacking more options)
         $('#expTypeDataQuery').empty();
-        createDataAccessAll(regionSubdomain)
+        data_access_all_clear();
+        createDataAccessAll(regionSubdomain);
     });
 });
 
@@ -48,13 +49,15 @@ async function createDataAccessAll(regSubdom) {
     if (regSubdom === 'northwest_atlantic'){
         region = 'northwest_atlantic';
         subdomain = 'full_domain';
+    } else if (regSubdom === 'northeast_pacific'){
+        region = 'northeast_pacific';
+        subdomain = 'full_domain';
     };
-
-    // Call the function and wait for it to complete
+    // create experiement type options
     await createDataAccessExpType(region,subdomain);
     experiment_type = $('#expTypeDataQuery').val();
 
-    // Add your additional commands here
+    // create options below experiement type and above variables
     await createDataAccessOthers(region,subdomain,experiment_type);
 }
 
