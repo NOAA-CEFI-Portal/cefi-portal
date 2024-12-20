@@ -71,36 +71,37 @@ def find_ncfiles_info(
             dict_end_points[root] = {}
             # make file in order when looping
             for file in sorted(files):
-                ncfile = os.path.join(root, file)
-                ds = xr.open_dataset(ncfile,chunks={})
+                if 'static.nc' not in file:
+                    ncfile = os.path.join(root, file)
+                    ds = xr.open_dataset(ncfile,chunks={})
 
-                # create one dict for one file
-                dict_end_points[root][file] = {}
+                    # create one dict for one file
+                    dict_end_points[root][file] = {}
 
-                # List all global attributes
-                global_attributes = ds.attrs
+                    # List all global attributes
+                    global_attributes = ds.attrs
 
-                # find all cefi attributes
-                for attr, value in global_attributes.items():
-                    if 'cefi_' in attr:
-                        dict_end_points[root][file][attr] = value
+                    # find all cefi attributes
+                    for attr, value in global_attributes.items():
+                        if 'cefi_' in attr:
+                            dict_end_points[root][file][attr] = value
+                        else:
+                            pass
+
+                    if not dict_end_points[root][file]:
+                        # remove empty dict (file that does not have cefi_attrs)
+                        del dict_end_points[root][file]
                     else:
-                        pass
-
-                if not dict_end_points[root][file]:
-                    # remove empty dict (file that does not have cefi_attrs)
-                    del dict_end_points[root][file]
-                else:
-                    # temp solution to create variable
-                    variable = dict_end_points[root][file]['cefi_filename'].split('.')[0]
-                    dict_end_points[root][file]['cefi_variable'] = variable
-                    dict_end_points[root][file]['cefi_unit'] = ds[variable].attrs['units']
-                    dict_end_points[root][file]['cefi_long_name'] = ds[variable].attrs['long_name']
-                    dict_end_points[root][file]['cefi_opendap'] = os.path.join(
-                        opendap_root_url,
-                        root[1:],
-                        ds.attrs['cefi_filename']
-                    )
+                        # temp solution to create variable
+                        variable = dict_end_points[root][file]['cefi_filename'].split('.')[0]
+                        dict_end_points[root][file]['cefi_variable'] = variable
+                        dict_end_points[root][file]['cefi_unit'] = ds[variable].attrs['units']
+                        dict_end_points[root][file]['cefi_long_name'] = ds[variable].attrs['long_name']
+                        dict_end_points[root][file]['cefi_opendap'] = os.path.join(
+                            opendap_root_url,
+                            root[1:],
+                            ds.attrs['cefi_filename']
+                        )
 
     return dict_end_points
 
@@ -168,8 +169,8 @@ if __name__ == '__main__':
 
     dataroot = os.path.join(os.environ.get("PROJECTS"),'CEFI/regional_mom6/cefi_portal')
     coderoot = os.environ.get("MYHOME")
-    # webserver_dir = f'{coderoot}cefi_portal/'
-    webserver_dir = f'{os.environ.get("HTTPTEST")}cefi_portal/'
+    webserver_dir = f'{coderoot}cefi_portal/'
+    # webserver_dir = f'{os.environ.get("HTTPTEST")}cefi_portal/'
     opendap_root = 'http://psl.noaa.gov/thredds/dodsC'
 
     # get the information for all file in dict

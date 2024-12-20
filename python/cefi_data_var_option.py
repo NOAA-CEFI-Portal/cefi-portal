@@ -130,8 +130,8 @@ if __name__ == '__main__':
     structure_cut_name = 'experiment_type'
     dataroot = os.path.join(os.environ.get("PROJECTS"),'CEFI/regional_mom6/cefi_portal')
     coderoot = os.environ.get("MYHOME")
-    # webserver_dir = f'{coderoot}cefi_portal/'
-    webserver_dir = f'{os.environ.get("HTTPTEST")}cefi_portal/'
+    webserver_dir = f'{coderoot}cefi_portal/'
+    # webserver_dir = f'{os.environ.get("HTTPTEST")}cefi_portal/'
     opendap_root = 'http://psl.noaa.gov/thredds/dodsC'
 
     # get the information for all file in dict
@@ -143,71 +143,90 @@ if __name__ == '__main__':
         structure_cut = structure_cut_name
     )
 
-    # get all dirpath that has files
-    dict_structure_cut = {}
-    structure_cut_subdirs = []
-    for dirpath, dict_files in dict_cefi_all.items():
-
-        # creata like-cefi-filename structure to name the option json file
-        cefi_filename_list = dirpath.strip("/").split('/')
-        file_name_info = ".".join(cefi_filename_list)
-
-        # for structure cut option json file
-        structure_cut_subdirs.append(cefi_filename_list[-1])
-        file_name_structure_cut = ".".join(cefi_filename_list[:-1])
-
-        # get available data under each dirpath
-        dict_cefi_exp = find_ncfiles_info(
-            base_dir=dirpath,
-            opendap_root_url=opendap_root
+    # seperate dict_cefi_all to a list of dicts that based on region/subdomain/
+    # index of the top_directory in cefi data structure in absolute path
+    relative_level = 3
+    dict_regionsubdomain = defaultdict(dict)
+    for abspath, dict_info in dict_cefi_all.items():
+        parse_path = abspath.strip('/').split('/')
+        index_reg = (
+            portal_data.DataStructureAttrOrder.dir_order.index('region')+
+            relative_level
         )
+        index_subdom = (
+            portal_data.DataStructureAttrOrder.dir_order.index('subdomain')+
+            relative_level
+        )
+        regionsubdomain = parse_path[index_reg]+'.'+parse_path[index_subdom]
+        dict_regionsubdomain[regionsubdomain][abspath]=dict_info
 
-        # get all unique options in each structure level
-        dict_options = get_unique_options(dict_cefi_exp)
 
-        # get ordered attribute name based on data structure level
-        list_dir_order = portal_data.DataStructureAttrOrder.dir_order
-        # get level number of structure_cut_name in relative path
-        cut_level_index = list_dir_order.index(structure_cut_name)
-        list_dir_order = list_dir_order[cut_level_index:]
+    # get all dirpath that has files
+    for regsubdomain,dict_cefi_regsub in dict_regionsubdomain.items():
+        dict_structure_cut = {}
+        structure_cut_subdirs = []
+        for dirpath, dict_files in dict_cefi_regsub.items():
 
-        # data options in json
-        dict_data_options = {}
-        for i, dirname in enumerate(list_dir_order):
-            dict_data_options[dirname] = dict_options[i]
-        json_options = json.dumps(dict_data_options, indent=4)
+            # creata like-cefi-filename structure to name the option json file
+            cefi_filename_list = dirpath.strip("/").split('/')
+            file_name_info = ".".join(cefi_filename_list)
 
-        # output json format for data options other than experiment type
+            # for structure cut option json file
+            structure_cut_subdirs.append(cefi_filename_list[-1])
+            file_name_structure_cut = ".".join(cefi_filename_list[:-1])
+
+            # get available data under each dirpath
+            dict_cefi_exp = find_ncfiles_info(
+                base_dir=dirpath,
+                opendap_root_url=opendap_root
+            )
+
+            # get all unique options in each structure level
+            dict_options = get_unique_options(dict_cefi_exp)
+
+            # get ordered attribute name based on data structure level
+            list_dir_order = portal_data.DataStructureAttrOrder.dir_order
+            # get level number of structure_cut_name in relative path
+            cut_level_index = list_dir_order.index(structure_cut_name)
+            list_dir_order = list_dir_order[cut_level_index:]
+
+            # data options in json
+            dict_data_options = {}
+            for i, dirname in enumerate(list_dir_order):
+                dict_data_options[dirname] = dict_options[i]
+            json_options = json.dumps(dict_data_options, indent=4)
+
+            # output json format for data options other than experiment type
+            with open(
+                f'{webserver_dir}data_option_json/cefi_data_options.{file_name_info}.json',
+                "w",
+                encoding='UTF-8'
+            ) as json_file:
+                json_file.write(json_options)
+
+            # get all unique variable options in under all experiement_type
+            #  this is assuming under all experiement type there should be
+            #  almost having the same variable options. if not the website
+            #  will response with data not available
+            dict_var_opts = get_variable_options(dict_cefi_exp)
+            json_var_options =json.dumps(dict_var_opts, indent=4)
+
+            # output json format for variable options
+            with open(
+                f'{webserver_dir}data_option_json/cefi_var_options.{file_name_info}.json',
+                "w",
+                encoding='UTF-8'
+            ) as json_file:
+                json_file.write(json_var_options)
+
+        dict_structure_cut[structure_cut_name] = sorted(structure_cut_subdirs)
+        json_structure_cut_options =json.dumps(dict_structure_cut, indent=4)
+
+        # output json format for the experiement type options
         with open(
-            f'{webserver_dir}data_option_json/cefi_data_options.{file_name_info}.json',
+            f'{webserver_dir}data_option_json/'+
+            f'cefi_{structure_cut_name}_options.{file_name_structure_cut}.json',
             "w",
             encoding='UTF-8'
         ) as json_file:
-            json_file.write(json_options)
-
-        # get all unique variable options in under all experiement_type
-        #  this is assuming under all experiement type there should be
-        #  almost having the same variable options. if not the website
-        #  will response with data not available
-        dict_var_opts = get_variable_options(dict_cefi_exp)
-        json_var_options =json.dumps(dict_var_opts, indent=4)
-
-        # output json format for variable options
-        with open(
-            f'{webserver_dir}data_option_json/cefi_var_options.{file_name_info}.json',
-            "w",
-            encoding='UTF-8'
-        ) as json_file:
-            json_file.write(json_var_options)
-
-    dict_structure_cut[structure_cut_name] = sorted(structure_cut_subdirs)
-    json_structure_cut_options =json.dumps(dict_structure_cut, indent=4)
-
-    # output json format for the experiement type options
-    with open(
-        f'{webserver_dir}data_option_json/'+
-        f'cefi_{structure_cut_name}_options.{file_name_structure_cut}.json',
-        "w",
-        encoding='UTF-8'
-    ) as json_file:
-        json_file.write(json_structure_cut_options)
+            json_file.write(json_structure_cut_options)

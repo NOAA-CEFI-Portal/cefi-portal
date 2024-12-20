@@ -1,0 +1,15 @@
+{
+    "experiment_type": [
+        "hindcast"
+    ],
+    "output_frequency": [
+        "daily",
+        "monthly"
+    ],
+    "grid_type": [
+        "raw"
+    ],
+    "release": [
+        "r20241015"
+    ]
+}
