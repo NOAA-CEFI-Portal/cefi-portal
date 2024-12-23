@@ -8,7 +8,6 @@
     <!-- Forced refresh for getting the newest data server status -->
     <a class="refresh-link" onclick="location.reload(true);"><img src="img/opendap_status.png" alt="OPeNDAP statusBadge"></a>
   </div>
-  
   <div class="col-12">
     <p>
       Currently, the regional MOM6 output can be accessed through the PSL THREDDS server.
@@ -22,7 +21,258 @@
       .
     </p>
   </div>
+  <hr class="dot-hr-plot">
+  <h3>CEFI directory and filename convention</h3>
+    <div class="panel-group" id="accordion">
+        <!-- expanding panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse0">
+                <i class="fas fa-plus-circle"></i> CEFI directory structure</a>
+                </h4>
+            </div>
+
+            <div id="collapse0" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                      The CEFI directory structure is designed to facilitate easy navigation and clearly separates different experiment types conducted by various modeling and application teams.
+                      The structure is organized hierarchically, starting from the top-level directory.
+
+                    </p>
+
+                    <pre><code class="codeBlockScroll"> &ltregion&gt/&ltsubdomain&gt/&ltexperiment_type&gt/&ltoutput_frequency&gt/&ltgrid_type&gt/&ltrelease&gt/</code></pre>
+                    <hr class="dot-hr-plot">
+                    <p>
+                      <ul>
+                        <li>
+                          <code> &ltregion&gt </code>:
+                        
+                          [directory name / filename abbreviation]
+                          
+                          <ul>
+                            <li><code>northwest_atlantic / nwa</code></li>
+                            <li><code>northeast_pacific / nep </code></li> 
+                            <li><code>arctic / arc</code></li>  
+                            <li><code>pacific_islands / pci</code></li>
+                            <li><code>great_lakes / glk</code></li>
+                            <li>…etc</li>
+                          </ul>
+                        </li>
+  
+                        <li>
+                          <code> &ltsubdomain&gt </code>:
+  
+                          [directory name / filename abbreviation]
+    
+                          <ul>
+                            <li><code>full_domain / full</code></li>
+                            <li>…etc</li>
+                          </ul>
+                        </li>
+                        
+                        <li>
+                          <code> &ltexperiment_type&gt </code>:
+  
+                          [directory name / filename abbreviation]
+    
+                          <ul>
+                            <li><code>hindcast / hcast</code></li>
+                            <li><code>seasonal_forecast / ss_fcast</code></li>
+                            <li><code>seasonal_forecast_initialization / ss_fcast_init</code></li>
+                            <li><code>seasonal_reforecast / ss_refcast</code></li>
+                            <li><code>decadal_forecast_initialization / dc_fcast_init</code></li>
+                            <li><code>decadal_forecast / dc_fcast</code></li>
+                            <li><code>long_term_projection / ltm_proj</code></li>
+                            <li>…etc</li>
+                          </ul>
+                        </li>
+                        
+                        <li>
+                          <code> &ltoutput_frequency&gt </code>:
+  
+                          [directory name / filename abbreviation]
+    
+                          <ul>
+                            <li><code>yearly / yearly</code></li>
+                            <li><code>monthly / monthly</code></li>
+                            <li><code>daily / daily</code></li>
+                          </ul>
+                        </li>
+  
+                        <li>
+                          <code> &ltgrid_type&gt </code>:
+  
+                          [directory name / filename abbreviation]
+    
+                          <ul>
+                            <li><code>raw / raw</code></li>
+                            <li><code>regrid / regrid</code></li>
+                          </ul>
+                        </li>
+                        
+                        <li>
+                          <code> &ltrelease&gt </code>:
+  
+                          <ul>
+                            <li><code>rYYYY0M0D ex: r20230401</code></li>
+                          </ul>
+                        </li>
+                        
+                      </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- expanding panel -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+              <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+              <i class="fas fa-plus-circle"></i> CEFI filename structure</a>
+              </h4>
+          </div>
+
+          <div id="collapse1" class="panel-collapse collapse">
+              <div class="panel-body">
+                <p>
+                  The CEFI filename structure is designed to clearly distinguish between different experiment types.
+                  It follows a hierarchical format that preserves the directory structure, preventing overwrites from separate experiments or downloads within the same directory.
+                </p>
+                <hr class="dot-hr-plot">
+
+                <h3> Hindcast </h3>
+                
+                <p>
+                  The file contains a single variable for the entire run period in one consolidated file. The filename follows this format:
+                </p>
+                  
+                <pre><code class="codeBlockScroll">variable_name.region.subdomain.experiment_type.output_frequency.grid_type.rYYYYMMDD.YYYY0M-YYYY0M.nc</code></pre>
+
+                <p>
+                  example includes:
+                  <ul>
+                    <li>
+                      <code> btm_o2.nwa.full.hcast.daily.raw.r20230401.199301-201912.nc </code>
+                    </li>
+                    <li>
+                      <code> rhopot0.nwa.gomex.hcast.monthly.raw.r20230401.199301-201912.nc </code>
+                    </li>
+                  </ul>
+                </p>
+
+
+                <hr class="dot-hr-plot">
+
+                <h3> Season and decadal forecast (re-forecast) </h3>
+                
+                <p>
+                  A single file contains data for one initialization (<code>iYYYY0M</code>-initialized year [YYYY] and month [0M]), capturing all ensemble members and lead times for a single variable. The filename follows this format:
+                </p>
+                  
+                <pre><code class="codeBlockScroll">variable_name.region.subdomain.experiment_type.output_frequency.grid_type.rYYYYMMDD.ensemble_info.iYYYY0M</code></pre>
+
+                <p>
+                  example includes:
+                  <ul>
+                    <li>
+                      <code> tos.nwa.gomex.ss_fcast.monthly.raw.r20230401.enss.i202212.nc </code>
+                    </li>
+                    <li>
+                      <code> thetao.nep.full.ss_fcast_init.monthly.raw.r20230401.ens_stats.i199303.nc </code>
+                    </li>
+                    <li>
+                      <code> thetao.nep.full.ss_refcast.monthly.raw.r20230401.ens_stats.i199303.nc </code>
+                    </li>
+                    <li>
+                      <code> thetao.nep.full.dc_fcast.monthly.raw.r20230401.ens0.i199303.nc </code>
+                    </li>
+                  </ul>
+                </p>
+
+                <hr class="dot-hr-plot">
+
+                <h3> Long-term projection </h3>
+                
+                <p>
+                  A single file contains data for one scenario, capturing all ensemble members for a single variable. The filename follows this format:
+                </p>
+                  
+                <pre><code class="codeBlockScroll">variable_name.region.subdomain.experiment_type.output_frequency.grid_type.rYYYYMMDD.picontrol/historical/proj_forcing.ensemble_info.YYYY0M-YYYY0M</code></pre>
+
+                <p>
+                  example includes:
+                  <ul>
+                    <li>
+                      <code> tos.nwa.full.ltm_proj.yearly.raw.r20230401.proj_ssp370.enss.202001-209912.nc</code>
+                    </li>
+                    <li>
+                      <code> tos.nwa.full.ltm_proj.yearly.raw.r20230401.proj_ssp585.enss.202001-209912.nc</code>
+                    </li>
+                    <li>
+                      <code> tos.nwa.full.ltm_proj.monthly.raw.r20230401.picontrol.enss.185001-201912.nc </code>
+                    </li>
+                    <li>
+                      <code> tos.nwa.full.ltm_proj.monthly.raw.r20230401.hist.enss.185001-201912.nc </code>
+                    </li>
+                  </ul>
+                </p>
+
+              </div>
+          </div>
+        </div>
+        <!-- expanding panel -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+              <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+              <i class="fas fa-plus-circle"></i> CEFI netCDF file global attributes</a>
+              </h4>
+          </div>
+
+          <div id="collapse2" class="panel-collapse collapse">
+              <div class="panel-body">
+                <p>
+                  Each netCDF file served by the CEFI portal includes global attributes. 
+                  These attributes provide comprehensive information about the data structure, filename segments, and DOIs for both the dataset and related papers. 
+                  All CEFI-specific attributes are prefixed with <code>cefi_</code>
+                </p>
+                <hr class="dot-hr-plot">
+                <p>
+                  A list of all CEFI-related global attributes is provided below as an example, using a hindcast experiment.
+                  <pre>
+                    <code class="attr">
+:cefi_rel_path = "cefi_portal/northwest_atlantic/full_domain/hindcast/daily/raw/r20230519"
+:cefi_filename = "tos.nwa.full.hcast.daily.raw.r20230519.199301-201912.nc"
+:cefi_variable = "tos"
+:cefi_ori_filename = "ocean_daily.19930101-20191231.tos.nc"
+:cefi_archive_version = "/archive/acr/fre/NWA/2023_04/NWA12_COBALT_2023_04_kpo4-coastatten-physics/gfdl.ncrc5-intel22-prod"
+:cefi_run_xml = "N/A"
+:cefi_region = "nwa"
+:cefi_subdomain = "full"
+:cefi_experiment_type = "hindcast"
+:cefi_experiment_name = "nwa12_cobalt"
+:cefi_release = "r20230519"
+:cefi_output_frequency = "daily"
+:cefi_grid_type = "raw"
+:cefi_date_range = "199301-201912"
+:cefi_init_date = "N/A"
+:cefi_ensemble_info = "N/A"
+:cefi_forcing = "N/A"
+:cefi_data_doi = "10.5281/zenodo.7893386"
+:cefi_paper_doi = "10.5194/gmd-16-6943-2023"
+:cefi_aux = "N/A"
+                    </code>
+                  </pre>
+                </p>
+
+              </div>
+          </div>
+        </div>
+    </div>
 </div>
+
+<hr class="dot-hr-plot">
 
 <div class = "row">
   <h3>Variable Lists</h3>
@@ -61,6 +311,8 @@
   <br>
 </div>  
       
+<hr class="dot-hr-plot">
+
 <div class = "row">
   <h3>Data Query Generator</h3>
   <p>
