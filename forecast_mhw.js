@@ -49,10 +49,10 @@ tValueFcastMHW.text(leadFoliumFcastMHW);
 // screen size specific adjustment (using forecast.js function)
 window.tickSpaceChangeFcast(leadMonthListMHW)
 
-// Initial stat options (using historical.js function)
+// Initial stat options (using hindcast.js function)
 window.createMomCobaltOpt_singleID('statMOMCobaltFcastMHW',momCobaltStatsFcastMHW)
 
-// setup colorbar option (using historical.js function)
+// setup colorbar option (using hindcast.js function)
 window.createMomCobaltCbarOpt('cbarOptsFcastMHW','inferno');
 
 // initialize the plotly
@@ -159,7 +159,7 @@ $("#"+dashDropDownID).on("change", function(){
 $("#"+dashNavPillID+" > ul.nav-pills > li.nav-item > .nav-link").on('click',function(){
     let hrefID = $(this).attr('href')
     let hrefIDText = hrefID.slice(1)
-    // reuse changeDashSelect (historical.js) 
+    // reuse changeDashSelect (hindcast.js) 
     window.changeDashSelect(dashDropDownID,hrefIDText+'Val')
 
     // Manually trigger a resize event for triggering plotly resizing 
@@ -170,7 +170,7 @@ $("#"+dashNavPillID+" > ul.nav-pills > li.nav-item > .nav-link").on('click',func
 $("#"+dashNavPillID+" > ul.nav-tabs > li.nav-item > .nav-link").on('click',function(){
     let hrefID = $(this).attr('href')
     let hrefIDText = hrefID.slice(1)
-    // reuse changeDashSelect (historical.js) 
+    // reuse changeDashSelect (hindcast.js) 
     window.changeDashSelect(dashDropDownID,hrefIDText+'Val')
 
     // Manually trigger a resize event for triggering plotly resizing 

@@ -1,11 +1,11 @@
 {
     "var_values": [
-        "tob",
-        "tos"
+        "tos",
+        "tob"
     ],
     "var_options": [
-        "Sea Water Potential Temperature at Sea Floor",
-        "Sea Surface Temperature"
+        "Sea Surface Temperature",
+        "Sea Water Potential Temperature at Sea Floor"
     ],
     "var_freqs": [
         "monthly",
