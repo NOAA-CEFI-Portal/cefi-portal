@@ -37,9 +37,26 @@ $(document).ready(function(){
         $('#expTypeDataQuery').empty();
         data_access_all_clear();
         createDataAccessAll(regionSubdomain);
+
     });
 });
 
+
+// function to reset the hidden or show dropdown options
+function resetOptionVisibility(expType) {
+  // turn on/off forecast/projection related options
+  if (experiment_type.includes('forecast')) {
+    // creating the initialDate options needed!!!!!
+    $('.forecastOpt').removeClass('hidden');
+    $('.projectOpt').addClass('hidden');
+  } else if (experiment_type.includes('projection')) {
+    $('.projectOpt').removeClass('hidden');
+    $('.forecastOpt').addClass('hidden');
+  } else {
+    $('.projectOpt').addClass('hidden');
+    $('.forecastOpt').addClass('hidden');
+  };
+}
 
 // Async function that depends on createDataAccessExpType
 //  !!!!!!add elseif when radio region and subdomain increase!!!!!!
@@ -56,6 +73,9 @@ async function createDataAccessAll(regSubdom) {
     // create experiement type options
     await createDataAccessExpType(region,subdomain);
     experiment_type = $('#expTypeDataQuery').val();
+
+    // turn on/off forecast/projection related options
+    resetOptionVisibility(experiment_type)
 
     // create options below experiement type and above variables
     await createDataAccessOthers(region,subdomain,experiment_type);
@@ -205,18 +225,7 @@ $('#expTypeDataQuery').on('change', function() {
     createDataAccessOthers(region,subdomain,$(this).val());
 
     // turn on/off forecast/projection related options
-    if (experiment_type.includes('forecast')) {
-      // creating the initialDate options needed!!!!!
-      $('.forecastOpt').removeClass('hidden');
-      $('.projectOpt').addClass('hidden');
-    } else if (experiment_type.includes('projection')) {
-      $('.projectOpt').removeClass('hidden');
-      $('.forecastOpt').addClass('hidden');
-    } else {
-      $('.projectOpt').addClass('hidden');
-      $('.forecastOpt').addClass('hidden');
-    };
-
+    resetOptionVisibility(experiment_type)
 
 });
 
