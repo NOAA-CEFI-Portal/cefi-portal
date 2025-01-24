@@ -157,7 +157,7 @@ async function createDataAccessOthers(reg,subDom,expType){
 }
 
 // async fetching the data_access_json cefi_data_option
-async function fetchDataOption(reg,subDom,expType) {
+export async function fetchDataOption(reg,subDom,expType) {
     try {
       const response = await fetch(
         'data_option_json/cefi_data_options.Projects.CEFI.regional_mom6.cefi_portal.'+
@@ -178,9 +178,11 @@ async function fetchDataOption(reg,subDom,expType) {
       console.error('There was a problem when async fetchDataOption:', error);
     }
 }
+// Attach the function to the window object
+// window.fetchDataOption = fetchDataOption;
 
 // async fetching the data_access_json cefi_var_option
-async function fetchVarOption(reg,subDom,expType) {
+export async function fetchVarOption(reg,subDom,expType) {
     try {
       const response = await fetch(
         'data_option_json/cefi_var_options.Projects.CEFI.regional_mom6.cefi_portal.'+
@@ -201,6 +203,8 @@ async function fetchVarOption(reg,subDom,expType) {
       console.error('There was a problem when async fetchVarOption:', error);
     }
 }
+// Attach the function to the window object
+// window.fetchVarOption = fetchVarOption;
 
 // function to clear all option below experiement type
 function data_access_all_clear(){
