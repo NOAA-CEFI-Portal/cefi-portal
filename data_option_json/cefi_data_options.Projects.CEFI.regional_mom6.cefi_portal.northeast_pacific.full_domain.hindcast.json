@@ -7,7 +7,8 @@
         "monthly"
     ],
     "grid_type": [
-        "raw"
+        "raw",
+        "regrid"
     ],
     "release": [
         "r20241015"

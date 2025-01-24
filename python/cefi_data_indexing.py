@@ -169,8 +169,8 @@ if __name__ == '__main__':
 
     dataroot = os.path.join(os.environ.get("PROJECTS"),'CEFI/regional_mom6/cefi_portal')
     coderoot = os.environ.get("MYHOME")
-    webserver_dir = f'{coderoot}cefi_portal/'
-    # webserver_dir = f'{os.environ.get("HTTPTEST")}cefi_portal/'
+    local_dir = f'{coderoot}cefi_portal/' # testing locally
+    webserver_dir = f'{os.environ.get("HTTPTEST")}cefi_portal/' # testing on webserver
     opendap_root = 'http://psl.noaa.gov/thredds/dodsC'
 
     # get the information for all file in dict
@@ -226,6 +226,13 @@ if __name__ == '__main__':
         ) as f:
             f.write(html)
 
+        with open(
+            f'{local_dir}data_index/cefi_data_indexing.{file_name_info}.html',
+            'w',
+            encoding='UTF-8'
+        ) as f:
+            f.write(html)
+
         # reformat to json
         keys = list(dict_all_info.keys())
         list_len = len(dict_all_info[keys[0]])
@@ -245,12 +252,24 @@ if __name__ == '__main__':
         ) as json_file:
             json_file.write(json_data)
 
+        with open(
+            f'{local_dir}data_index/cefi_data_indexing.{file_name_info}.json',
+            "w",
+            encoding='UTF-8'
+        ) as json_file:
+            json_file.write(json_data)
+
         # reformat to xml
         xml_root = dict_to_xml(f'{file_name_info}', dict_ncfile_json)
         tree = ET.ElementTree(xml_root)
         # output xml format to browser
         tree.write(
             f'{webserver_dir}data_index/cefi_data_indexing.{file_name_info}.xml',
+            encoding='utf-8',
+            xml_declaration=True
+        )
+        tree.write(
+            f'{local_dir}data_index/cefi_data_indexing.{file_name_info}.xml',
             encoding='utf-8',
             xml_declaration=True
         )
