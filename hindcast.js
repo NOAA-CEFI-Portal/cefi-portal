@@ -2,44 +2,27 @@
 const momCobaltMap = $('#momCobaltIFrame');
 const momCobaltBtn = $("#momCobaltBtn");
 const clearFigOptBtn = $("#clearFigOptBtn")
-var mapData = {}   // parsed html output
-// var image_data = ''    // png encoding
-
-// global info
-var locationData;
-var polygonData;
-
-// monthly and daily list for creating the time slider
-let freq_list = momCobaltVars();
-let monthly_list = [];
-let daily_list = [];
-for (let i = 0; i < freq_list[2].length; i++) { 
-    if (freq_list[2][i] === "monthly") {
-        monthly_list.push(freq_list[1][i])
-    } else if (freq_list[2][i] === "daily") {
-        daily_list.push(freq_list[1][i])
-    }
-}
-
-
-// Default time slider related variables
 const timeSlider = $("#timeRange");
 const tValue = $(".timeValue");
 const containerTick = $(".ticks");
-var yearValues, rangeValues;
-[yearValues, rangeValues] = generateDateList();
-timeSlider.attr("min", 0);
-timeSlider.attr("max", rangeValues.length - 1);
-timeSlider.val(rangeValues.length - 1);
-var dateFolium = rangeValues[timeSlider.val()];   // global
-tValue.text(dateFolium);
-tickSpaceChange();
+
+// global info for leaflet maps
+var mapData = {}   // parsed html output
+var locationData;
+var polygonData;
+var dateFolium;
+
+// global info for time slider
+var yearValues = [];
+var rangeValues = [];
+
+// global info for options value
+var regValue;
+var freqValue;
+var varValue;
 
 // Initial region options (for all region options)
-createMomCobaltOpt('reg-mom-cobalt',momCobaltRegs);
-
-// Initial variable options based on dataset
-createMomCobaltVarOpt('MOMCobalt','varMOMCobalt');
+initialize()
 
 // Initial stat options
 createMomCobaltStatOpt();
@@ -88,9 +71,6 @@ let varind2 = varnamelist2[1].indexOf($("#varMOMCobaltTS2").val())
 let varname2 = varnamelist2[0][varind2]
 
 
-
-
-
 /////////////// event listener ///////////
 
 // // add the initial time options 
@@ -98,6 +78,36 @@ let varname2 = varnamelist2[0][varind2]
 
 $(window).resize(function() {
     tickSpaceChange();
+});
+
+// event listen for region change
+$("#regMOMCobalt").on("change", function(){
+    var regVal  = $('#regMOMCobalt').val();
+    createFreqVarOption(regVal);
+});
+
+// event listen for freq change => slider
+$("#freqMOMCobalt").on("change", function(){
+    freqValue = $('#freqMOMCobalt').val();
+    
+    // time slider change
+    if (freqValue === 'daily'){
+        [yearValues, rangeValues] = generateDailyDateList();
+        timeSlider.attr("min", 0);
+        timeSlider.attr("max", rangeValues.length - 1);
+        const foundIndex = rangeValues.indexOf(dateFolium+"-01");
+        timeSlider.val(foundIndex);
+        dateFolium = rangeValues[timeSlider.val()];
+    } else if (freqValue === 'monthly'){
+        [yearValues, rangeValues] = generateDateList();
+        timeSlider.attr("min", 0);
+        timeSlider.attr("max", rangeValues.length - 1);
+        const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
+        timeSlider.val(foundIndex);
+        dateFolium = rangeValues[timeSlider.val()];
+    };
+
+    tValue.text(dateFolium);
 });
 
 
@@ -115,29 +125,28 @@ $("#varMOMCobalt").on("change", function(){
     createMomCobaltDepthBlockOpt($("#varMOMCobalt").val());
 
 
-    // time slider change
-    var selectVarIndex = $("#varMOMCobalt").prop('selectedIndex');
-    if (freq_list[2][selectVarIndex] === 'daily'){
-        // change if dateFolium is origianly in monthly format
-        if (dateFolium.length === 7){
-            [yearValues, rangeValues] = generateDailyDateList();
-            timeSlider.attr("min", 0);
-            timeSlider.attr("max", rangeValues.length - 1);
-            const foundIndex = rangeValues.indexOf(dateFolium+"-01");
-            timeSlider.val(foundIndex);
-            dateFolium = rangeValues[timeSlider.val()];
-        }
-    } else if (freq_list[2][selectVarIndex] === 'monthly'){
-        // change if dateFolium is origianly in daily format
-        if (dateFolium.length === 10){
-            [yearValues, rangeValues] = generateDateList();
-            timeSlider.attr("min", 0);
-            timeSlider.attr("max", rangeValues.length - 1);
-            const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
-            timeSlider.val(foundIndex);
-            dateFolium = rangeValues[timeSlider.val()];
-        }
-    };
+    // // time slider change
+    // if (freqValue === 'daily'){
+    //     // change if dateFolium is origianly in monthly format
+    //     if (dateFolium.length === 7){
+    //         [yearValues, rangeValues] = generateDailyDateList();
+    //         timeSlider.attr("min", 0);
+    //         timeSlider.attr("max", rangeValues.length - 1);
+    //         const foundIndex = rangeValues.indexOf(dateFolium+"-01");
+    //         timeSlider.val(foundIndex);
+    //         dateFolium = rangeValues[timeSlider.val()];
+    //     }
+    // } else if (freqValue === 'monthly'){
+    //     // change if dateFolium is origianly in daily format
+    //     if (dateFolium.length === 10){
+    //         [yearValues, rangeValues] = generateDateList();
+    //         timeSlider.attr("min", 0);
+    //         timeSlider.attr("max", rangeValues.length - 1);
+    //         const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
+    //         timeSlider.val(foundIndex);
+    //         dateFolium = rangeValues[timeSlider.val()];
+    //     }
+    // };
     
     // console.log(dateFolium)
     // if (monthly_list.indexOf($(this).val()) === -1) {
@@ -317,6 +326,137 @@ $('#indexMOMCobaltTS').on("change", function () {
 
 
 ///////// functional function start /////////
+/**
+ * Truncate a string to a specified length and add ellipsis if it exceeds that length.
+ * @param {string} str - The string to truncate.
+ * @param {number} maxLength - The maximum length of the truncated string.
+ * @returns {string} - The truncated string with ellipsis if it exceeds the maximum length.
+ */
+function truncateString(str, maxLength) {
+    if (str.length > maxLength) {
+        return str.substring(0, maxLength - 3) + '...';
+    } else {
+        return str;
+    }
+}
+
+// initialize the region freq variable optios
+async function initialize() {
+    // Wait for createRegionOption to complete
+    await createRegionOption('regMOMCobalt');
+
+    // Retrieve the current value of the element with ID 'regMOMCobalt'
+    regValue = $('#regMOMCobalt').val();
+
+    // Wait for createFreqVarOption to complete
+    await createFreqVarOption(regValue);
+    $('#freqMOMCobalt').val('monthly'); // initial monthly
+    freqValue = $('#freqMOMCobalt').val();  // initial frequency value
+    varValue = $('#varMOMCobalt').val(); // initial variable value
+
+    // Default time slider related variables
+    [yearValues, rangeValues] = generateDateList(); // initial monthly time slider
+    timeSlider.attr("min", 0);
+    timeSlider.attr("max", rangeValues.length - 1);
+    timeSlider.val(rangeValues.length - 1);
+    dateFolium = rangeValues[timeSlider.val()];
+    tValue.text(dateFolium);
+    // change slider size based on window size at initial loading
+    tickSpaceChange();
+}
+
+// function to get the option list in the json files
+async function createRegionOption(selectID) {
+    // fetch region list
+    let [regionOption,regionValue] = momCobaltRegs();
+    createDropdownOptions(selectID,regionOption,regionValue);
+}
+// asyn function to get the option list in the json files
+async function createFreqVarOption(regname) {
+    // fetch hindcast json specific to region
+    var region;
+    var subdomain;
+    var expType = 'hindcast';
+    if (regname === 'northwest_atlantic'){
+        region = 'northwest_atlantic';
+        subdomain = 'full_domain';
+    } else if (regname === 'northeast_pacific'){
+        region = 'northeast_pacific';
+        subdomain = 'full_domain';
+    };
+    let dataAccessJson = await fetchDataOptionHindVis(region,subdomain,expType);
+    let variableJson = await fetchVarOptionHindVis(region,subdomain,expType);
+    
+    // create frequency options
+    let freqList = dataAccessJson.output_frequency;
+    createDropdownOptions('freqMOMCobalt',freqList,freqList);
+
+    // create variable options
+    let varOptionList = variableJson.var_options;
+    let varValueList = variableJson.var_values;
+    createDropdownOptions('varMOMCobalt',varOptionList,varValueList);
+
+}
+
+// async fetching the data_access_json cefi_data_option
+async function fetchDataOptionHindVis(reg,subDom,expType) {
+    try {
+      const response = await fetch(
+        'data_option_json/cefi_data_options.Projects.CEFI.regional_mom6.cefi_portal.'+
+        reg+
+        '.'+
+        subDom+
+        '.'+
+        expType+
+        '.json'
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();  // JSON data 
+      // console.log('JSON data:', data);
+      return data;
+    } catch (error) {
+      console.error('There was a problem when async fetchDataOption:', error);
+    }
+}
+
+// async fetching the data_access_json cefi_var_option
+async function fetchVarOptionHindVis(reg,subDom,expType) {
+    try {
+      const response = await fetch(
+        'data_option_json/cefi_var_options.Projects.CEFI.regional_mom6.cefi_portal.'+
+        reg+
+        '.'+
+        subDom+
+        '.'+
+        expType+
+        '.json'
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();  // JSON data 
+      // console.log('JSON data:', data);
+      return data;
+    } catch (error) {
+      console.error('There was a problem when async fetchVarOption:', error);
+    }
+}
+
+// function for create option
+function createDropdownOptions(selectID,showList,valueList) {
+    let elm = document.getElementById(selectID); 
+    let df = optionList(showList,valueList);
+    elm.appendChild(df);
+};
+
+
+// function to create the time slider
+function createTimeSlider() {
+}
+
+
 // intialize the plotly plot
 // Initial dashboard plot
 function asyncInitializePlotlyResize(flag) {
@@ -503,7 +643,9 @@ function optionList(listname,listval) {
     for (let i = 0; i < listname.length; i++) { // loop
         let option = document.createElement('option'); // create the option element
         option.value = listval[i]; // set the value property
-        option.appendChild(document.createTextNode(listname[i])); // set the textContent in a safe way.
+        // truncate the string if it is too long
+        let truncName = truncateString(listname[i], 50)
+        option.appendChild(document.createTextNode(truncName)); // set the textContent in a safe way.
         df.appendChild(option); // append the option to the document fragment
     }
     return df;
@@ -2175,6 +2317,7 @@ function calculateCorrelation(arr1, arr2) {
 // functions for timeline tick 
 function generateTick(tickList) {
     $("div.ticks span").remove();
+    // console.log(tickList.length)
     for (let i = 0; i < tickList.length; i++) {
         // Create a new <span> element
         const span = $("<span></span>");
@@ -2287,10 +2430,12 @@ function indexes(dashFlag='timeSeries') {
 // functions for regions options lists (Manual entering)
 function momCobaltRegs() {
     let var_options = [
-        "Northwest Atlantic"
+        "Northwest Atlantic",
+        "Northeast Pacific"
     ];
     let var_values = [
-        "northwest_atlantic"
+        "northwest_atlantic",
+        "northeast_pacific"
     ];
     return [var_options, var_values];
 }
