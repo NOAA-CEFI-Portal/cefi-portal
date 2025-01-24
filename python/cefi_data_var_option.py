@@ -130,8 +130,8 @@ if __name__ == '__main__':
     structure_cut_name = 'experiment_type'
     dataroot = os.path.join(os.environ.get("PROJECTS"),'CEFI/regional_mom6/cefi_portal')
     coderoot = os.environ.get("MYHOME")
-    webserver_dir = f'{coderoot}cefi_portal/'
-    # webserver_dir = f'{os.environ.get("HTTPTEST")}cefi_portal/'
+    local_dir = f'{coderoot}cefi_portal/'   # testing on local 
+    webserver_dir = f'{os.environ.get("HTTPTEST")}cefi_portal/' # on webserver
     opendap_root = 'http://psl.noaa.gov/thredds/dodsC'
 
     # get the information for all file in dict
@@ -203,6 +203,12 @@ if __name__ == '__main__':
                 encoding='UTF-8'
             ) as json_file:
                 json_file.write(json_options)
+            with open(
+                f'{local_dir}data_option_json/cefi_data_options.{file_name_info}.json',
+                "w",
+                encoding='UTF-8'
+            ) as json_file:
+                json_file.write(json_options)
 
             # get all unique variable options in under all experiement_type
             #  this is assuming under all experiement type there should be
@@ -218,6 +224,12 @@ if __name__ == '__main__':
                 encoding='UTF-8'
             ) as json_file:
                 json_file.write(json_var_options)
+            with open(
+                f'{local_dir}data_option_json/cefi_var_options.{file_name_info}.json',
+                "w",
+                encoding='UTF-8'
+            ) as json_file:
+                json_file.write(json_var_options)
 
         dict_structure_cut[structure_cut_name] = sorted(structure_cut_subdirs)
         json_structure_cut_options =json.dumps(dict_structure_cut, indent=4)
@@ -225,6 +237,13 @@ if __name__ == '__main__':
         # output json format for the experiement type options
         with open(
             f'{webserver_dir}data_option_json/'+
+            f'cefi_{structure_cut_name}_options.{file_name_structure_cut}.json',
+            "w",
+            encoding='UTF-8'
+        ) as json_file:
+            json_file.write(json_structure_cut_options)
+        with open(
+            f'{local_dir}data_option_json/'+
             f'cefi_{structure_cut_name}_options.{file_name_structure_cut}.json',
             "w",
             encoding='UTF-8'
