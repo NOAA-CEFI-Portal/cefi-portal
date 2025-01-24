@@ -650,6 +650,31 @@
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northeast_pacific/full_domain/hindcast/monthly/raw/r20241015/vo.nep.full.hcast.monthly.raw.r20241015.199301-201912.nc"
     },
     "data27": {
+        "cefi_filename": "tos.nep.full.hcast.daily.regrid.r20241015.199301-201912.nc",
+        "cefi_variable": "tos",
+        "cefi_long_name": "Sea Surface Temperature",
+        "cefi_unit": "degC",
+        "cefi_output_frequency": "daily",
+        "cefi_grid_type": "regrid",
+        "cefi_rel_path": "/Projects/CEFI/regional_mom6/cefi_portal/northeast_pacific/full_domain/hindcast/daily/regrid/r20241015",
+        "cefi_ori_filename": "ocean_daily.19930101-20191231.tos.nc",
+        "cefi_archive_version": "/archive/e1n/fre/cefi/NEP/2024_08/NEP10k_082024_clean_spinup/gfdl.ncrc5-intel22-repro/",
+        "cefi_run_xml": "N/A",
+        "cefi_region": "nep",
+        "cefi_subdomain": "full",
+        "cefi_experiment_type": "hindcast",
+        "cefi_experiment_name": "nep10k_cobalt",
+        "cefi_release": "r20241015",
+        "cefi_date_range": "199301-201912",
+        "cefi_init_date": "N/A",
+        "cefi_ensemble_info": "N/A",
+        "cefi_forcing": "N/A",
+        "cefi_data_doi": "10.5281/zenodo.13936240",
+        "cefi_paper_doi": "10.5194/gmd-2024-195",
+        "cefi_aux": "Postprocessed Data : regrid to regular grid",
+        "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northeast_pacific/full_domain/hindcast/daily/regrid/r20241015/tos.nep.full.hcast.daily.regrid.r20241015.199301-201912.nc"
+    },
+    "data28": {
         "cefi_filename": "btm_o2.nep.full.hcast.daily.raw.r20241015.199301-201912.nc",
         "cefi_variable": "btm_o2",
         "cefi_long_name": "Bottom Oxygen",
@@ -674,7 +699,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northeast_pacific/full_domain/hindcast/daily/raw/r20241015/btm_o2.nep.full.hcast.daily.raw.r20241015.199301-201912.nc"
     },
-    "data28": {
+    "data29": {
         "cefi_filename": "sob.nep.full.hcast.daily.raw.r20241015.199301-201912.nc",
         "cefi_variable": "sob",
         "cefi_long_name": "Sea Water Salinity at Sea Floor",
@@ -699,7 +724,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northeast_pacific/full_domain/hindcast/daily/raw/r20241015/sob.nep.full.hcast.daily.raw.r20241015.199301-201912.nc"
     },
-    "data29": {
+    "data30": {
         "cefi_filename": "sos.nep.full.hcast.daily.raw.r20241015.199301-201912.nc",
         "cefi_variable": "sos",
         "cefi_long_name": "Sea Surface Salinity",
@@ -724,7 +749,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northeast_pacific/full_domain/hindcast/daily/raw/r20241015/sos.nep.full.hcast.daily.raw.r20241015.199301-201912.nc"
     },
-    "data30": {
+    "data31": {
         "cefi_filename": "ssh.nep.full.hcast.daily.raw.r20241015.199301-201912.nc",
         "cefi_variable": "ssh",
         "cefi_long_name": "Sea Surface Height",
@@ -749,7 +774,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northeast_pacific/full_domain/hindcast/daily/raw/r20241015/ssh.nep.full.hcast.daily.raw.r20241015.199301-201912.nc"
     },
-    "data31": {
+    "data32": {
         "cefi_filename": "ssu.nep.full.hcast.daily.raw.r20241015.199301-201912.nc",
         "cefi_variable": "ssu",
         "cefi_long_name": "Sea Surface Zonal Velocity",
@@ -774,7 +799,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northeast_pacific/full_domain/hindcast/daily/raw/r20241015/ssu.nep.full.hcast.daily.raw.r20241015.199301-201912.nc"
     },
-    "data32": {
+    "data33": {
         "cefi_filename": "ssv.nep.full.hcast.daily.raw.r20241015.199301-201912.nc",
         "cefi_variable": "ssv",
         "cefi_long_name": "Sea Surface Meridional Velocity",
@@ -799,7 +824,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northeast_pacific/full_domain/hindcast/daily/raw/r20241015/ssv.nep.full.hcast.daily.raw.r20241015.199301-201912.nc"
     },
-    "data33": {
+    "data34": {
         "cefi_filename": "tob.nep.full.hcast.daily.raw.r20241015.199301-201912.nc",
         "cefi_variable": "tob",
         "cefi_long_name": "Sea Water Potential Temperature at Sea Floor",
@@ -824,7 +849,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northeast_pacific/full_domain/hindcast/daily/raw/r20241015/tob.nep.full.hcast.daily.raw.r20241015.199301-201912.nc"
     },
-    "data34": {
+    "data35": {
         "cefi_filename": "tos.nep.full.hcast.daily.raw.r20241015.199301-201912.nc",
         "cefi_variable": "tos",
         "cefi_long_name": "Sea Surface Temperature",
