@@ -341,7 +341,7 @@ $('#variableDataQuery').on('change', function() {
 
 // async functions for fetching variable and experiment specific option from backend
 async function createVariableSpecOptions() {
-  var ajaxGet = "/cgi-bin/cefi_portal/create_variable_spec_options.py"
+  var ajaxGet = "/cgi-bin/cefi_portal/datatab_create_variable_spec_options.py"
   +"?region="+region
   +"&subdomain="+subdomain
   +"&experiment_type="+$('#expTypeDataQuery').val()
@@ -405,7 +405,7 @@ async function generateDataQuery() {
       ens_opt = $('#ensOptionProjDataQuery').val();
     };
 
-    var ajaxGet = "/cgi-bin/cefi_portal/generate_data_query.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/datatab_generate_data_query.py"
     +"?region="+region
     +"&subdomain="+subdomain
     +"&experiment_type="+experiment_type
