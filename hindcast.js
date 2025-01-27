@@ -20,38 +20,29 @@ var rangeValues = [];
 var regValue;
 var freqValue;
 var varValue;
+var statValue;
+var depthValue;
+var blockValue;
 
 // Initial region options (for all region options)
 initialize()
 
-// Initial stat options
-createMomCobaltStatOpt();
+// // Initial variable options based on dataset for second TS
+// createMomCobaltVarOpt('MOMCobalt+Index','varMOMCobaltTS2');
+// $('#varMOMCobaltTS2').val('');
 
-// Initial depth options based on variable
-createMomCobaltDepthOpt('tos','depthMOMCobalt');
+// // Initial depth options based on dataset for second TS
+// createMomCobaltDepthOpt('tos','depthMOMCobaltTS2');
+// $('#depthMOMCobaltTS2').val('');
 
-// Initial depth block options based on variable
-createMomCobaltDepthBlockOpt('tos');
+// // Initial variable options based on dataset for second TS
+// createMomCobaltVarOpt('onlyIndexes','indexMOMCobaltTS');
 
-// setup colorbar option
-createMomCobaltCbarOpt();
-
-// Initial variable options based on dataset for second TS
-createMomCobaltVarOpt('MOMCobalt+Index','varMOMCobaltTS2');
-$('#varMOMCobaltTS2').val('');
-
-// Initial depth options based on dataset for second TS
-createMomCobaltDepthOpt('tos','depthMOMCobaltTS2');
-$('#depthMOMCobaltTS2').val('');
-
-// Initial variable options based on dataset for second TS
-createMomCobaltVarOpt('onlyIndexes','indexMOMCobaltTS');
-
-// initialize plotly
-$(document).ready(function() {
-    asyncInitializePlotlyResize('all')
-});
-// initializePlotly('all');
+// // initialize plotly
+// $(document).ready(function() {
+//     asyncInitializePlotlyResize('all')
+// });
+// // initializePlotly('all');
 
 // plot index
 plotIndexes();
@@ -59,16 +50,16 @@ plotIndexes();
 
 
 /// setup the variable for variable options in the page
-let varnamelist = momCobaltVars();
-let varind = varnamelist[1].indexOf($("#varMOMCobalt").val())
-let varname = varnamelist[0][varind]
+// let varnamelist = momCobaltVars();
+// let varind = varnamelist[1].indexOf($("#varMOMCobalt").val())
+// let varname = varnamelist[0][varind]
 
-let varnamelist2 = momCobaltVars();
-let indexlist2 = indexes();
-varnamelist2[0] = varnamelist2[0].concat(indexlist2[0]);
-varnamelist2[1] = varnamelist2[1].concat(indexlist2[1]);
-let varind2 = varnamelist2[1].indexOf($("#varMOMCobaltTS2").val())
-let varname2 = varnamelist2[0][varind2]
+// let varnamelist2 = momCobaltVars();
+// let indexlist2 = indexes();
+// varnamelist2[0] = varnamelist2[0].concat(indexlist2[0]);
+// varnamelist2[1] = varnamelist2[1].concat(indexlist2[1]);
+// let varind2 = varnamelist2[1].indexOf($("#varMOMCobaltTS2").val())
+// let varname2 = varnamelist2[0][varind2]
 
 
 /////////////// event listener ///////////
@@ -108,6 +99,10 @@ $("#freqMOMCobalt").on("change", function(){
     };
 
     tValue.text(dateFolium);
+
+    // change depth and block options for the new freq
+    // need to fetch the backend data for the depth options
+    updateDepthAndBlockOptions(regValue, freqValue, varValue)
 });
 
 
@@ -124,51 +119,6 @@ $("#varMOMCobalt").on("change", function(){
     $("#blockMOMCobalt").empty();
     createMomCobaltDepthBlockOpt($("#varMOMCobalt").val());
 
-
-    // // time slider change
-    // if (freqValue === 'daily'){
-    //     // change if dateFolium is origianly in monthly format
-    //     if (dateFolium.length === 7){
-    //         [yearValues, rangeValues] = generateDailyDateList();
-    //         timeSlider.attr("min", 0);
-    //         timeSlider.attr("max", rangeValues.length - 1);
-    //         const foundIndex = rangeValues.indexOf(dateFolium+"-01");
-    //         timeSlider.val(foundIndex);
-    //         dateFolium = rangeValues[timeSlider.val()];
-    //     }
-    // } else if (freqValue === 'monthly'){
-    //     // change if dateFolium is origianly in daily format
-    //     if (dateFolium.length === 10){
-    //         [yearValues, rangeValues] = generateDateList();
-    //         timeSlider.attr("min", 0);
-    //         timeSlider.attr("max", rangeValues.length - 1);
-    //         const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
-    //         timeSlider.val(foundIndex);
-    //         dateFolium = rangeValues[timeSlider.val()];
-    //     }
-    // };
-    
-    // console.log(dateFolium)
-    // if (monthly_list.indexOf($(this).val()) === -1) {
-    //     if (dateFolium.length === 7){
-    //         [yearValues, rangeValues] = generateDailyDateList();
-    //         timeSlider.attr("min", 0);
-    //         timeSlider.attr("max", rangeValues.length - 1);
-    //         const foundIndex = rangeValues.indexOf(dateFolium+"-01");
-    //         timeSlider.val(foundIndex);
-    //         dateFolium = rangeValues[timeSlider.val()];
-    //     }
-    // } else if (daily_list.indexOf($(this).val()) === -1) {
-    //     if (dateFolium.length === 10){
-    //         [yearValues, rangeValues] = generateDateList();
-    //         timeSlider.attr("min", 0);
-    //         timeSlider.attr("max", rangeValues.length - 1);
-    //         const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
-    //         timeSlider.val(foundIndex);
-    //         dateFolium = rangeValues[timeSlider.val()];
-    //     }
-    // }
-    // console.log(dateFolium)
     tValue.text(dateFolium);
 });
 
@@ -340,17 +290,52 @@ function truncateString(str, maxLength) {
     }
 }
 
+function updateDepthAndBlockOptions(regValue, freqValue, varValue) {
+    // Change depth and block options for the new freq
+    // Need to fetch the backend data for the depth options
+    fetchVariableDepthBotOptions(
+        regValue, 'full_domain', 'hindcast', freqValue, 'regrid', varValue
+    ).then((jsonData) => {
+
+        if (jsonData.depth === 0) {
+            // Create the single layer options
+            createDropdownOptions('depthMOMCobalt', ['single layer'], ['single_layer']);
+        } else {
+            // Create the depth options
+            let depthlist = jsonData.depth;
+            createDropdownOptions('depthMOMCobalt', depthlist, depthlist);
+        }
+        
+        if (jsonData.bottom === 0) {
+            console.log(jsonData.bottom);
+            // Create the single layer options
+            createDropdownOptions('blockMOMCobalt', ['not applicable'], ['not_applicable']);
+        } else {
+            // Create the depth options
+            let bottomlist = jsonData.bottom;
+            createDropdownOptions('blockMOMCobalt', bottomlist, bottomlist);
+        }
+
+        depthValue = $('#depthMOMCobalt').val(); // initial depth value
+        blockValue = $('#blockMOMCobalt').val(); // initial block value
+
+    }).catch(error => {
+        console.error('Error in fetching depth options:', error);
+    });
+
+}
+
 // initialize the region freq variable optios
 async function initialize() {
-    // Wait for createRegionOption to complete
-    await createRegionOption('regMOMCobalt');
+    // Wait for createGeneralOption to complete region options
+    await createGeneralOption('regMOMCobalt',momCobaltRegs);
 
     // Retrieve the current value of the element with ID 'regMOMCobalt'
-    regValue = $('#regMOMCobalt').val();
+    regValue = $('#regMOMCobalt').val(); // initial region value
 
     // Wait for createFreqVarOption to complete
     await createFreqVarOption(regValue);
-    $('#freqMOMCobalt').val('monthly'); // initial monthly
+    $('#freqMOMCobalt').val('monthly');
     freqValue = $('#freqMOMCobalt').val();  // initial frequency value
     varValue = $('#varMOMCobalt').val(); // initial variable value
 
@@ -363,14 +348,40 @@ async function initialize() {
     tValue.text(dateFolium);
     // change slider size based on window size at initial loading
     tickSpaceChange();
+
+    // Initial stat options
+    // Wait for createGeneralOption to complete stat options
+    createGeneralOption('statMOMCobalt',momCobaltStats)
+    statValue = $('#statMOMCobalt').val(); // initial stats value
+
+    // Initial depth options based on variable
+    // Wait for createGeneralOption to complete depth options
+    // need to fetch the backend data for the depth options
+    updateDepthAndBlockOptions(regValue, freqValue, varValue)
+
 }
 
 // function to get the option list in the json files
-async function createRegionOption(selectID) {
-    // fetch region list
-    let [regionOption,regionValue] = momCobaltRegs();
-    createDropdownOptions(selectID,regionOption,regionValue);
+async function createGeneralOption(selectID, optionListFunc) {
+    // fetch list
+    let [optionList,valueList] = optionListFunc();
+    // create dropdown options
+    createDropdownOptions(selectID,optionList,valueList);
 }
+
+// function for create option
+function createDropdownOptions(selectID,showList,valueList) {
+    let elm = document.getElementById(selectID); 
+
+    // Remove all existing options
+    while (elm.firstChild) {
+        elm.removeChild(elm.firstChild);
+    }
+
+    let df = optionList(showList,valueList);
+    elm.appendChild(df);
+};
+
 // asyn function to get the option list in the json files
 async function createFreqVarOption(regname) {
     // fetch hindcast json specific to region
@@ -444,13 +455,30 @@ async function fetchVarOptionHindVis(reg,subDom,expType) {
     }
 }
 
-// function for create option
-function createDropdownOptions(selectID,showList,valueList) {
-    let elm = document.getElementById(selectID); 
-    let df = optionList(showList,valueList);
-    elm.appendChild(df);
-};
-
+// async functions for fetching variable and experiment specific option from backend
+async function fetchVariableDepthBotOptions(reg,subDom,expType,outFreq,gridType,variable) {
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_create_variable_depth_bot_options.py"
+    +"?region="+reg
+    +"&subdomain="+subDom
+    +"&experiment_type="+expType
+    +"&output_frequency="+outFreq
+    +"&grid_type="+gridType
+    +"&variable="+variable;
+  
+    console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+  
+    return fetch(ajaxGet)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .catch(error => {
+            // Handle errors here
+            console.error('Fetch json failed when creating variable depth bottom options:', error);
+        });
+  }
 
 // function to create the time slider
 function createTimeSlider() {
@@ -727,31 +755,31 @@ function createMomCobaltOpt(selectClass,optionListFunc) {
 };
 
 
-// function for create option for variables (optimized for different purposes)
-function createMomCobaltVarOpt(dataCobaltID,selectID) {
-    let elm = document.getElementById(selectID); 
-    let varlist = momCobaltVars();
-    if (dataCobaltID == "MOMCobalt") {
-        // for hindcast run var
-        varlist = momCobaltVars();
-    } else if (dataCobaltID == "MOMCobalt+Index") {
-        // for second time series comp
-        varlist = momCobaltVars();
-        indexlist = indexes();
-        varlist[0] = varlist[0].concat(indexlist[0]);
-        varlist[1] = varlist[1].concat(indexlist[1]);
-        varlist[2] = varlist[2].concat(indexlist[2]);
-    } else if (dataCobaltID == "onlyIndexes") {
-        // for index
-        indexlist = indexes("onlyIndex");
-        varlist[0] = indexlist[0];
-        varlist[1] = indexlist[1];
-        varlist[2] = indexlist[2];
-    };
-    // df = optionList(varlist[0],varlist[1]);
-    df = optionSubgroupList(varlist[0],varlist[1],varlist[2]);
-    elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
-};
+// // function for create option for variables (optimized for different purposes)
+// function createMomCobaltVarOpt(dataCobaltID,selectID) {
+//     let elm = document.getElementById(selectID); 
+//     let varlist = momCobaltVars();
+//     if (dataCobaltID == "MOMCobalt") {
+//         // for hindcast run var
+//         varlist = momCobaltVars();
+//     } else if (dataCobaltID == "MOMCobalt+Index") {
+//         // for second time series comp
+//         varlist = momCobaltVars();
+//         indexlist = indexes();
+//         varlist[0] = varlist[0].concat(indexlist[0]);
+//         varlist[1] = varlist[1].concat(indexlist[1]);
+//         varlist[2] = varlist[2].concat(indexlist[2]);
+//     } else if (dataCobaltID == "onlyIndexes") {
+//         // for index
+//         indexlist = indexes("onlyIndex");
+//         varlist[0] = indexlist[0];
+//         varlist[1] = indexlist[1];
+//         varlist[2] = indexlist[2];
+//     };
+//     // df = optionList(varlist[0],varlist[1]);
+//     df = optionSubgroupList(varlist[0],varlist[1],varlist[2]);
+//     elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
+// };
 
 // function for create option for statistics
 function createMomCobaltStatOpt() {
@@ -761,24 +789,24 @@ function createMomCobaltStatOpt() {
     elm.appendChild(df);
 };
 
-// function for create option for depth
-function createMomCobaltDepthOpt(variable,selectID) {
-    let elm = document.getElementById(selectID);
-    let list_3d = momCobalt3D()
-    const found = list_3d.some(element => element === variable);
-    if (found) {
-        let depthlist = momCobaltDepth();
-        let df = optionList(depthlist,depthlist);
-        elm.appendChild(df);
-    } else {
-        let df = document.createDocumentFragment();
-        let option = document.createElement('option');
-        option.value = 'single_layer';
-        option.appendChild(document.createTextNode('single layer'));
-        df.appendChild(option); 
-        elm.appendChild(df);
-    }
-};
+// // function for create option for depth
+// function createMomCobaltDepthOpt(variable,selectID) {
+//     let elm = document.getElementById(selectID);
+//     let list_3d = momCobalt3D()
+//     const found = list_3d.some(element => element === variable);
+//     if (found) {
+//         let depthlist = momCobaltDepth();
+//         let df = optionList(depthlist,depthlist);
+//         elm.appendChild(df);
+//     } else {
+//         let df = document.createDocumentFragment();
+//         let option = document.createElement('option');
+//         option.value = 'single_layer';
+//         option.appendChild(document.createTextNode('single layer'));
+//         df.appendChild(option); 
+//         elm.appendChild(df);
+//     }
+// };
 
 // function for create option for bottom depth block
 function createMomCobaltDepthBlockOpt(variable,blockOptID='blockMOMCobalt') {
@@ -2441,124 +2469,128 @@ function momCobaltRegs() {
 }
 
 
-// functions for options lists (Manual entering)
-function momCobaltVars() {
-    let var_options = [
-        "Sea surface temperature",
-        "Bottom temperature",
-        "Sea surface salinity",
-        "Sea surface height",
-        "Mix layer depth",
-        "Potential temperature (3D)",
-        "Salinity (3D)",
-        "Sea ice concentration",
-        "Chlorophyll (Phytoplankton)",
-        "Dissolved Inorganic Carbon",
-        "Alkalinity",
-        "Carbonate Ion",
-        "Solubility for Aragonite",
-        "NO3",
-        "PO4",
-        "Mesozooplankton (0-200m)",
-        "Bottom oxygen",
-        "Bottom salinity",
-        "Bottom temperature",
-        "Sea surface temperature",
-        "Sea surface salinity",
-        "Sea surface height",
-        "Sea surface velocity (U)",
-        "Sea surface velocity (V)"
-    ];
-    let var_values = [
-        "tos",
-        "tob",
-        "sos",
-        "ssh",
-        "MLD_003",
-        "thetao",
-        "so",
-        "siconc",
-        "chlos",
-        "dissicos",
-        "talkos",
-        "sfc_co3_ion",
-        "sfc_co3_sol_arag",
-        "sfc_no3",
-        "sfc_po4",
-        "mesozoo_200",
-        "btm_o2",
-        "sob",
-        "tob",
-        "tos",
-        "sos",
-        "ssh",
-        "ssu_rotate",
-        "ssv_rotate" 
-    ];
-    let var_freqs = [
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "daily",
-        "daily",
-        "daily",
-        "daily",
-        "daily",
-        "daily",
-        "daily",
-        "daily"
-    ];
+// // functions for options lists (Manual entering)
+// function momCobaltVars() {
+//     let var_options = [
+//         "Sea surface temperature",
+//         "Bottom temperature",
+//         "Sea surface salinity",
+//         "Sea surface height",
+//         "Mix layer depth",
+//         "Potential temperature (3D)",
+//         "Salinity (3D)",
+//         "Sea ice concentration",
+//         "Chlorophyll (Phytoplankton)",
+//         "Dissolved Inorganic Carbon",
+//         "Alkalinity",
+//         "Carbonate Ion",
+//         "Solubility for Aragonite",
+//         "NO3",
+//         "PO4",
+//         "Mesozooplankton (0-200m)",
+//         "Bottom oxygen",
+//         "Bottom salinity",
+//         "Bottom temperature",
+//         "Sea surface temperature",
+//         "Sea surface salinity",
+//         "Sea surface height",
+//         "Sea surface velocity (U)",
+//         "Sea surface velocity (V)"
+//     ];
+//     let var_values = [
+//         "tos",
+//         "tob",
+//         "sos",
+//         "ssh",
+//         "MLD_003",
+//         "thetao",
+//         "so",
+//         "siconc",
+//         "chlos",
+//         "dissicos",
+//         "talkos",
+//         "sfc_co3_ion",
+//         "sfc_co3_sol_arag",
+//         "sfc_no3",
+//         "sfc_po4",
+//         "mesozoo_200",
+//         "btm_o2",
+//         "sob",
+//         "tob",
+//         "tos",
+//         "sos",
+//         "ssh",
+//         "ssu_rotate",
+//         "ssv_rotate" 
+//     ];
+//     let var_freqs = [
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "daily",
+//         "daily",
+//         "daily",
+//         "daily",
+//         "daily",
+//         "daily",
+//         "daily",
+//         "daily"
+//     ];
 
-    return [var_options, var_values, var_freqs];
-}
+//     return [var_options, var_values, var_freqs];
+// }
 
-function momCobaltDepth() {
-    let depth = [
-        2.5, 7.5, 12.5, 17.5, 22.5, 27.5, 32.5, 37.5, 42.5, 47.5, 55, 65, 75,
-    85, 95, 105, 115, 125, 135, 145, 162.5, 187.5, 212.5, 237.5, 262.5,
-    287.5, 325, 375, 425, 475, 550, 650, 750, 850, 950, 1050, 1150, 1250,
-    1350, 1450, 1625, 1875, 2125, 2375, 2750, 3250, 3750, 4250, 4750, 5250,
-    5750, 6250
-    ]
-    return depth
-}
+// function momCobaltDepth() {
+//     let depth = [
+//         2.5, 7.5, 12.5, 17.5, 22.5, 27.5, 32.5, 37.5, 42.5, 47.5, 55, 65, 75,
+//     85, 95, 105, 115, 125, 135, 145, 162.5, 187.5, 212.5, 237.5, 262.5,
+//     287.5, 325, 375, 425, 475, 550, 650, 750, 850, 950, 1050, 1150, 1250,
+//     1350, 1450, 1625, 1875, 2125, 2375, 2750, 3250, 3750, 4250, 4750, 5250,
+//     5750, 6250
+//     ]
+//     return depth
+// }
 
-function momCobalt3D() {
-    list_3d = [
-        'thetao',
-        'so'
-    ]
-    return list_3d
-}
+// function momCobalt3D() {
+//     list_3d = [
+//         'thetao',
+//         'so'
+//     ]
+//     return list_3d
+// }
 
-function momCobaltBottom() {
-    list_bottom = [
-        'tob',
-        'btm_o2',
-        'sob'
-    ]
-    return list_bottom
-}
+// function momCobaltBottom() {
+//     list_bottom = [
+//         'tob',
+//         'btm_o2',
+//         'sob'
+//     ]
+//     return list_bottom
+// }
 
 function momCobaltStats() {
-    stats_list = [
+    statsOptionList = [
+        'mean',
+        'anomaly'
+    ];
+    statsValueList = [
         'mean',
         'anomaly'
     ]
-    return stats_list
+    return [statsOptionList, statsValueList]
 }
 
 function colorbarOpt() {
@@ -2589,185 +2621,3 @@ function colorbarOpt() {
     ]
     return colorOpt
 }
-
-
-
-
-
-// // functions for options lists (Manual entering)
-// function momCobaltInfo() {
-//     var dateOpt = generateDateList()
-//     let models = {
-//         "MOMCobalt":{
-//             "model":"regional MOM6",
-//             "time":dateOpt
-//         }
-//     };
-//     return models;
-// };
-
-// function createMomCobaltIniOpt(dataCobaltID) {
-//     let elm = document.getElementById('dateMOMCobalt'); // get the select
-//     let info = momCobaltInfo();
-//     let dataname = dataCobaltID;
-//     let iniOption = info[dataname]['time'];
-//     df = optionList(iniOption,iniOption);
-//     elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
-//     // assign last option to be the picked options by default
-//     lastIndex = elm.options.length - 1;
-//     pickedOption = elm.options[lastIndex];
-//     pickedOption.selected = true;
-// };
-
-
-// function createFolium() {
-//     let varFolium = $("#varMOMCobalt");
-//     let dateFolium = $("#dateMOMCobalt");
-//     let maxval = $("#maxval");
-//     let minval = $("#minval");
-//     let nlevel = $("#nlevel");
-
-//     var ajaxGet = "/cgi-bin/cefi_portal/mom_folium.py"
-//         +"?variable="+varFolium.val()
-//         +"&date="+dateFolium.val()
-//         +"&maxval="+maxval.val()
-//         +"&minval="+minval.val()
-//         +"&nlevel="+nlevel.val()
-
-//     fetch(ajaxGet) // Replace with the URL you want to request
-//         .then(response => {
-//             if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//             }
-//             return response.text();
-//         })
-//         .then(data => {
-//             // Process the response data here
-//             momCobaltMap.attr("srcdoc", data)
-//             $("div.workingTop").addClass("hidden");
-//             $("div.errorTop").addClass("hidden");
-//             $("div.whiteTop").removeClass("hidden");
-//         })
-//         .catch(error => {
-//             // Handle errors here
-//             console.error('Fetch error:', error);
-//             $("div.workingTop").addClass("hidden");
-//             $("div.errorTop").removeClass("hidden");
-//             $("div.whiteTop").addClass("hidden");
-//         });
-
-//     // momCobaltMap.attr("src", ajaxGet)
-// }
-
-
-
-// // function to trigger ajax get to server cgi script
-// function fetchDataAndPost(dateFolium) {
-//     let varFolium = $("#varMOMCobalt");
-//     let maxval = $("#maxval");
-//     let minval = $("#minval");
-//     let nlevel = $("#nlevel");
-
-//     console.log(varFolium.val())
-//     console.log(dateFolium)
-//     var ajaxGet = "/cgi-bin/cefi_portal/mom_folium_png.py"
-//                 +"?variable="+varFolium.val()
-//                 +"&date="+dateFolium
-//                 +"&maxval="+maxval.val()
-//                 +"&minval="+minval.val()
-//                 +"&nlevel="+nlevel.val()
-
-//     var xhr = new XMLHttpRequest();
-//     xhr.open('GET', ajaxGet, true);
-//     $("div.workingTop").removeClass("hidden");
-//     $("div.whiteTop").addClass("hidden");
-//     xhr.onreadystatechange = function() {
-//         if (xhr.readyState === 4 && xhr.status === 200) {
-//             image_data = xhr.responseText
-//             // console.log(image_data);  // Use the data in your JavaScript code
-//             // momCobaltMap[0].contentWindow.postMessage(image_data, "*")
-//             // replacing image
-//             var regex1 = /^\s*"data:image\/png;base64,[^,\n]*,\n/gm;
-//             var newHTML = momCobaltMap.attr('srcdoc').replace(regex1, '"'+image_data+'",\n');
-
-//             momCobaltMap.attr("srcdoc", newHTML)
-//             $("div.workingTop").addClass("hidden");
-//             $("div.whiteTop").removeClass("hidden");
-//             $("div.errorTop").addClass("hidden");
-//         } else if (xhr.status === 200) {
-//             $("div.errorTop").addClass("hidden");
-//         }else {
-//             console.log(xhr.readyState);
-//             console.log(xhr.status);
-//             $("div.workingTop").addClass("hidden");
-//             $("div.whiteTop").addClass("hidden");
-//             $("div.errorTop").removeClass("hidden");
-//         }
-//     };
-//     xhr.send();
-// }
-
-// // function for replace folium colorbar
-// function replaceFoliumCbar() {
-//     let cbar = $("#cbarOpts")
-
-//     var ajaxGet = "/cgi-bin/cefi_portal/mom_folium_cbar.py"
-//         +"?cbar="+cbar.val()
-
-//     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
-
-//     fetch(ajaxGet) // Replace with the URL you want to request
-//         .then(response => {
-//             if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//             }
-//             return response.text();
-//         })
-//         .then(data => {
-//             // Process the response data here
-//             console.log(data)
-
-//             //replace colorbar
-//             var regexDom = /^\s*\.domain\([^)]*\)\n/gm;
-//             var matchDoms = data.match(regexDom);
-//             var domainArray1 = text2Array(matchDoms[0]);
-//             var domainArray2 = text2Array(matchDoms[1]);
-//             var regexRange = /^\s*\.range\([^)]*\);\n/gm;
-//             var matchRanges = data.match(regexRange);
-//             var rangeArray = text2Array(matchRanges[0].replace(/'/g, '"'));
-
-//             //replace tickmark
-//             var regexTickVal = /^\s*\.tickValues\([^)]*\);\n/gm;
-//             var matchTickVal = data.match(regexTickVal);
-//             var tickValArray = text2Array(matchTickVal[0]);
-
-//             //replace colorbar label
-//             var regexCLabel = /^\s*\.text\([^)]*\);\n/gm;
-//             var matchCLabel = data.match(regexCLabel);
-//             var textVal = extractText(matchCLabel[0]);
-
-//             cbarData = {
-//                 domain1: domainArray1,
-//                 domain2: domainArray2,
-//                 range: rangeArray,
-//                 tick: tickValArray,
-//                 label: textVal
-//             };
-
-//             // console.log(cbarData)
-//             momCobaltMap[0].contentWindow.postMessage({ type: 'cbarData', data: cbarData }, "*")
-
-//             $("div.workingTop").addClass("hidden");
-//             $("div.errorTop").addClass("hidden");
-//             $("div.whiteTop").removeClass("hidden");
-//         })
-//         .catch(error => {
-//             // Handle errors here
-//             console.error('Fetch error:', error);
-//             $("div.workingTop").addClass("hidden");
-//             $("div.errorTop").removeClass("hidden");
-//             $("div.whiteTop").addClass("hidden");
-//         });
-
-//     // momCobaltMap.attr("src", ajaxGet)
-// }
