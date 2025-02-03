@@ -170,6 +170,62 @@ $(window).on("message", receiveMessageFcast);
 
 
 /////////////////////// function section /////////////////////
+// function for create option with subgroup
+function optionSubgroupList(listname,listval,listsubgroup) {
+    let df = document.createDocumentFragment(); // create a document fragment to hold the options created later
+    
+    // object subgroup
+    const monthlyGroup = document.createElement('optgroup');
+    monthlyGroup.label = 'Monthly variables';
+    const dailyGroup = document.createElement('optgroup');
+    dailyGroup.label = 'Daily variables';
+    const monthlyIndexGroup = document.createElement('optgroup');
+    monthlyIndexGroup.label = 'Monthly indexes';
+    const annualIndexGroup = document.createElement('optgroup');
+    annualIndexGroup.label = 'Annual indexes';
+    var mvflag = false
+    var dvflag = false
+    var miflag = false
+    var aiflag = false
+
+    for (let i = 0; i < listname.length; i++) {
+        let option = document.createElement('option'); // create the option element
+        option.value = listval[i]; // set the value property
+        option.appendChild(document.createTextNode(listname[i])); // set the textContent in a safe way.
+        if (listsubgroup[i].indexOf("monthly")!==-1){
+            monthlyGroup.appendChild(option);
+            mvflag = true
+        } else if (listsubgroup[i].indexOf("daily")!==-1){
+            dailyGroup.appendChild(option);
+            dvflag = true
+        } else if (listsubgroup[i].indexOf("mon_index")!==-1){
+            monthlyIndexGroup.appendChild(option);
+            miflag = true
+        } else if (listsubgroup[i].indexOf("ann_index")!==-1){
+            annualIndexGroup.appendChild(option);
+            aiflag = true
+        }
+    }
+     
+    // append the subgroup in the desired order
+    if (aiflag) {
+        df.appendChild(annualIndexGroup);
+    }
+    if (mvflag) {
+        df.appendChild(monthlyGroup);
+    }  
+    // df.appendChild(monthlyGroup); // append the option to the document fragment
+    if (miflag) {
+        df.appendChild(monthlyIndexGroup);
+    }
+    // df.appendChild(dailyGroup);
+    if (dvflag) {
+        df.appendChild(dailyGroup);
+    }
+    return df;
+};
+
+
 // function for changing the tick mark of time slider
 function tickSpaceChangeFcast(list) {
     if ($(window).width() < 600) {

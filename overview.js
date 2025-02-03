@@ -1,10 +1,10 @@
-$(document).ready(function(){
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-      var target = $(e.target).attr("href"); // activated tab
-      $('#cefiPortalTabs > li').removeClass('active');
-      $('#cefiPortalTabs a[href="' + target + '"]').parent().addClass('active');
-    });
-  });
+// $(document).ready(function(){
+//     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+//       var target = $(e.target).attr("href"); // activated tab
+//       $('#cefiPortalTabs > li').removeClass('active');
+//       $('#cefiPortalTabs a[href="' + target + '"]').parent().addClass('active');
+//     });
+//   });
 
 var defaultRegion = 'northwest_atlantic';
 

@@ -11,8 +11,6 @@ $(window).on("message", function (event) {
             // [[5.272542476654053, -98.4422607421875], [58.1607551574707, -36.079986572265625]], NWA
             // [[10.809035301208496, 156.9248046875], [80.71794891357422, 254.971923828125]], NEP
 
-
-            console.log(mapData)
             // Check if the layer is defined before removing it
             if (image_overlay_cbd11cdbf58403fe3f6ba6fec69f8218) {
                 // remove the old layer

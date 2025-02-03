@@ -627,131 +627,131 @@ function tickSpaceChange() {
     };
 };
 
-// // intialize the plotly plot
-// // Initial dashboard plot
-// function asyncInitializePlotlyResize(flag) {
-//     return initializePlotly(flag)
-//         .then(() => {
-//             window.dispatchEvent(new Event('resize'));
-//         })
-//         .catch(error => {
-//             console.error('Error in async plotly initialization:', error);
-//         });
-// }
+// intialize the plotly plot
+// Initial dashboard plot
+function asyncInitializePlotlyResize(flag) {
+    return initializePlotly(flag)
+        .then(() => {
+            window.dispatchEvent(new Event('resize'));
+        })
+        .catch(error => {
+            console.error('Error in async plotly initialization:', error);
+        });
+}
 
-// function initializePlotly(flag) {
-//     var trace = {
-//         x: "",
-//         y: "",
-//         type: 'scatter',
-//         mode: 'lines+markers',
-//         marker: { size: 8 },
-//         line: { shape: 'linear' },
-//         name: ""
-//     };
+function initializePlotly(flag) {
+    var trace = {
+        x: "",
+        y: "",
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { size: 8 },
+        line: { shape: 'linear' },
+        name: ""
+    };
   
-//     var layoutTS = {
-//         title: 
-//         'Click on map for time series',
-//         //   autosize: true,
-//         // width: 1000,
-//         // height: 400,
-//         xaxis: { title: 'Date' },
-//         yaxis: { title: 'Variable' },
-//         hovermode: 'closest',
-//         showlegend: false,
-//         // responsive: true
-//     };
+    var layoutTS = {
+        title: 
+        'Click on map for time series',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        xaxis: { title: 'Date' },
+        yaxis: { title: 'Variable' },
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
 
-//     var layoutBox = {
-//         title: 
-//         'Box plot',
-//         //   autosize: true,
-//         // width: 1000,
-//         // height: 400,
-//         hovermode: 'closest',
-//         showlegend: false,
-//         // responsive: true
-//     };
+    var layoutBox = {
+        title: 
+        'Box plot',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
 
-//     var layoutHist = {
-//         title: 
-//         'Histogram',
-//         //   autosize: true,
-//         // width: 1000,
-//         // height: 400,
-//         hovermode: 'closest',
-//         showlegend: false,
-//         // responsive: true
-//     };
+    var layoutHist = {
+        title: 
+        'Histogram',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
 
-//     var layoutProf = {
-//         title: 
-//         'Profile',
-//         //   autosize: true,
-//         // width: 1000,
-//         // height: 400,
-//         hovermode: 'closest',
-//         showlegend: false,
-//         // responsive: true
-//     };
+    var layoutProf = {
+        title: 
+        'Profile',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
 
-//     var layout2 = {
-//         title: 
-//         'Draw polyline on map',
-//         //   autosize: true,
-//         // width: 1000,
-//         // height: 400,
-//         xaxis: { title: 'Date' },
-//         yaxis: { title: 'Variable' },
-//         hovermode: 'closest',
-//         showlegend: false,
-//         // responsive: true
-//     };
+    var layout2 = {
+        title: 
+        'Draw polyline on map',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        xaxis: { title: 'Date' },
+        yaxis: { title: 'Variable' },
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
 
-//     var layoutFcst = {
-//         title: 
-//         'Create Forecast Map first<br>& pick point on the shaded area',
-//         //   autosize: true,
-//         // width: 1000,
-//         // height: 400,
-//         xaxis: { title: 'Date' },
-//         yaxis: { title: 'Variable' },
-//         hovermode: 'closest',
-//         showlegend: false,
-//         // responsive: true
-//     };
+    var layoutFcst = {
+        title: 
+        'Create Forecast Map first<br>& pick point on the shaded area',
+        //   autosize: true,
+        // width: 1000,
+        // height: 400,
+        xaxis: { title: 'Date' },
+        yaxis: { title: 'Variable' },
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
 
-//     var config = {responsive: true}
+    var config = {responsive: true}
 
-//     if (flag ==='all'){
-//         Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
-//         // Plotly.newPlot('plotly-box-plot', [trace], layoutBox,config);
-//         // Plotly.newPlot('plotly-histogram', [trace], layoutHist,config);
-//         Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
-//         Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
-//         Plotly.newPlot('plotly-transect', [trace], layout2,config);
-//         // Plotly.newPlot('plotly-index', [trace], layout3)
-//     } else if (flag ==='vertical') {
-//         Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
-//         Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
-//     } else if (flag ==='tseries') {
-//         Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
-//     } else if (flag ==='transect') {
-//         Plotly.newPlot('plotly-transect', [trace], layout2,config);
-//     } else if (flag ==='forecast') {
-//         Plotly.newPlot('plotly-fcast-spread', [trace], layoutFcst, config);
-//         Plotly.newPlot('plotly-fcast-box', [trace], layoutFcst, config);
-//     } else if (flag ==='mhwForecast') {
-//         Plotly.newPlot('plotly-fcastmhw-prob', [trace], layoutTS,config);
-//         Plotly.newPlot('plotly-fcastmhw-mag', [trace], layoutTS,config);
-//     }
+    if (flag ==='all'){
+        Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
+        // Plotly.newPlot('plotly-box-plot', [trace], layoutBox,config);
+        // Plotly.newPlot('plotly-histogram', [trace], layoutHist,config);
+        Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
+        Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
+        Plotly.newPlot('plotly-transect', [trace], layout2,config);
+        // Plotly.newPlot('plotly-index', [trace], layout3)
+    } else if (flag ==='vertical') {
+        Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
+        Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
+    } else if (flag ==='tseries') {
+        Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
+    } else if (flag ==='transect') {
+        Plotly.newPlot('plotly-transect', [trace], layout2,config);
+    } else if (flag ==='forecast') {
+        Plotly.newPlot('plotly-fcast-spread', [trace], layoutFcst, config);
+        Plotly.newPlot('plotly-fcast-box', [trace], layoutFcst, config);
+    } else if (flag ==='mhwForecast') {
+        Plotly.newPlot('plotly-fcastmhw-prob', [trace], layoutTS,config);
+        Plotly.newPlot('plotly-fcastmhw-mag', [trace], layoutTS,config);
+    }
 
-//     return new Promise(resolve => {
-//         console.log('Initial Plotly created');
-//         resolve();
-//     });
-// };
+    return new Promise(resolve => {
+        console.log('Initial Plotly created');
+        resolve();
+    });
+};
 
 
 
