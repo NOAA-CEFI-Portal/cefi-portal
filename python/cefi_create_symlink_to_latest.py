@@ -18,7 +18,7 @@ def create_symlink_to_latest(base_dir:str):
             # Find the newest created directory in the immediate parent of root
             parent_dir = os.path.dirname(root)
 
-            # store all rerlease directories beside latest
+            # store all release directories beside latest
             all_release_dirs = []
             for d in os.listdir(parent_dir):
                 if os.path.isdir(os.path.join(parent_dir, d)) and d != 'latest':
