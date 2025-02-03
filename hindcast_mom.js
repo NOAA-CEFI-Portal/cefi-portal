@@ -8,16 +8,33 @@ $(window).on("message", function (event) {
         // map update
         if (messageType === "mapData") {
             // console.log(mapData)
+            // [[5.272542476654053, -98.4422607421875], [58.1607551574707, -36.079986572265625]], NWA
+            // [[10.809035301208496, 156.9248046875], [80.71794891357422, 254.971923828125]], NEP
 
-            map_7079a36f74c16e1ce2ab21c4f811b35d.removeLayer(image_overlay_cbd11cdbf58403fe3f6ba6fec69f8218)
+
+            console.log(mapData)
+            // Check if the layer is defined before removing it
+            if (image_overlay_cbd11cdbf58403fe3f6ba6fec69f8218) {
+                // remove the old layer
+                map_7079a36f74c16e1ce2ab21c4f811b35d.removeLayer(image_overlay_cbd11cdbf58403fe3f6ba6fec69f8218)
+            }
+            // overlap with the new layer
             image_overlay_cbd11cdbf58403fe3f6ba6fec69f8218 = L.imageOverlay(
                 mapData.image,
-                [[5.272542476654053, -98.4422607421875], [58.1607551574707, -36.079986572265625]],
+                mapData.image_bound,
                 {"opacity": 1, "zindex": 1}
             ).addTo(map_7079a36f74c16e1ce2ab21c4f811b35d);
 
+
+            // recenter the map
+            map_7079a36f74c16e1ce2ab21c4f811b35d.setView(mapData.map_center, 3);
+            // // reassign CRS
+            // map_7079a36f74c16e1ce2ab21c4f811b35d.options.crs = mapData.map_crs; // Replace 'newCRS' with the desired CRS
+
+            // remove legend
             $(".legend").remove();        
             color_map_b13917af52926c4458f13c8955e429d1 = {};
+            // overlap new legend
             color_map_b13917af52926c4458f13c8955e429d1.color = d3.scale.threshold()
                 .domain(mapData.domain1)
                 .range(mapData.range);
@@ -90,26 +107,24 @@ $(window).on("message", function (event) {
 });
 
 
-
-
-function readJsonFile(filePath) {
-    fetch(filePath)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        // Handle the JSON data
-        lme_json = data
-        console.log('Json file loaded')
-      })
-      .catch(error => {
-        // Handle errors
-        console.error('Error:', error);
-      });
-  }
+// function readJsonFile(filePath) {
+//     fetch(filePath)
+//       .then(response => {
+//         if (!response.ok) {
+//           throw new Error(`HTTP error! Status: ${response.status}`);
+//         }
+//         return response.json();
+//       })
+//       .then(data => {
+//         // Handle the JSON data
+//         lme_json = data
+//         console.log('Json file loaded')
+//       })
+//       .catch(error => {
+//         // Handle errors
+//         console.error('Error:', error);
+//       });
+//   }
 
 
 
