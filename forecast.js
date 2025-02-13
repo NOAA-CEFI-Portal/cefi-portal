@@ -1,3 +1,9 @@
+import { asyncInitializePlotlyResize } from './hindcast.js';
+import { optionList,createMomCobaltCbarOpt } from './hindcast.js';
+import { createGeneralOption,createDropdownOptions } from './hindcast.js';
+import { fetchDataOptionVis,fetchVarOptionVis } from './hindcast.js';
+import { showLoadingSpinner,hideLoadingSpinner } from './hindcast.js';
+
 // global constant for object ID
 const momCobaltMapFcast = $('#momCobaltIFrameFcast');
 const momCobaltBtnFcast = $("#momCobaltBtnFcast");
@@ -8,15 +14,30 @@ const clearFigOptBtnFcast = $("#clearFigOptBtnFcast")
 var mapDataFcast = {}   // parsed html output
 var locationDataFcast;
 var polygonDataFcast;
+var regValueFcast;
+var freqValueFcast;
+var varValueFcast;
+var varNameFcast;
 
 
-// Initial variable options based on dataset
-createMomCobaltVarOptFcast('MOMCobaltFcast','varMOMCobaltFcast');
+// Wait for createGeneralOption to complete region options
+//  async needed for freq, var, depth, block options backend fetch
+await createGeneralOption('regMOMCobaltFcast',momCobaltRegs);
+regValueFcast = $('#regMOMCobaltFcast').val();     // initial region value
+// Wait for createFreqVarOption to complete
+//  fetch the backend data for the var, freq options
+//  async needed for depth, block options backend fetch
+await createFreqVarOption(regValueFcast);
+freqValueFcast = $('#freqMOMCobaltFcast').val();   // initial frequency value
+varValueFcast = $('#varMOMCobaltFcast').val();     // initial variable value
+varNameFcast = $('#varMOMCobaltFcast option:selected').text();
+
+
 // global variable for model variable name, index, and abbreviation
-let varnamelistFcast = momCobaltVarsFcast();
-let varindFcast = varnamelistFcast[1].indexOf($("#varMOMCobaltFcast").val())
-let varnameFcast = varnamelistFcast[0][varindFcast]
-let varValueFcast = varnamelistFcast[1][varindFcast]
+// let varnamelistFcast = momCobaltVarsFcast();
+// let varindFcast = varnamelistFcast[1].indexOf($("#varMOMCobaltFcast").val())
+// let varNameFcast = varnamelistFcast[0][varindFcast]
+// let varValueFcast = varnamelistFcast[1][varindFcast]
 
 // Initial initYear options
 createMomCobaltInitYearOpt('iniYearMOMCobaltFcast');
@@ -36,8 +57,8 @@ initTValueFcast.text(iniMonth +' '+ iniYear)
 const containerTickFcast = $(".ticksFcast");
 var leadMonthList, leadIndex;
 [leadIndex, leadMonthList] = generateFcastLeadMonth(
-    iYear = parseInt($("#iniYearMOMCobaltFcast").val()),
-    iMonth = parseInt($("#iniMonthMOMCobaltFcast").val())
+    parseInt($("#iniYearMOMCobaltFcast").val()),
+    parseInt($("#iniMonthMOMCobaltFcast").val())
 );
 timeSliderFcast.attr("min", 0);
 timeSliderFcast.attr("max", leadIndex.length - 1);
@@ -60,7 +81,7 @@ createMomCobaltCbarOpt('cbarOptsFcast');
 
 // initialize plotly
 $(document).ready(function() {
-    window.asyncInitializePlotlyResize('forecast')
+    asyncInitializePlotlyResize('forecast')
 });
 
 /////////////////  event listener  ////////////////
@@ -85,8 +106,8 @@ momCobaltBtnFcast.on("click", function () {
     // update tick lead time
     var newleadIndex, newleadMonthList;
     [newleadIndex, newleadMonthList] = generateFcastLeadMonth(
-        iYear = parseInt($("#iniYearMOMCobaltFcast").val()),
-        iMonth = parseInt($("#iniMonthMOMCobaltFcast").val())
+        parseInt($("#iniYearMOMCobaltFcast").val()),
+        parseInt($("#iniMonthMOMCobaltFcast").val())
         );
 
     // reassign global variables
@@ -125,9 +146,7 @@ timeSliderFcast.on("input", function() {
 // event listen for variable change
 $("#varMOMCobaltFcast").on("change", function(){
     // varname
-    varindFcast = varnamelistFcast[1].indexOf($("#varMOMCobaltFcast").val())
-    varnameFcast = varnamelistFcast[0][varindFcast]
-    varValueFcast = varnamelistFcast[1][varindFcast]
+    varValueFcast = $("#varMOMCobaltFcast").val()
 
     // depth option change
     $("#depthMOMCobaltFcast").empty();
@@ -170,6 +189,35 @@ $(window).on("message", receiveMessageFcast);
 
 
 /////////////////////// function section /////////////////////
+
+// asyn function to get the option list in the json files
+export async function createFreqVarOption(regname) {
+    // fetch hindcast json specific to region
+    var region;
+    var subdomain;
+    var expType = 'seasonal_reforecast';
+    if (regname === 'northwest_atlantic'){
+        region = 'northwest_atlantic';
+        subdomain = 'full_domain';
+    } else if (regname === 'northeast_pacific'){
+        region = 'northeast_pacific';
+        subdomain = 'full_domain';
+    };
+    // get frequeuncy json
+    let dataAccessJson = await fetchDataOptionVis(region,subdomain,expType);
+    // get variable json
+    let variableJson = await fetchVarOptionVis(region,subdomain,expType);
+
+    // create frequency options
+    let freqList = dataAccessJson.output_frequency;
+    createDropdownOptions('freqMOMCobaltFcast',freqList,freqList);
+
+    // create variable options
+    let varOptionList = variableJson.var_options;
+    let varValueList = variableJson.var_values;
+    createDropdownOptions('varMOMCobaltFcast',varOptionList,varValueList);
+
+}
 // function for create option with subgroup
 function optionSubgroupList(listname,listval,listsubgroup) {
     let df = document.createDocumentFragment(); // create a document fragment to hold the options created later
@@ -267,17 +315,17 @@ function generateTickFcast(tickList) {
     };
 };
 
-// function for create option for variables
-function createMomCobaltVarOptFcast(dataCobaltID,selectID) {
-    let elm = document.getElementById(selectID); 
-    var varlist;
-    if (dataCobaltID == "MOMCobaltFcast") {
-        varlist = momCobaltVarsFcast();
-    }
+// // function for create option for variables
+// function createMomCobaltVarOptFcast(dataCobaltID,selectID) {
+//     let elm = document.getElementById(selectID); 
+//     var varlist;
+//     if (dataCobaltID == "MOMCobaltFcast") {
+//         varlist = momCobaltVarsFcast();
+//     }
 
-    df = optionSubgroupList(varlist[0],varlist[1],varlist[2]);
-    elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
-};
+//     var df = optionSubgroupList(varlist[0],varlist[1],varlist[2]);
+//     elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
+// };
 
 // function for create option for initial Year
 function createMomCobaltInitYearOpt(selectTagID) {
@@ -357,7 +405,7 @@ function generateFcastLeadMonth(iYear = 1993, iMonth = 3) {
             var monthStr = month < 10 ? "0" + month : month;
             leadMonth.push(iYear + "-" + monthStr);
         } else {
-            newMonth = month-12
+            var newMonth = month-12;
             var monthStr = newMonth < 10 ? "0" + newMonth : newMonth;
             leadMonth.push(iYear+1 + "-" + monthStr);
         }
@@ -449,6 +497,8 @@ function replaceFoliumForecast() {
             mapDataFcast = {
                 type: 'mapData',   // used in hindcast_mom.js for type check
                 image: image,
+                image_bound: [[5.272542476654053, -98.4422607421875], [58.1607551574707, -36.079986572265625]],
+                map_center: [31.716648817062378, -67.26112365722656],
                 domain1: domainArray1,
                 domain2: domainArray2,
                 range: rangeArray,
@@ -533,7 +583,7 @@ function receiveMessageFcast(event) {
                     getvarValFcast(locationDataFcast)  // function return promise obj from fetch
                         .then(varDataFcast => {
                             // send the value back to iframe
-                            varDataFcastJson = {
+                            var varDataFcastJson = {
                                 type: 'varValFcastData',
                                 var: varDataFcast
                             };
@@ -576,7 +626,7 @@ function getvarValFcast(infoLonLat) {
     
     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
-    ajaxGetPromise = fetch(ajaxGet)
+    var ajaxGetPromise = fetch(ajaxGet)
         .then(response => {
             if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -638,7 +688,7 @@ function getTSFcasts(infoLonLat) {
     
     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
-    ajaxGetPromise = fetch(ajaxGet)
+    var ajaxGetPromise = fetch(ajaxGet)
         .then(response => {
             if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -670,7 +720,7 @@ function plotlyForecastSpread(jsonData) {
             width: 3 
         },
         // name: statMap+' time series',
-        name: varnameFcast
+        name: varNameFcast
     };
 
     var data = [trace];
@@ -698,10 +748,10 @@ function plotlyForecastSpread(jsonData) {
         hovermode: 'closest',
         showlegend: false,
         title:
-        varnameFcast +' <br>' +
+        varNameFcast +' <br>' +
             ' @ (lat:'+parseFloat(jsonData.lat).toFixed(2)+'N,'+
                 'lon:'+parseFloat(jsonData.lon).toFixed(2)+'E)',
-        //   autosize: true,
+        autosize: true,
         annotations: [{
             x: 0,
             y: 0,
@@ -710,8 +760,8 @@ function plotlyForecastSpread(jsonData) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-        //  width: 550,
-        //  height: 400,
+         width: 550,
+         height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -735,8 +785,8 @@ function plotlyForecastSpread(jsonData) {
         modebar: {
             remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
         },
-        dragmode: "select"
-        // responsive: true
+        dragmode: "select",
+        responsive: true
     };
 
     Plotly.newPlot('plotly-fcast-spread', data, layout);
@@ -759,7 +809,7 @@ function plotlyForecastRange(jsonData) {
             width: 3 
         },
         // name: statMap+' time series',
-        name: varnameFcast
+        name: varNameFcast
     };
 
     var data = [trace];
@@ -768,10 +818,10 @@ function plotlyForecastRange(jsonData) {
         hovermode: 'closest',
         showlegend: false,
         title:
-        varnameFcast +' <br>' +
+        varNameFcast +' <br>' +
             ' @ (lat:'+parseFloat(jsonData.lat).toFixed(2)+'N,'+
                 'lon:'+parseFloat(jsonData.lon).toFixed(2)+'E)',
-        //   autosize: true,
+        autosize: true,
         annotations: [{
             x: 0,
             y: 0,
@@ -780,8 +830,8 @@ function plotlyForecastRange(jsonData) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-        //  width: 1000,
-        //  height: 400,
+         width: 500,
+         height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -805,8 +855,8 @@ function plotlyForecastRange(jsonData) {
         modebar: {
             remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
         },
-        dragmode: "select"
-        // responsive: true
+        dragmode: "select",
+        responsive: true
     };
     var config = {responsive: true}
     Plotly.newPlot('plotly-fcast-spread', data, layout,config);
@@ -855,7 +905,7 @@ function plotlyForecastBox(jsonData) {
         data.push(result);
     };
 
-    layout = {
+    var layout = {
         hovermode: 'closest',
         showlegend: false,
         title: 'Ensemble spread at each lead',
@@ -867,8 +917,8 @@ function plotlyForecastBox(jsonData) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-        //  width: 530,
-        //  height: 400,
+         width: 530,
+         height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -892,8 +942,8 @@ function plotlyForecastBox(jsonData) {
         modebar: {
             remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
         },
-        dragmode: "select"
-        // responsive: true
+        dragmode: "select",
+        responsive: true
     };
     var config = {responsive: true}
 
@@ -913,25 +963,54 @@ function decimal_format(numArray) {
     return format
 };
 
+// function for decomposing the html code
+function text2Array(string) {
+    var stringRegex = /\[.*\]/;
+    var array = string.match(stringRegex);
+    array = JSON.parse(array);
+
+    return array;
+}
+
+// function for decomposing the html code
+function extractText(string) {
+    var stringRegex =/\.text\("([^"]+)"\)/;
+    var text = string.match(stringRegex);
+
+    return text[1];
+}
+
 ///////// information function start /////////
 
-// functions for options lists (Manual entering)
-function momCobaltVarsFcast() {
+// // functions for options lists (Manual entering)
+// function momCobaltVarsFcast() {
+//     let var_options = [
+//         "Sea surface temperature",
+//         "Bottom temperature"
+//     ];
+//     let var_values = [
+//         "tos",
+//         "tob"
+//     ];
+//     let var_freqs = [
+//         "monthly",
+//         "monthly"
+//     ];
+
+//     return [var_options, var_values, var_freqs];
+// };
+
+// functions for regions options lists (Manual entering)
+function momCobaltRegs() {
     let var_options = [
-        "Sea surface temperature",
-        "Bottom temperature"
+        "Northwest Atlantic"
     ];
     let var_values = [
-        "tos",
-        "tob"
+        "northwest_atlantic"
     ];
-    let var_freqs = [
-        "monthly",
-        "monthly"
-    ];
+    return [var_options, var_values];
+}
 
-    return [var_options, var_values, var_freqs];
-};
 
 // functions for generating year list for initial time (monthly)
 function momCobaltInitYear(startYear = 1993, endYear = 2022) {
@@ -952,14 +1031,14 @@ function momCobaltInitMonth() {
 };
 
 function momCobaltBottomFcast() {
-    list_bottom = [
+    var list_bottom = [
         'tob'
-    ]
+    ];
     return list_bottom
 };
 
 function momCobaltStatsFcast() {
-    stats_list = [
+    var stats_list = [
         'ensemble mean',
         'ensemble mean anomaly',
         'ensemble spread',
@@ -967,7 +1046,7 @@ function momCobaltStatsFcast() {
         'middle tercile probability',
         'upper tercile probability'
     ]
-    stats_value = [
+    var stats_value = [
         'ensmean',
         'ensmean_anomaly',
         'ens_min_max',
@@ -979,7 +1058,18 @@ function momCobaltStatsFcast() {
 };
 
 function momCobalt3DFcast() {
-    list_3d = [
-    ]
+    var list_3d = [];
     return list_3d
 };
+
+
+function momCobaltDepth() {
+    let depth = [
+        7.5, 12.5, 17.5, 22.5, 27.5, 32.5, 37.5, 42.5, 47.5, 55, 65, 75,
+    85, 95, 105, 115, 125, 135, 145, 162.5, 187.5, 212.5, 237.5, 262.5,
+    287.5, 325, 375, 425, 475, 550, 650, 750, 850, 950, 1050, 1150, 1250,
+    1350, 1450, 1625, 1875, 2125, 2375, 2750, 3250, 3750, 4250, 4750, 5250,
+    5750, 6250
+    ]
+    return depth
+}
