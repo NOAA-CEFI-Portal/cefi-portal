@@ -53,7 +53,7 @@
                     <select name="analysis" id="analysisMOMCobalt">
                         <option value="tsViewVal">Time Series Analyses</option>
                         <option value="profileViewVal">Vertical Profile Analyses</option>
-                        <option value="transectViewVal">Vertical Transect Analyses</option>
+                        <!-- <option value="transectViewVal">Vertical Transect Analyses</option> -->
                         <option value="indexViewVal">Indexes Analyses</option>
                     </select>
                 </td>
@@ -118,9 +118,10 @@
 <div class = "row position-relative">
     <!-- Plotting column -->
 
-    <!-- <div class="workingTop hidden">Creating Map &#9203</div> 
+    <div class="workingTop hidden">Creating Map &#9203</div> 
     <div class="errorTop hidden">Data not available</div> 
-    <div class="whiteTop">.</div>  -->
+    <div class="whiteTop">.</div>
+
     <div id="momCobaltMap" class="col-md-12">
         <iframe id="momCobaltIFrame" seamless="seamless" scrolling=no src="hindcast_mom.html"></iframe>
     </div>
@@ -167,9 +168,9 @@
         <li class="nav-item" id="profileViewPill">
             <a class="nav-link" href="#profileView" data-toggle="tab" aria-expanded="true">Vertical Profile</a>
         </li>
-        <li class="nav-item" id="transectViewPill">
+        <!-- <li class="nav-item" id="transectViewPill">
             <a class="nav-link" href="#transectView" data-toggle="tab" aria-expanded="true">Transect</a>
-        </li>
+        </li> -->
         <li class="nav-item" id="indexViewPill">
             <a class="nav-link" href="#indexView" data-toggle="tab" aria-expanded="true">Indexes</a>
         </li>
@@ -181,9 +182,9 @@
         <li class="nav-item" id="profileViewTab">
             <a class="nav-link" href="#profileView" data-toggle="tab" aria-expanded="false">Vertical Profile</a>
         </li>
-        <li class="nav-item" id="transectViewTab">
+        <!-- <li class="nav-item" id="transectViewTab">
             <a class="nav-link" href="#transectView" data-toggle="tab" aria-expanded="false">Transect</a>
-        </li>
+        </li> -->
         <li class="nav-item" id="indexViewTab">
             <a class="nav-link" href="#indexView" data-toggle="tab" aria-expanded="false">Indexes</a>
         </li>
@@ -194,7 +195,10 @@
     <div class="tab-content">
         <div id='tsView' class="tab-pane active view col-12">
             <h3>Time Series Analyses</h3>
-            <div class="row">
+            <div class="workingTop hidden">Creating Time Series &#9203</div> 
+            <div class="errorTop hidden">Data not available</div> 
+            <div class="whiteTop">.</div>
+            <!-- <div class="row">
                 <div class="col-xs-12">
                     <label class='tsOptions' for="dropdown">Select 2nd variable:</label>
                     <select name="variableTS2" id="varMOMCobaltTS2"></select>
@@ -207,21 +211,21 @@
                     <label class='tsOptions' for="dropdown">Select blocked depth:</label>
                     <select name="variableTS2block" id="blockMOMCobaltTS2"></select>
                 </div>
-            </div>
-            <div class = "row position-relative">
+            </div> -->
+            <div class = "row position-relative dashAnalysis">
                 <div id="plotly-time-series" class="col-xs-12 col-md-6"></div>
                 <div id="plotly-box-plot" class="col-xs-12 col-md-3"></div>
                 <div id="plotly-histogram" class="col-xs-12 col-md-3"></div>
                 <div id="loading-spinner-ts" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-md-1">
+                <!-- <div class="col-xs-12 col-md-1">
                     <button class="btn btn-psl tsButton" id="clearTSselectBtn"><strong>Reset time series select</strong></button>
-                </div>
-                <div class="col-xs-12 col-md-8"></div>
+                </div> -->
+                <!-- <div class="col-xs-12 col-md-8"></div>
                 <div class="col-xs-12 col-md-3">
                     <button class="btn btn-psl tsButton" id="clearTS2Btn"><strong>Remove 2nd time series</strong></button>
-                </div>       
+                </div>        -->
             </div>
         </div>
 
@@ -229,35 +233,36 @@
         <div id="profileView" class="tab-pane view col-12">
             <!-- Content for view 2 (initially hidden) -->
             <h3>Vertical Profile | <span class="timeValue"></span></h3>
-            <div class = "row position-relative">
-                <div id="plotly-vertical-t" class="col-xs-12 col-md-6"></div>
-                <div id="plotly-vertical-s" class="col-xs-12 col-md-6"></div>
+            <div class="workingTop hidden">Creating Profile &#9203</div> 
+            <div class="errorTop hidden">Data not available</div> 
+            <div class="whiteTop">.</div>
+            <div class = "row position-relative dashAnalysis">
+                <div id="plotly-vertical-prof" class="col-xs-12"></div>
+                <!-- <div id="plotly-vertical-s" class="col-xs-12 col-md-6"></div> -->
                 <div id="loading-spinner-vprof" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
             </div>
         </div>
 
-        <div id="transectView" class="tab-pane view col-12">
+        <!-- <div id="transectView" class="tab-pane view col-12"> -->
             <!-- Content for view 2 (initially hidden) -->
-            <h3>Vertical Transect | <span class="timeValue"></span></h3>
+            <!-- <h3>Vertical Transect | <span class="timeValue"></span></h3> -->
             <!-- <p>Pick a polyline in the map</p> -->
-            <div class = "row position-relative">
+            <!-- <div class = "row position-relative">
                 <div id="plotly-transect" class="col-xs-12"></div>
                 <div id="loading-spinner-tsect" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
-            </div>
-        </div>
+            </div> -->
+        <!-- </div> -->
 
         <div id='indexView' class='tab-pane view col-12'>
             <h3>Indexes Analyses</h3>
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-12">
                     <label for="dropdown">Select index:</label>
                     <select name="indexTS" id="indexMOMCobaltTS"></select>
                 </div>
             </div>
-            <div class = "row">
+            <div class = "row position-relative dashAnalysis">
                 <div id="plotly-index" class="col-xs-12"></div>
-                <!-- <div id="plotly-box-index" class="col-xs-6 col-md-3"></div>
-                <div id="plotly-histogram-index" class="col-xs-6 col-md-3"></div> -->
                 <div id="loading-spinner-index" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
             </div>
         </div>

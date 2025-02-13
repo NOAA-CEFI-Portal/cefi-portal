@@ -1,7 +1,7 @@
 // global constant for object ID
 const momCobaltMap = $('#momCobaltIFrame');
 const momCobaltBtn = $("#momCobaltBtn");
-const clearFigOptBtn = $("#clearFigOptBtn")
+// const clearFigOptBtn = $("#clearFigOptBtn")
 const timeSlider = $("#timeRange");
 const tValue = $(".timeValue");
 const containerTick = $(".ticks");
@@ -30,40 +30,6 @@ var block2Value;
 // Initial region options (for all region options)
 initialize()
 
-// // Initial variable options based on dataset for second TS
-// createMomCobaltVarOpt('MOMCobalt+Index','varMOMCobaltTS2');
-// $('#varMOMCobaltTS2').val('');
-
-// // Initial depth options based on dataset for second TS
-// createMomCobaltDepthOpt('tos','depthMOMCobaltTS2');
-// $('#depthMOMCobaltTS2').val('');
-
-// // Initial variable options based on dataset for second TS
-// createMomCobaltVarOpt('onlyIndexes','indexMOMCobaltTS');
-
-// // initialize plotly
-// $(document).ready(function() {
-//     asyncInitializePlotlyResize('all')
-// });
-// // initializePlotly('all');
-
-// plot index
-// plotIndexes();
-
-
-
-/// setup the variable for variable options in the page
-// let varnamelist = momCobaltVars();
-// let varind = varnamelist[1].indexOf($("#varMOMCobalt").val())
-// let varname = varnamelist[0][varind]
-
-// let varnamelist2 = momCobaltVars();
-// let indexlist2 = indexes();
-// varnamelist2[0] = varnamelist2[0].concat(indexlist2[0]);
-// varnamelist2[1] = varnamelist2[1].concat(indexlist2[1]);
-// let varind2 = varnamelist2[1].indexOf($("#varMOMCobaltTS2").val())
-// let varname2 = varnamelist2[0][varind2]
-
 
 /////////////// event listener ///////////
 
@@ -77,7 +43,8 @@ $(window).resize(function() {
 // event listen for region change => variable list and frequency options in json
 $("#regMOMCobalt").on("change", function(){
     regValue  = $('#regMOMCobalt').val();
-    createFreqVarOption(regValue);
+    createFreqVarIndexOption(regValue);
+
 });
 
 // event listen for freq change => slider, depth & bottom options
@@ -109,42 +76,36 @@ $("#freqMOMCobalt").on("change", function(){
 
     // change depth2 and block2 options for the new freq
     // need to fetch the backend data for the depth options
-    updateDepthAndBlockOptions(regValue, freqValue, var2Value, depthID='depthMOMCobaltTS2', blockID='blockMOMCobaltTS2')
+    updateDepthAndBlockOptions(regValue, freqValue, var2Value, 'depthMOMCobaltTS2', 'blockMOMCobaltTS2')
 });
 
 
 // event listen for variable change => depth & bottom options
 $("#varMOMCobalt").on("change", function(){
 
-    // varname update
+    // varValue update
     varValue = $('#varMOMCobalt').val();
-
-    // varind = varnamelist[1].indexOf($("#varMOMCobalt").val())
-    // varname = varnamelist[0][varind]
 
     // change depth and block options for the new freq
     // need to fetch the backend data for the depth options
     updateDepthAndBlockOptions(regValue, freqValue, varValue)
 
-    // // depth option change
-    // $("#depthMOMCobalt").empty();
-    // createMomCobaltDepthOpt($("#varMOMCobalt").val(),"depthMOMCobalt");
-    // $("#blockMOMCobalt").empty();
-    // createMomCobaltDepthBlockOpt($("#varMOMCobalt").val());
 
-    // tValue.text(dateFolium);
+
 });
 
 // event listen for variable2 change => depth2 & bottom2 options
 $("#varMOMCobaltTS2").on("change", function(){
 
-    // varname update
+    // varValue update
     var2Value = $('#varMOMCobaltTS2').val();
 
     // change depth2 and block2 options for the new freq
     // need to fetch the backend data for the depth options
-    updateDepthAndBlockOptions(regValue, freqValue, var2Value, depthID='depthMOMCobaltTS2', blockID='blockMOMCobaltTS2')
+    updateDepthAndBlockOptions(regValue, freqValue, var2Value, 'depthMOMCobaltTS2', 'blockMOMCobaltTS2')
 
+    // plot ts2 
+    plotTSs(locationData);
 });
 
 // event listen for analyses dashboard dropdown change with nav pil
@@ -187,9 +148,9 @@ $("#dashNavHistrun > ul.nav-tabs > li.nav-item > .nav-link").on('click',function
 
 // event listener for slider change => figure & date
 timeSlider.on("mouseup", function() {
-    // $("div.workingTop").removeClass("hidden");
-    // $("div.errorTop").addClass("hidden");
-    // $("div.whiteTop").addClass("hidden");
+    $("div.workingTop").removeClass("hidden");
+    $("div.errorTop").addClass("hidden");
+    $("div.whiteTop").addClass("hidden");
     dateFolium = rangeValues[$(this).val()];
     replaceFolium()
 });
@@ -203,18 +164,22 @@ timeSlider.on("input", function() {
 
 // event listener for clicking create map button
 momCobaltBtn.on("click", function () {
-    // $("div.workingTop").removeClass("hidden");
-    // $("div.errorTop").addClass("hidden");
-    // $("div.whiteTop").addClass("hidden");
+    $("div.workingTop").removeClass("hidden");
+    $("div.errorTop").addClass("hidden");
+    $("div.whiteTop").addClass("hidden");
     replaceFolium()
+    $("#tsView > div.workingTop").removeClass("hidden");
+    $("#tsView > div.errorTop").addClass("hidden");
+    $("#tsView > div.whiteTop").addClass("hidden");
+    hideLoadingSpinner("loading-spinner-ts");
     // $('#varMOMCobaltTS2').val('');
     // $("#depthMOMCobaltTS2").val('');
 });
 
-// event listener for clicking clear figure options
-clearFigOptBtn.on("click", function () {
-    $("input.figOpt").val('');
-});
+// // event listener for clicking clear figure options
+// clearFigOptBtn.on("click", function () {
+//     $("input.figOpt").val('');
+// });
 
 
 // // add event listener on reset time series select in plotly
@@ -242,8 +207,8 @@ clearFigOptBtn.on("click", function () {
 // });
 
 
-// // event listener for the "message" event (location click) => send to leaflet js
-// $(window).on("message", receiveMessage);
+// event listener for the "message" event (location click) => send to leaflet js
+$(window).on("message", receiveMessage);
 
 
 // // add event listener on adding 2nd time series in plotly
@@ -253,9 +218,9 @@ clearFigOptBtn.on("click", function () {
 //     $("#depthMOMCobaltTS2").empty();
 //     createMomCobaltDepthOpt($("#varMOMCobaltTS2").val(),"depthMOMCobaltTS2");
 
-//     // varname2
+//     // var2Value
 //     varind2 = varnamelist2[1].indexOf($("#varMOMCobaltTS2").val())
-//     varname2 = varnamelist2[0][varind2]
+//     var2Value = varnamelist2[0][varind2]
 
 //     if (locationData !== undefined && locationData !== null) {
 //         if (varFoliumMap !== undefined && varFoliumMap !== null) {
@@ -281,10 +246,10 @@ clearFigOptBtn.on("click", function () {
 //     }
 // });
 
-// // add event listener on selecting depth for 3d 2nd variable
-// $('#indexMOMCobaltTS').on("change", function () {
-//     plotIndexes()
-// });
+// add event listener on selecting depth for 3d 2nd variable
+$('#indexMOMCobaltTS').on("change", function () {
+    plotIndexes()
+});
 
 
 ///////// functional function start /////////
@@ -293,9 +258,9 @@ clearFigOptBtn.on("click", function () {
 function changeTimeStep(timeStep) {
     var nextTime = parseInt(timeSlider.val())+timeStep;
     timeSlider.val(nextTime);
-    // $("div.workingTop").removeClass("hidden");
-    // $("div.errorTop").addClass("hidden");
-    // $("div.whiteTop").addClass("hidden");
+    $("div.workingTop").removeClass("hidden");
+    $("div.errorTop").addClass("hidden");
+    $("div.whiteTop").addClass("hidden");
     dateFolium = rangeValues[timeSlider.val()];
     tValue.text(dateFolium);
     replaceFolium();
@@ -374,11 +339,11 @@ async function initialize() {
     await createGeneralOption('regMOMCobalt',momCobaltRegs);
     regValue = $('#regMOMCobalt').val();     // initial region value
 
-    // Wait for createFreqVarOption to complete
+    // Wait for createFreqVarIndexOption to complete
     //  fetch the backend data for the var, freq options
     //  async needed for depth, block options backend fetch
-    await createFreqVarOption(regValue);
-    $('#freqMOMCobalt').val('monthly');
+    await createFreqVarIndexOption(regValue);
+    // $('#freqMOMCobalt').val('monthly');
     freqValue = $('#freqMOMCobalt').val();   // initial frequency value
     varValue = $('#varMOMCobalt').val();     // initial variable value
 
@@ -403,17 +368,24 @@ async function initialize() {
     // create colorbar options
     createMomCobaltCbarOpt('cbarOpts','RdBu_r')
 
-    // varname2 update
-    var2Value = $('#varMOMCobaltTS2').val();
+    // // var2Value update
+    // var2Value = $('#varMOMCobaltTS2').val();
 
-    // change depth2 and block2 options for the new freq
-    // need to fetch the backend data for the depth options
-    updateDepthAndBlockOptions(regValue, freqValue, var2Value, depthID='depthMOMCobaltTS2', blockID='blockMOMCobaltTS2')
+    // // change depth2 and block2 options for the new freq
+    // // need to fetch the backend data for the depth options
+    // updateDepthAndBlockOptions(regValue, freqValue, var2Value, 'depthMOMCobaltTS2', 'blockMOMCobaltTS2')
+
+    // create initial plotly object place holder
+    asyncInitializePlotlyResize('all')
+
+    // create index plotly
+    initializePlotly('indexes');
+    plotIndexes()
 
 }
 
 // function to get the option list in the json files
-async function createGeneralOption(selectID, optionListFunc) {
+export async function createGeneralOption(selectID, optionListFunc) {
     // fetch list
     let [optionList,valueList] = optionListFunc();
     // create dropdown options
@@ -421,7 +393,7 @@ async function createGeneralOption(selectID, optionListFunc) {
 }
 
 // function for create option 
-function optionList(listname,listval) {
+export function optionList(listname,listval) {
     let df = document.createDocumentFragment(); // create a document fragment to hold the options created later
     for (let i = 0; i < listname.length; i++) { // loop
         let option = document.createElement('option'); // create the option element
@@ -436,7 +408,7 @@ function optionList(listname,listval) {
 
 
 // function for create option
-function createDropdownOptions(selectID,showList,valueList) {
+export function createDropdownOptions(selectID,showList,valueList) {
     let elm = document.getElementById(selectID); 
 
     // Remove all existing options
@@ -449,7 +421,7 @@ function createDropdownOptions(selectID,showList,valueList) {
 };
 
 // asyn function to get the option list in the json files
-async function createFreqVarOption(regname) {
+export async function createFreqVarIndexOption(regname) {
     // fetch hindcast json specific to region
     var region;
     var subdomain;
@@ -461,9 +433,13 @@ async function createFreqVarOption(regname) {
         region = 'northeast_pacific';
         subdomain = 'full_domain';
     };
-    let dataAccessJson = await fetchDataOptionHindVis(region,subdomain,expType);
-    let variableJson = await fetchVarOptionHindVis(region,subdomain,expType);
-    
+    // get frequeuncy json
+    let dataAccessJson = await fetchDataOptionVis(region,subdomain,expType);
+    // get variable json
+    let variableJson = await fetchVarOptionVis(region,subdomain,expType);
+    // get index json
+    let indexJson = await fetchIndexOptionHindVis(region,subdomain,expType);
+
     // create frequency options
     let freqList = dataAccessJson.output_frequency;
     createDropdownOptions('freqMOMCobalt',freqList,freqList);
@@ -472,16 +448,26 @@ async function createFreqVarOption(regname) {
     let varOptionList = variableJson.var_options;
     let varValueList = variableJson.var_values;
     createDropdownOptions('varMOMCobalt',varOptionList,varValueList);
-
-    // create 2nd variable options
-    let var2OptionList = variableJson.var_options;
-    let var2ValueList = variableJson.var_values;
-    createDropdownOptions('varMOMCobaltTS2',var2OptionList,var2ValueList);
+    
+    // only when the json file of a index exist
+    if (indexJson) {
+        // create index options (under index dashboard)
+        let indexOptionList = indexJson.varname;
+        let indexNameOptionList = indexJson.longname;
+        let indexFileLocationList = indexJson.file;
+        createDropdownOptions('indexMOMCobaltTS',indexNameOptionList,indexFileLocationList);
+        plotIndexes();
+    }
+    
+    // // create 2nd variable options
+    // let var2OptionList = variableJson.var_options;
+    // let var2ValueList = variableJson.var_values;
+    // createDropdownOptions('varMOMCobaltTS2',var2OptionList,var2ValueList);
 
 }
 
 // async fetching the data_access_json cefi_data_option
-async function fetchDataOptionHindVis(reg,subDom,expType) {
+export async function fetchDataOptionVis(reg,subDom,expType) {
     try {
       const response = await fetch(
         'data_option_json/cefi_data_options.Projects.CEFI.regional_mom6.cefi_portal.'+
@@ -504,7 +490,7 @@ async function fetchDataOptionHindVis(reg,subDom,expType) {
 }
 
 // async fetching the data_access_json cefi_var_option
-async function fetchVarOptionHindVis(reg,subDom,expType) {
+export async function fetchVarOptionVis(reg,subDom,expType) {
     try {
       const response = await fetch(
         'data_option_json/cefi_var_options.Projects.CEFI.regional_mom6.cefi_portal.'+
@@ -526,8 +512,33 @@ async function fetchVarOptionHindVis(reg,subDom,expType) {
     }
 }
 
+// async fetching the data_access_json cefi_data_option
+async function fetchIndexOptionHindVis(reg,subDom,expType) {
+    try {
+      const response = await fetch(
+        'data_option_json/cefi_index_options.Projects.CEFI.regional_mom6.cefi_derivative.'+
+        reg+
+        '.'+
+        subDom+
+        '.'+
+        expType+
+        '.json'
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();  // JSON data 
+      // console.log('JSON data:', data);
+      return data;
+    } catch (error) {
+      $('#indexMOMCobaltTS').empty();
+      initializePlotly('indexes');
+      console.error('There was a problem when async fetchIndexOption:', error);
+    }
+}
+
 // async functions for fetching variable and experiment specific option from backend
-async function fetchVariableDepthBotOptions(reg,subDom,expType,outFreq,gridType,variable) {
+export async function fetchVariableDepthBotOptions(reg,subDom,expType,outFreq,gridType,variable) {
     var ajaxGet = "/cgi-bin/cefi_portal/vistab_create_variable_depth_bot_options.py"
     +"?region="+reg
     +"&subdomain="+subDom
@@ -588,7 +599,7 @@ function generateDailyDateList(startYear = 1993, endYear = 2019) {
 }
 
 // function for create option for colorbar
-function createMomCobaltCbarOpt(cbarOptID='cbarOpts',defaultCbar='RdBu_r') {
+export function createMomCobaltCbarOpt(cbarOptID='cbarOpts',defaultCbar='RdBu_r') {
     let elm = document.getElementById(cbarOptID);
     let list_cbar = colorbarOpt()    
     let df = optionList(list_cbar,list_cbar);
@@ -629,7 +640,8 @@ function tickSpaceChange() {
 
 // intialize the plotly plot
 // Initial dashboard plot
-function asyncInitializePlotlyResize(flag) {
+export function asyncInitializePlotlyResize(flag) {
+    // make sure the plotly object is created then resize
     return initializePlotly(flag)
         .then(() => {
             window.dispatchEvent(new Event('resize'));
@@ -639,7 +651,7 @@ function asyncInitializePlotlyResize(flag) {
         });
 }
 
-function initializePlotly(flag) {
+export function initializePlotly(flag) {
     var trace = {
         x: "",
         y: "",
@@ -653,9 +665,9 @@ function initializePlotly(flag) {
     var layoutTS = {
         title: 
         'Click on map for time series',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
+        autosize: true,
+        width: 500,
+        height: 400,
         xaxis: { title: 'Date' },
         yaxis: { title: 'Variable' },
         hovermode: 'closest',
@@ -666,7 +678,7 @@ function initializePlotly(flag) {
     var layoutBox = {
         title: 
         'Box plot',
-        //   autosize: true,
+        autosize: true,
         // width: 1000,
         // height: 400,
         hovermode: 'closest',
@@ -677,7 +689,7 @@ function initializePlotly(flag) {
     var layoutHist = {
         title: 
         'Histogram',
-        //   autosize: true,
+        autosize: true,
         // width: 1000,
         // height: 400,
         hovermode: 'closest',
@@ -688,9 +700,20 @@ function initializePlotly(flag) {
     var layoutProf = {
         title: 
         'Profile',
-        //   autosize: true,
+        autosize: true,
         // width: 1000,
         // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layoutIndex = {
+        title: 
+        'Index not available',
+        autosize: true,
+        width: 1000,
+        height: 400,
         hovermode: 'closest',
         showlegend: false,
         // responsive: true
@@ -699,7 +722,7 @@ function initializePlotly(flag) {
     var layout2 = {
         title: 
         'Draw polyline on map',
-        //   autosize: true,
+        autosize: true,
         // width: 1000,
         // height: 400,
         xaxis: { title: 'Date' },
@@ -712,14 +735,14 @@ function initializePlotly(flag) {
     var layoutFcst = {
         title: 
         'Create Forecast Map first<br>& pick point on the shaded area',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
+        autosize: true,
+        width: 500,
+        height: 400,
         xaxis: { title: 'Date' },
         yaxis: { title: 'Variable' },
         hovermode: 'closest',
         showlegend: false,
-        // responsive: true
+        responsive: true
     };
 
     var config = {responsive: true}
@@ -728,17 +751,19 @@ function initializePlotly(flag) {
         Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
         // Plotly.newPlot('plotly-box-plot', [trace], layoutBox,config);
         // Plotly.newPlot('plotly-histogram', [trace], layoutHist,config);
-        Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
-        Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
-        Plotly.newPlot('plotly-transect', [trace], layout2,config);
-        // Plotly.newPlot('plotly-index', [trace], layout3)
+        Plotly.newPlot('plotly-vertical-prof', [trace], layoutProf,config);
+        // Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
+        // Plotly.newPlot('plotly-transect', [trace], layout2,config);
+        Plotly.newPlot('plotly-index', [trace], layoutIndex,config);
     } else if (flag ==='vertical') {
-        Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
-        Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
+        Plotly.newPlot('plotly-vertical-prof', [trace], layoutProf,config);
+        // Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
+    } else if (flag ==='indexes') {
+        Plotly.newPlot('plotly-index', [trace], layoutIndex,config);
     } else if (flag ==='tseries') {
         Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
     } else if (flag ==='transect') {
-        Plotly.newPlot('plotly-transect', [trace], layout2,config);
+        // Plotly.newPlot('plotly-transect', [trace], layout2,config);
     } else if (flag ==='forecast') {
         Plotly.newPlot('plotly-fcast-spread', [trace], layoutFcst, config);
         Plotly.newPlot('plotly-fcast-box', [trace], layoutFcst, config);
@@ -748,7 +773,7 @@ function initializePlotly(flag) {
     }
 
     return new Promise(resolve => {
-        console.log('Initial Plotly created');
+        // console.log('Initial Plotly created');
         resolve();
     });
 };
@@ -862,13 +887,13 @@ function initializePlotly(flag) {
 
 
 // Display loading spinner
-function showLoadingSpinner(divID) {
+export function showLoadingSpinner(divID) {
     // console.log('spin')
     $("#"+divID).css("display", "block");
 }
 
 // Hide loading spinner
-function hideLoadingSpinner(divID) {
+export function hideLoadingSpinner(divID) {
     // console.log('stop spin')
     $("#"+divID).css("display", "none");
 }
@@ -941,487 +966,533 @@ function replaceFolium() {
             // console.log(mapData)
             momCobaltMap[0].contentWindow.postMessage(mapData, "*")
 
-            // // get same point time series when points and variable are defined
-            // if (locationData !== undefined && locationData !== null) {
-            //     if (varFoliumMap !== undefined && varFoliumMap !== null) {
-            //         if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
-            //             plotTSs(locationData)
-            //         } else {
-            //             plotTS1(locationData);
-            //         }
-            //     }
-            //     //// current function only allowed in monthly data
-            //     if (dateFolium.length === 7){
-            //         plotVertProfs(locationData);
-            //     } else {
-            //         // initialize plotly
-            //         initializePlotly('vertical');
-            //     }
-            // }
-            // // get same polyline transect when polyline and variable are defined
-            // if (polygonData !== undefined && polygonData !== null) {
-            //     if (varFoliumMap !== undefined && varFoliumMap !== null) {
-            //         //// current function only allowed in monthly data
-            //         if (dateFolium.length === 7){
-            //             plotTransect(polygonData);
-            //         } else {
-            //             // initialize plotly
-            //             initializePlotly('transect');
-            //         }
-            //     }
-            // }
+            // get same point time series when points and variable are defined/clicked
+            if (locationData !== undefined && locationData !== null) {
+                console.log(locationData)
+                if (varFoliumMap !== undefined && varFoliumMap !== null) {
+                    plotTS1(locationData);
+                    plotVertProfs(locationData);
+                    // if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
+                    //     plotTSs(locationData);
+                    // } else {
+                    //     plotTS1(locationData);
+                    // }
+                }
+                // //// current function only allowed in monthly data
+                // if (dateFolium.length === 7){
+                //     plotVertProfs(locationData);
+                // } else {
+                //     // initialize plotly
+                //     initializePlotly('vertical');
+                // }
+            }
+            // get same polyline transect when polyline and variable are defined
+            if (polygonData !== undefined && polygonData !== null) {
+                if (varFoliumMap !== undefined && varFoliumMap !== null) {
+                    plotTransect(polygonData);
+                    //// current function only allowed in monthly data
+                    // if (dateFolium.length === 7){
+                        // plotTransect(polygonData);
+                    // } else {
+                    //     // initialize plotly
+                    //     initializePlotly('transect');
+                    // }
+                }
+            }
 
-            // $("div.workingTop").addClass("hidden");
-            // $("div.errorTop").addClass("hidden");
-            // $("div.whiteTop").removeClass("hidden");
+            $("div.workingTop").addClass("hidden");
+            $("div.errorTop").addClass("hidden");
+            $("div.whiteTop").removeClass("hidden");
             hideLoadingSpinner("loading-spinner-map");
         })
         .catch(error => {
             // Handle errors here
+            $("div.workingTop").addClass("hidden");
+            $("div.errorTop").removeClass("hidden");
+            $("div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-map");
+            $("#tsView > div.workingTop").addClass("hidden");
+            $("#tsView > div.errorTop").removeClass("hidden");
+            $("#tsView > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-ts");
             console.error('Fetch folium map error:', error);
-            // $("div.workingTop").addClass("hidden");
-            // $("div.errorTop").removeClass("hidden");
-            // $("div.whiteTop").addClass("hidden");
+
         });
 
     // momCobaltMap.attr("src", ajaxGet)
 }
 
 
-// // function for plotting 2 TS with Promise to make sure the plotting order
-// function plotTSs(infoLonLat) {
-//     showLoadingSpinner("loading-spinner-ts");
-//     const promiseTS1 = new Promise((resolve, reject) => {
-//         getTimeSeries(infoLonLat, false)
-//             .then(parsedTS => {
-//                 // console.log(parsedTS);
-//                 resolve(parsedTS);
-//             })
-//             .catch(error => {
-//                 // Handle errors here
-//                 console.error('Error in create PromiseTS1:', error);
-//                 reject(error);
-//             });
-//     });
-//     const promiseTS2 = new Promise((resolve, reject) => {
-//         if (indexes()[1].indexOf($("#varMOMCobaltTS2").val()) === -1) {
-//             getTimeSeries(infoLonLat, true)
-//             .then(parsedTS => {
-//                 // console.log(parsedTS);
-//                 resolve(parsedTS);
-//             })
-//             .catch(error => {
-//                 // Handle errors here
-//                 console.error('Error in create PromiseTS2:', error);
-//                 reject(error); 
-//             });
-//         } else {
-//             getIndex('#varMOMCobaltTS2')
-//             .then(parsedTS => {
-//                 // console.log(parsedTS);
-//                 resolve(parsedTS);
-//             })
-//             .catch(error => {
-//                 // Handle errors here
-//                 console.error('Error in create PromiseTS2 for indexes:', error);
-//                 reject(error); 
-//             });
-//         }
+// function for plotting 2 TS with Promise to make sure the plotting order
+function plotTSs(infoLonLat) {
+    showLoadingSpinner("loading-spinner-ts");
+    const promiseTS1 = new Promise((resolve, reject) => {
+        getTimeSeries(infoLonLat, false)
+            .then(parsedTS => {
+                // console.log(parsedTS);
+                resolve(parsedTS);
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('Error in create PromiseTS1:', error);
+                reject(error);
+            });
+    });
+    const promiseTS2 = new Promise((resolve, reject) => {
+        if (var2TS) {
+            getTimeSeries(infoLonLat, true)
+            .then(parsedTS => {
+                // console.log(parsedTS);
+                resolve(parsedTS);
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('Error in create PromiseTS2:', error);
+                reject(error); 
+            });
+        // } else {
+        //     getIndex('#varMOMCobaltTS2')
+        //     .then(parsedTS => {
+        //         // console.log(parsedTS);
+        //         resolve(parsedTS);
+        //     })
+        //     .catch(error => {
+        //         // Handle errors here
+        //         console.error('Error in create PromiseTS2 for indexes:', error);
+        //         reject(error); 
+        //     });
+        }
        
-//     });
+    });
 
-//     Promise.all([promiseTS1,promiseTS2])
-//         .then(([firstTS,secondTS]) => {
-//             plotlyTS(firstTS.tsDates,firstTS.tsValues,firstTS.lonValues,firstTS.latValues,firstTS.tsUnit,firstTS.yformat)
-//             plotlyBox(firstTS.tsValues,firstTS.yformat)
-//             plotlyHist(firstTS.tsValues,firstTS.tsUnit,firstTS.yformat)
-//             return new Promise((resolve) => {
-//                 resolve([firstTS,secondTS])
-//             });
-//         })
-//         .then(([firstTS,secondTS])=>{
-//             if (indexes()[1].indexOf($("#varMOMCobaltTS2").val()) === -1) {
-//                 // plotting the variable time series
-//                 plotlyTSadd(secondTS.tsDates,secondTS.tsValues,secondTS.lonValues,secondTS.latValues,secondTS.tsUnit,secondTS.yformat)
-//                 plotlyBoxadd(secondTS.tsValues,secondTS.yformat)
-//                 plotlyHistadd(secondTS.tsValues,secondTS.tsUnit,secondTS.yformat) 
-//             } else {
-//                 // plotting the first index (make it always the first one as observed value)
-//                 plotlyTSadd(secondTS.tsDates[0],secondTS.tsValues[0],firstTS.lonValues,firstTS.latValues,secondTS.tsUnit[0],secondTS.yformat[0])
-//                 plotlyBoxadd(secondTS.tsValues[0],secondTS.yformat[0])
-//                 plotlyHistadd(secondTS.tsValues[0],secondTS.tsUnit[0],secondTS.yformat[0]) 
-//             }
-//             hideLoadingSpinner("loading-spinner-ts");
-//         })
-//         .catch((error)=>{
-//             console.error(error);
-//         })
-// };
+    Promise.all([promiseTS1,promiseTS2])
+        .then(([firstTS,secondTS]) => {
+            console.log(firstTS.tsValues)
+            plotlyTS(firstTS.tsDates,firstTS.tsValues,firstTS.lonValues,firstTS.latValues,firstTS.tsUnit,firstTS.yformat)
+            plotlyBox(firstTS.tsValues,firstTS.yformat)
+            plotlyHist(firstTS.tsValues,firstTS.tsUnit,firstTS.yformat)
+            return new Promise((resolve) => {
+                resolve([firstTS,secondTS])
+            });
+        })
+        .then(([firstTS,secondTS])=>{
+            if (var2TS) {
+                // plotting the variable time series
+                plotlyTSadd(secondTS.tsDates,secondTS.tsValues,secondTS.lonValues,secondTS.latValues,secondTS.tsUnit,secondTS.yformat)
+                plotlyBoxadd(secondTS.tsValues,secondTS.yformat)
+                plotlyHistadd(secondTS.tsValues,secondTS.tsUnit,secondTS.yformat) 
+            // } else {
+            //     // plotting the first index (make it always the first one as observed value)
+            //     plotlyTSadd(secondTS.tsDates[0],secondTS.tsValues[0],firstTS.lonValues,firstTS.latValues,secondTS.tsUnit[0],secondTS.yformat[0])
+            //     plotlyBoxadd(secondTS.tsValues[0],secondTS.yformat[0])
+            //     plotlyHistadd(secondTS.tsValues[0],secondTS.tsUnit[0],secondTS.yformat[0]) 
+            }
+            hideLoadingSpinner("loading-spinner-ts");
+        })
+        .catch((error)=>{
+            console.error(error);
+        })
+};
 
-// // function for plotting first TS with Promise for data fetch complete
-// function plotTS1(infoLonLat) {
-//     showLoadingSpinner("loading-spinner-ts");
-//     const promiseTS = new Promise((resolve, reject) => {
-//         getTimeSeries(infoLonLat, false)
-//             .then(parsedTS => {
-//                 // console.log(parsedTS);
-//                 resolve(parsedTS);
-//             })
-//             .catch(error => {
-//                 // Handle errors here
-//                 console.error('Error in createPromiseForTimeSeries:', error);
-//                 reject(error);
-//             });
-//     });
+// function for plotting first TS with Promise for data fetch complete
+function plotTS1(infoLonLat) {
+    showLoadingSpinner("loading-spinner-ts");
+    $("#tsView > div.workingTop").removeClass("hidden");
+    $("#tsView > div.errorTop").addClass("hidden");
+    $("#tsView > div.whiteTop").addClass("hidden");
+    const promiseTS = new Promise((resolve, reject) => {
+        getTimeSeries(infoLonLat, false)
+            .then(parsedTS => {
+                // console.log(parsedTS);
+                resolve(parsedTS);
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('Error in createPromiseForTimeSeries:', error);
+                reject(error);
+            });
+    });
 
-//     promiseTS
-//         .then((firstTS)=>{
-//             plotlyTS(firstTS.tsDates,firstTS.tsValues,firstTS.lonValues,firstTS.latValues,firstTS.tsUnit,firstTS.yformat)
-//             plotlyBox(firstTS.tsValues,firstTS.yformat)
-//             plotlyHist(firstTS.tsValues,firstTS.tsUnit,firstTS.yformat)
-//             hideLoadingSpinner("loading-spinner-ts");
-//         })
-//         .catch((error)=>{
-//             console.error(error);
-//         })
-// };
+    promiseTS
+        .then((firstTS)=>{
+            plotlyTS(firstTS.tsDates,firstTS.tsValues,firstTS.lonValues,firstTS.latValues,firstTS.tsUnit,firstTS.yformat)
+            plotlyBox(firstTS.tsValues,firstTS.yformat)
+            plotlyHist(firstTS.tsValues,firstTS.tsUnit,firstTS.yformat)
+            $("#tsView > div.workingTop").addClass("hidden");
+            $("#tsView > div.errorTop").addClass("hidden");
+            $("#tsView > div.whiteTop").removeClass("hidden");
+            hideLoadingSpinner("loading-spinner-ts");
+        })
+        .catch((error)=>{
+            // Handle errors here
+            $("#tsView > div.workingTop").addClass("hidden");
+            $("#tsView > div.errorTop").removeClass("hidden");
+            $("#tsView > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-ts");
+            console.error(error);
+        })
+};
 
-// // function for plotting first TS with Promise for data fetch complete
-// function plotVertProfs(infoLonLat) {
-//     showLoadingSpinner("loading-spinner-vprof");
-//     const promiseVPs = new Promise((resolve, reject) => {
-//         getVerticalProfile(infoLonLat)
-//             .then(parsedVP => {
-//                 // console.log(parsedTS);
-//                 resolve(parsedVP);
-//             })
-//             .catch(error => {
-//                 // Handle errors here
-//                 console.error('Error in createPromiseForVerticalProfile:', error);
-//                 reject(error);
-//             });
-//     });
+// function for plotting first TS with Promise for data fetch complete
+function plotVertProfs(infoLonLat) {
+    showLoadingSpinner("loading-spinner-vprof");
+    $("#profileView > div.workingTop").removeClass("hidden");
+    $("#profileView > div.errorTop").addClass("hidden");
+    $("#profileView > div.whiteTop").addClass("hidden");
+    const promiseVP = new Promise((resolve, reject) => {
+        getVerticalProfile(infoLonLat)
+            .then(parsedVP => {
+                // console.log(parsedTS);
+                resolve(parsedVP);
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('Error in createPromiseForVerticalProfile:', error);
+                reject(error);
+            });
+    });
 
-//     promiseVPs
-//         .then((parsedVP)=>{
-//             plotlyVP(parsedVP.tDepth,parsedVP.tValues,parsedVP.tlonValues,parsedVP.tlatValues,parsedVP.tUnit,parsedVP.tformat,"plotly-vertical-t","Potential Temperature","rgba(113, 29, 176, 0.7)")
-//             plotlyVP(parsedVP.sDepth,parsedVP.sValues,parsedVP.slonValues,parsedVP.slatValues,parsedVP.sUnit,parsedVP.sformat,"plotly-vertical-s","Salinity","rgb(239, 64, 64)")
-//             hideLoadingSpinner("loading-spinner-vprof");
-//         })
-//         .catch((error)=>{
-//             console.error(error);
-//         })
-// };
-
-
-// // function for plotting first TS with Promise for data fetch complete
-// function plotTransect(infoLine) {
-//     showLoadingSpinner("loading-spinner-tsect");
-//     const promiseTran = new Promise((resolve, reject) => {
-//         getTransect(infoLine)
-//             .then(parsedTran => {
-//                 resolve(parsedTran);
-//             })
-//             .catch(error => {
-//                 // Handle errors here
-//                 console.error('Error in createPromiseForTransect:', error);
-//                 reject(error);
-//             });
-//     });
-
-//     promiseTran
-//         .then((parsedTran)=>{
-//             if (varname.includes('(3D)')) {
-//                 plotlyContour("plotly-transect",parsedTran)
-//             } else {
-//                 plotlyTransectLine("plotly-transect",parsedTran)
-//             }
-//             hideLoadingSpinner("loading-spinner-tsect");
-//         })
-//         .catch((error)=>{
-//             console.error(error);
-//         })
-// };
-
-// // function for plotting first TS with Promise for data fetch complete
-// function plotIndexes() {
-//     showLoadingSpinner("loading-spinner-index");
-//     const indexName = $('#indexMOMCobaltTS').val();
-//     const promiseIndex = new Promise((resolve, reject) => {
-//         getIndex('#indexMOMCobaltTS')
-//             .then(parsedIndex => {
-//                 // console.log(parsedTS);
-//                 resolve(parsedIndex);
-//             })
-//             .catch(error => {
-//                 // Handle errors here
-//                 console.error('Error in createPromiseForIndexes:', error);
-//                 reject(error);
-//             });
-//     });
-
-//     promiseIndex
-//         .then((parsedIndex)=>{
-//             numberOfIndexes = parsedIndex.tsDates.length
-//             var i = 0 ;
-//             plotlyIndex(parsedIndex.tsDates[i],parsedIndex.tsValues[i],parsedIndex.tsUnit[i],parsedIndex.yformat[i],parsedIndex.tsName[i],indexName)
-//             for (let i = 1; i < numberOfIndexes; i++) {
-//                 plotlyIndexAdd(parsedIndex.tsDates[i],parsedIndex.tsValues[i],parsedIndex.tsName[i])
-//             }
-//             hideLoadingSpinner("loading-spinner-index");
-//         })
-//         .catch((error)=>{
-//             console.error(error);
-//         })
-// };
+    promiseVP
+        .then((parsedVP)=>{
+            plotlyVP(parsedVP.depth,parsedVP.data,parsedVP.lon,parsedVP.lat,parsedVP.unit,parsedVP.xformat,"plotly-vertical-prof",parsedVP.varname,"rgba(113, 29, 176, 0.7)")
+            // plotlyVP(parsedVP.sDepth,parsedVP.sValues,parsedVP.slonValues,parsedVP.slatValues,parsedVP.sUnit,parsedVP.sformat,"plotly-vertical-s","Salinity","rgb(239, 64, 64)")
+            $("#profileView > div.workingTop").addClass("hidden");
+            $("#profileView > div.errorTop").addClass("hidden");
+            $("#profileView > div.whiteTop").removeClass("hidden");
+            hideLoadingSpinner("loading-spinner-vprof");
+        })
+        .catch((error)=>{
+            $("#profileView > div.workingTop").addClass("hidden");
+            $("#profileView > div.errorTop").removeClass("hidden");
+            $("#profileView > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-vprof");
+            console.error(error);
+        })
+};
 
 
-// // function for retrieving lon lat from iframe leaflet
-// var varVal = null
-// function receiveMessage(event) {
-//     // Access the data sent from the iframe
-//     if (event.originalEvent.origin === window.location.origin) {
-//         // console.log(event.originalEvent)
+// function for plotting first TS with Promise for data fetch complete
+function plotTransect(infoLine) {
+    showLoadingSpinner("loading-spinner-tsect");
+    const promiseTran = new Promise((resolve, reject) => {
+        getTransect(infoLine)
+            .then(parsedTran => {
+                resolve(parsedTran);
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('Error in createPromiseForTransect:', error);
+                reject(error);
+            });
+    });
 
-//         if (event.originalEvent.data.type === 'locationData') {
-//             locationData = event.originalEvent.data;
+    promiseTran
+        .then((parsedTran)=>{
+            plotlyTransectLine("plotly-transect",parsedTran)
+            // if (varValue.includes('(3D)')) {
+            //     plotlyContour("plotly-transect",parsedTran)
+            // } else {
+            //     plotlyTransectLine("plotly-transect",parsedTran)
+            // }
+            hideLoadingSpinner("loading-spinner-tsect");
+        })
+        .catch((error)=>{
+            console.error(error);
+        })
+};
+
+// function for plotting first TS with Promise for data fetch complete
+function plotIndexes() {
+    showLoadingSpinner("loading-spinner-index");
+    const indexName = $('#indexMOMCobaltTS option:selected').text();
+    const indexFileLocation = $('#indexMOMCobaltTS').val();
+    const promiseIndex = new Promise((resolve, reject) => {
+        getIndex(indexFileLocation)
+            .then(parsedIndex => {
+                // console.log(parsedTS);
+                resolve(parsedIndex);
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('Error in createPromiseForIndexes:', error);
+                reject(error);
+            });
+    });
+
+    promiseIndex
+        .then((parsedIndex)=>{
+            // get number of ts in one index file
+            var numberOfIndexes = parsedIndex.tsValues.length
+            // plot all index
+            var i = 0 ;
+            plotlyIndex(parsedIndex.tsDates[i],parsedIndex.tsValues[i],parsedIndex.tsUnits[i],parsedIndex.yformat[i],parsedIndex.tsVarname[i],indexName)
+            for (let i = 1; i < numberOfIndexes; i++) {
+                plotlyIndexAdd(parsedIndex.tsDates[i],parsedIndex.tsValues[i],parsedIndex.tsVarname[i])
+            }
+            hideLoadingSpinner("loading-spinner-index");
+        })
+        .catch((error)=>{
+            console.error(error);
+        })
+};
+
+
+// function for retrieving lon lat from iframe leaflet
+// var varVal;
+function receiveMessage(event) {
+    // Access the data sent from the iframe
+    if (event.originalEvent.origin === window.location.origin) {
+        // console.log(event.originalEvent)
+
+        if (event.originalEvent.data.type === 'locationData') {
+            locationData = event.originalEvent.data;
             
-//             if (varFoliumMap !== undefined && varFoliumMap !== null) {
-//                 // plotting the plotly ts
-//                 if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
-//                     plotTSs(locationData)
-//                 } else {
-//                     plotTS1(locationData);
-//                 }
-//                 // plotting the plotly vertical profile (only in monthly setting)
-//                 if (dateFolium.length === 7){
-//                     plotVertProfs(locationData)
-//                 }
+            if (varFoliumMap !== undefined && varFoliumMap !== null) {
+                
+                plotTS1(locationData);
+                plotVertProfs(locationData);
+                // // plotting the plotly ts
+                // if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
+                //     plotTSs(locationData)
+                // } else {
+                //     plotTS1(locationData);
+                // }
+                // // plotting the plotly vertical profile (only in monthly setting)
+                // if (dateFolium.length === 7){
+                //     plotVertProfs(locationData)
+                // }
 
-//                 // grabbing the location variable value 
-//                 const promiseVarVal = new Promise((resolve, reject) => {
-//                     getVarVal(locationData)
-//                         .then(value => {
-//                             varVal = value
-//                             // send the value back to iframe
-//                             varValData = {
-//                                 type: 'varValData',
-//                                 var: varVal
-//                             };
-//                             // console.log(mapData)
-//                             momCobaltMap[0].contentWindow.postMessage(varValData, "*")
-//                             // resolve(varVal);
-//                         })
-//                         .catch(error => {
-//                             // Handle errors here
-//                             console.error('Error in createPromiseForVarVal:', error);
-//                             reject(error);
-//                         });
-//                 });
-//             }
-//         } else if (event.originalEvent.data.type === 'polygonData') {
-//             polygonData = event.originalEvent.data;
-//             if (varFoliumMap !== undefined && varFoliumMap !== null) {
-//                 plotTransect(polygonData)
-//             }           
-//         }
+                // grabbing the location variable value 
+                const promiseVarVal = new Promise((resolve, reject) => {
+                    getVarVal(locationData)
+                        .then(pasrsePoint => {
+                            var pointValue = pasrsePoint.pointValue
+                            // send the value back to iframe
+                            var varValData = {
+                                type: 'varValData',
+                                var: pointValue
+                            };
+                            // console.log(mapData)
+                            momCobaltMap[0].contentWindow.postMessage(varValData, "*")
+                            // resolve(varVal);
+                        })
+                        .catch(error => {
+                            // Handle errors here
+                            console.error('Error in createPromiseForVarVal:', error);
+                            reject(error);
+                        });
+                });
+            }
+        } else if (event.originalEvent.data.type === 'polygonData') {
+            polygonData = event.originalEvent.data;
+            if (varFoliumMap !== undefined && varFoliumMap !== null) {
+                plotTransect(polygonData)
+            }           
+        }
         
-
-
-            
-//         // console.log("Received data from iframe:", locationData);
-//         // console.log(event.originalEvent.origin);
-//     };
-// };
+        // console.log("Received data from iframe:", locationData);
+        // console.log(event.originalEvent.origin);
+    };
+};
 
 
 
-// // function to get variable value based on locationData and dataFolium
-// function getVarVal(infoLonLat) {
-//     var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_variableValue.py"
-//         +"?variable="+varFoliumMap
-//         +"&region="+$("#regMOMCobalt").val()
-//         +"&stat="+statFoliumMap
-//         +"&depth="+depthFoliumMap
-//         +"&lon="+infoLonLat.longitude
-//         +"&lat="+infoLonLat.latitude
-//         +"&date="+dateFolium
+// function to get variable value based on locationData and dataFolium
+function getVarVal(infoLonLat) {
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_extract_value.py"
+        +"?variable="+varFoliumMap
+        +"&region="+regFoliumMap
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=hindcast"
+        +"&grid_type=regrid"
+        +"&stat="+statFoliumMap
+        +"&depth="+depthFoliumMap
+        +"&lon="+infoLonLat.longitude
+        +"&lat="+infoLonLat.latitude
+        +"&date="+dateFolium
     
-//     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+    console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
-//     return fetch(ajaxGet)
-//         .then(response => {
-//             if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//             }
-//             return response.text();
-//         })
-//         .then(data => {
-//             // Process the response data here
-//             var lines = data.split('\n');
+    return fetch(ajaxGet)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(jsonData => {
+            var lonValues = jsonData.lon
+            var latValues = jsonData.lat
+            var pointValue = jsonData.data
+            var pointUnit = jsonData.unit
+            var pointVarname = jsonData.varname
 
-//             return lines[0]
+            var parsedValue = {
+                pointValue:pointValue,
+                lonValues:lonValues,
+                latValues:latValues,
+                pointUnit:pointUnit,
+                pointVarname:pointVarname,
+            }
 
-//         })
-//         .catch(error => {
-//             // Handle errors here
-//             console.error('Fetch variable value error:', error);
-//         });
-// }
+            return parsedValue
 
-
-// // function to get transect based on polygonData
-// //  the transect only change 
-// //   1. when the map is created
-// //   2. polygon line is changed
-// function getTransect(infoLine) {
-
-//     var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_transect.py"
-//     +"?variable="+varFoliumMap
-//     +"&region="+$("#regMOMCobalt").val()
-//     +"&stat="+statFoliumMap
-//     +"&date="+dateFolium
-//     +"&jsonstring="+infoLine.polygon
-
-//     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
-
-//     return fetch(ajaxGet)
-//         .then(response => {
-//             if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//             }
-//             return response.text();
-//         })
-//         .then(data => {
-//             // Process the response data here
-//             var lines = data.split('\n');
-
-//             var tranDepth = JSON.parse(lines[0]);
-//             var tranLoc = JSON.parse(lines[1]);
-//             var tranValues = JSON.parse(lines[2].replace(/'/g, ' '));
-//             var tranLonLat = lines[4];
-//             // console.log(tranValues)
-            
-//             // var tlonValues = lines[2];
-//             // var tlatValues = lines[3];
-//             var tranUnit = lines[3];
-
-//             // var tranformat = '.2f';
-//             // var maxVal = Math.max(...tranValues);
-//             // console.log(maxVal)
-//             // var minVal = Math.min(...tranValues);
-//             // console.log(minVal)
-//             // var diff = Math.abs(maxVal-minVal);
+        })
+        .catch(error => {
+            // Handle errors here
+            console.error('Fetch variable value error:', error);
+        });
+}
 
 
-//             // if (diff< 0.01) {
-//             //     format = '.2e';
-//             // }
+// Define fetchWithTimeout function
+async function fetchWithTimeout(resource, options = {}, timeout = 30000) { // Set timeout to 30 seconds
+    const { signal, ...restOptions } = options;
+
+    // Create a new AbortController instance
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+    try {
+        const response = await fetch(resource, {
+            ...restOptions,
+            signal: signal || controller.signal,
+        });
+        clearTimeout(timeoutId);
+        return response;
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            throw new Error('Fetch request timed out');
+        }
+        throw error;
+    }
+}
+
+// function to get transect based on polygonData
+//  the transect only change 
+//   1. when the map is created
+//   2. polygon line is changed
+function getTransect(infoLine) {
+
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_extract_transect.py"
+    +"?variable="+varFoliumMap
+    +"&region="+regFoliumMap
+    +"&output_frequency="+freqFoliumMap
+    +"&subdomain=full_domain"
+    +"&experiment_type=hindcast"
+    +"&grid_type=regrid"
+    +"&stat="+statFoliumMap
+    +"&date="+dateFolium
+    +"&jsonstring="+infoLine.polygon
+
+    console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+
+    return fetchWithTimeout(ajaxGet, {}, 90000)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(jsonData => {
+
+            var tranDepth = jsonData.depth;
+            var tranLoc = jsonData.loc;
+            var tranValues = jsonData.data;
+            var tranLonLat = jsonData.location;
+            var tranUnit = jsonData.unit;
         
             
-//             var parsedTran = {
-//                 tranLoc:tranLoc,
-//                 tranDepth:tranDepth, 
-//                 tranValues:tranValues,
-//                 tranUnit:tranUnit,
-//                 tranLonLat:tranLonLat
-//             }
+            var parsedTran = {
+                tranLoc:tranLoc,
+                tranDepth:tranDepth, 
+                tranValues:tranValues,
+                tranUnit:tranUnit,
+                tranLonLat:tranLonLat
+            }
 
-//             return parsedTran
+            return parsedTran
 
-//         })
-//         .catch(error => {
-//             // Handle errors here
-//             console.error('Fetch transect error:', error);
-//         });
-// }
+        })
+        .catch(error => {
+            // Handle errors here
+            console.error('Fetch transect error:', error);
+        });
+}
 
 
 
-// // function to get vertical profile based on locationData
-// //  the vertical profile only change 
-// //   1. when the map is created
-// //   2. clicked location is changed
-// function getVerticalProfile(infoLonLat) {
+// function to get vertical profile based on locationData
+//  the vertical profile only change 
+//   1. when the map is created
+//   2. clicked location is changed
+function getVerticalProfile(infoLonLat) {
 
-//     var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_verticalprofile.py"
-//     +"?stat="+statFoliumMap
-//     +"&region="+$("#regMOMCobalt").val()
-//     +"&date="+dateFolium
-//     +"&lon="+infoLonLat.longitude
-//     +"&lat="+infoLonLat.latitude
-    
-//     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
-
-//     return fetch(ajaxGet)
-//         .then(response => {
-//             if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//             }
-//             return response.text();
-//         })
-//         .then(data => {
-//             // Process the response data here
-//             var lines = data.split('\n');
-
-//             var tDepth = JSON.parse(lines[0]);
-//             var tValues = JSON.parse(lines[1]);
-//             var tlonValues = lines[2];
-//             var tlatValues = lines[3];
-//             var tUnit = lines[4];
-
-//             var sDepth = JSON.parse(lines[5]);
-//             var sValues = JSON.parse(lines[6]);
-//             var slonValues = lines[7];
-//             var slatValues = lines[8];
-//             var sUnit = lines[9];
-
-//             var tformat = '.2f';
-//             var tmaxVal = Math.max(...tValues);
-//             var tminVal = Math.min(...tValues);
-//             var tdiff = Math.abs(tmaxVal-tminVal);
-
-//             var sformat = '.2f'
-//             var smaxVal = Math.max(...sValues);
-//             var sminVal = Math.min(...sValues);
-//             var sdiff = Math.abs(smaxVal-sminVal);
-
-//             if (tdiff< 0.01) {
-//                 tformat = '.2e';
-//             }
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_extract_profile.py"
+        +"?variable="+varFoliumMap
+        +"&region="+regFoliumMap
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=hindcast"
+        +"&grid_type=regrid"
+        +"&date="+dateFolium
+        +"&lon="+infoLonLat.longitude
+        +"&lat="+infoLonLat.latitude
+        +"&stat="+statFoliumMap
+        +"&depth="+depthFoliumMap
         
-//             if (sdiff< 0.01) {
-//                 sformat = '.2e';
-//             }
+    console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+
+    return fetch(ajaxGet)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(jsonData => {
+            // Process the response data here
+            var depth = jsonData.depth;
+            var data = jsonData.data;
+            var lon = jsonData.lon;
+            var lat = jsonData.lat;
+            var unit = jsonData.unit;
+            var varname = jsonData.varname;
+
+
+            var xformat = '.2f';
+            var maxVal = Math.max(...data);
+            var minVal = Math.min(...data);
+            var diff = Math.abs(maxVal-minVal);
+
+            if (diff< 0.01) {
+                xformat = '.2e';
+            }
             
-//             var parsedVP = {
-//                 tDepth:tDepth, 
-//                 tValues:tValues,
-//                 tlonValues:tlonValues,
-//                 tlatValues:tlatValues,
-//                 tUnit:tUnit,
-//                 tformat:tformat,
-//                 sDepth:sDepth, 
-//                 sValues:sValues,
-//                 slonValues:slonValues,
-//                 slatValues:slatValues,
-//                 sUnit:sUnit,
-//                 sformat:sformat
-//             }
+            var parsedVP = {
+                depth:depth,
+                data:data,
+                lon:lon,
+                lat:lat,
+                unit:unit,
+                xformat:xformat,
+                varname:varname
+            }
 
-//             return parsedVP
+            return parsedVP
 
-//         })
-//         .catch(error => {
-//             // Handle errors here
-//             console.error('Fetch vertical profile error:', error);
-//         });
-// }
+        })
+        .catch(error => {
+            // Handle errors here
+            console.error('Fetch vertical profile error:', error);
+        });
+}
 
 
 // function getMockDate(freqString) {
 //     // making mockDate imitating the file date frequency for 2nd time series
-//     //  this is required due to the multiple file for same varname with 
+//     //  this is required due to the multiple file for same varValue with 
 //     //  different frequency in the backend.
 //     var mockDate;
 //     if (freqString.toLowerCase().includes('da')){
@@ -1434,341 +1505,341 @@ function replaceFolium() {
 //     return mockDate
 // }        
 
-// // function to get time series based on locationData
-// //  the time series only change 
-// //   1. when the map is created
-// //   2. when the map is changed
-// //   3. only use the variable from created map
-// //      not the option changed result
-// function getTimeSeries(infoLonLat,addTS) {
-//     // showLoadingSpinner();
-//     if (addTS) {
-//         // find data frequency and create mock date for TS2
-//         var selectVar2Index = $("#varMOMCobaltTS2").prop('selectedIndex');
-//         var varlist = momCobaltVars();
-//         var indexlist = indexes();
-//         var freqlist = varlist[2].concat(indexlist[2]); // for data freqnecy
-//         var freqString = freqlist[selectVar2Index];
-//         var mockDate = getMockDate(freqString)
-
-//         var var2TS = $('#varMOMCobaltTS2').val();
-//         var depth2TS = $('#depthMOMCobaltTS2').val();
-//         var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries.py"
-//         +"?variable="+var2TS
-//         +"&region="+$("#regMOMCobalt").val()
-//         +"&date="+mockDate
-//         +"&stat="+statFoliumMap
-//         +"&depth="+depth2TS
-//         +"&lon="+infoLonLat.longitude
-//         +"&lat="+infoLonLat.latitude
-//     } else {
-//         var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries.py"
-//         +"?variable="+varFoliumMap
-//         +"&region="+$("#regMOMCobalt").val()
-//         +"&date="+dateFolium
-//         +"&stat="+statFoliumMap
-//         +"&depth="+depthFoliumMap
-//         +"&lon="+infoLonLat.longitude
-//         +"&lat="+infoLonLat.latitude
-//     }
+// function to get time series based on locationData
+//  the time series only change 
+//   1. when the map is created
+//   2. when the map is changed
+//   3. only use the variable from created map
+//      not the option changed result
+var var2TS;
+var depth2TS;
+function getTimeSeries(infoLonLat,addTS) {
+    // showLoadingSpinner();
+    if (addTS) {
+        var2TS = $('#varMOMCobaltTS2').val();
+        depth2TS = $('#depthMOMCobaltTS2').val();
+        var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_extract_ts.py"
+        +"?variable="+var2TS
+        +"&region="+regFoliumMap
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=hindcast"
+        +"&grid_type=regrid"
+        +"&stat="+statFoliumMap
+        +"&depth="+depth2TS
+        +"&lon="+infoLonLat.longitude
+        +"&lat="+infoLonLat.latitude
+    } else {
+        var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_extract_ts.py"
+        +"?variable="+varFoliumMap
+        +"&region="+regFoliumMap
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=hindcast"
+        +"&grid_type=regrid"
+        +"&stat="+statFoliumMap
+        +"&depth="+depthFoliumMap
+        +"&lon="+infoLonLat.longitude
+        +"&lat="+infoLonLat.latitude
+    }
     
-//     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+    console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
-//     return fetch(ajaxGet)
-//         .then(response => {
-//             if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//             }
-//             return response.text();
-//         })
-//         .then(data => {
-//             // Process the response data here
-//             var lines = data.split('\n');
+    return fetch(ajaxGet)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(jsonData => {
+            var lonValues = jsonData.lon
+            var latValues = jsonData.lat
+            var tsDates = jsonData.dates
+            var tsValues = jsonData.data
+            var tsUnit = jsonData.unit
+            var tsVarname = jsonData.varname
 
-//             var tsDates = lines[0].split(',');
-//             var tsValues = JSON.parse(lines[1]);
-//             var lonValues = lines[2];
-//             var latValues = lines[3];
-//             var tsUnit = lines[4];
+            // // Process the response data here
+            // var lines = data.split('\n');
 
-//             var yformat = '.2f';
-//             var maxVal = Math.max(...tsValues);
-//             var minVal = Math.min(...tsValues);
-//             var diff = Math.abs(maxVal-minVal);
-//             if (diff< 0.01) {
-//                 yformat = '.2e';
-//             }
+            // var tsDates = lines[0].split(',');
+            // var tsValues = JSON.parse(lines[1]);
+            // var lonValues = lines[2];
+            // var latValues = lines[3];
+            // var tsUnit = lines[4];
+
+            var yformat = '.2f';
+            var maxVal = Math.max(...tsValues);
+            var minVal = Math.min(...tsValues);
+            var diff = Math.abs(maxVal-minVal);
+            if (diff< 0.01) {
+                yformat = '.2e';
+            }
             
-//             var parsedTS = {tsDates:tsDates, 
-//                 tsValues:tsValues,
-//                 lonValues:lonValues,
-//                 latValues:latValues,
-//                 tsUnit:tsUnit,
-//                 yformat:yformat}
+            var parsedTS = {
+                tsDates:tsDates, 
+                tsValues:tsValues,
+                lonValues:lonValues,
+                latValues:latValues,
+                tsUnit:tsUnit,
+                tsVarname:tsVarname,
+                yformat:yformat
+            }
 
-//             return parsedTS
+            return parsedTS
 
-//         })
-//         .catch(error => {
-//             // Handle errors here
-//             console.error('Fetch time series error:', error);
-//         });
-// }
+        })
+        .catch(error => {
+            // Handle errors here
+            console.error('Fetch time series error:', error);
+        });
+}
 
 
-// function getIndex(indexID) {
-//     var var2TS = $(indexID).val();
-//     var ajaxGet = "/cgi-bin/cefi_portal/mom_get_index.py"
-//         +"?variable="+var2TS
-//         +"&region="+$("#regMOMCobalt").val()
+function getIndex(fileLocation) {
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_extract_index.py"
+        +"?file="+fileLocation
 
-//     // console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+    console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
-//     return fetch(ajaxGet)
-//         .then(response => {
-//             if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//             }
-//             return response.text();
-//         })
-//         .then(data => {
-//             // Process the response data here
-//             var lines = data.split('\n');
-//             var num_ts = lines[0]
+    return fetch(ajaxGet)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(jsonData => {
+            var tsDates = jsonData.dates
+            var tsValues = jsonData.data
+            var tsVarname = jsonData.varname
+            var tsUnits = jsonData.unit
 
-//             var tsDates = new Array();
-//             var tsValues = new Array();
-//             var tsUnit = new Array();
-//             var tsName = new Array();
-//             var yformat = new Array();
-//             const numInfo = 4
-//             for (let i = 0; i < num_ts; i++) {
-//                 tsDates.push(lines[1+i*numInfo].split(','));
-//                 tsValues.push(JSON.parse(lines[2+i*numInfo]));
-//                 tsUnit.push(lines[3+i*numInfo]);
-//                 tsName.push(lines[4+i*numInfo]);
-//                 yformat.push('.2f');
-//             }
+            // // Process the response data here
+            // var lines = data.split('\n');
+
+            // var tsDates = lines[0].split(',');
+            // var tsValues = JSON.parse(lines[1]);
+            // var lonValues = lines[2];
+            // var latValues = lines[3];
+            // var tsUnit = lines[4];
+
+            var yformat = '.2f';
+            var maxVal = Math.max(...tsValues);
+            var minVal = Math.min(...tsValues);
+            var diff = Math.abs(maxVal-minVal);
+            if (diff< 0.01) {
+                yformat = '.2e';
+            }
             
-//             // var tsDates = lines[0].split(',');
-//             // var tsValues = JSON.parse(lines[1]);
-//             // var tsUnit = lines[2];
+            var parsedTS = {
+                tsDates:tsDates, 
+                tsValues:tsValues,
+                tsVarname:tsVarname,
+                tsUnits:tsUnits,
+                yformat:yformat
+            }
 
-//             // var yformat = '.2f';
-//             // var maxVal = Math.max(...tsValues);
-//             // var minVal = Math.min(...tsValues);
-//             // var diff = Math.abs(maxVal-minVal);
-//             // if (diff< 0.01) {
-//             //     yformat = '.2e';
-//             // }
-            
-//             var parsedTS = {
-//                 tsDates:tsDates, 
-//                 tsValues:tsValues,
-//                 tsUnit:tsUnit,
-//                 tsName:tsName,
-//                 yformat:yformat}
-
-//             return parsedTS
-
-//         })
-//         .catch(error => {
-//             // Handle errors here
-//             console.error('Fetch time series error:', error);
-//         });
-// }
+            return parsedTS
+        })
+        .catch(error => {
+            // Handle errors here
+            console.error('Fetch indexes error:', error);
+        });
+}
 
 
-// // function for adding time series to the existing plotly time series plot
-// function plotlyIndexAdd(tsDates,tsValues,tsName) {
-//     // var trace2Color = "rgb(246, 153, 92)"
-//     // console.log('addTS')
+// function for adding time series to the existing plotly time series plot
+function plotlyIndexAdd(tsDates,tsValues,tsName) {
+    // var trace2Color = "rgb(246, 153, 92)"
+    // console.log('addTS')
 
-//     var trace = {
-//         x: tsDates,
-//         y: tsValues,
-//         type: 'scatter',
-//         mode: 'lines+markers',
-//         marker: { size: 2 },
-//         // line: { shape: 'linear',color: trace2Color },
-//         name: tsName,
-//     };
+    var trace = {
+        x: tsDates,
+        y: tsValues,
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { size: 2 },
+        // line: { shape: 'linear',color: trace2Color },
+        name: tsName,
+    };
 
-//     Plotly.addTraces('plotly-index', trace);
+    Plotly.addTraces('plotly-index', trace);
 
-//     // var arr1 = document.getElementById('plotly-time-series').data[0].y
-//     // var arr2 = document.getElementById('plotly-time-series').data[1].y
-//     // var corr = calculateCorrelation(arr1, arr2)
+    // var arr1 = document.getElementById('plotly-time-series').data[0].y
+    // var arr2 = document.getElementById('plotly-time-series').data[1].y
+    // var corr = calculateCorrelation(arr1, arr2)
 
-//     // if (corr==='None') {
-//     //     corrText = 'None';
-//     // } else {
-//     //     corrText = corr.toFixed(2);
-//     // }
+    // if (corr==='None') {
+    //     corrText = 'None';
+    // } else {
+    //     corrText = corr.toFixed(2);
+    // }
 
-//     // var layout = {
-//     //     yaxis2: {
-//     //         overlaying: 'y',
-//     //         side: 'right',
-//     //         title: {
-//     //             text: varname2 + '(' + tsUnit + ')',
-//     //             standoff: 10,
-//     //             font: { color: trace2Color }
-//     //         },
-//     //         tickfont: { color: trace2Color }, 
-//     //         tickformat: yformat,
-//     //         tickmode: 'auto'
-//     //     },
-//     //     title:
-//     //         'Correlation: '+ corrText +
-//     //         ' @ (lon:'+parseFloat(lonValues).toFixed(2)+'E,'+
-//     //             'lat:'+parseFloat(latValues).toFixed(2)+'N)',
-//     // };
+    // var layout = {
+    //     yaxis2: {
+    //         overlaying: 'y',
+    //         side: 'right',
+    //         title: {
+    //             text: var2Value + '(' + tsUnit + ')',
+    //             standoff: 10,
+    //             font: { color: trace2Color }
+    //         },
+    //         tickfont: { color: trace2Color }, 
+    //         tickformat: yformat,
+    //         tickmode: 'auto'
+    //     },
+    //     title:
+    //         'Correlation: '+ corrText +
+    //         ' @ (lon:'+parseFloat(lonValues).toFixed(2)+'E,'+
+    //             'lat:'+parseFloat(latValues).toFixed(2)+'N)',
+    // };
 
-//     // Plotly.update('plotly-index', {}, layout);
+    // Plotly.update('plotly-index', {}, layout);
 
-// };
+};
 
-// // function for creating the plotly time series
-// function plotlyIndex(tsDates,tsValues,tsUnit,yformat,tsName,indexName) {
-//     var trace1Color = "rgba(81, 130, 155, 1)"
-//     // console.log('oriTS')
-//     var trace = {
-//         x: tsDates,
-//         y: tsValues,
-//         type: 'scatter',
-//         mode: 'lines+markers',
-//         marker: { size: 2 },
-//         line: { shape: 'linear',color: trace1Color },
-//         // name: statFoliumMap+' time series',
-//         name: tsName
-//     };
+// function for creating the plotly time series
+function plotlyIndex(tsDates,tsValues,tsUnit,yformat,tsName,indexName) {
+    var trace1Color = "rgba(81, 130, 155, 1)"
+    // console.log('oriTS')
+    var trace = {
+        x: tsDates,
+        y: tsValues,
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { size: 2 },
+        line: { shape: 'linear',color: trace1Color },
+        // name: statFoliumMap+' time series',
+        name: tsName
+    };
 
-//     var data = [trace];
+    var data = [trace];
 
-//     var layout = {
-//         hovermode: 'closest',
-//         showlegend: true,
-//         title: indexName,
-//         legend: {x: 0, y: 1.1},
-//         // autosize: true,
-//         annotations: [{
-//             x: 0,
-//             y: 0,
-//             xref: 'paper',
-//             yref: 'paper',
-//             text: 'Source: NOAA CEFI data portal',
-//             showarrow: false
-//          }],
-//         //  width: 1000,
-//         //  height: 400,
-//         margin: {
-//             l: 80,
-//             r: 80,
-//             b: 80,
-//             t: 100,
-//             // pad: 4
-//           },
-//         xaxis: {
-//             title: 'Date'
-//         },
-//         yaxis: {
-//             title: {
-//                 text: indexName + '(' + tsUnit + ')',
-//                 standoff: 10,
-//                 // font: { color: trace1Color }
-//             },
-//             // tickfont: { color: trace1Color },
-//             tickformat: yformat,
-//             tickmode: 'auto'
-//         },
-//         modebar: {
-//             remove: ["autoScale2d", "autoscale" ]
-//         },
-//         dragmode: "select"
-//         // responsive: true
-//     };
-//     var config = {responsive: true}
-//     Plotly.newPlot('plotly-index', data, layout, config);
+    var layout = {
+        hovermode: 'closest',
+        showlegend: true,
+        title: indexName,
+        legend: {x: 0, y: 1.1},
+        // autosize: true,
+        annotations: [{
+            x: 0,
+            y: 0,
+            xref: 'paper',
+            yref: 'paper',
+            text: 'Source: NOAA CEFI data portal',
+            showarrow: false
+         }],
+         width: 1000,
+         height: 400,
+        margin: {
+            l: 80,
+            r: 80,
+            b: 80,
+            t: 100,
+            // pad: 4
+          },
+        xaxis: {
+            title: 'Date'
+        },
+        yaxis: {
+            title: {
+                text: indexName + '(' + tsUnit + ')',
+                standoff: 10,
+                // font: { color: trace1Color }
+            },
+            // tickfont: { color: trace1Color },
+            tickformat: yformat,
+            tickmode: 'auto'
+        },
+        modebar: {
+            remove: ["autoScale2d", "autoscale" ]
+        },
+        dragmode: "select"
+        // responsive: true
+    };
+    var config = {responsive: true}
+    Plotly.newPlot('plotly-index', data, layout, config);
 
-// };
+};
 
 
-// // function for creating the plotly Transect line at the surface
-// function plotlyTransectLine(plotlyID,parsedTran) {
+// function for creating the plotly Transect line at the surface
+function plotlyTransectLine(plotlyID,parsedTran) {
 
-//     var yformat = '.2f';
-//     var maxVal = Math.max(...parsedTran.tranValues[0]);
-//     var minVal = Math.min(...parsedTran.tranValues[0]);
-//     var diff = Math.abs(maxVal-minVal);
-//     if (diff< 0.01) {
-//         yformat = '.2e';
-//     }
+    var yformat = '.2f';
+    var maxVal = Math.max(...parsedTran.tranValues[0]);
+    var minVal = Math.min(...parsedTran.tranValues[0]);
+    var diff = Math.abs(maxVal-minVal);
+    if (diff< 0.01) {
+        yformat = '.2e';
+    }
 
-//     var trace1Color = "rgba(113, 29, 176, 0.7)"
-//     var trace = {
-//         x: parsedTran.tranLonLat,
-//         y: parsedTran.tranValues[0],
-//         type: 'scatter',
-//         mode: 'lines+markers',
-//         marker: { size: 2 },
-//         line: { shape: 'linear',color: trace1Color },
-//         // name: statFoliumMap+' time series',
-//         name: varname
-//     };
+    var trace1Color = "rgba(113, 29, 176, 0.7)"
+    var trace = {
+        x: parsedTran.tranLonLat,
+        y: parsedTran.tranValues[0],
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { size: 2 },
+        line: { shape: 'linear',color: trace1Color },
+        // name: statFoliumMap+' time series',
+        name: varValue
+    };
 
-//     var data = [trace];
+    var data = [trace];
 
-//     var layout = {
-//         hovermode: 'closest',
-//         showlegend: false,
-//         title:
-//             varname +' '+ statFoliumMap +
-//             '<br> along the PolyLine',
-//         //   autosize: true,
-//         annotations: [{
-//             x: 0,
-//             y: 0,
-//             xref: 'paper',
-//             yref: 'paper',
-//             text: 'Source: NOAA CEFI data portal',
-//             showarrow: false
-//          }],
-//         //  width: 1000,
-//         //  height: 400,
-//          margin: {
-//             l: 80,
-//             r: 80,
-//             b: 80,
-//             t: 100,
-//             // pad: 4
-//           },
-//         xaxis: {
-//             title: {
-//                 text: "Point# (from line start)",
-//                 standoff: 10
-//             },
-//             tickmode: 'auto',
-//         },
-//         yaxis: {
-//             title: {
-//                 text: varname + '(' + parsedTran.tranUnit + ')',
-//                 standoff: 10,
-//                 font: { color: trace1Color }
-//             },
-//             tickfont: { color: trace1Color },
-//             tickformat: yformat,
-//             tickmode: 'auto'
-//         },
-//         modebar: {
-//             remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
-//         },
-//         dragmode: "zoom"
-//         // responsive: true
-//     };
-//     var config = {responsive: true}
-//     Plotly.newPlot(plotlyID, data, layout, config);
-// };
+    var layout = {
+        hovermode: 'closest',
+        showlegend: false,
+        title:
+            varValue +' '+ statFoliumMap +
+            '<br> along the PolyLine',
+        //   autosize: true,
+        annotations: [{
+            x: 0,
+            y: 0,
+            xref: 'paper',
+            yref: 'paper',
+            text: 'Source: NOAA CEFI data portal',
+            showarrow: false
+         }],
+        //  width: 1000,
+        //  height: 400,
+         margin: {
+            l: 80,
+            r: 80,
+            b: 80,
+            t: 100,
+            // pad: 4
+          },
+        xaxis: {
+            title: {
+                text: "Point# (from line start)",
+                standoff: 10
+            },
+            tickmode: 'auto',
+        },
+        yaxis: {
+            title: {
+                text: varValue + '(' + parsedTran.tranUnit + ')',
+                standoff: 10,
+                font: { color: trace1Color }
+            },
+            tickfont: { color: trace1Color },
+            tickformat: yformat,
+            tickmode: 'auto'
+        },
+        modebar: {
+            remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
+        },
+        dragmode: "zoom"
+        // responsive: true
+    };
+    var config = {responsive: true}
+    Plotly.newPlot(plotlyID, data, layout, config);
+};
 
 // // function for creating the plotly contour transect
 // function plotlyContour(plotlyID,parsedTran) {
@@ -1845,491 +1916,491 @@ function replaceFolium() {
 
 
 
-// // function for creating the plotly vertical profile
-// function plotlyVP(varDepth,varValues,lonValues,latValues,varUnit,varformat,plotlyID,vpname,trace1Color) {
-//     var trace = {
-//         x: varValues,
-//         y: varDepth,
-//         type: 'scatter',
-//         mode: 'lines+markers',
-//         marker: { size: 2 },
-//         line: { shape: 'linear',color: trace1Color },
-//         name: vpname
-//     };
+// function for creating the plotly vertical profile
+function plotlyVP(varDepth,varValues,lonValues,latValues,varUnit,varformat,plotlyID,vpname,trace1Color) {
+    var trace = {
+        x: varValues,
+        y: varDepth,
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { size: 2 },
+        line: { shape: 'linear',color: trace1Color },
+        name: vpname
+    };
 
-//     var data = [trace];
+    var data = [trace];
 
-//     var layout = {
-//         hovermode: 'closest',
-//         showlegend: false,
-//         title:
-//             vpname +' '+ statFoliumMap +
-//             '<br> @ (lat:'+parseFloat(latValues).toFixed(2)+'N,'+
-//                 'lon:'+parseFloat(lonValues).toFixed(2)+'E)',
-//         //   autosize: true,
-//         annotations: [{
-//             x: 0,
-//             y: 0,
-//             xref: 'paper',
-//             yref: 'paper',
-//             text: 'Source: NOAA CEFI data portal',
-//             showarrow: false
-//          }],
-//         //  width: 500,
-//         //  height: 400,
-//          margin: {
-//             l: 80,
-//             r: 80,
-//             b: 80,
-//             t: 100,
-//             // pad: 4
-//           },
-//         yaxis: {
-//             title: 'Depth (m)',
-//             autorange: 'reversed'
-//         },
-//         xaxis: {
-//             title: {
-//                 text: vpname + '(' + varUnit + ')',
-//                 standoff: 10,
-//                 font: { color: trace1Color }
-//             },
-//             tickfont: { color: trace1Color },
-//             tickformat: varformat,
-//             tickmode: 'auto'
-//         },
-//         modebar: {
-//             remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
-//         },
-//         // dragmode: "select"
-//         // responsive: true
-//     };
-//     var config = {responsive: true}
+    var layout = {
+        hovermode: 'closest',
+        showlegend: false,
+        title:
+            vpname +' '+ statFoliumMap +
+            '<br> @ (lat:'+parseFloat(latValues).toFixed(2)+'N,'+
+                'lon:'+parseFloat(lonValues).toFixed(2)+'E)',
+        //   autosize: true,
+        annotations: [{
+            x: 0,
+            y: 0,
+            xref: 'paper',
+            yref: 'paper',
+            text: 'Source: NOAA CEFI data portal',
+            showarrow: false
+         }],
+        //  width: 500,
+        //  height: 400,
+         margin: {
+            l: 80,
+            r: 80,
+            b: 80,
+            t: 100,
+            // pad: 4
+          },
+        yaxis: {
+            title: 'Depth (m)',
+            autorange: 'reversed'
+        },
+        xaxis: {
+            title: {
+                text: vpname + '(' + varUnit + ')',
+                standoff: 10,
+                font: { color: trace1Color }
+            },
+            tickfont: { color: trace1Color },
+            tickformat: varformat,
+            tickmode: 'auto'
+        },
+        modebar: {
+            remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
+        },
+        // dragmode: "select"
+        // responsive: true
+    };
+    var config = {responsive: true}
 
-//     Plotly.newPlot(plotlyID, data, layout, config);
+    Plotly.newPlot(plotlyID, data, layout, config);
 
-//     // document.getElementById('plotly-time-series').on('plotly_selected', function(eventData) {
-//     //     // console.log(eventData.points)
-//     //     var selectTSValue1 = []
-//     //     for (let i = 0; i < eventData.points.length; i++) {
-//     //         if (eventData.points[i].curveNumber === 0) {
-//     //             selectTSValue1.push(eventData.points[i].y)
-//     //         } 
-//     //     }
-//     //     // console.log(selectTSValue)
-//     //     plotlyBox(selectTSValue1,yformat)
-//     //     plotlyHist(selectTSValue1,tsUnit,yformat)
+    // document.getElementById('plotly-time-series').on('plotly_selected', function(eventData) {
+    //     // console.log(eventData.points)
+    //     var selectTSValue1 = []
+    //     for (let i = 0; i < eventData.points.length; i++) {
+    //         if (eventData.points[i].curveNumber === 0) {
+    //             selectTSValue1.push(eventData.points[i].y)
+    //         } 
+    //     }
+    //     // console.log(selectTSValue)
+    //     plotlyBox(selectTSValue1,yformat)
+    //     plotlyHist(selectTSValue1,tsUnit,yformat)
 
-//     // });
-// };
+    // });
+};
 
 
-// // function for adding time series to the existing plotly time series plot
-// function plotlyTSadd(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
-//     var trace2Color = "rgb(239, 64, 64)"
-//     // console.log('addTS')
+// function for adding time series to the existing plotly time series plot
+function plotlyTSadd(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
+    var trace2Color = "rgb(239, 64, 64)"
+    // console.log('addTS')
 
-//     if (document.getElementById('plotly-time-series').data.length===2) {
-//         Plotly.deleteTraces(document.getElementById('plotly-time-series'), 1);
-//     }
+    if (document.getElementById('plotly-time-series').data.length===2) {
+        Plotly.deleteTraces(document.getElementById('plotly-time-series'), 1);
+    }
 
-//     var trace = {
-//         x: tsDates,
-//         y: tsValues,
-//         type: 'scatter',
-//         mode: 'lines+markers',
-//         marker: { size: 2 },
-//         line: { shape: 'linear',color: trace2Color },
-//         name: varname2,
-//         yaxis: 'y2'
-//     };
+    var trace = {
+        x: tsDates,
+        y: tsValues,
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { size: 2 },
+        line: { shape: 'linear',color: trace2Color },
+        name: var2Value,
+        yaxis: 'y2'
+    };
 
-//     Plotly.addTraces('plotly-time-series', trace);
+    Plotly.addTraces('plotly-time-series', trace);
 
-//     var arr1 = document.getElementById('plotly-time-series').data[0].y
-//     var arr2 = document.getElementById('plotly-time-series').data[1].y
-//     var corr = calculateCorrelation(arr1, arr2)
+    var arr1 = document.getElementById('plotly-time-series').data[0].y
+    var arr2 = document.getElementById('plotly-time-series').data[1].y
+    var corr = calculateCorrelation(arr1, arr2)
 
-//     if (corr==='None') {
-//         corrText = 'None';
-//     } else {
-//         corrText = corr.toFixed(2);
-//     }
+    if (corr==='None') {
+        corrText = 'None';
+    } else {
+        corrText = corr.toFixed(2);
+    }
 
-//     var layout = {
-//         yaxis2: {
-//             overlaying: 'y',
-//             side: 'right',
-//             title: {
-//                 text: varname2 + '(' + tsUnit + ')',
-//                 standoff: 10,
-//                 font: { color: trace2Color }
-//             },
-//             tickfont: { color: trace2Color }, 
-//             tickformat: yformat,
-//             tickmode: 'auto'
-//         },
-//         title:
-//             'Correlation: '+ corrText +
-//             ' @ (lat:'+parseFloat(latValues).toFixed(2)+'N,'+
-//                 'lon:'+parseFloat(lonValues).toFixed(2)+'E)',
-//     };
+    var layout = {
+        yaxis2: {
+            overlaying: 'y',
+            side: 'right',
+            title: {
+                text: var2Value + '(' + tsUnit + ')',
+                standoff: 10,
+                font: { color: trace2Color }
+            },
+            tickfont: { color: trace2Color }, 
+            tickformat: yformat,
+            tickmode: 'auto'
+        },
+        title:
+            'Correlation: '+ corrText +
+            ' @ (lat:'+parseFloat(latValues).toFixed(2)+'N,'+
+                'lon:'+parseFloat(lonValues).toFixed(2)+'E)',
+    };
 
-//     Plotly.update('plotly-time-series', {}, layout);
+    Plotly.update('plotly-time-series', {}, layout);
 
-//     document.getElementById('plotly-time-series').on('plotly_selected', function(eventData) {
-//         // console.log(eventData.points)
-//         var selectTSValue2 = []
-//         for (let i = 0; i < eventData.points.length; i++) {
-//             if (eventData.points[i].curveNumber === 1) {
-//                 selectTSValue2.push(eventData.points[i].y)
-//             } 
-//         }
+    document.getElementById('plotly-time-series').on('plotly_selected', function(eventData) {
+        // console.log(eventData.points)
+        var selectTSValue2 = []
+        for (let i = 0; i < eventData.points.length; i++) {
+            if (eventData.points[i].curveNumber === 1) {
+                selectTSValue2.push(eventData.points[i].y)
+            } 
+        }
 
-//         plotlyBoxadd(selectTSValue2,yformat)
-//         plotlyHistadd(selectTSValue2,tsUnit,yformat)
+        plotlyBoxadd(selectTSValue2,yformat)
+        plotlyHistadd(selectTSValue2,tsUnit,yformat)
         
-//     });
+    });
 
-// };
+};
 
-// // function for creating the plotly time series
-// function plotlyTS(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
-//     var trace1Color = "rgba(113, 29, 176, 0.7)"
-//     // console.log('oriTS')
-//     var trace = {
-//         x: tsDates,
-//         y: tsValues,
-//         type: 'scatter',
-//         mode: 'lines+markers',
-//         marker: { size: 2 },
-//         line: { shape: 'linear',color: trace1Color },
-//         // name: statFoliumMap+' time series',
-//         name: varname
-//     };
+// function for creating the plotly time series
+function plotlyTS(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
+    var trace1Color = "rgba(113, 29, 176, 0.7)"
+    // console.log('oriTS')
+    var trace = {
+        x: tsDates,
+        y: tsValues,
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { size: 2 },
+        line: { shape: 'linear',color: trace1Color },
+        // name: statFoliumMap+' time series',
+        name: varValue
+    };
 
-//     var data = [trace];
+    var data = [trace];
 
-//     var layout = {
-//         hovermode: 'closest',
-//         showlegend: false,
-//         title:
-//             varname +' '+ statFoliumMap +'<br>'+
-//             '(lat:'+parseFloat(latValues).toFixed(2)+'N,'+
-//             'lon:'+parseFloat(lonValues).toFixed(2)+'E)',
-//         //   autosize: true,
-//         annotations: [{
-//             x: 0,
-//             y: 0,
-//             xref: 'paper',
-//             yref: 'paper',
-//             text: 'Source: NOAA CEFI data portal',
-//             showarrow: false
-//          }],
-//         //  width: 550,
-//         //  height: 400,
-//          margin: {
-//             l: 80,
-//             r: 80,
-//             b: 80,
-//             t: 100,
-//             // pad: 4
-//           },
-//         xaxis: {
-//             title: 'Date'
-//         },
-//         yaxis: {
-//             title: {
-//                 text: varname + '(' + tsUnit + ')',
-//                 standoff: 10,
-//                 font: { color: trace1Color }
-//             },
-//             tickfont: { color: trace1Color },
-//             tickformat: yformat,
-//             tickmode: 'auto'
-//         },
-//         modebar: {
-//             remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
-//         },
-//         dragmode: "select"
-//         // responsive: true
-//     };
-//     var config = {responsive: true}
+    var layout = {
+        hovermode: 'closest',
+        showlegend: false,
+        title:
+            varValue +' '+ statFoliumMap +'<br>'+
+            '(lat:'+parseFloat(latValues).toFixed(2)+'N,'+
+            'lon:'+parseFloat(lonValues).toFixed(2)+'E)',
+        autosize: true,
+        annotations: [{
+            x: 0,
+            y: 0,
+            xref: 'paper',
+            yref: 'paper',
+            text: 'Source: NOAA CEFI data portal',
+            showarrow: false
+         }],
+         width: 550,
+         height: 400,
+         margin: {
+            l: 80,
+            r: 80,
+            b: 80,
+            t: 100,
+            // pad: 4
+          },
+        xaxis: {
+            title: 'Date'
+        },
+        yaxis: {
+            title: {
+                text: varValue + '(' + tsUnit + ')',
+                standoff: 10,
+                font: { color: trace1Color }
+            },
+            tickfont: { color: trace1Color },
+            tickformat: yformat,
+            tickmode: 'auto'
+        },
+        modebar: {
+            remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
+        },
+        dragmode: "select"
+        // responsive: true
+    };
+    var config = {responsive: true}
 
-//     Plotly.newPlot('plotly-time-series', data, layout,config);
+    Plotly.newPlot('plotly-time-series', data, layout,config);
 
-//     document.getElementById('plotly-time-series').on('plotly_selected', function(eventData) {
-//         // console.log(eventData.points)
-//         var selectTSValue1 = []
-//         for (let i = 0; i < eventData.points.length; i++) {
-//             if (eventData.points[i].curveNumber === 0) {
-//                 selectTSValue1.push(eventData.points[i].y)
-//             } 
-//         }
-//         // console.log(selectTSValue)
-//         plotlyBox(selectTSValue1,yformat)
-//         plotlyHist(selectTSValue1,tsUnit,yformat)
+    document.getElementById('plotly-time-series').on('plotly_selected', function(eventData) {
+        // console.log(eventData.points)
+        var selectTSValue1 = []
+        for (let i = 0; i < eventData.points.length; i++) {
+            if (eventData.points[i].curveNumber === 0) {
+                selectTSValue1.push(eventData.points[i].y)
+            } 
+        }
+        // console.log(selectTSValue)
+        plotlyBox(selectTSValue1,yformat)
+        plotlyHist(selectTSValue1,tsUnit,yformat)
 
-//     });
-// };
+    });
+};
 
-// // function to add trace to existing plotly box plot
-// function plotlyBoxadd(tsValues,yformat) {
-//     var trace2Color = "rgb(239, 64, 64)"
+// function to add trace to existing plotly box plot
+function plotlyBoxadd(tsValues,yformat) {
+    var trace2Color = "rgb(239, 64, 64)"
 
-//     if (document.getElementById('plotly-box-plot').data.length===2) {
-//         Plotly.deleteTraces(document.getElementById('plotly-box-plot'), 1);
-//     }
+    if (document.getElementById('plotly-box-plot').data.length===2) {
+        Plotly.deleteTraces(document.getElementById('plotly-box-plot'), 1);
+    }
 
-//     var trace2 = {
-//         y: tsValues,
-//         yaxis: 'y2',
-//         name: varname2,
-//         boxpoints: false,
-//         // jitter: 0.3,
-//         // pointpos: -1.8,
-//         type: 'box',
-//         boxmean: 'sd',
-//         marker: {
-//             color: trace2Color,
-//             outliercolor: 'rgba(219, 64, 82, 0.6)',
-//             line: {
-//               outliercolor: 'rgba(219, 64, 82, 1.0)',
-//               outlierwidth: 2
-//             }
-//         },
-//         hoverinfo: 'y'
-//     };
+    var trace2 = {
+        y: tsValues,
+        yaxis: 'y2',
+        name: var2Value,
+        boxpoints: false,
+        // jitter: 0.3,
+        // pointpos: -1.8,
+        type: 'box',
+        boxmean: 'sd',
+        marker: {
+            color: trace2Color,
+            outliercolor: 'rgba(219, 64, 82, 0.6)',
+            line: {
+              outliercolor: 'rgba(219, 64, 82, 1.0)',
+              outlierwidth: 2
+            }
+        },
+        hoverinfo: 'y'
+    };
 
-//     Plotly.addTraces('plotly-box-plot', trace2);
+    Plotly.addTraces('plotly-box-plot', trace2);
 
-//     var layout2 = {
-//         yaxis2: {
-//             overlaying: 'y',
-//             side: 'right',
-//             tickformat: yformat,
-//             tickmode: 'auto',
-//             tickfont: { color: trace2Color }, 
-//             title: {
-//                 // standoff: 10,
-//                 font: { color: trace2Color }
-//             }
-//         }
-//     };
-//     Plotly.update('plotly-box-plot', {}, layout2);
+    var layout2 = {
+        yaxis2: {
+            overlaying: 'y',
+            side: 'right',
+            tickformat: yformat,
+            tickmode: 'auto',
+            tickfont: { color: trace2Color }, 
+            title: {
+                // standoff: 10,
+                font: { color: trace2Color }
+            }
+        }
+    };
+    Plotly.update('plotly-box-plot', {}, layout2);
 
-// };
+};
 
-// // function to plot plotly box plot
-// function plotlyBox(tsValues,yformat) {
-//     var trace1Color = "rgba(113, 29, 176, 0.7)"
+// function to plot plotly box plot
+function plotlyBox(tsValues,yformat) {
+    var trace1Color = "rgba(113, 29, 176, 0.7)"
 
-//     var trace1 = {
-//         y: tsValues,
-//         name: varname,
-//         boxpoints: false,
-//         // jitter: 0.3,
-//         // pointpos: -1.8,
-//         type: 'box',
-//         boxmean: 'sd',
-//         marker: {
-//             color: trace1Color,
-//             outliercolor: 'rgba(219, 64, 82, 0.6)',
-//             line: {
-//               outliercolor: 'rgba(219, 64, 82, 1.0)',
-//               outlierwidth: 2
-//             }
-//         },
-//         hoverinfo: 'y'
-//     };
+    var trace1 = {
+        y: tsValues,
+        name: varValue,
+        boxpoints: false,
+        // jitter: 0.3,
+        // pointpos: -1.8,
+        type: 'box',
+        boxmean: 'sd',
+        marker: {
+            color: trace1Color,
+            outliercolor: 'rgba(219, 64, 82, 0.6)',
+            line: {
+              outliercolor: 'rgba(219, 64, 82, 1.0)',
+              outlierwidth: 2
+            }
+        },
+        hoverinfo: 'y'
+    };
 
-//     var data1 = [trace1];
+    var data1 = [trace1];
 
-//     var layout1 = {
-//         hovermode: 'closest',
-//         showlegend: false,
-//         showxaxis: false,
-//         title: 'Box Plot',
-//         yaxis: {
-//             tickformat: yformat,
-//             tickmode: 'auto',
-//             tickfont: { color: trace1Color },
-//             title: {
-//                 // standoff: 10,
-//                 font: { color: trace1Color }
-//             }
-//         },
-//         xaxis: {
-//             visible: false
-//         },
-//         // responsive: true,
-//         margin: {
-//             l: 50,
-//             r: 50,
-//             b: 80,
-//             t: 100,
-//             // pad: 4
-//           },
-//         width: 250,
-//         height: 400,
-//         modebar: {
-//             remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
-//         },
-//         dragmode: "pan"
-//     };
+    var layout1 = {
+        hovermode: 'closest',
+        showlegend: false,
+        showxaxis: false,
+        title: 'Box Plot',
+        yaxis: {
+            tickformat: yformat,
+            tickmode: 'auto',
+            tickfont: { color: trace1Color },
+            title: {
+                // standoff: 10,
+                font: { color: trace1Color }
+            }
+        },
+        xaxis: {
+            visible: false
+        },
+        // responsive: true,
+        margin: {
+            l: 50,
+            r: 50,
+            b: 80,
+            t: 100,
+            // pad: 4
+          },
+        width: 250,
+        height: 400,
+        modebar: {
+            remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
+        },
+        dragmode: "pan"
+    };
 
-//     Plotly.newPlot('plotly-box-plot', data1, layout1);
+    Plotly.newPlot('plotly-box-plot', data1, layout1);
 
-// };
-
-
-// // function to plot plotly histogram
-// function plotlyHistadd(tsValues,tsUnit,yformat) {
-//     var trace2Color = "rgba(239, 64, 64, 0.7)"
-//     var trace2 = {
-//         y: tsValues,
-//         yaxis: 'y2',
-//         name: varname2,
-//         autobinx: true, 
-//         histnorm: "count", 
-//         marker: {
-//           color: "rgba(255, 255, 255, 0)", 
-//            line: {
-//             color:  trace2Color, 
-//             width: 4
-//           }
-//         },  
-//         // opacity: 0.5, 
-//         type: "histogram", 
-//         // xbins: {
-//         //   end: 2.8, 
-//         //   size: 0.06, 
-//         //   start: .5
-//         // },
-//     };
-//     Plotly.addTraces('plotly-histogram', trace2);
-
-//     var layout2 = {
-//         hovermode: 'closest',
-//         showlegend: false,
-//         // responsive: true,
-//         title: 'Histogram',
-//         yaxis2: {
-//             overlaying: 'y',
-//             side: 'right',
-//             title: {
-//                 // text: varname + '(' + tsUnit + ')',
-//                 font: { color: trace2Color }
-//             },
-//             tickfont: { color: trace2Color }, 
-//             tickformat: yformat,
-//             tickmode: 'auto'
-//         },
-//     };
-//     Plotly.update('plotly-histogram', {}, layout2);
-
-// };
+};
 
 
-// // function to plot plotly histogram
-// function plotlyHist(tsValues,tsUnit,yformat) {
-//     // var trace1Color = "rgb(239, 64, 64)"
-//     var trace1Color = "rgba(113, 29, 176, 0.7)"
-//     var trace1 = {
-//         y: tsValues,
-//         name: varname,
-//         autobinx: true, 
-//         histnorm: "count", 
-//         marker: {
-//         //   color: "rgba(255, 167, 50, 0.7)", 
-//            color: trace1Color,
-//            line: {
-//             // color:  "rgba(255, 167, 50, 1)", 
-//             color: trace1Color,
-//             width: 1
-//           }
-//         },  
-//         // opacity: 0.5, 
-//         type: "histogram", 
-//         // xbins: {
-//         //   end: 2.8, 
-//         //   size: 0.06, 
-//         //   start: .5
-//         // },
-//     };
+// function to plot plotly histogram
+function plotlyHistadd(tsValues,tsUnit,yformat) {
+    var trace2Color = "rgba(239, 64, 64, 0.7)"
+    var trace2 = {
+        y: tsValues,
+        yaxis: 'y2',
+        name: var2Value,
+        autobinx: true, 
+        histnorm: "count", 
+        marker: {
+          color: "rgba(255, 255, 255, 0)", 
+           line: {
+            color:  trace2Color, 
+            width: 4
+          }
+        },  
+        // opacity: 0.5, 
+        type: "histogram", 
+        // xbins: {
+        //   end: 2.8, 
+        //   size: 0.06, 
+        //   start: .5
+        // },
+    };
+    Plotly.addTraces('plotly-histogram', trace2);
 
-//     var data1 = [trace1];
+    var layout2 = {
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true,
+        title: 'Histogram',
+        yaxis2: {
+            overlaying: 'y',
+            side: 'right',
+            title: {
+                // text: varValue + '(' + tsUnit + ')',
+                font: { color: trace2Color }
+            },
+            tickfont: { color: trace2Color }, 
+            tickformat: yformat,
+            tickmode: 'auto'
+        },
+    };
+    Plotly.update('plotly-histogram', {}, layout2);
 
-//     var layout1 = {
-//         hovermode: 'closest',
-//         showlegend: false,
-//         // responsive: true,
-//         title: 'Histogram',
-//         yaxis: {
-//             title: {
-//                 // text: varname + '(' + tsUnit + ')',
-//                 font: { color: trace1Color }
-//             },
-//             tickformat: yformat,
-//             tickmode: 'auto',
-//             tickfont: { color: trace1Color }
-//         },
-//         xaxis: {
-//             title: 'Count'
-//         },
-//         width: 250,
-//         height: 400,
-//         margin: {
-//             l: 50,
-//             r: 50,
-//             b: 80,
-//             t: 100,
-//             // pad: 4
-//           },
-//         modebar: {
-//             remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", "select", "select2d", "lasso", "lasso2d",]
-//         },
-//         dragmode: "pan"
-//     };
+};
+
+
+// function to plot plotly histogram
+function plotlyHist(tsValues,tsUnit,yformat) {
+    // var trace1Color = "rgb(239, 64, 64)"
+    var trace1Color = "rgba(113, 29, 176, 0.7)"
+    var trace1 = {
+        y: tsValues,
+        name: varValue,
+        autobinx: true, 
+        histnorm: "count", 
+        marker: {
+        //   color: "rgba(255, 167, 50, 0.7)", 
+           color: trace1Color,
+           line: {
+            // color:  "rgba(255, 167, 50, 1)", 
+            color: trace1Color,
+            width: 1
+          }
+        },  
+        // opacity: 0.5, 
+        type: "histogram", 
+        // xbins: {
+        //   end: 2.8, 
+        //   size: 0.06, 
+        //   start: .5
+        // },
+    };
+
+    var data1 = [trace1];
+
+    var layout1 = {
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true,
+        title: 'Histogram',
+        yaxis: {
+            title: {
+                // text: varValue + '(' + tsUnit + ')',
+                font: { color: trace1Color }
+            },
+            tickformat: yformat,
+            tickmode: 'auto',
+            tickfont: { color: trace1Color }
+        },
+        xaxis: {
+            title: 'Count'
+        },
+        width: 250,
+        height: 400,
+        margin: {
+            l: 50,
+            r: 50,
+            b: 80,
+            t: 100,
+            // pad: 4
+          },
+        modebar: {
+            remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", "select", "select2d", "lasso", "lasso2d",]
+        },
+        dragmode: "pan"
+    };
    
-//     Plotly.newPlot('plotly-histogram', data1, layout1);
+    Plotly.newPlot('plotly-histogram', data1, layout1);
 
-// };
+};
 
 
-// // function for calculating the correlation in plotly TS plot
-// function calculateCorrelation(arr1, arr2) {
-//     if (arr1.length !== arr2.length) {
-//       console.log('Arrays must have the same length');
-//       return 'None'
-//     }
+// function for calculating the correlation in plotly TS plot
+function calculateCorrelation(arr1, arr2) {
+    if (arr1.length !== arr2.length) {
+      console.log('Arrays must have the same length');
+      return 'None'
+    }
   
-//     const n = arr1.length;
+    const n = arr1.length;
   
-//     // Calculate means
-//     const meanArr1 = arr1.reduce((acc, val) => acc + val, 0) / n;
-//     const meanArr2 = arr2.reduce((acc, val) => acc + val, 0) / n;
+    // Calculate means
+    const meanArr1 = arr1.reduce((acc, val) => acc + val, 0) / n;
+    const meanArr2 = arr2.reduce((acc, val) => acc + val, 0) / n;
   
-//     // Calculate covariance and standard deviations
-//     let covariance = 0;
-//     let stdDevArr1 = 0;
-//     let stdDevArr2 = 0;
+    // Calculate covariance and standard deviations
+    let covariance = 0;
+    let stdDevArr1 = 0;
+    let stdDevArr2 = 0;
   
-//     for (let i = 0; i < n; i++) {
-//       covariance += (arr1[i] - meanArr1) * (arr2[i] - meanArr2);
-//       stdDevArr1 += Math.pow(arr1[i] - meanArr1, 2);
-//       stdDevArr2 += Math.pow(arr2[i] - meanArr2, 2);
-//     }
+    for (let i = 0; i < n; i++) {
+      covariance += (arr1[i] - meanArr1) * (arr2[i] - meanArr2);
+      stdDevArr1 += Math.pow(arr1[i] - meanArr1, 2);
+      stdDevArr2 += Math.pow(arr2[i] - meanArr2, 2);
+    }
   
-//     covariance /= n;
-//     stdDevArr1 = Math.sqrt(stdDevArr1 / n);
-//     stdDevArr2 = Math.sqrt(stdDevArr2 / n);
+    covariance /= n;
+    stdDevArr1 = Math.sqrt(stdDevArr1 / n);
+    stdDevArr2 = Math.sqrt(stdDevArr2 / n);
   
-//     // Calculate correlation coefficient
-//     const correlation = covariance / (stdDevArr1 * stdDevArr2);
+    // Calculate correlation coefficient
+    const correlation = covariance / (stdDevArr1 * stdDevArr2);
   
-//     return correlation;
-//   }
+    return correlation;
+  }
 
 
 
@@ -2510,11 +2581,11 @@ function momCobaltRegs() {
 // }
 
 function momCobaltStats() {
-    statsOptionList = [
+    var statsOptionList = [
         'mean',
         'anomaly'
     ];
-    statsValueList = [
+    var statsValueList = [
         'mean',
         'anomaly'
     ]
@@ -2522,7 +2593,7 @@ function momCobaltStats() {
 }
 
 function colorbarOpt() {
-    colorOpt = [
+    var colorOpt = [
         'Accent', 'Accent_r', 'Blues', 'Blues_r', 'BrBG', 'BrBG_r', 'BuGn', 'BuGn_r', 
         'BuPu', 'BuPu_r', 'CMRmap', 'CMRmap_r', 'Dark2', 'Dark2_r', 'GnBu', 'GnBu_r', 
         'Greens', 'Greens_r', 'Greys', 'Greys_r', 'OrRd', 'OrRd_r', 'Oranges', 'Oranges_r', 
@@ -2543,9 +2614,9 @@ function colorbarOpt() {
         'spring', 'spring_r', 'summer', 'summer_r', 'tab10', 'tab10_r', 'tab20', 'tab20_r', 'tab20b', 
         'tab20b_r', 'tab20c', 'tab20c_r', 'terrain', 'terrain_r', 'turbo', 'turbo_r', 'twilight', 
         'twilight_r', 'twilight_shifted', 'twilight_shifted_r', 'winter', 'winter_r'
-    ]
-    exc_list = [
+    ];
+    var exc_list = [
         'flag', 'flag_r','prism', 'prism_r','cividis', 'cividis_r', 'coolwarm', 'coolwarm_r', 'copper', 'copper_r', 'magma', 'magma_r', 'seismic', 'seismic_r','viridis', 'viridis_r'
-    ]
+    ];
     return colorOpt
 }
