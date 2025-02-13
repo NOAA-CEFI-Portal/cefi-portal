@@ -210,10 +210,11 @@ if __name__ == '__main__':
             ) as json_file:
                 json_file.write(json_options)
 
-            # get all unique variable options in under all experiement_type
-            #  this is assuming under all experiement type there should be
+            # get all unique variable options in under same experiement_type
+            #  this is assuming under same experiement type there should be
             #  almost having the same variable options. if not the website
             #  will response with data not available
+            #   ex: different release will have the same variable list
             dict_var_opts = get_variable_options(dict_cefi_exp)
             json_var_options =json.dumps(dict_var_opts, indent=4)
 
