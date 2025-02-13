@@ -1,3 +1,5 @@
+import { optionList } from './hindcast.js';
+
 // setup local global variable (data structure and filenaming structure)
 var region;
 var subdomain;
@@ -88,7 +90,7 @@ async function createDataAccessExpType(reg,subDom){
     let elm = document.getElementById('expTypeDataQuery'); 
     let varJson = await fetchExperimentTypeOption(reg,subDom);
     let expTypeOptions = varJson.experiment_type;
-    let df = window.optionList(expTypeOptions,expTypeOptions);
+    let df = optionList(expTypeOptions,expTypeOptions);
     elm.appendChild(df);
 
 }
@@ -123,26 +125,26 @@ async function createDataAccessOthers(reg,subDom,expType){
     // Output Frequency :
     let elm = document.getElementById('outFreqDataQuery'); 
     let avaiOptions = dataAccessJson.output_frequency;
-    let df = window.optionList(avaiOptions,avaiOptions);   //hindcast.js
+    let df = optionList(avaiOptions,avaiOptions);   //hindcast.js
     elm.appendChild(df);
 
     // Grid Type :
     elm = document.getElementById('gridTypeDataQuery'); 
     avaiOptions = dataAccessJson.grid_type;
-    df = window.optionList(avaiOptions,avaiOptions);   
+    df = optionList(avaiOptions,avaiOptions);   
     elm.appendChild(df);
 
     // Release :
     elm = document.getElementById('releaseDataQuery'); 
     avaiOptions = dataAccessJson.release;
-    df = window.optionList(avaiOptions,avaiOptions);   
+    df = optionList(avaiOptions,avaiOptions);   
     elm.appendChild(df);
 
     // Variables :
     elm = document.getElementById('variableDataQuery'); 
     let valueOptions = variableJson.var_values;
     let nameOptions = variableJson.var_options;
-    df = window.optionList(nameOptions,valueOptions);
+    df = optionList(nameOptions,valueOptions);
     // Create the default empty option for variable that force user choose that related to a event listener
     //  need this dynamically to be recreated when empty the dropdown
     //  by other user actions
@@ -269,7 +271,7 @@ $('#variableDataQuery').on('change', function() {
         let elm = document.getElementById('ensOptionFcastDataQuery'); 
         let valueOptions = ens_options_fcast;
         let nameOptions = ens_options_fcast;
-        df = window.optionList(nameOptions,valueOptions);
+        let df = optionList(nameOptions,valueOptions);
         // // Create the default empty option for variable that force user choose that related to a event listener
         // //  need this dynamically to be recreated when empty the dropdown
         // //  by other user actions
@@ -287,7 +289,7 @@ $('#variableDataQuery').on('change', function() {
         let elm = document.getElementById('initialDateFcastDataQuery'); 
         let valueOptions = init_date_fcast;
         let nameOptions = init_date_fcast;
-        df = window.optionList(nameOptions,valueOptions);
+        let df = optionList(nameOptions,valueOptions);
         // // Create the default empty option for variable that force user choose that related to a event listener
         // //  need this dynamically to be recreated when empty the dropdown
         // //  by other user actions
@@ -305,7 +307,7 @@ $('#variableDataQuery').on('change', function() {
         let elm = document.getElementById('ensOptionProjDataQuery'); 
         let valueOptions = ens_options_proj;
         let nameOptions = ens_options_proj;
-        df = window.optionList(nameOptions,valueOptions);
+        let df = optionList(nameOptions,valueOptions);
         // // Create the default empty option for variable that force user choose that related to a event listener
         // //  need this dynamically to be recreated when empty the dropdown
         // //  by other user actions
@@ -323,7 +325,7 @@ $('#variableDataQuery').on('change', function() {
         let elm = document.getElementById('scenarioProjDataQuery'); 
         let valueOptions = scenario_proj;
         let nameOptions = scenario_proj;
-        df = window.optionList(nameOptions,valueOptions);
+        let df = optionList(nameOptions,valueOptions);
         // // Create the default empty option for variable that force user choose that related to a event listener
         // //  need this dynamically to be recreated when empty the dropdown
         // //  by other user actions
