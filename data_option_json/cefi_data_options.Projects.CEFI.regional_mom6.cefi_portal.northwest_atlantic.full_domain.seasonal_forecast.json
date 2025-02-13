@@ -1,6 +1,6 @@
 {
     "experiment_type": [
-        "seasonal_reforecast"
+        "seasonal_forecast"
     ],
     "output_frequency": [
         "monthly"
@@ -10,7 +10,6 @@
         "regrid"
     ],
     "release": [
-        "r20240213",
         "r20250212"
     ]
 }
