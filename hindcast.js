@@ -770,7 +770,10 @@ export function initializePlotly(flag) {
     } else if (flag ==='mhwForecast') {
         Plotly.newPlot('plotly-fcastmhw-prob', [trace], layoutTS,config);
         Plotly.newPlot('plotly-fcastmhw-mag', [trace], layoutTS,config);
-    }
+    } else if (flag ==='forecastLive') {
+        Plotly.newPlot('plotly-fcast-live-spread', [trace], layoutFcst, config);
+        Plotly.newPlot('plotly-fcast-live-box', [trace], layoutFcst, config);
+    };
 
     return new Promise(resolve => {
         // console.log('Initial Plotly created');

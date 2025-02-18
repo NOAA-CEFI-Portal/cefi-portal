@@ -427,12 +427,14 @@ function changeLeadTimeStep(timeStep) {
 
 // function for replace folium overlap info (image and colorbar)
 let varFoliumMapFcast;
+let freqFoliumMap;
 let statMapFcast;
 let statMapFcastName;
 let depthMapFcast;
 function replaceFoliumForecast() {
     showLoadingSpinner("loading-spinner-map-Fcast");
     varFoliumMapFcast = varValueFcast;
+    freqFoliumMap = freqValueFcast;
     statMapFcast = $("#statMOMCobaltFcast").val();
     statMapFcastName = $('#statMOMCobaltFcast').find('option:selected').text()
     depthMapFcast = $("#depthMOMCobaltFcast").val();
@@ -445,6 +447,10 @@ function replaceFoliumForecast() {
     var ajaxGet = "/cgi-bin/cefi_portal/mom_folium_fcast.py"
         +"?variable="+varFoliumMapFcast
         +"&region="+$("#regMOMCobaltFcast").val()
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=seasonal_reforecast"
+        +"&grid_type=regrid"
         +"&iniyear="+$("#iniYearMOMCobaltFcast").val()
         +"&inimonth="+$("#iniMonthMOMCobaltFcast").val()
         +"&lead="+timeSliderFcast.val()

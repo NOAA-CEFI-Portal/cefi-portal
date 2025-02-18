@@ -80,7 +80,7 @@ createMomCobaltCbarOpt('cbarOptsFcastLive');
 
 // initialize plotly
 $(document).ready(function() {
-    asyncInitializePlotlyResize('forecast')
+    asyncInitializePlotlyResize('forecastLive')
 });
 
 /////////////////  event listener  ////////////////
@@ -280,7 +280,7 @@ function createMomCobaltInitMonthOpt(selectTagID) {
 
 // function for create option for statistics
 function createMomCobaltStatOptFcast() {
-    let elm = document.getElementById('statMOMCobaltFcast');
+    let elm = document.getElementById('statMOMCobaltFcastLive');
     let [stats_list, stats_value] = momCobaltStatsFcast()    
     let df = optionList(stats_list,stats_value);
     elm.appendChild(df);
@@ -361,30 +361,37 @@ function generateFcastLeadMonth(iYear = 1993, iMonth = 3) {
 
 // function for replace folium overlap info (image and colorbar)
 let varFoliumMapFcast;
+let freqFoliumMap;
 let statMapFcast;
 let statMapFcastName;
 let depthMapFcast;
+let blockMapFcast;
 function replaceFoliumForecast() {
-    showLoadingSpinner("loading-spinner-map-Fcast");
-    varFoliumMapFcast = varValueFcast;
+    showLoadingSpinner("loading-spinner-map-FcastLive");
+    varFoliumMapFcast = $("#varMOMCobaltFcastLive").val();
+    freqFoliumMap = $("#freqMOMCobaltFcastLive").val();
     statMapFcast = $("#statMOMCobaltFcastLive").val();
     statMapFcastName = $('#statMOMCobaltFcastLive').find('option:selected').text()
     depthMapFcast = $("#depthMOMCobaltFcastLive").val();
-    let block = $("#blockMOMCobaltFcastLive");
-    let cbar = $("#cbarOptsFcastLive")
+    blockMapFcast = $("#blockMOMCobaltFcastLive").val();
+    let cbar = $("#cbarOptsFcastLive");
     let maxval = $("#maxvalFcastLive");
     let minval = $("#minvalFcastLive");
     let nlevel = $("#nlevelFcastLive");
 
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_folium_fcast_live.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_forecast.py"
         +"?variable="+varFoliumMapFcast
         +"&region="+$("#regMOMCobaltFcastLive").val()
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=seasonal_forecast"
+        +"&grid_type=regrid"
         +"&iniyear="+$("#iniYearMOMCobaltFcastLive").val()
         +"&inimonth="+$("#iniMonthMOMCobaltFcastLive").val()
         +"&lead="+timeSliderFcast.val()
         +"&stat="+statMapFcast
         +"&depth="+depthMapFcast
-        +"&block="+block.val()
+        +"&block="+blockMapFcast
         +"&cbar="+cbar.val()
         +"&maxval="+maxval.val()
         +"&minval="+minval.val()
@@ -396,57 +403,31 @@ function replaceFoliumForecast() {
             if (!response.ok) {
             throw new Error('Network response was not ok for forecast map fetch');
             }
-            return response.text();
+            return response.json();
         })
-        .then(data => {
+        .then(jsonData => {
             // Process the response data here
-
-            //replace image
-            var regexImg = /^\s*"data:image\/png;base64,[^,\n]*,\n/gm;
-            var matcheImg = data.match(regexImg);
-            var image = matcheImg[0].match(/"([^"]+)"/)[0].slice(1,-1)
-            // var image = extractText(matcheImg[0]);
-
-            //replace colorbar
-            var regexDom = /^\s*\.domain\([^)]*\)\n/gm;
-            var matchDoms = data.match(regexDom);
-            var domainArray1 = text2Array(matchDoms[0]);
-            var domainArray2 = text2Array(matchDoms[1]);
-            var regexRange = /^\s*\.range\([^)]*\);\n/gm;
-            var matchRanges = data.match(regexRange);
-            var rangeArray = text2Array(matchRanges[0].replace(/'/g, '"'));
-            
-            //replace tickmark
-            var regexTickVal = /^\s*\.tickValues\([^)]*\);\n/gm;
-            var matchTickVal = data.match(regexTickVal);
-            var tickValArray = text2Array(matchTickVal[0]);
-            
-            //replace colorbar label
-            var regexCLabel = /^\s*\.text\([^)]*\);\n/gm;
-            var matchCLabel = data.match(regexCLabel);
-            var textVal = extractText(matchCLabel[0]);
-
-            
-
+            // console.log(jsonData);
             mapDataFcast = {
-                type: 'mapData',   // used in hindcast_mom.js for type check
-                image: image,
-                image_bound: [[5.272542476654053, -98.4422607421875], [58.1607551574707, -36.079986572265625]],
-                map_center: [31.716648817062378, -67.26112365722656],
-                domain1: domainArray1,
-                domain2: domainArray2,
-                range: rangeArray,
-                tick: tickValArray,
-                label: textVal
+                type: 'mapData',
+                image: jsonData.image,
+                image_bound: jsonData.image_bound,
+                map_center: jsonData.map_center,
+                map_crs: jsonData.map_crs,
+                domain1: jsonData.domain1,
+                domain2: jsonData.domain2,
+                range: jsonData.range,
+                tick: jsonData.tick,
+                label: jsonData.label
             };
             // console.log(mapDataFcast)
             momCobaltMapFcast[0].contentWindow.postMessage(mapDataFcast, "*")
 
-            hideLoadingSpinner("loading-spinner-map-Fcast");
+            hideLoadingSpinner("loading-spinner-map-FcastLive");
         })
         .catch(error => {
             // Handle errors here
-            console.error('Processing forecast folium map error:', error);
+            console.error('Processing forecast live folium map error:', error);
         });
 
     // momCobaltMap.attr("src", ajaxGet)
@@ -497,11 +478,16 @@ function receiveMessageFcast(event) {
 
 // function to get variable value based on locationData and dataFolium
 function getvarValFcast(infoLonLat) {
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_variableValue_fcast_live.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_forecast_extract_value.py"
         +"?variable="+varFoliumMapFcast
         +"&region="+$("#regMOMCobaltFcastLive").val()
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=seasonal_forecast"
+        +"&grid_type=regrid"
         +"&stat="+statMapFcast
         +"&depth="+depthMapFcast
+        +'&block='+blockMapFcast
         +"&lon="+infoLonLat.longitude
         +"&lat="+infoLonLat.latitude
         +"&iniyear="+$("#iniYearMOMCobaltFcastLive").val()
@@ -560,10 +546,15 @@ function plotTSFcast(infoLonLat) {
 // function to fetch all forecast spread based on locationData
 //  response in the json format (testing)
 function getTSFcasts(infoLonLat) {
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries_fcast_live.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_forecast_extract_ts.py"
         +"?variable="+varFoliumMapFcast
         +"&region="+$("#regMOMCobaltFcastLive").val()
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=seasonal_forecast"
+        +"&grid_type=regrid"
         +"&stat="+statMapFcast
+        +'&block='+blockMapFcast
         +"&depth="+depthMapFcast
         +"&lon="+infoLonLat.longitude
         +"&lat="+infoLonLat.latitude
@@ -610,8 +601,9 @@ function plotlyForecastSpread(jsonData) {
     var data = [trace];
 
     var trace2Color = "rgba(113, 29, 176, 0.1)";
-    for (var i=1; i<=10; i++) {
+    for (var i=1; i<=5; i++) {
         var key = 'ens'+i
+        console.log(jsonData[key])
         var trace_ens = {
             x: leadMonthList,
             y: jsonData[key],
@@ -752,9 +744,9 @@ function plotlyForecastBox(jsonData) {
     var trace1Color = "rgba(113, 29, 176, 0.8)";
     var xData = leadMonthList;
     var yData = [];
-    for (var l=0; l<=11; l++) {
+    for (var l=0; l<=6; l++) {
         var ens = []
-        for (var i=1; i<=10; i++) {
+        for (var i=1; i<=5; i++) {
             var key = 'ens'+i
             ens.push(jsonData[key][l]);
         }
