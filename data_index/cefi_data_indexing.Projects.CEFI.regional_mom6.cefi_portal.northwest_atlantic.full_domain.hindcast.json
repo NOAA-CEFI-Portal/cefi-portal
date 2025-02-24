@@ -13450,6 +13450,256 @@
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/XPRT.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
     "data539": {
+        "cefi_filename": "aragos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
+        "cefi_variable": "aragos",
+        "cefi_long_name": "Surface Aragonite Concentration",
+        "cefi_unit": "mol m-3",
+        "cefi_output_frequency": "monthly",
+        "cefi_grid_type": "regrid",
+        "cefi_rel_path": "/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520",
+        "cefi_ori_filename": "ocean_cobalt_omip_sfc.199301-201912.aragos.nc",
+        "cefi_archive_version": "/archive/acr/fre/NWA/2023_04/NWA12_COBALT_2023_04_kpo4-coastatten-physics/gfdl.ncrc5-intel22-prod/",
+        "cefi_run_xml": "N/A",
+        "cefi_region": "nwa",
+        "cefi_subdomain": "full",
+        "cefi_experiment_type": "hindcast",
+        "cefi_experiment_name": "nwa12_cobalt",
+        "cefi_release": "r20230520",
+        "cefi_date_range": "199301-201912",
+        "cefi_init_date": "N/A",
+        "cefi_ensemble_info": "N/A",
+        "cefi_forcing": "N/A",
+        "cefi_data_doi": "10.5281/zenodo.7893386",
+        "cefi_paper_doi": "10.5194/gmd-16-6943-2023",
+        "cefi_aux": "Postprocessed Data : regrid to regular grid",
+        "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/aragos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
+    },
+    "data540": {
+        "cefi_filename": "baccos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
+        "cefi_variable": "baccos",
+        "cefi_long_name": "Surface Bacterial Carbon Concentration",
+        "cefi_unit": "mol m-3",
+        "cefi_output_frequency": "monthly",
+        "cefi_grid_type": "regrid",
+        "cefi_rel_path": "/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520",
+        "cefi_ori_filename": "ocean_cobalt_omip_sfc.199301-201912.baccos.nc",
+        "cefi_archive_version": "/archive/acr/fre/NWA/2023_04/NWA12_COBALT_2023_04_kpo4-coastatten-physics/gfdl.ncrc5-intel22-prod/",
+        "cefi_run_xml": "N/A",
+        "cefi_region": "nwa",
+        "cefi_subdomain": "full",
+        "cefi_experiment_type": "hindcast",
+        "cefi_experiment_name": "nwa12_cobalt",
+        "cefi_release": "r20230520",
+        "cefi_date_range": "199301-201912",
+        "cefi_init_date": "N/A",
+        "cefi_ensemble_info": "N/A",
+        "cefi_forcing": "N/A",
+        "cefi_data_doi": "10.5281/zenodo.7893386",
+        "cefi_paper_doi": "10.5194/gmd-16-6943-2023",
+        "cefi_aux": "Postprocessed Data : regrid to regular grid",
+        "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/baccos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
+    },
+    "data541": {
+        "cefi_filename": "bfeos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
+        "cefi_variable": "bfeos",
+        "cefi_long_name": "Surface Mole Concentration of Particulate Organic Matter expressed as Iron in sea water",
+        "cefi_unit": "mol m-3",
+        "cefi_output_frequency": "monthly",
+        "cefi_grid_type": "regrid",
+        "cefi_rel_path": "/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520",
+        "cefi_ori_filename": "ocean_cobalt_omip_sfc.199301-201912.bfeos.nc",
+        "cefi_archive_version": "/archive/acr/fre/NWA/2023_04/NWA12_COBALT_2023_04_kpo4-coastatten-physics/gfdl.ncrc5-intel22-prod/",
+        "cefi_run_xml": "N/A",
+        "cefi_region": "nwa",
+        "cefi_subdomain": "full",
+        "cefi_experiment_type": "hindcast",
+        "cefi_experiment_name": "nwa12_cobalt",
+        "cefi_release": "r20230520",
+        "cefi_date_range": "199301-201912",
+        "cefi_init_date": "N/A",
+        "cefi_ensemble_info": "N/A",
+        "cefi_forcing": "N/A",
+        "cefi_data_doi": "10.5281/zenodo.7893386",
+        "cefi_paper_doi": "10.5194/gmd-16-6943-2023",
+        "cefi_aux": "Postprocessed Data : regrid to regular grid",
+        "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/bfeos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
+    },
+    "data542": {
+        "cefi_filename": "bsios.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
+        "cefi_variable": "bsios",
+        "cefi_long_name": "Surface Mole Concentration of Particulate Organic Matter expressed as Silicon in sea water",
+        "cefi_unit": "mol m-3",
+        "cefi_output_frequency": "monthly",
+        "cefi_grid_type": "regrid",
+        "cefi_rel_path": "/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520",
+        "cefi_ori_filename": "ocean_cobalt_omip_sfc.199301-201912.bsios.nc",
+        "cefi_archive_version": "/archive/acr/fre/NWA/2023_04/NWA12_COBALT_2023_04_kpo4-coastatten-physics/gfdl.ncrc5-intel22-prod/",
+        "cefi_run_xml": "N/A",
+        "cefi_region": "nwa",
+        "cefi_subdomain": "full",
+        "cefi_experiment_type": "hindcast",
+        "cefi_experiment_name": "nwa12_cobalt",
+        "cefi_release": "r20230520",
+        "cefi_date_range": "199301-201912",
+        "cefi_init_date": "N/A",
+        "cefi_ensemble_info": "N/A",
+        "cefi_forcing": "N/A",
+        "cefi_data_doi": "10.5281/zenodo.7893386",
+        "cefi_paper_doi": "10.5194/gmd-16-6943-2023",
+        "cefi_aux": "Postprocessed Data : regrid to regular grid",
+        "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/bsios.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
+    },
+    "data543": {
+        "cefi_filename": "btm_co3_ion.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
+        "cefi_variable": "btm_co3_ion",
+        "cefi_long_name": "Bottom Carbonate Ion",
+        "cefi_unit": "mol kg-1",
+        "cefi_output_frequency": "monthly",
+        "cefi_grid_type": "regrid",
+        "cefi_rel_path": "/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520",
+        "cefi_ori_filename": "ocean_cobalt_btm.199301-201912.btm_co3_ion.nc",
+        "cefi_archive_version": "/archive/acr/fre/NWA/2023_04/NWA12_COBALT_2023_04_kpo4-coastatten-physics/gfdl.ncrc5-intel22-prod/",
+        "cefi_run_xml": "N/A",
+        "cefi_region": "nwa",
+        "cefi_subdomain": "full",
+        "cefi_experiment_type": "hindcast",
+        "cefi_experiment_name": "nwa12_cobalt",
+        "cefi_release": "r20230520",
+        "cefi_date_range": "199301-201912",
+        "cefi_init_date": "N/A",
+        "cefi_ensemble_info": "N/A",
+        "cefi_forcing": "N/A",
+        "cefi_data_doi": "10.5281/zenodo.7893386",
+        "cefi_paper_doi": "10.5194/gmd-16-6943-2023",
+        "cefi_aux": "Postprocessed Data : regrid to regular grid",
+        "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/btm_co3_ion.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
+    },
+    "data544": {
+        "cefi_filename": "btm_co3_sol_arag.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
+        "cefi_variable": "btm_co3_sol_arag",
+        "cefi_long_name": "Bottom Aragonite Solubility",
+        "cefi_unit": "mol kg-1",
+        "cefi_output_frequency": "monthly",
+        "cefi_grid_type": "regrid",
+        "cefi_rel_path": "/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520",
+        "cefi_ori_filename": "ocean_cobalt_btm.199301-201912.btm_co3_sol_arag.nc",
+        "cefi_archive_version": "/archive/acr/fre/NWA/2023_04/NWA12_COBALT_2023_04_kpo4-coastatten-physics/gfdl.ncrc5-intel22-prod/",
+        "cefi_run_xml": "N/A",
+        "cefi_region": "nwa",
+        "cefi_subdomain": "full",
+        "cefi_experiment_type": "hindcast",
+        "cefi_experiment_name": "nwa12_cobalt",
+        "cefi_release": "r20230520",
+        "cefi_date_range": "199301-201912",
+        "cefi_init_date": "N/A",
+        "cefi_ensemble_info": "N/A",
+        "cefi_forcing": "N/A",
+        "cefi_data_doi": "10.5281/zenodo.7893386",
+        "cefi_paper_doi": "10.5194/gmd-16-6943-2023",
+        "cefi_aux": "Postprocessed Data : regrid to regular grid",
+        "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/btm_co3_sol_arag.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
+    },
+    "data545": {
+        "cefi_filename": "btm_co3_sol_calc.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
+        "cefi_variable": "btm_co3_sol_calc",
+        "cefi_long_name": "Bottom Calcite Solubility",
+        "cefi_unit": "mol kg-1",
+        "cefi_output_frequency": "monthly",
+        "cefi_grid_type": "regrid",
+        "cefi_rel_path": "/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520",
+        "cefi_ori_filename": "ocean_cobalt_btm.199301-201912.btm_co3_sol_calc.nc",
+        "cefi_archive_version": "/archive/acr/fre/NWA/2023_04/NWA12_COBALT_2023_04_kpo4-coastatten-physics/gfdl.ncrc5-intel22-prod/",
+        "cefi_run_xml": "N/A",
+        "cefi_region": "nwa",
+        "cefi_subdomain": "full",
+        "cefi_experiment_type": "hindcast",
+        "cefi_experiment_name": "nwa12_cobalt",
+        "cefi_release": "r20230520",
+        "cefi_date_range": "199301-201912",
+        "cefi_init_date": "N/A",
+        "cefi_ensemble_info": "N/A",
+        "cefi_forcing": "N/A",
+        "cefi_data_doi": "10.5281/zenodo.7893386",
+        "cefi_paper_doi": "10.5194/gmd-16-6943-2023",
+        "cefi_aux": "Postprocessed Data : regrid to regular grid",
+        "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/btm_co3_sol_calc.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
+    },
+    "data546": {
+        "cefi_filename": "btm_htotal.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
+        "cefi_variable": "btm_htotal",
+        "cefi_long_name": "Bottom Htotal",
+        "cefi_unit": "mol kg-1",
+        "cefi_output_frequency": "monthly",
+        "cefi_grid_type": "regrid",
+        "cefi_rel_path": "/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520",
+        "cefi_ori_filename": "ocean_cobalt_btm.199301-201912.btm_htotal.nc",
+        "cefi_archive_version": "/archive/acr/fre/NWA/2023_04/NWA12_COBALT_2023_04_kpo4-coastatten-physics/gfdl.ncrc5-intel22-prod/",
+        "cefi_run_xml": "N/A",
+        "cefi_region": "nwa",
+        "cefi_subdomain": "full",
+        "cefi_experiment_type": "hindcast",
+        "cefi_experiment_name": "nwa12_cobalt",
+        "cefi_release": "r20230520",
+        "cefi_date_range": "199301-201912",
+        "cefi_init_date": "N/A",
+        "cefi_ensemble_info": "N/A",
+        "cefi_forcing": "N/A",
+        "cefi_data_doi": "10.5281/zenodo.7893386",
+        "cefi_paper_doi": "10.5194/gmd-16-6943-2023",
+        "cefi_aux": "Postprocessed Data : regrid to regular grid",
+        "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/btm_htotal.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
+    },
+    "data547": {
+        "cefi_filename": "btm_o2.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
+        "cefi_variable": "btm_o2",
+        "cefi_long_name": "Bottom Oxygen",
+        "cefi_unit": "mol kg-1",
+        "cefi_output_frequency": "monthly",
+        "cefi_grid_type": "regrid",
+        "cefi_rel_path": "/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520",
+        "cefi_ori_filename": "ocean_cobalt_btm.199301-201912.btm_o2.nc",
+        "cefi_archive_version": "/archive/acr/fre/NWA/2023_04/NWA12_COBALT_2023_04_kpo4-coastatten-physics/gfdl.ncrc5-intel22-prod/",
+        "cefi_run_xml": "N/A",
+        "cefi_region": "nwa",
+        "cefi_subdomain": "full",
+        "cefi_experiment_type": "hindcast",
+        "cefi_experiment_name": "nwa12_cobalt",
+        "cefi_release": "r20230520",
+        "cefi_date_range": "199301-201912",
+        "cefi_init_date": "N/A",
+        "cefi_ensemble_info": "N/A",
+        "cefi_forcing": "N/A",
+        "cefi_data_doi": "10.5281/zenodo.7893386",
+        "cefi_paper_doi": "10.5194/gmd-16-6943-2023",
+        "cefi_aux": "Postprocessed Data : regrid to regular grid",
+        "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/btm_o2.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
+    },
+    "data548": {
+        "cefi_filename": "btm_temp.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
+        "cefi_variable": "btm_temp",
+        "cefi_long_name": "Bottom Temperature",
+        "cefi_unit": "deg C",
+        "cefi_output_frequency": "monthly",
+        "cefi_grid_type": "regrid",
+        "cefi_rel_path": "/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520",
+        "cefi_ori_filename": "ocean_cobalt_btm.199301-201912.btm_temp.nc",
+        "cefi_archive_version": "/archive/acr/fre/NWA/2023_04/NWA12_COBALT_2023_04_kpo4-coastatten-physics/gfdl.ncrc5-intel22-prod/",
+        "cefi_run_xml": "N/A",
+        "cefi_region": "nwa",
+        "cefi_subdomain": "full",
+        "cefi_experiment_type": "hindcast",
+        "cefi_experiment_name": "nwa12_cobalt",
+        "cefi_release": "r20230520",
+        "cefi_date_range": "199301-201912",
+        "cefi_init_date": "N/A",
+        "cefi_ensemble_info": "N/A",
+        "cefi_forcing": "N/A",
+        "cefi_data_doi": "10.5281/zenodo.7893386",
+        "cefi_paper_doi": "10.5194/gmd-16-6943-2023",
+        "cefi_aux": "Postprocessed Data : regrid to regular grid",
+        "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/btm_temp.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
+    },
+    "data549": {
         "cefi_filename": "chlos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "chlos",
         "cefi_long_name": "Surface Mass Concentration of Total Phytoplankton expressed as Chlorophyll in sea water",
@@ -13474,7 +13724,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/chlos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data540": {
+    "data550": {
         "cefi_filename": "dissicos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "dissicos",
         "cefi_long_name": "Surface Dissolved Inorganic Carbon Concentration",
@@ -13499,7 +13749,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/dissicos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data541": {
+    "data551": {
         "cefi_filename": "mesozoo_200.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "mesozoo_200",
         "cefi_long_name": "Mesozooplankton biomass, 200m integral",
@@ -13524,7 +13774,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/mesozoo_200.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data542": {
+    "data552": {
         "cefi_filename": "rhopot0.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "rhopot0",
         "cefi_long_name": "Potential density referenced to surface",
@@ -13549,7 +13799,7 @@
         "cefi_aux": "Postprocessed Data : regrid to regular grid",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/rhopot0.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data543": {
+    "data553": {
         "cefi_filename": "sfc_co3_ion.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "sfc_co3_ion",
         "cefi_long_name": "Surface Carbonate Ion",
@@ -13574,7 +13824,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/sfc_co3_ion.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data544": {
+    "data554": {
         "cefi_filename": "sfc_co3_sol_arag.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "sfc_co3_sol_arag",
         "cefi_long_name": "Surface Carbonate Ion Solubility for Aragonite",
@@ -13599,7 +13849,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/sfc_co3_sol_arag.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data545": {
+    "data555": {
         "cefi_filename": "sfc_no3.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "sfc_no3",
         "cefi_long_name": "Surface NO3",
@@ -13624,7 +13874,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/sfc_no3.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data546": {
+    "data556": {
         "cefi_filename": "sfc_po4.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "sfc_po4",
         "cefi_long_name": "Surface PO4",
@@ -13649,7 +13899,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/sfc_po4.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data547": {
+    "data557": {
         "cefi_filename": "siconc.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "siconc",
         "cefi_long_name": "ice concentration",
@@ -13674,7 +13924,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/siconc.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data548": {
+    "data558": {
         "cefi_filename": "so.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "so",
         "cefi_long_name": "Sea Water Salinity",
@@ -13699,7 +13949,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/so.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data549": {
+    "data559": {
         "cefi_filename": "sos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "sos",
         "cefi_long_name": "Sea Surface Salinity",
@@ -13724,7 +13974,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/sos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data550": {
+    "data560": {
         "cefi_filename": "ssh.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "ssh",
         "cefi_long_name": "Sea Surface Height",
@@ -13749,7 +13999,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/ssh.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data551": {
+    "data561": {
         "cefi_filename": "talkos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "talkos",
         "cefi_long_name": "Surface Total Alkalinity",
@@ -13774,7 +14024,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/talkos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data552": {
+    "data562": {
         "cefi_filename": "thetao.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "thetao",
         "cefi_long_name": "Sea Water Potential Temperature",
@@ -13799,7 +14049,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/thetao.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data553": {
+    "data563": {
         "cefi_filename": "tob.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "tob",
         "cefi_long_name": "Sea Water Potential Temperature at Sea Floor",
@@ -13824,7 +14074,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/tob.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data554": {
+    "data564": {
         "cefi_filename": "tos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "tos",
         "cefi_long_name": "Sea Surface Temperature",
@@ -13849,7 +14099,7 @@
         "cefi_aux": "N/A",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/tos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data555": {
+    "data565": {
         "cefi_filename": "umo_rotate.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "umo_rotate",
         "cefi_long_name": "Rotated Ocean Mass X Transport",
@@ -13874,7 +14124,7 @@
         "cefi_aux": "Postprocessed Data : regrid to regular grid",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/umo_rotate.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data556": {
+    "data566": {
         "cefi_filename": "uo_rotate.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "uo_rotate",
         "cefi_long_name": "Rotated Sea Water X Velocity",
@@ -13899,7 +14149,7 @@
         "cefi_aux": "Postprocessed Data : regrid to regular grid",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/uo_rotate.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data557": {
+    "data567": {
         "cefi_filename": "vmo_rotate.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "vmo_rotate",
         "cefi_long_name": "Rotated Ocean Mass Y Transport",
@@ -13924,7 +14174,7 @@
         "cefi_aux": "Postprocessed Data : regrid to regular grid",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/hindcast/monthly/regrid/r20230520/vmo_rotate.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc"
     },
-    "data558": {
+    "data568": {
         "cefi_filename": "vo_rotate.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
         "cefi_variable": "vo_rotate",
         "cefi_long_name": "Rotated Sea Water Y Velocity",
