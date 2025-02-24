@@ -95,7 +95,11 @@ def find_ncfiles_info(
                         # temp solution to create variable
                         variable = dict_end_points[root][file]['cefi_filename'].split('.')[0]
                         dict_end_points[root][file]['cefi_variable'] = variable
-                        dict_end_points[root][file]['cefi_unit'] = ds[variable].attrs['units']
+                        try:
+                            dict_end_points[root][file]['cefi_unit'] = ds[variable].attrs['units']
+                        except KeyError:
+                            # for varibles that does not have unit (ex: dp_fac factor in mom6)
+                            dict_end_points[root][file]['cefi_unit'] = 'N/A'
                         dict_end_points[root][file]['cefi_long_name'] = ds[variable].attrs['long_name']
                         dict_end_points[root][file]['cefi_opendap'] = os.path.join(
                             opendap_root_url,

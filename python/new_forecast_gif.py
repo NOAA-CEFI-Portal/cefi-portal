@@ -4,6 +4,8 @@ Calculate the past 30 days mean MHW
 Daily update is available if the oisst data is updated.
 """
 import os
+import sys
+import glob
 import warnings
 import xarray as xr
 import numpy as np
@@ -114,30 +116,56 @@ if __name__ == '__main__':
     warnings.simplefilter("ignore")
 
     varname = 'tos'
+    iyear = 2025
+    imonth = 2
 
     regions = [
         'northwest_atlantic'
     ]
 
+    subdomains = ['full_domain']
+
+    experiment_type = ['seasonal_forecast']
+
+    output_frequency = ['monthly']
+    
+    grid_type = ['raw']
+
+    release = ['r20250212']
+
     for region in regions:
 
-        data_path = f'{os.getenv("PROJECTS")}CEFI/regional_mom6/{region}/forecast/{varname}*.nc'
-        static_path = f'{os.getenv("PROJECTS")}CEFI/regional_mom6/northwest_atlantic/hist_run/ocean_static.nc'
+        data_path = os.path.join(
+            f'{os.getenv("PROJECTS")}CEFI/regional_mom6/cefi_portal/',
+            region,
+            subdomains[0],
+            experiment_type[0],
+            output_frequency[0],
+            grid_type[0],
+            release[0]
+        )
+        file_list = glob.glob(
+            os.path.join(data_path,f'{varname}*.i{iyear:04d}{imonth:02d}.nc')
+        )
 
-        ds_tob = xr.open_mfdataset(
-            data_path,
-            combine='nested',
-            concat_dim='init',
-            chunks={}
-        ).sortby('init')
+        if len(file_list) == 1 :
+            ds_tos = xr.open_dataset(file_list[0])
+        else:
+            sys.exit('more than one forecast file')
 
-        ds_static = xr.open_dataset(static_path)
+        ds_static = xr.open_dataset(
+            os.path.join(data_path,'ocean_static.nc')
+        )
+        try:
+            ds_static = ds_static.drop_vars(['time'])         # time dim not needed in ds_static
+        except KeyError:
+            pass
 
-        ds = xr.merge([ds_static,ds_tob])
-        ds = ds.drop_vars(['time'])         # a result of merge of ds_static
+        ds = xr.merge([ds_static,ds_tos])
+        
         ds = ds.set_coords(['geolon','geolat'])
 
-        da_mmm = ds[f'{varname}_anom'].isel(init=-1).mean(dim='member').compute()
+        da_mmm = ds[f'{varname}_anom'].mean(dim='member').compute()
 
         ######################## plotting US ###########################
 
@@ -147,11 +175,16 @@ if __name__ == '__main__':
         titles = []
         year = da_mmm['init.year'].data
         month = da_mmm['init.month'].data
-        da_lead = xr.cftime_range(start=f'{year:04d}-{month:02d}', periods=12, freq='MS')
+        da_lead = xr.cftime_range(
+            start=f'{year:04d}-{month:02d}', periods=12, freq='MS'
+        )
         for l in range(12):
             lyear = da_lead[l].year
             lmonth = da_lead[l].month
-            title = f'Initial time : {year:04d}-{month:02d}-01\nForecast time : {lyear:04d}-{lmonth:02d}-15'
+            title = (
+                f'Initial time : {year:04d}-{month:02d}-01\n'+
+                f'Forecast time : {lyear:04d}-{lmonth:02d}-15'
+            )
             titles.append(title)
         if len(title.split("\n")[0])<40:
             title_font = 15
@@ -186,8 +219,25 @@ if __name__ == '__main__':
             repeat = True
         )
 
+        animation_filename = [
+            varname,
+            region,
+            subdomains[0],
+            experiment_type[0],
+            output_frequency[0],
+            grid_type[0]
+        ]
+        animation_filename = '.'.join(animation_filename)
+
         ani.save(
-            f'{os.getenv("HTTPTEST")}cefi_portal/img/regions_gif/regional_mom6_tos_demo.gif',
+            f'{os.getenv("HTTPTEST")}cefi_portal/img/regions_gif/'
+            f'{animation_filename}.gif',
+            writer='pillow'
+        )
+
+        ani.save(
+            f'{os.environ.get("MYHOME")}cefi_portal/img/regions_gif/'
+            f'{animation_filename}.gif',
             writer='pillow'
         )
         # ani.save(

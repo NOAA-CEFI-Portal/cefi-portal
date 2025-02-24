@@ -1,3 +1,5 @@
+import { optionList } from './hindcast.js';
+
 // setup local global variable (data structure and filenaming structure)
 var region;
 var subdomain;
@@ -88,7 +90,7 @@ async function createDataAccessExpType(reg,subDom){
     let elm = document.getElementById('expTypeDataQuery'); 
     let varJson = await fetchExperimentTypeOption(reg,subDom);
     let expTypeOptions = varJson.experiment_type;
-    let df = window.optionList(expTypeOptions,expTypeOptions);
+    let df = optionList(expTypeOptions,expTypeOptions);
     elm.appendChild(df);
 
 }
@@ -123,26 +125,26 @@ async function createDataAccessOthers(reg,subDom,expType){
     // Output Frequency :
     let elm = document.getElementById('outFreqDataQuery'); 
     let avaiOptions = dataAccessJson.output_frequency;
-    let df = window.optionList(avaiOptions,avaiOptions);   //hindcast.js
+    let df = optionList(avaiOptions,avaiOptions);   //hindcast.js
     elm.appendChild(df);
 
     // Grid Type :
     elm = document.getElementById('gridTypeDataQuery'); 
     avaiOptions = dataAccessJson.grid_type;
-    df = window.optionList(avaiOptions,avaiOptions);   
+    df = optionList(avaiOptions,avaiOptions);   
     elm.appendChild(df);
 
     // Release :
     elm = document.getElementById('releaseDataQuery'); 
     avaiOptions = dataAccessJson.release;
-    df = window.optionList(avaiOptions,avaiOptions);   
+    df = optionList(avaiOptions,avaiOptions);   
     elm.appendChild(df);
 
     // Variables :
     elm = document.getElementById('variableDataQuery'); 
     let valueOptions = variableJson.var_values;
     let nameOptions = variableJson.var_options;
-    df = window.optionList(nameOptions,valueOptions);
+    df = optionList(nameOptions,valueOptions);
     // Create the default empty option for variable that force user choose that related to a event listener
     //  need this dynamically to be recreated when empty the dropdown
     //  by other user actions
@@ -157,7 +159,7 @@ async function createDataAccessOthers(reg,subDom,expType){
 }
 
 // async fetching the data_access_json cefi_data_option
-async function fetchDataOption(reg,subDom,expType) {
+export async function fetchDataOption(reg,subDom,expType) {
     try {
       const response = await fetch(
         'data_option_json/cefi_data_options.Projects.CEFI.regional_mom6.cefi_portal.'+
@@ -178,9 +180,11 @@ async function fetchDataOption(reg,subDom,expType) {
       console.error('There was a problem when async fetchDataOption:', error);
     }
 }
+// Attach the function to the window object
+// window.fetchDataOption = fetchDataOption;
 
 // async fetching the data_access_json cefi_var_option
-async function fetchVarOption(reg,subDom,expType) {
+export async function fetchVarOption(reg,subDom,expType) {
     try {
       const response = await fetch(
         'data_option_json/cefi_var_options.Projects.CEFI.regional_mom6.cefi_portal.'+
@@ -201,6 +205,8 @@ async function fetchVarOption(reg,subDom,expType) {
       console.error('There was a problem when async fetchVarOption:', error);
     }
 }
+// Attach the function to the window object
+// window.fetchVarOption = fetchVarOption;
 
 // function to clear all option below experiement type
 function data_access_all_clear(){
@@ -251,118 +257,94 @@ $('#variableDataQuery').on('change', function() {
   // (needed to avoid stacking more options)
   variable_below_all_clear();
 
-  // recreate options below experiment type due to changes
-  var ens_options_fcast;
-  var init_date_fcast;
-  var ens_options_proj;
-  var scenario_proj;
-  createVariableSpecOptions()    // the function return a promise obj from fetch
-    .then((jsonData)=>{
-      // Check if an attribute exists
-      if ('ens_options_fcast' in jsonData) {
-        ens_options_fcast = jsonData.ens_options_fcast;
-        // ens_options_fcast :
-        let elm = document.getElementById('ensOptionFcastDataQuery'); 
-        let valueOptions = ens_options_fcast;
-        let nameOptions = ens_options_fcast;
-        df = window.optionList(nameOptions,valueOptions);
-        // // Create the default empty option for variable that force user choose that related to a event listener
-        // //  need this dynamically to be recreated when empty the dropdown
-        // //  by other user actions
-        // let defaultOption = document.createElement('option');
-        // defaultOption.selected = true;  // Make it selected
-        // defaultOption.disabled = true; // Make it disabled
-        // defaultOption.appendChild(document.createTextNode('Select an ensemble option')); // Set the text
-        // df.insertBefore(defaultOption, df.firstChild)
-        // // df.appendChild(defaultOption); // Append the default option to the fragment
-        elm.appendChild(df);
-      };
-      if ('init_date_fcast' in jsonData) {
-        init_date_fcast = jsonData.init_date_fcast;
-        // init_date_fcast :
-        let elm = document.getElementById('initialDateFcastDataQuery'); 
-        let valueOptions = init_date_fcast;
-        let nameOptions = init_date_fcast;
-        df = window.optionList(nameOptions,valueOptions);
-        // // Create the default empty option for variable that force user choose that related to a event listener
-        // //  need this dynamically to be recreated when empty the dropdown
-        // //  by other user actions
-        // let defaultOption = document.createElement('option');
-        // defaultOption.selected = true;  // Make it selected
-        // defaultOption.disabled = true; // Make it disabled
-        // defaultOption.appendChild(document.createTextNode('Select an initial date')); // Set the text
-        // df.insertBefore(defaultOption, df.firstChild)
-        // // df.appendChild(defaultOption); // Append the default option to the fragment
-        elm.appendChild(df);
-      }; 
-      if ('ens_options_proj' in jsonData) {
-        ens_options_proj = jsonData.ens_options_proj;
-        // ens_options_proj :
-        let elm = document.getElementById('ensOptionProjDataQuery'); 
-        let valueOptions = ens_options_proj;
-        let nameOptions = ens_options_proj;
-        df = window.optionList(nameOptions,valueOptions);
-        // // Create the default empty option for variable that force user choose that related to a event listener
-        // //  need this dynamically to be recreated when empty the dropdown
-        // //  by other user actions
-        // let defaultOption = document.createElement('option');
-        // defaultOption.selected = true;  // Make it selected
-        // defaultOption.disabled = true; // Make it disabled
-        // defaultOption.appendChild(document.createTextNode('Select an ensemble option')); // Set the text
-        // df.insertBefore(defaultOption, df.firstChild)
-        // // df.appendChild(defaultOption); // Append the default option to the fragment
-        elm.appendChild(df);
-      };
-      if ('scenario_proj' in jsonData) {
-        scenario_proj = jsonData.scenario_proj;
-        // scenario_proj :
-        let elm = document.getElementById('scenarioProjDataQuery'); 
-        let valueOptions = scenario_proj;
-        let nameOptions = scenario_proj;
-        df = window.optionList(nameOptions,valueOptions);
-        // // Create the default empty option for variable that force user choose that related to a event listener
-        // //  need this dynamically to be recreated when empty the dropdown
-        // //  by other user actions
-        // let defaultOption = document.createElement('option');
-        // defaultOption.selected = true;  // Make it selected
-        // defaultOption.disabled = true; // Make it disabled
-        // defaultOption.appendChild(document.createTextNode('Select a scenario')); // Set the text
-        // df.insertBefore(defaultOption, df.firstChild)
-        // // df.appendChild(defaultOption); // Append the default option to the fragment
-        elm.appendChild(df);
-      };
-  });
+  // create options specific to variables
+  createVariableSpecOptions();
 
 });
 
+// event listener for release changes that can also fire the fetch 
+//  in createVariableSpecOptions
+$('#releaseDataQuery').on('change', function() {
+  // update variable
+  release = $(this).val();
+
+  // clear all options below experiement type
+  // (needed to avoid stacking more options)
+  variable_below_all_clear();
+
+  // create options specific to variables
+  createVariableSpecOptions();
+
+});
+
+
+
 // async functions for fetching variable and experiment specific option from backend
 async function createVariableSpecOptions() {
-  var ajaxGet = "/cgi-bin/cefi_portal/create_variable_spec_options.py"
-  +"?region="+region
-  +"&subdomain="+subdomain
-  +"&experiment_type="+$('#expTypeDataQuery').val()
-  +"&output_frequency="+$('#outFreqDataQuery').val()
-  +"&grid_type="+$('#gridTypeDataQuery').val()
-  +"&release="+$('#releaseDataQuery').val()
-  +"&variable="+$('#variableDataQuery').val();
+    var ajaxGet = "/cgi-bin/cefi_portal/datatab_create_variable_spec_options.py"
+        + "?region=" + region
+        + "&subdomain=" + subdomain
+        + "&experiment_type=" + $('#expTypeDataQuery').val()
+        + "&output_frequency=" + $('#outFreqDataQuery').val()
+        + "&grid_type=" + $('#gridTypeDataQuery').val()
+        + "&release=" + $('#releaseDataQuery').val()
+        + "&variable=" + $('#variableDataQuery').val();
 
+    console.log('https://webtest.psd.esrl.noaa.gov/' + ajaxGet);
 
-  console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+    try {
+        const response = await fetch(ajaxGet);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const jsonData = await response.json();
 
-  return fetch(ajaxGet)
-      .then(response => {
-          if (!response.ok) {
-          throw new Error('Network response was not ok');
-          }
-          return response.json();
-      })
-      .catch(error => {
-          // Handle errors here
-          console.error('Fetch json failed when creating variable specific options:', error);
-      });
+        // recreate options below experiment type due to changes
+        var ens_options_fcast;
+        var init_date_fcast;
+        var ens_options_proj;
+        var scenario_proj;
+
+        if ('ens_options_fcast' in jsonData) {
+            ens_options_fcast = jsonData.ens_options_fcast;
+            let elm = document.getElementById('ensOptionFcastDataQuery');
+            let valueOptions = ens_options_fcast;
+            let nameOptions = ens_options_fcast;
+            let df = optionList(nameOptions, valueOptions);
+            elm.appendChild(df);
+        }
+
+        if ('init_date_fcast' in jsonData) {
+            init_date_fcast = jsonData.init_date_fcast;
+            let elm = document.getElementById('initialDateFcastDataQuery');
+            let valueOptions = init_date_fcast;
+            let nameOptions = init_date_fcast;
+            let df = optionList(nameOptions, valueOptions);
+            elm.appendChild(df);
+        }
+
+        if ('ens_options_proj' in jsonData) {
+            ens_options_proj = jsonData.ens_options_proj;
+            let elm = document.getElementById('ensOptionProjDataQuery');
+            let valueOptions = ens_options_proj;
+            let nameOptions = ens_options_proj;
+            let df = optionList(nameOptions, valueOptions);
+            elm.appendChild(df);
+        }
+
+        if ('scenario_proj' in jsonData) {
+            scenario_proj = jsonData.scenario_proj;
+            let elm = document.getElementById('scenarioProjDataQuery');
+            let valueOptions = scenario_proj;
+            let nameOptions = scenario_proj;
+            let df = optionList(nameOptions, valueOptions);
+            elm.appendChild(df);
+        }
+
+    } catch (error) {
+        console.error('Fetch json failed when creating variable specific options:', error);
+    }
 }
-
-
 
 // event listener for data query button click
 $('#genQueryButton').on('click', function() {
@@ -401,7 +383,7 @@ async function generateDataQuery() {
       ens_opt = $('#ensOptionProjDataQuery').val();
     };
 
-    var ajaxGet = "/cgi-bin/cefi_portal/generate_data_query.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/datatab_generate_data_query.py"
     +"?region="+region
     +"&subdomain="+subdomain
     +"&experiment_type="+experiment_type
