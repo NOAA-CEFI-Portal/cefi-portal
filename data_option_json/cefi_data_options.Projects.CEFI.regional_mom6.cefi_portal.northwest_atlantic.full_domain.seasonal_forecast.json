@@ -1,9 +1,8 @@
 {
     "experiment_type": [
-        "hindcast"
+        "seasonal_forecast"
     ],
     "output_frequency": [
-        "daily",
         "monthly"
     ],
     "grid_type": [
@@ -11,6 +10,6 @@
         "regrid"
     ],
     "release": [
-        "r20241015"
+        "r20250212"
     ]
 }

@@ -1,6 +1,7 @@
 {
     "experiment_type": [
         "hindcast",
+        "seasonal_forecast",
         "seasonal_reforecast"
     ]
 }

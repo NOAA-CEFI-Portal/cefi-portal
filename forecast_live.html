@@ -1,7 +1,7 @@
 
 <!-- html body start -->
 <div class = "row">
-<h2>Regional MOM6 - Reforecast (physics only)</h2>
+<h2>Regional MOM6 - Forecast (physics only)</h2>
 </div>
 
 <div class = "row">
@@ -12,55 +12,55 @@
             <tr>
                 <td>Region : </td>
                 <td>
-                    <select name="region" id="regMOMCobaltFcast" class="reg-mom-cobalt"></select>
+                    <select name="region" id="regMOMCobaltFcastLive" class="reg-mom-cobalt"></select>
                 </td>
             </tr>
             <tr>
                 <td>Frequency : </td>
                 <td>
-                    <select name="frequency" id="freqMOMCobaltFcast"></select>
+                    <select name="frequency" id="freqMOMCobaltFcastLive"></select>
                 </td>
             </tr>
             <tr>
                 <td>Variable : </td>
                 <td>
-                    <select name="variable" id="varMOMCobaltFcast"></select>
+                    <select name="variable" id="varMOMCobaltFcastLive"></select>
                 </td>
             </tr>
             <tr>
                 <td>Initial year : </td>
                 <td>
-                    <select name="iniTime" id="iniYearMOMCobaltFcast"></select>
+                    <select name="iniTime" id="iniYearMOMCobaltFcastLive"></select>
                 </td>
             </tr>
             <tr>
                 <td>Initial month : </td>
                 <td>
-                    <select name="iniTime" id="iniMonthMOMCobaltFcast"></select>
+                    <select name="iniTime" id="iniMonthMOMCobaltFcastLive"></select>
                 </td>
             </tr>
             <tr>
                 <td>Statistics : </td>
                 <td>
-                    <select name="stat" id="statMOMCobaltFcast"></select>
+                    <select name="stat" id="statMOMCobaltFcastLive"></select>
                 </td>
             </tr>
             <tr>
                 <td>Depth : </td>
                 <td>
-                    <select name="depth" id="depthMOMCobaltFcast"></select>
+                    <select name="depth" id="depthMOMCobaltFcastLive"></select>
                 </td>
             </tr>
             <tr>
                 <td>Blocked depth : </td>
                 <td>
-                    <select name="block" id="blockMOMCobaltFcast"></select>
+                    <select name="block" id="blockMOMCobaltFcastLive"></select>
                 </td>
             </tr>
             <tr>
                 <td>Analyses dashboard : </td>
                 <td>
-                    <select name="analysis" id="analysisMOMCobaltFcast">
+                    <select name="analysis" id="analysisMOMCobaltFcastLive">
                         <option value="fcastViewVal">Forecast Spread</option>
                     </select>
                 </td>
@@ -79,40 +79,40 @@
             <tr>
                 <td>Maximum Value : </td>  
                 <td>
-                    <input class="figOpt" type="number" id="maxvalFcast" name="maxval">
+                    <input class="figOpt" type="number" id="maxvalFcastLive" name="maxval">
                 </td>
             </tr>
             <tr>
                 <td>Minimum Value : </td>  
                 <td>
-                    <input class="figOpt" type="number" id="minvalFcast" name="minval">
+                    <input class="figOpt" type="number" id="minvalFcastLive" name="minval">
                 </td>
             </tr>
             <tr>
                 <td>Number of Discrete Values: </td>  
                 <td>
-                    <input class="figOpt" type="number" id="nlevelFcast" name="nlevel">
+                    <input class="figOpt" type="number" id="nlevelFcastLive" name="nlevel">
                 </td>
             </tr>
             <tr>
                 <td>Colorbar
-                    <button type="button" class="btn btn-secondary btn-sm btn-lg btn-custom-cir" data-toggle="modal" data-target="#Modal_cbar_Fcast">
+                    <button type="button" class="btn btn-secondary btn-sm btn-lg btn-custom-cir" data-toggle="modal" data-target="#Modal_cbar_FcastLive">
                         ?
                     </button> :
                 </td>  
                 <td>
-                    <select class="figOpt" name="cbar" id="cbarOptsFcast"></select>
+                    <select class="figOpt" name="cbar" id="cbarOptsFcastLive"></select>
                 </td>
             </tr>
         </table>
         <div class="alignRight">
-            <button class="btn btn-psl" id="clearFigOptBtnFcast"><strong>Clear All</strong></button>
+            <button class="btn btn-psl" id="clearFigOptBtnFcastLive"><strong>Clear All</strong></button>
         </div>
     </div> 
 
 </br>
     <div class="col-xs-12">
-        <button class="btn btn-psl" id="momCobaltBtnFcast"><strong>Create Map + Analyses</strong></button>
+        <button class="btn btn-psl" id="momCobaltBtnFcastLive"><strong>Create Map + Analyses</strong></button>
     </div>
 </div>
 
@@ -120,7 +120,7 @@
 
 <hr class="dot-hr-plot">
 <div class="col-md-12">
-    <h3 class="sliderTitle"> Initialization : <span class="initTimeValueFcast"></span></h3>
+    <h3 class="sliderTitle"> Initialization : <span class="initTimeValueFcastLive"></span></h3>
 </div>
 <div class = "row position-relative">
     <!-- Plotting column -->
@@ -128,17 +128,17 @@
     <!-- <div class="workingTop hidden">Creating Map &#9203</div> 
     <div class="errorTop hidden">Data not available</div> 
     <div class="whiteTop">.</div>  -->
-    <div id="momCobaltMapFcast" class="col-md-12">
-        <iframe id="momCobaltIFrameFcast" seamless="seamless" scrolling=no src="hindcast_mom.html"></iframe>
+    <div id="momCobaltMapFcastLive" class="col-md-12">
+        <iframe id="momCobaltIFrameFcastLive" seamless="seamless" scrolling=no src="hindcast_mom.html"></iframe>
     </div>
-    <div id="loading-spinner-map-Fcast" class="position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
+    <div id="loading-spinner-map-FcastLive" class="position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
 </div>
     
 <div class = "row">
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-12">
-                <p class="sliderTitle"> Forecast time : <span class="timeValueFcast"></span></p>
+                <p class="sliderTitle"> Forecast time : <span class="timeValueFcastLive"></span></p>
             </div>
         </div>
         <div class="row">
@@ -154,7 +154,7 @@
 </div>
 <div class = "row">
     <div class="col-md-12">
-        <input type="range" class="slider" id="timeRangeFcast">
+        <input type="range" class="slider" id="timeRangeFcastLive">
     </div>
 </div>
 <div class = "row">
@@ -165,27 +165,27 @@
     <hr class="dot-hr-plot">
 </div>
 
-<div class="row" id="dashNavForecast">
-    <ul class="nav nav-pills nav-justified hidden-xs" id="pills-fcast">
+<div class="row" id="dashNavForecastLive">
+    <ul class="nav nav-pills nav-justified hidden-xs" id="pills-fcast-live">
         <li class="nav-item active" id="fcastViewTabPill">
             <a class="nav-link" href="#fcastViewTab" data-toggle="tab" aria-expanded="true" >Forecast Spread</a>
         </li>
     </ul>
-    <ul class="nav nav-tabs nav-justified visible-xs" id="tabs-fcast">
+    <ul class="nav nav-tabs nav-justified visible-xs" id="tabs-fcast-live">
         <li class="nav-item active" id="fcastViewTabTab">
             <a class="nav-link" href="#fcastViewTab" data-toggle="tab" aria-expanded="false" >Forecast Spread</a>
         </li>
     </ul>
 </div>
 
-<div class="row" id="dashContentForecast">
+<div class="row" id="dashContentForecastLive">
     <div class="tab-content">
-        <div id='fcastView' class="tab-pane active view col-12">
+        <div id='fcastViewLive' class="tab-pane active view col-12">
         <h3>Forecast Spread</h3>
         <div class = "row position-relative dashAnalysis">
-            <div id="plotly-fcast-spread" class="col-xs-12 col-md-6"></div>
-            <div id="plotly-fcast-box" class="col-xs-12 col-md-6"></div>
-            <div id="loading-spinner-fcast-spread" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
+            <div id="plotly-fcast-live-spread" class="col-xs-12 col-md-6"></div>
+            <div id="plotly-fcast-live-box" class="col-xs-12 col-md-6"></div>
+            <div id="loading-spinner-fcast-live-spread" class="col-12 position-absolute top-0 start-0 w-100 h-100 loading-spinner"></div>
         </div>
         </div>
     </div>
@@ -196,11 +196,11 @@
 <!-- Start modal content -->
 
 <!-- Modal colorbar -->
-<div class="modal fade" id="Modal_cbar_Fcast" tabindex="-1" role="dialog" aria-labelledby="Model_cbar_title" aria-hidden="true">
+<div class="modal fade" id="Modal_cbar_FcastLive" tabindex="-1" role="dialog" aria-labelledby="Model_cbar_title_fcastlive" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 class="modal-title" id="Model_cbar_title">What are the available colormaps?</h3>
+          <h3 class="modal-title" id="Model_cbar_title_fcastlive">What are the available colormaps?</h3>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

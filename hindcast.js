@@ -1,94 +1,34 @@
 // global constant for object ID
 const momCobaltMap = $('#momCobaltIFrame');
 const momCobaltBtn = $("#momCobaltBtn");
-const clearFigOptBtn = $("#clearFigOptBtn")
-var mapData = {}   // parsed html output
-// var image_data = ''    // png encoding
-
-// global info
-var locationData;
-var polygonData;
-
-// monthly and daily list for creating the time slider
-let freq_list = momCobaltVars();
-let monthly_list = [];
-let daily_list = [];
-for (let i = 0; i < freq_list[2].length; i++) { 
-    if (freq_list[2][i] === "monthly") {
-        monthly_list.push(freq_list[1][i])
-    } else if (freq_list[2][i] === "daily") {
-        daily_list.push(freq_list[1][i])
-    }
-}
-
-
-// Default time slider related variables
+// const clearFigOptBtn = $("#clearFigOptBtn")
 const timeSlider = $("#timeRange");
 const tValue = $(".timeValue");
 const containerTick = $(".ticks");
-var yearValues, rangeValues;
-[yearValues, rangeValues] = generateDateList();
-timeSlider.attr("min", 0);
-timeSlider.attr("max", rangeValues.length - 1);
-timeSlider.val(rangeValues.length - 1);
-var dateFolium = rangeValues[timeSlider.val()];   // global
-tValue.text(dateFolium);
-tickSpaceChange();
+
+// global info for leaflet maps
+var mapData = {}   // parsed html output
+var locationData;
+var polygonData;
+var dateFolium;
+
+// global info for time slider
+var yearValues = [];
+var rangeValues = [];
+
+// global info for options value
+var regValue;
+var freqValue;
+var varValue;
+var statValue;
+var depthValue;
+var blockValue;
+var var2Value;
+var depth2Value;
+var block2Value;
 
 // Initial region options (for all region options)
-createMomCobaltOpt('reg-mom-cobalt',momCobaltRegs);
-
-// Initial variable options based on dataset
-createMomCobaltVarOpt('MOMCobalt','varMOMCobalt');
-
-// Initial stat options
-createMomCobaltStatOpt();
-
-// Initial depth options based on variable
-createMomCobaltDepthOpt('tos','depthMOMCobalt');
-
-// Initial depth block options based on variable
-createMomCobaltDepthBlockOpt('tos');
-
-// setup colorbar option
-createMomCobaltCbarOpt();
-
-// Initial variable options based on dataset for second TS
-createMomCobaltVarOpt('MOMCobalt+Index','varMOMCobaltTS2');
-$('#varMOMCobaltTS2').val('');
-
-// Initial depth options based on dataset for second TS
-createMomCobaltDepthOpt('tos','depthMOMCobaltTS2');
-$('#depthMOMCobaltTS2').val('');
-
-// Initial variable options based on dataset for second TS
-createMomCobaltVarOpt('onlyIndexes','indexMOMCobaltTS');
-
-// initialize plotly
-$(document).ready(function() {
-    asyncInitializePlotlyResize('all')
-});
-// initializePlotly('all');
-
-// plot index
-plotIndexes();
-
-
-
-/// setup the variable for variable options in the page
-let varnamelist = momCobaltVars();
-let varind = varnamelist[1].indexOf($("#varMOMCobalt").val())
-let varname = varnamelist[0][varind]
-
-let varnamelist2 = momCobaltVars();
-let indexlist2 = indexes();
-varnamelist2[0] = varnamelist2[0].concat(indexlist2[0]);
-varnamelist2[1] = varnamelist2[1].concat(indexlist2[1]);
-let varind2 = varnamelist2[1].indexOf($("#varMOMCobaltTS2").val())
-let varname2 = varnamelist2[0][varind2]
-
-
-
+initialize()
 
 
 /////////////// event listener ///////////
@@ -100,67 +40,72 @@ $(window).resize(function() {
     tickSpaceChange();
 });
 
+// event listen for region change => variable list and frequency options in json
+$("#regMOMCobalt").on("change", function(){
+    regValue  = $('#regMOMCobalt').val();
+    createFreqVarIndexOption(regValue);
 
-// event listen for variable change
+});
+
+// event listen for freq change => slider, depth & bottom options
+$("#freqMOMCobalt").on("change", function(){
+    freqValue = $('#freqMOMCobalt').val();
+    
+    // time slider change
+    if (freqValue === 'daily'){
+        [yearValues, rangeValues] = generateDailyDateList();
+        timeSlider.attr("min", 0);
+        timeSlider.attr("max", rangeValues.length - 1);
+        const foundIndex = rangeValues.indexOf(dateFolium+"-01");
+        timeSlider.val(foundIndex);
+        dateFolium = rangeValues[timeSlider.val()];
+    } else if (freqValue === 'monthly'){
+        [yearValues, rangeValues] = generateDateList();
+        timeSlider.attr("min", 0);
+        timeSlider.attr("max", rangeValues.length - 1);
+        const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
+        timeSlider.val(foundIndex);
+        dateFolium = rangeValues[timeSlider.val()];
+    };
+
+    tValue.text(dateFolium);
+
+    // change depth and block options for the new freq
+    // need to fetch the backend data for the depth options
+    updateDepthAndBlockOptions(regValue, freqValue, varValue)
+
+    // change depth2 and block2 options for the new freq
+    // need to fetch the backend data for the depth options
+    updateDepthAndBlockOptions(regValue, freqValue, var2Value, 'depthMOMCobaltTS2', 'blockMOMCobaltTS2')
+});
+
+
+// event listen for variable change => depth & bottom options
 $("#varMOMCobalt").on("change", function(){
 
-    // varname
-    varind = varnamelist[1].indexOf($("#varMOMCobalt").val())
-    varname = varnamelist[0][varind]
+    // varValue update
+    varValue = $('#varMOMCobalt').val();
 
-    // depth option change
-    $("#depthMOMCobalt").empty();
-    createMomCobaltDepthOpt($("#varMOMCobalt").val(),"depthMOMCobalt");
-    $("#blockMOMCobalt").empty();
-    createMomCobaltDepthBlockOpt($("#varMOMCobalt").val());
+    // change depth and block options for the new freq
+    // need to fetch the backend data for the depth options
+    updateDepthAndBlockOptions(regValue, freqValue, varValue)
 
 
-    // time slider change
-    var selectVarIndex = $("#varMOMCobalt").prop('selectedIndex');
-    if (freq_list[2][selectVarIndex] === 'daily'){
-        // change if dateFolium is origianly in monthly format
-        if (dateFolium.length === 7){
-            [yearValues, rangeValues] = generateDailyDateList();
-            timeSlider.attr("min", 0);
-            timeSlider.attr("max", rangeValues.length - 1);
-            const foundIndex = rangeValues.indexOf(dateFolium+"-01");
-            timeSlider.val(foundIndex);
-            dateFolium = rangeValues[timeSlider.val()];
-        }
-    } else if (freq_list[2][selectVarIndex] === 'monthly'){
-        // change if dateFolium is origianly in daily format
-        if (dateFolium.length === 10){
-            [yearValues, rangeValues] = generateDateList();
-            timeSlider.attr("min", 0);
-            timeSlider.attr("max", rangeValues.length - 1);
-            const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
-            timeSlider.val(foundIndex);
-            dateFolium = rangeValues[timeSlider.val()];
-        }
-    };
-    
-    // console.log(dateFolium)
-    // if (monthly_list.indexOf($(this).val()) === -1) {
-    //     if (dateFolium.length === 7){
-    //         [yearValues, rangeValues] = generateDailyDateList();
-    //         timeSlider.attr("min", 0);
-    //         timeSlider.attr("max", rangeValues.length - 1);
-    //         const foundIndex = rangeValues.indexOf(dateFolium+"-01");
-    //         timeSlider.val(foundIndex);
-    //         dateFolium = rangeValues[timeSlider.val()];
-    //     }
-    // } else if (daily_list.indexOf($(this).val()) === -1) {
-    //     if (dateFolium.length === 10){
-    //         [yearValues, rangeValues] = generateDateList();
-    //         timeSlider.attr("min", 0);
-    //         timeSlider.attr("max", rangeValues.length - 1);
-    //         const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
-    //         timeSlider.val(foundIndex);
-    //         dateFolium = rangeValues[timeSlider.val()];
-    //     }
-    // }
-    // console.log(dateFolium)
-    tValue.text(dateFolium);
+
+});
+
+// event listen for variable2 change => depth2 & bottom2 options
+$("#varMOMCobaltTS2").on("change", function(){
+
+    // varValue update
+    var2Value = $('#varMOMCobaltTS2').val();
+
+    // change depth2 and block2 options for the new freq
+    // need to fetch the backend data for the depth options
+    updateDepthAndBlockOptions(regValue, freqValue, var2Value, 'depthMOMCobaltTS2', 'blockMOMCobaltTS2')
+
+    // plot ts2 
+    plotTSs(locationData);
 });
 
 // event listen for analyses dashboard dropdown change with nav pil
@@ -201,114 +146,105 @@ $("#dashNavHistrun > ul.nav-tabs > li.nav-item > .nav-link").on('click',function
     window.dispatchEvent(new Event('resize'));
 });
 
-// // event listener for clicking the minitab
-// $('input[name="analysestabs"]').click(function() {
-//     // Check which radio button is clicked
-//     if ($(this).is(':checked')) {
-//         var selectedID = $(this).attr('id');
-//         changeSelectOpt(selectedID.slice(0, -3),'analysisMOMCobalt','view')
-//         // console.log('Selected option id:', $(this).attr('id'));
-//     }
-// });
-
-
-// Update the figure (when mouse up the slider handle)
+// event listener for slider change => figure & date
 timeSlider.on("mouseup", function() {
     $("div.workingTop").removeClass("hidden");
     $("div.errorTop").addClass("hidden");
     $("div.whiteTop").addClass("hidden");
     dateFolium = rangeValues[$(this).val()];
-    // fetchDataAndPost(dateFolium)
     replaceFolium()
 });
 
-// Update the current slider value (each time you drag the slider handle)
+// event listener for slider change => Update the current slider value
 timeSlider.on("input", function() {
     dateFolium = rangeValues[$(this).val()];
     tValue.text(dateFolium);
 });
 
 
-// add event listener on create map button
+// event listener for clicking create map button
 momCobaltBtn.on("click", function () {
-    // $("div.workingTop").removeClass("hidden");
-    // $("div.errorTop").addClass("hidden");
-    // $("div.whiteTop").addClass("hidden");
+    $("div.workingTop").removeClass("hidden");
+    $("div.errorTop").addClass("hidden");
+    $("div.whiteTop").addClass("hidden");
     replaceFolium()
+    $("#tsView > div.workingTop").removeClass("hidden");
+    $("#tsView > div.errorTop").addClass("hidden");
+    $("#tsView > div.whiteTop").addClass("hidden");
+    hideLoadingSpinner("loading-spinner-ts");
     // $('#varMOMCobaltTS2').val('');
     // $("#depthMOMCobaltTS2").val('');
 });
 
-// add event listener on figure all clear button
-clearFigOptBtn.on("click", function () {
-    $("input.figOpt").val('');
-});
+// // event listener for clicking clear figure options
+// clearFigOptBtn.on("click", function () {
+//     $("input.figOpt").val('');
+// });
 
 
+// // add event listener on reset time series select in plotly
+// $("#clearTSselectBtn").on("click", function () {
+//     if (locationData !== undefined && locationData !== null) {
+//         if (varFoliumMap !== undefined && varFoliumMap !== null) {
+//             if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
+//                 plotTSs(locationData)
+//             } else {
+//                 plotTS1(locationData);
+//             }
+//         }
+//     }
+// });
 
-// add event listener on reset time series select in plotly
-$("#clearTSselectBtn").on("click", function () {
-    if (locationData !== undefined && locationData !== null) {
-        if (varFoliumMap !== undefined && varFoliumMap !== null) {
-            if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
-                plotTSs(locationData)
-            } else {
-                plotTS1(locationData);
-            }
-        }
-    }
-});
-
-// add event listener on reset time series select in plotly
-$("#clearTS2Btn").on("click", function () {
-    $('#varMOMCobaltTS2').val('');
-    $('#depthMOMCobaltTS2').val('');
-    if (locationData !== undefined && locationData !== null) {
-        if (varFoliumMap !== undefined && varFoliumMap !== null) {
-            plotTS1(locationData);
-        }
-    }
-});
+// // add event listener on reset time series select in plotly
+// $("#clearTS2Btn").on("click", function () {
+//     $('#varMOMCobaltTS2').val('');
+//     $('#depthMOMCobaltTS2').val('');
+//     if (locationData !== undefined && locationData !== null) {
+//         if (varFoliumMap !== undefined && varFoliumMap !== null) {
+//             plotTS1(locationData);
+//         }
+//     }
+// });
 
 
-// add event listener for the "message" event using jQuery (location click)
+// event listener for the "message" event (location click) => send to leaflet js
 $(window).on("message", receiveMessage);
 
 
-// add event listener on adding 2nd time series in plotly
-$('#varMOMCobaltTS2').on("change", function () {
+// // add event listener on adding 2nd time series in plotly
+// $('#varMOMCobaltTS2').on("change", function () {
 
-    // depth option change
-    $("#depthMOMCobaltTS2").empty();
-    createMomCobaltDepthOpt($("#varMOMCobaltTS2").val(),"depthMOMCobaltTS2");
+//     // depth option change
+//     $("#depthMOMCobaltTS2").empty();
+//     createMomCobaltDepthOpt($("#varMOMCobaltTS2").val(),"depthMOMCobaltTS2");
 
-    // varname2
-    varind2 = varnamelist2[1].indexOf($("#varMOMCobaltTS2").val())
-    varname2 = varnamelist2[0][varind2]
+//     // var2Value
+//     varind2 = varnamelist2[1].indexOf($("#varMOMCobaltTS2").val())
+//     var2Value = varnamelist2[0][varind2]
 
-    if (locationData !== undefined && locationData !== null) {
-        if (varFoliumMap !== undefined && varFoliumMap !== null) {
-            if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
-                plotTSs(locationData)
-            } else {
-                plotTS1(locationData);
-            }
-        }
-    }
-});
+//     if (locationData !== undefined && locationData !== null) {
+//         if (varFoliumMap !== undefined && varFoliumMap !== null) {
+//             if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
+//                 plotTSs(locationData)
+//             } else {
+//                 plotTS1(locationData);
+//             }
+//         }
+//     }
+// });
 
-// add event listener on selecting depth for 3d 2nd variable
-$('#depthMOMCobaltTS2').on("change", function () {
-    if (locationData !== undefined && locationData !== null) {
-        if (varFoliumMap !== undefined && varFoliumMap !== null) {
-            if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
-                plotTSs(locationData)
-            } else {
-                plotTS1(locationData);
-            }
-        }
-    }
-});
+// // add event listener on selecting depth for 3d 2nd variable
+// $('#depthMOMCobaltTS2').on("change", function () {
+//     if (locationData !== undefined && locationData !== null) {
+//         if (varFoliumMap !== undefined && varFoliumMap !== null) {
+//             if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
+//                 plotTSs(locationData)
+//             } else {
+//                 plotTS1(locationData);
+//             }
+//         }
+//     }
+// });
 
 // add event listener on selecting depth for 3d 2nd variable
 $('#indexMOMCobaltTS').on("change", function () {
@@ -317,166 +253,371 @@ $('#indexMOMCobaltTS').on("change", function () {
 
 
 ///////// functional function start /////////
-// intialize the plotly plot
-// Initial dashboard plot
-function asyncInitializePlotlyResize(flag) {
-    return initializePlotly(flag)
-        .then(() => {
-            window.dispatchEvent(new Event('resize'));
-        })
-        .catch(error => {
-            console.error('Error in async plotly initialization:', error);
-        });
+// function for advancing/recede to the next option in the list
+//   used directly in html page button with attribute onclick
+function changeTimeStep(timeStep) {
+    var nextTime = parseInt(timeSlider.val())+timeStep;
+    timeSlider.val(nextTime);
+    $("div.workingTop").removeClass("hidden");
+    $("div.errorTop").addClass("hidden");
+    $("div.whiteTop").addClass("hidden");
+    dateFolium = rangeValues[timeSlider.val()];
+    tValue.text(dateFolium);
+    replaceFolium();
 }
 
-function initializePlotly(flag) {
-    var trace = {
-        x: "",
-        y: "",
-        type: 'scatter',
-        mode: 'lines+markers',
-        marker: { size: 8 },
-        line: { shape: 'linear' },
-        name: ""
+// functions for timeline tick 
+function generateTick(tickList) {
+    $("div.ticks span").remove();
+    // console.log(tickList.length)
+    for (let i = 0; i < tickList.length; i++) {
+        // Create a new <span> element
+        const span = $("<span></span>");
+    
+        // Set some content or attributes for the <span>
+        span.text(`${tickList[i]}`);
+        span.addClass("tickYear"); 
+    
+        // Append the <span> to the containerTick <div>
+        containerTick.append(span);
     };
-  
-    var layoutTS = {
-        title: 
-        'Click on map for time series',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        xaxis: { title: 'Date' },
-        yaxis: { title: 'Variable' },
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layoutBox = {
-        title: 
-        'Box plot',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layoutHist = {
-        title: 
-        'Histogram',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layoutProf = {
-        title: 
-        'Profile',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layout2 = {
-        title: 
-        'Draw polyline on map',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        xaxis: { title: 'Date' },
-        yaxis: { title: 'Variable' },
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var layoutFcst = {
-        title: 
-        'Create Forecast Map first<br>& pick point on the shaded area',
-        //   autosize: true,
-        // width: 1000,
-        // height: 400,
-        xaxis: { title: 'Date' },
-        yaxis: { title: 'Variable' },
-        hovermode: 'closest',
-        showlegend: false,
-        // responsive: true
-    };
-
-    var config = {responsive: true}
-
-    if (flag ==='all'){
-        Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
-        // Plotly.newPlot('plotly-box-plot', [trace], layoutBox,config);
-        // Plotly.newPlot('plotly-histogram', [trace], layoutHist,config);
-        Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
-        Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
-        Plotly.newPlot('plotly-transect', [trace], layout2,config);
-        // Plotly.newPlot('plotly-index', [trace], layout3)
-    } else if (flag ==='vertical') {
-        Plotly.newPlot('plotly-vertical-t', [trace], layoutProf,config);
-        Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
-    } else if (flag ==='tseries') {
-        Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
-    } else if (flag ==='transect') {
-        Plotly.newPlot('plotly-transect', [trace], layout2,config);
-    } else if (flag ==='forecast') {
-        Plotly.newPlot('plotly-fcast-spread', [trace], layoutFcst, config);
-        Plotly.newPlot('plotly-fcast-box', [trace], layoutFcst, config);
-    } else if (flag ==='mhwForecast') {
-        Plotly.newPlot('plotly-fcastmhw-prob', [trace], layoutTS,config);
-        Plotly.newPlot('plotly-fcastmhw-mag', [trace], layoutTS,config);
-    }
-
-    return new Promise(resolve => {
-        console.log('Initial Plotly created');
-        resolve();
-    });
 };
 
-// //function for option change due to button/view change at the bottom
-// function changeSelectOpt(divId,optionID,tabContentClass) {
-//     showDiv(divId,tabContentClass);
-//     // change pick option
-//     $('#' + optionID).val(divId + 'Val').change();
-// }
+/**
+ * Truncate a string to a specified length and add ellipsis if it exceeds that length.
+ * @param {string} str - The string to truncate.
+ * @param {number} maxLength - The maximum length of the truncated string.
+ * @returns {string} - The truncated string with ellipsis if it exceeds the maximum length.
+ */
+function truncateString(str, maxLength) {
+    if (str.length > maxLength) {
+        return str.substring(0, maxLength - 3) + '...';
+    } else {
+        return str;
+    }
+}
+
+function updateDepthAndBlockOptions(regValue, freqValue, varValue, depthID='depthMOMCobalt', blockID='blockMOMCobalt') {
+    // Change depth and block options for the new freq
+    // Need to fetch the backend data for the depth options
+    fetchVariableDepthBotOptions(
+        regValue, 'full_domain', 'hindcast', freqValue, 'regrid', varValue
+    ).then((jsonData) => {
+
+        if (jsonData.depth === 0) {
+            // Create the single layer options
+            createDropdownOptions(depthID, ['single layer'], ['single_layer']);
+        } else {
+            // Create the depth options
+            let depthlist = jsonData.depth;
+            createDropdownOptions(depthID, depthlist, depthlist);
+        }
+        
+        if (jsonData.bottom === 0) {
+            console.log(jsonData.bottom);
+            // Create the single layer options
+            createDropdownOptions(blockID, ['not applicable'], ['not_applicable']);
+        } else {
+            // Create the depth options
+            let bottomlist = jsonData.bottom;
+            createDropdownOptions(blockID, bottomlist, bottomlist);
+        }
+
+        depthValue = $('#'+depthID).val(); // initial depth value
+        blockValue = $('#'+blockID).val(); // initial block value
+
+    }).catch(error => {
+        console.error('Error in fetching depth options:', error);
+    });
+
+}
+
+// initialize the region freq variable optios
+async function initialize() {
+    // Wait for createGeneralOption to complete region options
+    //  async needed for freq, var, depth, block options backend fetch
+    await createGeneralOption('regMOMCobalt',momCobaltRegs);
+    regValue = $('#regMOMCobalt').val();     // initial region value
+
+    // Wait for createFreqVarIndexOption to complete
+    //  fetch the backend data for the var, freq options
+    //  async needed for depth, block options backend fetch
+    await createFreqVarIndexOption(regValue);
+    // $('#freqMOMCobalt').val('monthly');
+    freqValue = $('#freqMOMCobalt').val();   // initial frequency value
+    varValue = $('#varMOMCobalt').val();     // initial variable value
+
+    // Default time slider related variables
+    [yearValues, rangeValues] = generateDateList(); // initial monthly time slider
+    timeSlider.attr("min", 0);
+    timeSlider.attr("max", rangeValues.length - 1);
+    timeSlider.val(rangeValues.length - 1);
+    dateFolium = rangeValues[timeSlider.val()];
+    tValue.text(dateFolium);
+    // change slider size based on window size at initial loading
+    tickSpaceChange();
+
+    // Initial stat options
+    createGeneralOption('statMOMCobalt',momCobaltStats)
+    statValue = $('#statMOMCobalt').val(); // initial stats value
+
+    // Initial depth options based on variable
+    // fetch the backend data for the depth, block options
+    updateDepthAndBlockOptions(regValue, freqValue, varValue)
+
+    // create colorbar options
+    createMomCobaltCbarOpt('cbarOpts','RdBu_r')
+
+    // // var2Value update
+    // var2Value = $('#varMOMCobaltTS2').val();
+
+    // // change depth2 and block2 options for the new freq
+    // // need to fetch the backend data for the depth options
+    // updateDepthAndBlockOptions(regValue, freqValue, var2Value, 'depthMOMCobaltTS2', 'blockMOMCobaltTS2')
+
+    // create initial plotly object place holder
+    asyncInitializePlotlyResize('all')
+
+    // create index plotly
+    initializePlotly('indexes');
+    plotIndexes()
+
+}
+
+// function to get the option list in the json files
+export async function createGeneralOption(selectID, optionListFunc) {
+    // fetch list
+    let [optionList,valueList] = optionListFunc();
+    // create dropdown options
+    createDropdownOptions(selectID,optionList,valueList);
+}
+
+// function for create option 
+export function optionList(listname,listval) {
+    let df = document.createDocumentFragment(); // create a document fragment to hold the options created later
+    for (let i = 0; i < listname.length; i++) { // loop
+        let option = document.createElement('option'); // create the option element
+        option.value = listval[i]; // set the value property
+        // truncate the string if it is too long
+        let truncName = truncateString(listname[i], 50)
+        option.appendChild(document.createTextNode(truncName)); // set the textContent in a safe way.
+        df.appendChild(option); // append the option to the document fragment
+    }
+    return df;
+};
+
+
+// function for create option
+export function createDropdownOptions(selectID,showList,valueList) {
+    let elm = document.getElementById(selectID); 
+
+    // Remove all existing options
+    while (elm.firstChild) {
+        elm.removeChild(elm.firstChild);
+    }
+
+    let df = optionList(showList,valueList);
+    elm.appendChild(df);
+};
+
+// asyn function to get the option list in the json files
+export async function createFreqVarIndexOption(regname) {
+    // fetch hindcast json specific to region
+    var region;
+    var subdomain;
+    var expType = 'hindcast';
+    if (regname === 'northwest_atlantic'){
+        region = 'northwest_atlantic';
+        subdomain = 'full_domain';
+    } else if (regname === 'northeast_pacific'){
+        region = 'northeast_pacific';
+        subdomain = 'full_domain';
+    };
+    // get frequeuncy json
+    let dataAccessJson = await fetchDataOptionVis(region,subdomain,expType);
+    // get variable json
+    let variableJson = await fetchVarOptionVis(region,subdomain,expType);
+    // get index json
+    let indexJson = await fetchIndexOptionHindVis(region,subdomain,expType);
+
+    // create frequency options
+    let freqList = dataAccessJson.output_frequency;
+    createDropdownOptions('freqMOMCobalt',freqList,freqList);
+
+    // create variable options
+    let varOptionList = variableJson.var_options;
+    let varValueList = variableJson.var_values;
+    createDropdownOptions('varMOMCobalt',varOptionList,varValueList);
+    
+    // only when the json file of a index exist
+    if (indexJson) {
+        // create index options (under index dashboard)
+        let indexOptionList = indexJson.varname;
+        let indexNameOptionList = indexJson.longname;
+        let indexFileLocationList = indexJson.file;
+        createDropdownOptions('indexMOMCobaltTS',indexNameOptionList,indexFileLocationList);
+        plotIndexes();
+    }
+    
+    // // create 2nd variable options
+    // let var2OptionList = variableJson.var_options;
+    // let var2ValueList = variableJson.var_values;
+    // createDropdownOptions('varMOMCobaltTS2',var2OptionList,var2ValueList);
+
+}
+
+// async fetching the data_access_json cefi_data_option
+export async function fetchDataOptionVis(reg,subDom,expType) {
+    try {
+      const response = await fetch(
+        'data_option_json/cefi_data_options.Projects.CEFI.regional_mom6.cefi_portal.'+
+        reg+
+        '.'+
+        subDom+
+        '.'+
+        expType+
+        '.json'
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();  // JSON data 
+      // console.log('JSON data:', data);
+      return data;
+    } catch (error) {
+      console.error('There was a problem when async fetchDataOption:', error);
+    }
+}
+
+// async fetching the data_access_json cefi_var_option
+export async function fetchVarOptionVis(reg,subDom,expType) {
+    try {
+      const response = await fetch(
+        'data_option_json/cefi_var_options.Projects.CEFI.regional_mom6.cefi_portal.'+
+        reg+
+        '.'+
+        subDom+
+        '.'+
+        expType+
+        '.json'
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();  // JSON data 
+      // console.log('JSON data:', data);
+      return data;
+    } catch (error) {
+      console.error('There was a problem when async fetchVarOption:', error);
+    }
+}
+
+// async fetching the data_access_json cefi_data_option
+async function fetchIndexOptionHindVis(reg,subDom,expType) {
+    try {
+      const response = await fetch(
+        'data_option_json/cefi_index_options.Projects.CEFI.regional_mom6.cefi_derivative.'+
+        reg+
+        '.'+
+        subDom+
+        '.'+
+        expType+
+        '.json'
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();  // JSON data 
+      // console.log('JSON data:', data);
+      return data;
+    } catch (error) {
+      $('#indexMOMCobaltTS').empty();
+      initializePlotly('indexes');
+      console.error('There was a problem when async fetchIndexOption:', error);
+    }
+}
+
+// async functions for fetching variable and experiment specific option from backend
+export async function fetchVariableDepthBotOptions(reg,subDom,expType,outFreq,gridType,variable) {
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_create_variable_depth_bot_options.py"
+    +"?region="+reg
+    +"&subdomain="+subDom
+    +"&experiment_type="+expType
+    +"&output_frequency="+outFreq
+    +"&grid_type="+gridType
+    +"&variable="+variable;
+  
+    console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+  
+    return fetch(ajaxGet)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .catch(error => {
+            // Handle errors here
+            console.error('Fetch json failed when creating variable depth bottom options:', error);
+        });
+  }
+
+// functions for generating year and date list for timeslider (monthly)
+function generateDateList(startYear = 1993, endYear = 2019) {
+    var dateList = [];
+    var yearList = [];
+
+    for (var year = startYear; year <= endYear; year++) {
+        yearList.push(year)
+        for (var month = 1; month <= 12; month++) {
+            var monthStr = month < 10 ? "0" + month : month;
+            dateList.push(year + "-" + monthStr);
+        }
+    }
+
+    return [yearList, dateList];
+}
+
+// functions for generating year and date list for timeslider (daily)
+function generateDailyDateList(startYear = 1993, endYear = 2019) {
+    var dateList = [];
+    var yearList = [];
+
+    for (var year = startYear; year <= endYear; year++) {
+        yearList.push(year);
+
+        for (var month = 1; month <= 12; month++) {
+            var daysInMonth = new Date(year, month, 0).getDate(); // Get the number of days in the month
+
+            for (var day = 1; day <= daysInMonth; day++) {
+                dateList.push(`${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`);
+            }
+        }
+    }
+
+    return [yearList, dateList];
+}
+
+// function for create option for colorbar
+export function createMomCobaltCbarOpt(cbarOptID='cbarOpts',defaultCbar='RdBu_r') {
+    let elm = document.getElementById(cbarOptID);
+    let list_cbar = colorbarOpt()    
+    let df = optionList(list_cbar,list_cbar);
+
+    return new Promise((resolve) => {
+        elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
+        elm.selectedIndex = list_cbar.indexOf(defaultCbar);
+        // console.log("Async work completed!");
+        resolve(); // Resolve the promise when done
+    });
+
+};
 
 // function for option change due to nav pill change at the bottom
 function changeDashSelect(dashDropDownID,optionVal) {
     // change pick option
     $('#' + dashDropDownID).val(optionVal).change();
 }
-
-// // function for mini navbar in a bootstrap page
-// function showDiv(divId,tabContentClass) {
-//     // Hide all divs
-//     $('.'+tabContentClass).addClass("hidden")
-
-//     // Show the selected div
-//     $('#' + divId).removeClass("hidden");
-
-//     // // Show click button 
-//     // showClick(divId+'Btn');
-// }
-
-// // function for minitab in a bootstrap page
-// function showClick(buttonId) {
-//     // Hide all divs
-//     $('.tablink').removeClass("clicked")
-
-//     // Show the selected div
-//     $('#' + buttonId).addClass("clicked");
-// }
-
 
 // function for changing the tick mark of time slider
 function tickSpaceChange() {
@@ -497,210 +638,309 @@ function tickSpaceChange() {
     };
 };
 
-// function for create option 
-function optionList(listname,listval) {
-    let df = document.createDocumentFragment(); // create a document fragment to hold the options created later
-    for (let i = 0; i < listname.length; i++) { // loop
-        let option = document.createElement('option'); // create the option element
-        option.value = listval[i]; // set the value property
-        option.appendChild(document.createTextNode(listname[i])); // set the textContent in a safe way.
-        df.appendChild(option); // append the option to the document fragment
-    }
-    return df;
-};
+// intialize the plotly plot
+// Initial dashboard plot
+export function asyncInitializePlotlyResize(flag) {
+    // make sure the plotly object is created then resize
+    return initializePlotly(flag)
+        .then(() => {
+            window.dispatchEvent(new Event('resize'));
+        })
+        .catch(error => {
+            console.error('Error in async plotly initialization:', error);
+        });
+}
 
-// function for create option with subgroup
-function optionSubgroupList(listname,listval,listsubgroup) {
-    let df = document.createDocumentFragment(); // create a document fragment to hold the options created later
-    
-    // object subgroup
-    const monthlyGroup = document.createElement('optgroup');
-    monthlyGroup.label = 'Monthly variables';
-    const dailyGroup = document.createElement('optgroup');
-    dailyGroup.label = 'Daily variables';
-    const monthlyIndexGroup = document.createElement('optgroup');
-    monthlyIndexGroup.label = 'Monthly indexes';
-    const annualIndexGroup = document.createElement('optgroup');
-    annualIndexGroup.label = 'Annual indexes';
-    var mvflag = false
-    var dvflag = false
-    var miflag = false
-    var aiflag = false
-
-    for (let i = 0; i < listname.length; i++) {
-        let option = document.createElement('option'); // create the option element
-        option.value = listval[i]; // set the value property
-        option.appendChild(document.createTextNode(listname[i])); // set the textContent in a safe way.
-        if (listsubgroup[i].indexOf("monthly")!==-1){
-            monthlyGroup.appendChild(option);
-            mvflag = true
-        } else if (listsubgroup[i].indexOf("daily")!==-1){
-            dailyGroup.appendChild(option);
-            dvflag = true
-        } else if (listsubgroup[i].indexOf("mon_index")!==-1){
-            monthlyIndexGroup.appendChild(option);
-            miflag = true
-        } else if (listsubgroup[i].indexOf("ann_index")!==-1){
-            annualIndexGroup.appendChild(option);
-            aiflag = true
-        }
-    }
-     
-    // append the subgroup in the desired order
-    if (aiflag) {
-        df.appendChild(annualIndexGroup);
-    }
-    if (mvflag) {
-        df.appendChild(monthlyGroup);
-    }  
-    // df.appendChild(monthlyGroup); // append the option to the document fragment
-    if (miflag) {
-        df.appendChild(monthlyIndexGroup);
-    }
-    // df.appendChild(dailyGroup);
-    if (dvflag) {
-        df.appendChild(dailyGroup);
-    }
-    return df;
-};
-
-// function for create option for general options (single ID)
-function createMomCobaltOpt_singleID(selectID,optionListFunc) {
-    let elm = document.getElementById(selectID);
-    let optlist = optionListFunc();
-    df = optionList(optlist[0],optlist[1]);
-    elm.appendChild(df);
-};
-
-// function for create option for general options
-function createMomCobaltOpt(selectClass,optionListFunc) {
-    let elms = document.getElementsByClassName(selectClass);
-    let optlist = optionListFunc();
-    df = optionList(optlist[0],optlist[1]);
-    // loop through all region dropdown with the selectClassName
-    for(let i = 0; i < elms.length; i++) {
-        let clonedf = df.cloneNode(true); // Clone the child element
-        elms[i].appendChild(clonedf); // Append the cloned child to the current element
-    }
-};
-
-
-// function for create option for variables (optimized for different purposes)
-function createMomCobaltVarOpt(dataCobaltID,selectID) {
-    let elm = document.getElementById(selectID); 
-    let varlist = momCobaltVars();
-    if (dataCobaltID == "MOMCobalt") {
-        // for hindcast run var
-        varlist = momCobaltVars();
-    } else if (dataCobaltID == "MOMCobalt+Index") {
-        // for second time series comp
-        varlist = momCobaltVars();
-        indexlist = indexes();
-        varlist[0] = varlist[0].concat(indexlist[0]);
-        varlist[1] = varlist[1].concat(indexlist[1]);
-        varlist[2] = varlist[2].concat(indexlist[2]);
-    } else if (dataCobaltID == "onlyIndexes") {
-        // for index
-        indexlist = indexes("onlyIndex");
-        varlist[0] = indexlist[0];
-        varlist[1] = indexlist[1];
-        varlist[2] = indexlist[2];
+export function initializePlotly(flag) {
+    var trace = {
+        x: "",
+        y: "",
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { size: 8 },
+        line: { shape: 'linear' },
+        name: ""
     };
-    // df = optionList(varlist[0],varlist[1]);
-    df = optionSubgroupList(varlist[0],varlist[1],varlist[2]);
-    elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
-};
+  
+    var layoutTS = {
+        title: 
+        'Click on map for time series',
+        autosize: true,
+        width: 500,
+        height: 400,
+        xaxis: { title: 'Date' },
+        yaxis: { title: 'Variable' },
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
 
-// function for create option for statistics
-function createMomCobaltStatOpt() {
-    let elm = document.getElementById('statMOMCobalt');
-    let list_stat = momCobaltStats()    
-    let df = optionList(list_stat,list_stat);
-    elm.appendChild(df);
-};
+    var layoutBox = {
+        title: 
+        'Box plot',
+        autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
 
-// function for create option for depth
-function createMomCobaltDepthOpt(variable,selectID) {
-    let elm = document.getElementById(selectID);
-    let list_3d = momCobalt3D()
-    const found = list_3d.some(element => element === variable);
-    if (found) {
-        let depthlist = momCobaltDepth();
-        let df = optionList(depthlist,depthlist);
-        elm.appendChild(df);
-    } else {
-        let df = document.createDocumentFragment();
-        let option = document.createElement('option');
-        option.value = 'single_layer';
-        option.appendChild(document.createTextNode('single layer'));
-        df.appendChild(option); 
-        elm.appendChild(df);
-    }
-};
+    var layoutHist = {
+        title: 
+        'Histogram',
+        autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
 
-// function for create option for bottom depth block
-function createMomCobaltDepthBlockOpt(variable,blockOptID='blockMOMCobalt') {
-    let elm = document.getElementById(blockOptID);
-    let list_bottom = momCobaltBottom()
-    const found = list_bottom.some(element => element === variable);
-    if (found) {
-        let depthlist = momCobaltDepth();
-        let df = optionList(depthlist,depthlist);
-        elm.appendChild(df); 
-        elm.options[0].disabled = true;
-        elm.selectedIndex = depthlist.indexOf(6250);
-    } else {
-        let df = document.createDocumentFragment();
-        let option = document.createElement('option');
-        option.value = 'not_applicable';
-        option.appendChild(document.createTextNode('not applicable'));
-        df.appendChild(option); 
-        elm.appendChild(df);
-    }
-};
+    var layoutProf = {
+        title: 
+        'Profile',
+        autosize: true,
+        // width: 1000,
+        // height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
 
-// function for create option for depth
-function createMomCobaltCbarOpt(cbarOptID='cbarOpts',defaultCbar='RdBu_r') {
-    let elm = document.getElementById(cbarOptID);
-    let list_cbar = colorbarOpt()    
-    let df = optionList(list_cbar,list_cbar);
+    var layoutIndex = {
+        title: 
+        'Index not available',
+        autosize: true,
+        width: 1000,
+        height: 400,
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
 
-    return new Promise((resolve) => {
-        elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
-        elm.selectedIndex = list_cbar.indexOf(defaultCbar);
-        // console.log("Async work completed!");
-        resolve(); // Resolve the promise when done
+    var layout2 = {
+        title: 
+        'Draw polyline on map',
+        autosize: true,
+        // width: 1000,
+        // height: 400,
+        xaxis: { title: 'Date' },
+        yaxis: { title: 'Variable' },
+        hovermode: 'closest',
+        showlegend: false,
+        // responsive: true
+    };
+
+    var layoutFcst = {
+        title: 
+        'Create Forecast Map first<br>& pick point on the shaded area',
+        autosize: true,
+        width: 500,
+        height: 400,
+        xaxis: { title: 'Date' },
+        yaxis: { title: 'Variable' },
+        hovermode: 'closest',
+        showlegend: false,
+        responsive: true
+    };
+
+    var config = {responsive: true}
+
+    if (flag ==='all'){
+        Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
+        // Plotly.newPlot('plotly-box-plot', [trace], layoutBox,config);
+        // Plotly.newPlot('plotly-histogram', [trace], layoutHist,config);
+        Plotly.newPlot('plotly-vertical-prof', [trace], layoutProf,config);
+        // Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
+        // Plotly.newPlot('plotly-transect', [trace], layout2,config);
+        Plotly.newPlot('plotly-index', [trace], layoutIndex,config);
+    } else if (flag ==='vertical') {
+        Plotly.newPlot('plotly-vertical-prof', [trace], layoutProf,config);
+        // Plotly.newPlot('plotly-vertical-s', [trace], layoutProf,config);
+    } else if (flag ==='indexes') {
+        Plotly.newPlot('plotly-index', [trace], layoutIndex,config);
+    } else if (flag ==='tseries') {
+        Plotly.newPlot('plotly-time-series', [trace], layoutTS,config);
+    } else if (flag ==='transect') {
+        // Plotly.newPlot('plotly-transect', [trace], layout2,config);
+    } else if (flag ==='forecast') {
+        Plotly.newPlot('plotly-fcast-spread', [trace], layoutFcst, config);
+        Plotly.newPlot('plotly-fcast-box', [trace], layoutFcst, config);
+    } else if (flag ==='mhwForecast') {
+        Plotly.newPlot('plotly-fcastmhw-prob', [trace], layoutTS,config);
+        Plotly.newPlot('plotly-fcastmhw-mag', [trace], layoutTS,config);
+    } else if (flag ==='forecastLive') {
+        Plotly.newPlot('plotly-fcast-live-spread', [trace], layoutFcst, config);
+        Plotly.newPlot('plotly-fcast-live-box', [trace], layoutFcst, config);
+    };
+
+    return new Promise(resolve => {
+        // console.log('Initial Plotly created');
+        resolve();
     });
-
 };
 
+
+
+
+// // function for create option with subgroup
+// function optionSubgroupList(listname,listval,listsubgroup) {
+//     let df = document.createDocumentFragment(); // create a document fragment to hold the options created later
+    
+//     // object subgroup
+//     const monthlyGroup = document.createElement('optgroup');
+//     monthlyGroup.label = 'Monthly variables';
+//     const dailyGroup = document.createElement('optgroup');
+//     dailyGroup.label = 'Daily variables';
+//     const monthlyIndexGroup = document.createElement('optgroup');
+//     monthlyIndexGroup.label = 'Monthly indexes';
+//     const annualIndexGroup = document.createElement('optgroup');
+//     annualIndexGroup.label = 'Annual indexes';
+//     var mvflag = false
+//     var dvflag = false
+//     var miflag = false
+//     var aiflag = false
+
+//     for (let i = 0; i < listname.length; i++) {
+//         let option = document.createElement('option'); // create the option element
+//         option.value = listval[i]; // set the value property
+//         option.appendChild(document.createTextNode(listname[i])); // set the textContent in a safe way.
+//         if (listsubgroup[i].indexOf("monthly")!==-1){
+//             monthlyGroup.appendChild(option);
+//             mvflag = true
+//         } else if (listsubgroup[i].indexOf("daily")!==-1){
+//             dailyGroup.appendChild(option);
+//             dvflag = true
+//         } else if (listsubgroup[i].indexOf("mon_index")!==-1){
+//             monthlyIndexGroup.appendChild(option);
+//             miflag = true
+//         } else if (listsubgroup[i].indexOf("ann_index")!==-1){
+//             annualIndexGroup.appendChild(option);
+//             aiflag = true
+//         }
+//     }
+     
+//     // append the subgroup in the desired order
+//     if (aiflag) {
+//         df.appendChild(annualIndexGroup);
+//     }
+//     if (mvflag) {
+//         df.appendChild(monthlyGroup);
+//     }  
+//     // df.appendChild(monthlyGroup); // append the option to the document fragment
+//     if (miflag) {
+//         df.appendChild(monthlyIndexGroup);
+//     }
+//     // df.appendChild(dailyGroup);
+//     if (dvflag) {
+//         df.appendChild(dailyGroup);
+//     }
+//     return df;
+// };
+
+// // function for create option for general options (single ID)
+// function createMomCobaltOpt_singleID(selectID,optionListFunc) {
+//     let elm = document.getElementById(selectID);
+//     let optlist = optionListFunc();
+//     df = optionList(optlist[0],optlist[1]);
+//     elm.appendChild(df);
+// };
+
+// // function for create option for general options
+// function createMomCobaltOpt(selectClass,optionListFunc) {
+//     let elms = document.getElementsByClassName(selectClass);
+//     let optlist = optionListFunc();
+//     df = optionList(optlist[0],optlist[1]);
+//     // loop through all region dropdown with the selectClassName
+//     for(let i = 0; i < elms.length; i++) {
+//         let clonedf = df.cloneNode(true); // Clone the child element
+//         elms[i].appendChild(clonedf); // Append the cloned child to the current element
+//     }
+// };
+
+
+// // function for create option for variables (optimized for different purposes)
+// function createMomCobaltVarOpt(dataCobaltID,selectID) {
+//     let elm = document.getElementById(selectID); 
+//     let varlist = momCobaltVars();
+//     if (dataCobaltID == "MOMCobalt") {
+//         // for hindcast run var
+//         varlist = momCobaltVars();
+//     } else if (dataCobaltID == "MOMCobalt+Index") {
+//         // for second time series comp
+//         varlist = momCobaltVars();
+//         indexlist = indexes();
+//         varlist[0] = varlist[0].concat(indexlist[0]);
+//         varlist[1] = varlist[1].concat(indexlist[1]);
+//         varlist[2] = varlist[2].concat(indexlist[2]);
+//     } else if (dataCobaltID == "onlyIndexes") {
+//         // for index
+//         indexlist = indexes("onlyIndex");
+//         varlist[0] = indexlist[0];
+//         varlist[1] = indexlist[1];
+//         varlist[2] = indexlist[2];
+//     };
+//     // df = optionList(varlist[0],varlist[1]);
+//     df = optionSubgroupList(varlist[0],varlist[1],varlist[2]);
+//     elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
+// };
+
+
+
+
+// Display loading spinner
+export function showLoadingSpinner(divID) {
+    // console.log('spin')
+    $("#"+divID).css("display", "block");
+}
+
+// Hide loading spinner
+export function hideLoadingSpinner(divID) {
+    // console.log('stop spin')
+    $("#"+divID).css("display", "none");
+}
 
 // function for replace folium overlap info (image and colorbar)
+//  reason of seperate from the other global variable
+//  this make sure the variable that is plotted on the map sync
+//  with the "Plotly time series"
 let varFoliumMap;
-let statMap;
-let depthMap;
+let regFoliumMap;
+let freqFoliumMap;
+let statFoliumMap;
+let depthFoliumMap;
 function replaceFolium() {
     showLoadingSpinner("loading-spinner-map");
     varFoliumMap = $("#varMOMCobalt").val();
-    statMap = $("#statMOMCobalt").val();
-    depthMap = $("#depthMOMCobalt").val();
-    let block = $("#blockMOMCobalt");
-    let cbar = $("#cbarOpts")
-    let maxval = $("#maxval");
-    let minval = $("#minval");
-    let nlevel = $("#nlevel");
+    regFoliumMap = $("#regMOMCobalt").val();
+    freqFoliumMap = $("#freqMOMCobalt").val();
+    statFoliumMap = $("#statMOMCobalt").val();
+    depthFoliumMap = $("#depthMOMCobalt").val();
 
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_folium.py"
+    // variables only used on the Folium map
+    //  initiated every time when the create map is triggered 
+    let block = $("#blockMOMCobalt").val();
+    let cbar = $("#cbarOpts").val();
+    let maxval = $("#maxval").val();
+    let minval = $("#minval").val();
+    let nlevel = $("#nlevel").val();
+
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium.py"
         +"?variable="+varFoliumMap
-        +"&region="+$("#regMOMCobalt").val()
+        +"&region="+regFoliumMap
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=hindcast"
+        +"&grid_type=regrid"
         +"&date="+dateFolium
-        +"&stat="+statMap
-        +"&depth="+depthMap
-        +"&block="+block.val()
-        +"&cbar="+cbar.val()
-        +"&maxval="+maxval.val()
-        +"&minval="+minval.val()
-        +"&nlevel="+nlevel.val()
+        +"&stat="+statFoliumMap
+        +"&depth="+depthFoliumMap
+        +"&block="+block
+        +"&cbar="+cbar
+        +"&maxval="+maxval
+        +"&minval="+minval
+        +"&nlevel="+nlevel
     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
     fetch(ajaxGet) // Replace with the URL you want to request
@@ -708,83 +948,61 @@ function replaceFolium() {
             if (!response.ok) {
             throw new Error('Network response was not ok');
             }
-            return response.text();
+            return response.json();
         })
-        .then(data => {
+        .then(jsonData => {
             // Process the response data here
-            // console.log(data)
-
-            //replace image
-            var regexImg = /^\s*"data:image\/png;base64,[^,\n]*,\n/gm;
-            var matcheImg = data.match(regexImg);
-            var image = matcheImg[0].match(/"([^"]+)"/)[0].slice(1,-1)
-            // var image = extractText(matcheImg[0]);
-
-            //replace colorbar
-            var regexDom = /^\s*\.domain\([^)]*\)\n/gm;
-            var matchDoms = data.match(regexDom);
-            var domainArray1 = text2Array(matchDoms[0]);
-            var domainArray2 = text2Array(matchDoms[1]);
-            var regexRange = /^\s*\.range\([^)]*\);\n/gm;
-            var matchRanges = data.match(regexRange);
-            var rangeArray = text2Array(matchRanges[0].replace(/'/g, '"'));
-            
-            //replace tickmark
-            var regexTickVal = /^\s*\.tickValues\([^)]*\);\n/gm;
-            var matchTickVal = data.match(regexTickVal);
-            var tickValArray = text2Array(matchTickVal[0]);
-            
-            //replace colorbar label
-            var regexCLabel = /^\s*\.text\([^)]*\);\n/gm;
-            var matchCLabel = data.match(regexCLabel);
-            var textVal = extractText(matchCLabel[0]);
-
+            // console.log(jsonData);
             mapData = {
                 type: 'mapData',
-                image: image,
-                domain1: domainArray1,
-                domain2: domainArray2,
-                range: rangeArray,
-                tick: tickValArray,
-                label: textVal
+                image: jsonData.image,
+                image_bound: jsonData.image_bound,
+                map_center: jsonData.map_center,
+                map_crs: jsonData.map_crs,
+                domain1: jsonData.domain1,
+                domain2: jsonData.domain2,
+                range: jsonData.range,
+                tick: jsonData.tick,
+                label: jsonData.label
             };
+
             // console.log(mapData)
             momCobaltMap[0].contentWindow.postMessage(mapData, "*")
 
-            // get same point time series when points and variable are defined
+            // get same point time series when points and variable are defined/clicked
             if (locationData !== undefined && locationData !== null) {
+                console.log(locationData)
                 if (varFoliumMap !== undefined && varFoliumMap !== null) {
-                    if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
-                        plotTSs(locationData)
-                    } else {
-                        plotTS1(locationData);
-                    }
-                }
-                //// current function only allowed in monthly data
-                if (dateFolium.length === 7){
+                    plotTS1(locationData);
                     plotVertProfs(locationData);
-                } else {
-                    // initialize plotly
-                    initializePlotly('vertical');
+                    // if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
+                    //     plotTSs(locationData);
+                    // } else {
+                    //     plotTS1(locationData);
+                    // }
                 }
+                // //// current function only allowed in monthly data
+                // if (dateFolium.length === 7){
+                //     plotVertProfs(locationData);
+                // } else {
+                //     // initialize plotly
+                //     initializePlotly('vertical');
+                // }
             }
             // get same polyline transect when polyline and variable are defined
             if (polygonData !== undefined && polygonData !== null) {
                 if (varFoliumMap !== undefined && varFoliumMap !== null) {
+                    plotTransect(polygonData);
                     //// current function only allowed in monthly data
-                    if (dateFolium.length === 7){
-                        plotTransect(polygonData);
-                    } else {
-                        // initialize plotly
-                        initializePlotly('transect');
-                    }
+                    // if (dateFolium.length === 7){
+                        // plotTransect(polygonData);
+                    // } else {
+                    //     // initialize plotly
+                    //     initializePlotly('transect');
+                    // }
                 }
             }
 
-            // if (document.getElementById('plotly-time-series').data.length===1) {
-
-            // momCobaltMap[0].contentWindow.postMessage(data, "*")
-            // momCobaltMap.attr("srcdoc", data)
             $("div.workingTop").addClass("hidden");
             $("div.errorTop").addClass("hidden");
             $("div.whiteTop").removeClass("hidden");
@@ -792,31 +1010,21 @@ function replaceFolium() {
         })
         .catch(error => {
             // Handle errors here
-            console.error('Fetch folium map error:', error);
             $("div.workingTop").addClass("hidden");
             $("div.errorTop").removeClass("hidden");
             $("div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-map");
+            $("#tsView > div.workingTop").addClass("hidden");
+            $("#tsView > div.errorTop").removeClass("hidden");
+            $("#tsView > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-ts");
+            console.error('Fetch folium map error:', error);
+
         });
 
     // momCobaltMap.attr("src", ajaxGet)
 }
 
-// function for decomposing the html code
-function text2Array(string) {
-    var stringRegex = /\[.*\]/;
-    var array = string.match(stringRegex);
-    array = JSON.parse(array);
-
-    return array;
-}
-
-// function for decomposing the html code
-function extractText(string) {
-    var stringRegex =/\.text\("([^"]+)"\)/;
-    var text = string.match(stringRegex);
-
-    return text[1];
-}
 
 // function for plotting 2 TS with Promise to make sure the plotting order
 function plotTSs(infoLonLat) {
@@ -834,7 +1042,7 @@ function plotTSs(infoLonLat) {
             });
     });
     const promiseTS2 = new Promise((resolve, reject) => {
-        if (indexes()[1].indexOf($("#varMOMCobaltTS2").val()) === -1) {
+        if (var2TS) {
             getTimeSeries(infoLonLat, true)
             .then(parsedTS => {
                 // console.log(parsedTS);
@@ -845,23 +1053,24 @@ function plotTSs(infoLonLat) {
                 console.error('Error in create PromiseTS2:', error);
                 reject(error); 
             });
-        } else {
-            getIndex('#varMOMCobaltTS2')
-            .then(parsedTS => {
-                // console.log(parsedTS);
-                resolve(parsedTS);
-            })
-            .catch(error => {
-                // Handle errors here
-                console.error('Error in create PromiseTS2 for indexes:', error);
-                reject(error); 
-            });
+        // } else {
+        //     getIndex('#varMOMCobaltTS2')
+        //     .then(parsedTS => {
+        //         // console.log(parsedTS);
+        //         resolve(parsedTS);
+        //     })
+        //     .catch(error => {
+        //         // Handle errors here
+        //         console.error('Error in create PromiseTS2 for indexes:', error);
+        //         reject(error); 
+        //     });
         }
        
     });
 
     Promise.all([promiseTS1,promiseTS2])
         .then(([firstTS,secondTS]) => {
+            console.log(firstTS.tsValues)
             plotlyTS(firstTS.tsDates,firstTS.tsValues,firstTS.lonValues,firstTS.latValues,firstTS.tsUnit,firstTS.yformat)
             plotlyBox(firstTS.tsValues,firstTS.yformat)
             plotlyHist(firstTS.tsValues,firstTS.tsUnit,firstTS.yformat)
@@ -870,16 +1079,16 @@ function plotTSs(infoLonLat) {
             });
         })
         .then(([firstTS,secondTS])=>{
-            if (indexes()[1].indexOf($("#varMOMCobaltTS2").val()) === -1) {
+            if (var2TS) {
                 // plotting the variable time series
                 plotlyTSadd(secondTS.tsDates,secondTS.tsValues,secondTS.lonValues,secondTS.latValues,secondTS.tsUnit,secondTS.yformat)
                 plotlyBoxadd(secondTS.tsValues,secondTS.yformat)
                 plotlyHistadd(secondTS.tsValues,secondTS.tsUnit,secondTS.yformat) 
-            } else {
-                // plotting the first index (make it always the first one as observed value)
-                plotlyTSadd(secondTS.tsDates[0],secondTS.tsValues[0],firstTS.lonValues,firstTS.latValues,secondTS.tsUnit[0],secondTS.yformat[0])
-                plotlyBoxadd(secondTS.tsValues[0],secondTS.yformat[0])
-                plotlyHistadd(secondTS.tsValues[0],secondTS.tsUnit[0],secondTS.yformat[0]) 
+            // } else {
+            //     // plotting the first index (make it always the first one as observed value)
+            //     plotlyTSadd(secondTS.tsDates[0],secondTS.tsValues[0],firstTS.lonValues,firstTS.latValues,secondTS.tsUnit[0],secondTS.yformat[0])
+            //     plotlyBoxadd(secondTS.tsValues[0],secondTS.yformat[0])
+            //     plotlyHistadd(secondTS.tsValues[0],secondTS.tsUnit[0],secondTS.yformat[0]) 
             }
             hideLoadingSpinner("loading-spinner-ts");
         })
@@ -891,6 +1100,9 @@ function plotTSs(infoLonLat) {
 // function for plotting first TS with Promise for data fetch complete
 function plotTS1(infoLonLat) {
     showLoadingSpinner("loading-spinner-ts");
+    $("#tsView > div.workingTop").removeClass("hidden");
+    $("#tsView > div.errorTop").addClass("hidden");
+    $("#tsView > div.whiteTop").addClass("hidden");
     const promiseTS = new Promise((resolve, reject) => {
         getTimeSeries(infoLonLat, false)
             .then(parsedTS => {
@@ -909,9 +1121,17 @@ function plotTS1(infoLonLat) {
             plotlyTS(firstTS.tsDates,firstTS.tsValues,firstTS.lonValues,firstTS.latValues,firstTS.tsUnit,firstTS.yformat)
             plotlyBox(firstTS.tsValues,firstTS.yformat)
             plotlyHist(firstTS.tsValues,firstTS.tsUnit,firstTS.yformat)
+            $("#tsView > div.workingTop").addClass("hidden");
+            $("#tsView > div.errorTop").addClass("hidden");
+            $("#tsView > div.whiteTop").removeClass("hidden");
             hideLoadingSpinner("loading-spinner-ts");
         })
         .catch((error)=>{
+            // Handle errors here
+            $("#tsView > div.workingTop").addClass("hidden");
+            $("#tsView > div.errorTop").removeClass("hidden");
+            $("#tsView > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-ts");
             console.error(error);
         })
 };
@@ -919,7 +1139,10 @@ function plotTS1(infoLonLat) {
 // function for plotting first TS with Promise for data fetch complete
 function plotVertProfs(infoLonLat) {
     showLoadingSpinner("loading-spinner-vprof");
-    const promiseVPs = new Promise((resolve, reject) => {
+    $("#profileView > div.workingTop").removeClass("hidden");
+    $("#profileView > div.errorTop").addClass("hidden");
+    $("#profileView > div.whiteTop").addClass("hidden");
+    const promiseVP = new Promise((resolve, reject) => {
         getVerticalProfile(infoLonLat)
             .then(parsedVP => {
                 // console.log(parsedTS);
@@ -932,13 +1155,20 @@ function plotVertProfs(infoLonLat) {
             });
     });
 
-    promiseVPs
+    promiseVP
         .then((parsedVP)=>{
-            plotlyVP(parsedVP.tDepth,parsedVP.tValues,parsedVP.tlonValues,parsedVP.tlatValues,parsedVP.tUnit,parsedVP.tformat,"plotly-vertical-t","Potential Temperature","rgba(113, 29, 176, 0.7)")
-            plotlyVP(parsedVP.sDepth,parsedVP.sValues,parsedVP.slonValues,parsedVP.slatValues,parsedVP.sUnit,parsedVP.sformat,"plotly-vertical-s","Salinity","rgb(239, 64, 64)")
+            plotlyVP(parsedVP.depth,parsedVP.data,parsedVP.lon,parsedVP.lat,parsedVP.unit,parsedVP.xformat,"plotly-vertical-prof",parsedVP.varname,"rgba(113, 29, 176, 0.7)")
+            // plotlyVP(parsedVP.sDepth,parsedVP.sValues,parsedVP.slonValues,parsedVP.slatValues,parsedVP.sUnit,parsedVP.sformat,"plotly-vertical-s","Salinity","rgb(239, 64, 64)")
+            $("#profileView > div.workingTop").addClass("hidden");
+            $("#profileView > div.errorTop").addClass("hidden");
+            $("#profileView > div.whiteTop").removeClass("hidden");
             hideLoadingSpinner("loading-spinner-vprof");
         })
         .catch((error)=>{
+            $("#profileView > div.workingTop").addClass("hidden");
+            $("#profileView > div.errorTop").removeClass("hidden");
+            $("#profileView > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-vprof");
             console.error(error);
         })
 };
@@ -961,11 +1191,12 @@ function plotTransect(infoLine) {
 
     promiseTran
         .then((parsedTran)=>{
-            if (varname.includes('(3D)')) {
-                plotlyContour("plotly-transect",parsedTran)
-            } else {
-                plotlyTransectLine("plotly-transect",parsedTran)
-            }
+            plotlyTransectLine("plotly-transect",parsedTran)
+            // if (varValue.includes('(3D)')) {
+            //     plotlyContour("plotly-transect",parsedTran)
+            // } else {
+            //     plotlyTransectLine("plotly-transect",parsedTran)
+            // }
             hideLoadingSpinner("loading-spinner-tsect");
         })
         .catch((error)=>{
@@ -976,9 +1207,10 @@ function plotTransect(infoLine) {
 // function for plotting first TS with Promise for data fetch complete
 function plotIndexes() {
     showLoadingSpinner("loading-spinner-index");
-    const indexName = $('#indexMOMCobaltTS').val();
+    const indexName = $('#indexMOMCobaltTS option:selected').text();
+    const indexFileLocation = $('#indexMOMCobaltTS').val();
     const promiseIndex = new Promise((resolve, reject) => {
-        getIndex('#indexMOMCobaltTS')
+        getIndex(indexFileLocation)
             .then(parsedIndex => {
                 // console.log(parsedTS);
                 resolve(parsedIndex);
@@ -992,11 +1224,13 @@ function plotIndexes() {
 
     promiseIndex
         .then((parsedIndex)=>{
-            numberOfIndexes = parsedIndex.tsDates.length
+            // get number of ts in one index file
+            var numberOfIndexes = parsedIndex.tsValues.length
+            // plot all index
             var i = 0 ;
-            plotlyIndex(parsedIndex.tsDates[i],parsedIndex.tsValues[i],parsedIndex.tsUnit[i],parsedIndex.yformat[i],parsedIndex.tsName[i],indexName)
+            plotlyIndex(parsedIndex.tsDates[i],parsedIndex.tsValues[i],parsedIndex.tsUnits[i],parsedIndex.yformat[i],parsedIndex.tsVarname[i],indexName)
             for (let i = 1; i < numberOfIndexes; i++) {
-                plotlyIndexAdd(parsedIndex.tsDates[i],parsedIndex.tsValues[i],parsedIndex.tsName[i])
+                plotlyIndexAdd(parsedIndex.tsDates[i],parsedIndex.tsValues[i],parsedIndex.tsVarname[i])
             }
             hideLoadingSpinner("loading-spinner-index");
         })
@@ -1007,7 +1241,7 @@ function plotIndexes() {
 
 
 // function for retrieving lon lat from iframe leaflet
-var varVal = null
+// var varVal;
 function receiveMessage(event) {
     // Access the data sent from the iframe
     if (event.originalEvent.origin === window.location.origin) {
@@ -1017,26 +1251,29 @@ function receiveMessage(event) {
             locationData = event.originalEvent.data;
             
             if (varFoliumMap !== undefined && varFoliumMap !== null) {
-                // plotting the plotly ts
-                if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
-                    plotTSs(locationData)
-                } else {
-                    plotTS1(locationData);
-                }
-                // plotting the plotly vertical profile (only in monthly setting)
-                if (dateFolium.length === 7){
-                    plotVertProfs(locationData)
-                }
+                
+                plotTS1(locationData);
+                plotVertProfs(locationData);
+                // // plotting the plotly ts
+                // if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
+                //     plotTSs(locationData)
+                // } else {
+                //     plotTS1(locationData);
+                // }
+                // // plotting the plotly vertical profile (only in monthly setting)
+                // if (dateFolium.length === 7){
+                //     plotVertProfs(locationData)
+                // }
 
                 // grabbing the location variable value 
                 const promiseVarVal = new Promise((resolve, reject) => {
                     getVarVal(locationData)
-                        .then(value => {
-                            varVal = value
+                        .then(pasrsePoint => {
+                            var pointValue = pasrsePoint.pointValue
                             // send the value back to iframe
-                            varValData = {
+                            var varValData = {
                                 type: 'varValData',
-                                var: varVal
+                                var: pointValue
                             };
                             // console.log(mapData)
                             momCobaltMap[0].contentWindow.postMessage(varValData, "*")
@@ -1056,33 +1293,24 @@ function receiveMessage(event) {
             }           
         }
         
-
-
-            
         // console.log("Received data from iframe:", locationData);
         // console.log(event.originalEvent.origin);
     };
 };
 
-// Display loading spinner
-function showLoadingSpinner(divID) {
-    // console.log('spin')
-    $("#"+divID).css("display", "block");
-}
 
-// Hide loading spinner
-function hideLoadingSpinner(divID) {
-    // console.log('stop spin')
-    $("#"+divID).css("display", "none");
-}
 
 // function to get variable value based on locationData and dataFolium
 function getVarVal(infoLonLat) {
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_variableValue.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_extract_value.py"
         +"?variable="+varFoliumMap
-        +"&region="+$("#regMOMCobalt").val()
-        +"&stat="+statMap
-        +"&depth="+depthMap
+        +"&region="+regFoliumMap
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=hindcast"
+        +"&grid_type=regrid"
+        +"&stat="+statFoliumMap
+        +"&depth="+depthFoliumMap
         +"&lon="+infoLonLat.longitude
         +"&lat="+infoLonLat.latitude
         +"&date="+dateFolium
@@ -1094,13 +1322,24 @@ function getVarVal(infoLonLat) {
             if (!response.ok) {
             throw new Error('Network response was not ok');
             }
-            return response.text();
+            return response.json();
         })
-        .then(data => {
-            // Process the response data here
-            var lines = data.split('\n');
+        .then(jsonData => {
+            var lonValues = jsonData.lon
+            var latValues = jsonData.lat
+            var pointValue = jsonData.data
+            var pointUnit = jsonData.unit
+            var pointVarname = jsonData.varname
 
-            return lines[0]
+            var parsedValue = {
+                pointValue:pointValue,
+                lonValues:lonValues,
+                latValues:latValues,
+                pointUnit:pointUnit,
+                pointVarname:pointVarname,
+            }
+
+            return parsedValue
 
         })
         .catch(error => {
@@ -1110,53 +1349,62 @@ function getVarVal(infoLonLat) {
 }
 
 
+// Define fetchWithTimeout function
+async function fetchWithTimeout(resource, options = {}, timeout = 30000) { // Set timeout to 30 seconds
+    const { signal, ...restOptions } = options;
+
+    // Create a new AbortController instance
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+    try {
+        const response = await fetch(resource, {
+            ...restOptions,
+            signal: signal || controller.signal,
+        });
+        clearTimeout(timeoutId);
+        return response;
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            throw new Error('Fetch request timed out');
+        }
+        throw error;
+    }
+}
+
 // function to get transect based on polygonData
 //  the transect only change 
 //   1. when the map is created
 //   2. polygon line is changed
 function getTransect(infoLine) {
 
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_transect.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_extract_transect.py"
     +"?variable="+varFoliumMap
-    +"&region="+$("#regMOMCobalt").val()
-    +"&stat="+statMap
+    +"&region="+regFoliumMap
+    +"&output_frequency="+freqFoliumMap
+    +"&subdomain=full_domain"
+    +"&experiment_type=hindcast"
+    +"&grid_type=regrid"
+    +"&stat="+statFoliumMap
     +"&date="+dateFolium
     +"&jsonstring="+infoLine.polygon
 
     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
-    return fetch(ajaxGet)
+    return fetchWithTimeout(ajaxGet, {}, 90000)
         .then(response => {
             if (!response.ok) {
             throw new Error('Network response was not ok');
             }
-            return response.text();
+            return response.json();
         })
-        .then(data => {
-            // Process the response data here
-            var lines = data.split('\n');
+        .then(jsonData => {
 
-            var tranDepth = JSON.parse(lines[0]);
-            var tranLoc = JSON.parse(lines[1]);
-            var tranValues = JSON.parse(lines[2].replace(/'/g, ' '));
-            var tranLonLat = lines[4];
-            // console.log(tranValues)
-            
-            // var tlonValues = lines[2];
-            // var tlatValues = lines[3];
-            var tranUnit = lines[3];
-
-            // var tranformat = '.2f';
-            // var maxVal = Math.max(...tranValues);
-            // console.log(maxVal)
-            // var minVal = Math.min(...tranValues);
-            // console.log(minVal)
-            // var diff = Math.abs(maxVal-minVal);
-
-
-            // if (diff< 0.01) {
-            //     format = '.2e';
-            // }
+            var tranDepth = jsonData.depth;
+            var tranLoc = jsonData.loc;
+            var tranValues = jsonData.data;
+            var tranLonLat = jsonData.location;
+            var tranUnit = jsonData.unit;
         
             
             var parsedTran = {
@@ -1184,13 +1432,19 @@ function getTransect(infoLine) {
 //   2. clicked location is changed
 function getVerticalProfile(infoLonLat) {
 
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_verticalprofile.py"
-    +"?stat="+statMap
-    +"&region="+$("#regMOMCobalt").val()
-    +"&date="+dateFolium
-    +"&lon="+infoLonLat.longitude
-    +"&lat="+infoLonLat.latitude
-    
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_extract_profile.py"
+        +"?variable="+varFoliumMap
+        +"&region="+regFoliumMap
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=hindcast"
+        +"&grid_type=regrid"
+        +"&date="+dateFolium
+        +"&lon="+infoLonLat.longitude
+        +"&lat="+infoLonLat.latitude
+        +"&stat="+statFoliumMap
+        +"&depth="+depthFoliumMap
+        
     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
     return fetch(ajaxGet)
@@ -1198,55 +1452,35 @@ function getVerticalProfile(infoLonLat) {
             if (!response.ok) {
             throw new Error('Network response was not ok');
             }
-            return response.text();
+            return response.json();
         })
-        .then(data => {
+        .then(jsonData => {
             // Process the response data here
-            var lines = data.split('\n');
+            var depth = jsonData.depth;
+            var data = jsonData.data;
+            var lon = jsonData.lon;
+            var lat = jsonData.lat;
+            var unit = jsonData.unit;
+            var varname = jsonData.varname;
 
-            var tDepth = JSON.parse(lines[0]);
-            var tValues = JSON.parse(lines[1]);
-            var tlonValues = lines[2];
-            var tlatValues = lines[3];
-            var tUnit = lines[4];
 
-            var sDepth = JSON.parse(lines[5]);
-            var sValues = JSON.parse(lines[6]);
-            var slonValues = lines[7];
-            var slatValues = lines[8];
-            var sUnit = lines[9];
+            var xformat = '.2f';
+            var maxVal = Math.max(...data);
+            var minVal = Math.min(...data);
+            var diff = Math.abs(maxVal-minVal);
 
-            var tformat = '.2f';
-            var tmaxVal = Math.max(...tValues);
-            var tminVal = Math.min(...tValues);
-            var tdiff = Math.abs(tmaxVal-tminVal);
-
-            var sformat = '.2f'
-            var smaxVal = Math.max(...sValues);
-            var sminVal = Math.min(...sValues);
-            var sdiff = Math.abs(smaxVal-sminVal);
-
-            if (tdiff< 0.01) {
-                tformat = '.2e';
-            }
-        
-            if (sdiff< 0.01) {
-                sformat = '.2e';
+            if (diff< 0.01) {
+                xformat = '.2e';
             }
             
             var parsedVP = {
-                tDepth:tDepth, 
-                tValues:tValues,
-                tlonValues:tlonValues,
-                tlatValues:tlatValues,
-                tUnit:tUnit,
-                tformat:tformat,
-                sDepth:sDepth, 
-                sValues:sValues,
-                slonValues:slonValues,
-                slatValues:slatValues,
-                sUnit:sUnit,
-                sformat:sformat
+                depth:depth,
+                data:data,
+                lon:lon,
+                lat:lat,
+                unit:unit,
+                xformat:xformat,
+                varname:varname
             }
 
             return parsedVP
@@ -1259,20 +1493,20 @@ function getVerticalProfile(infoLonLat) {
 }
 
 
-function getMockDate(freqString) {
-    // making mockDate imitating the file date frequency for 2nd time series
-    //  this is required due to the multiple file for same varname with 
-    //  different frequency in the backend.
-    var mockDate;
-    if (freqString.toLowerCase().includes('da')){
-        mockDate = 'YYYY-MM-DD';
-    } else if (freqString.toLowerCase().includes('mon')){
-        mockDate = 'YYYY-MM';
-    } else if (freqString.toLowerCase().includes('ann')){
-        mockDate = 'YYYY';
-    }
-    return mockDate
-}        
+// function getMockDate(freqString) {
+//     // making mockDate imitating the file date frequency for 2nd time series
+//     //  this is required due to the multiple file for same varValue with 
+//     //  different frequency in the backend.
+//     var mockDate;
+//     if (freqString.toLowerCase().includes('da')){
+//         mockDate = 'YYYY-MM-DD';
+//     } else if (freqString.toLowerCase().includes('mon')){
+//         mockDate = 'YYYY-MM';
+//     } else if (freqString.toLowerCase().includes('ann')){
+//         mockDate = 'YYYY';
+//     }
+//     return mockDate
+// }        
 
 // function to get time series based on locationData
 //  the time series only change 
@@ -1280,34 +1514,34 @@ function getMockDate(freqString) {
 //   2. when the map is changed
 //   3. only use the variable from created map
 //      not the option changed result
+var var2TS;
+var depth2TS;
 function getTimeSeries(infoLonLat,addTS) {
     // showLoadingSpinner();
     if (addTS) {
-        // find data frequency and create mock date for TS2
-        var selectVar2Index = $("#varMOMCobaltTS2").prop('selectedIndex');
-        var varlist = momCobaltVars();
-        var indexlist = indexes();
-        var freqlist = varlist[2].concat(indexlist[2]); // for data freqnecy
-        var freqString = freqlist[selectVar2Index];
-        var mockDate = getMockDate(freqString)
-
-        var var2TS = $('#varMOMCobaltTS2').val();
-        var depth2TS = $('#depthMOMCobaltTS2').val();
-        var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries.py"
+        var2TS = $('#varMOMCobaltTS2').val();
+        depth2TS = $('#depthMOMCobaltTS2').val();
+        var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_extract_ts.py"
         +"?variable="+var2TS
-        +"&region="+$("#regMOMCobalt").val()
-        +"&date="+mockDate
-        +"&stat="+statMap
+        +"&region="+regFoliumMap
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=hindcast"
+        +"&grid_type=regrid"
+        +"&stat="+statFoliumMap
         +"&depth="+depth2TS
         +"&lon="+infoLonLat.longitude
         +"&lat="+infoLonLat.latitude
     } else {
-        var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries.py"
+        var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_extract_ts.py"
         +"?variable="+varFoliumMap
-        +"&region="+$("#regMOMCobalt").val()
-        +"&date="+dateFolium
-        +"&stat="+statMap
-        +"&depth="+depthMap
+        +"&region="+regFoliumMap
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=hindcast"
+        +"&grid_type=regrid"
+        +"&stat="+statFoliumMap
+        +"&depth="+depthFoliumMap
         +"&lon="+infoLonLat.longitude
         +"&lat="+infoLonLat.latitude
     }
@@ -1319,17 +1553,24 @@ function getTimeSeries(infoLonLat,addTS) {
             if (!response.ok) {
             throw new Error('Network response was not ok');
             }
-            return response.text();
+            return response.json();
         })
-        .then(data => {
-            // Process the response data here
-            var lines = data.split('\n');
+        .then(jsonData => {
+            var lonValues = jsonData.lon
+            var latValues = jsonData.lat
+            var tsDates = jsonData.dates
+            var tsValues = jsonData.data
+            var tsUnit = jsonData.unit
+            var tsVarname = jsonData.varname
 
-            var tsDates = lines[0].split(',');
-            var tsValues = JSON.parse(lines[1]);
-            var lonValues = lines[2];
-            var latValues = lines[3];
-            var tsUnit = lines[4];
+            // // Process the response data here
+            // var lines = data.split('\n');
+
+            // var tsDates = lines[0].split(',');
+            // var tsValues = JSON.parse(lines[1]);
+            // var lonValues = lines[2];
+            // var latValues = lines[3];
+            // var tsUnit = lines[4];
 
             var yformat = '.2f';
             var maxVal = Math.max(...tsValues);
@@ -1339,12 +1580,15 @@ function getTimeSeries(infoLonLat,addTS) {
                 yformat = '.2e';
             }
             
-            var parsedTS = {tsDates:tsDates, 
+            var parsedTS = {
+                tsDates:tsDates, 
                 tsValues:tsValues,
                 lonValues:lonValues,
                 latValues:latValues,
                 tsUnit:tsUnit,
-                yformat:yformat}
+                tsVarname:tsVarname,
+                yformat:yformat
+            }
 
             return parsedTS
 
@@ -1356,65 +1600,55 @@ function getTimeSeries(infoLonLat,addTS) {
 }
 
 
-function getIndex(indexID) {
-    var var2TS = $(indexID).val();
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_get_index.py"
-        +"?variable="+var2TS
-        +"&region="+$("#regMOMCobalt").val()
+function getIndex(fileLocation) {
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_extract_index.py"
+        +"?file="+fileLocation
 
-    // console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+    console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
     return fetch(ajaxGet)
         .then(response => {
             if (!response.ok) {
             throw new Error('Network response was not ok');
             }
-            return response.text();
+            return response.json();
         })
-        .then(data => {
-            // Process the response data here
-            var lines = data.split('\n');
-            var num_ts = lines[0]
+        .then(jsonData => {
+            var tsDates = jsonData.dates
+            var tsValues = jsonData.data
+            var tsVarname = jsonData.varname
+            var tsUnits = jsonData.unit
 
-            var tsDates = new Array();
-            var tsValues = new Array();
-            var tsUnit = new Array();
-            var tsName = new Array();
-            var yformat = new Array();
-            const numInfo = 4
-            for (let i = 0; i < num_ts; i++) {
-                tsDates.push(lines[1+i*numInfo].split(','));
-                tsValues.push(JSON.parse(lines[2+i*numInfo]));
-                tsUnit.push(lines[3+i*numInfo]);
-                tsName.push(lines[4+i*numInfo]);
-                yformat.push('.2f');
-            }
-            
+            // // Process the response data here
+            // var lines = data.split('\n');
+
             // var tsDates = lines[0].split(',');
             // var tsValues = JSON.parse(lines[1]);
-            // var tsUnit = lines[2];
+            // var lonValues = lines[2];
+            // var latValues = lines[3];
+            // var tsUnit = lines[4];
 
-            // var yformat = '.2f';
-            // var maxVal = Math.max(...tsValues);
-            // var minVal = Math.min(...tsValues);
-            // var diff = Math.abs(maxVal-minVal);
-            // if (diff< 0.01) {
-            //     yformat = '.2e';
-            // }
+            var yformat = '.2f';
+            var maxVal = Math.max(...tsValues);
+            var minVal = Math.min(...tsValues);
+            var diff = Math.abs(maxVal-minVal);
+            if (diff< 0.01) {
+                yformat = '.2e';
+            }
             
             var parsedTS = {
                 tsDates:tsDates, 
                 tsValues:tsValues,
-                tsUnit:tsUnit,
-                tsName:tsName,
-                yformat:yformat}
+                tsVarname:tsVarname,
+                tsUnits:tsUnits,
+                yformat:yformat
+            }
 
             return parsedTS
-
         })
         .catch(error => {
             // Handle errors here
-            console.error('Fetch time series error:', error);
+            console.error('Fetch indexes error:', error);
         });
 }
 
@@ -1451,7 +1685,7 @@ function plotlyIndexAdd(tsDates,tsValues,tsName) {
     //         overlaying: 'y',
     //         side: 'right',
     //         title: {
-    //             text: varname2 + '(' + tsUnit + ')',
+    //             text: var2Value + '(' + tsUnit + ')',
     //             standoff: 10,
     //             font: { color: trace2Color }
     //         },
@@ -1480,7 +1714,7 @@ function plotlyIndex(tsDates,tsValues,tsUnit,yformat,tsName,indexName) {
         mode: 'lines+markers',
         marker: { size: 2 },
         line: { shape: 'linear',color: trace1Color },
-        // name: statMap+' time series',
+        // name: statFoliumMap+' time series',
         name: tsName
     };
 
@@ -1500,8 +1734,8 @@ function plotlyIndex(tsDates,tsValues,tsUnit,yformat,tsName,indexName) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-        //  width: 1000,
-        //  height: 400,
+         width: 1000,
+         height: 400,
         margin: {
             l: 80,
             r: 80,
@@ -1553,8 +1787,8 @@ function plotlyTransectLine(plotlyID,parsedTran) {
         mode: 'lines+markers',
         marker: { size: 2 },
         line: { shape: 'linear',color: trace1Color },
-        // name: statMap+' time series',
-        name: varname
+        // name: statFoliumMap+' time series',
+        name: varValue
     };
 
     var data = [trace];
@@ -1563,7 +1797,7 @@ function plotlyTransectLine(plotlyID,parsedTran) {
         hovermode: 'closest',
         showlegend: false,
         title:
-            varname +' '+ statMap +
+            varValue +' '+ statFoliumMap +
             '<br> along the PolyLine',
         //   autosize: true,
         annotations: [{
@@ -1592,7 +1826,7 @@ function plotlyTransectLine(plotlyID,parsedTran) {
         },
         yaxis: {
             title: {
-                text: varname + '(' + parsedTran.tranUnit + ')',
+                text: varValue + '(' + parsedTran.tranUnit + ')',
                 standoff: 10,
                 font: { color: trace1Color }
             },
@@ -1610,78 +1844,78 @@ function plotlyTransectLine(plotlyID,parsedTran) {
     Plotly.newPlot(plotlyID, data, layout, config);
 };
 
-// function for creating the plotly contour transect
-function plotlyContour(plotlyID,parsedTran) {
+// // function for creating the plotly contour transect
+// function plotlyContour(plotlyID,parsedTran) {
 
-    // Define custom hovertemplate
-    // var array1D = parsedTran.tranLonLat;
-    // var array2D = new Array(parsedTran.tranDepth.length).fill(array1D);
-    // const customdata = array2D;
-    // console.log(customdata)
+//     // Define custom hovertemplate
+//     // var array1D = parsedTran.tranLonLat;
+//     // var array2D = new Array(parsedTran.tranDepth.length).fill(array1D);
+//     // const customdata = array2D;
+//     // console.log(customdata)
 
-    var trace = {
-        z: parsedTran.tranValues,
-        y: parsedTran.tranDepth,
-        x: parsedTran.tranLoc,
-        type: 'contour',
-        hovertemplate: `
-        ModelPoint# (from PolyLine start): %{x} <br>
-        Depth: %{y} <br>
-        Value: %{z} <extra></extra>
-        `,
-        colorscale: 'Viridis'
-    };
+//     var trace = {
+//         z: parsedTran.tranValues,
+//         y: parsedTran.tranDepth,
+//         x: parsedTran.tranLoc,
+//         type: 'contour',
+//         hovertemplate: `
+//         ModelPoint# (from PolyLine start): %{x} <br>
+//         Depth: %{y} <br>
+//         Value: %{z} <extra></extra>
+//         `,
+//         colorscale: 'Viridis'
+//     };
 
-    // // Set custom x-axis labels
-    // trace.xaxis = {
-    //     tickvals: parsedTran.tranLoc, // Corresponding to the index of customXLabels
-    //     ticktext: customValues,
-    // };
+//     // // Set custom x-axis labels
+//     // trace.xaxis = {
+//     //     tickvals: parsedTran.tranLoc, // Corresponding to the index of customXLabels
+//     //     ticktext: customValues,
+//     // };
 
-    var layout = {
-        hovermode: 'closest',
-        showlegend: false,
-        title:"Vertical Transect Along PolyLine",
-        //   autosize: true,
-        annotations: [{
-            x: 0,
-            y: 0,
-            xref: 'paper',
-            yref: 'paper',
-            text: 'Source: NOAA CEFI data portal',
-            showarrow: false
-         }],
-        //  width: 1000,
-        //  height: 400,
-         margin: {
-            l: 80,
-            r: 80,
-            b: 80,
-            t: 100,
-            // pad: 4
-          },
-        yaxis: {
-            title: 'Depth (m)',
-            autorange: 'reversed'
-        },
-        xaxis: {
-            title: {
-                text: "Point# (from line start)",
-                standoff: 10
-            },
-            tickmode: 'auto',
-            // type: 'category'
-        },
-        // modebar: {
-        //     remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
-        // },
-        // dragmode: "select"
-        // responsive: true
-    };
-    var config = {responsive: true}
-    Plotly.newPlot(plotlyID, [trace], layout,config);
+//     var layout = {
+//         hovermode: 'closest',
+//         showlegend: false,
+//         title:"Vertical Transect Along PolyLine",
+//         //   autosize: true,
+//         annotations: [{
+//             x: 0,
+//             y: 0,
+//             xref: 'paper',
+//             yref: 'paper',
+//             text: 'Source: NOAA CEFI data portal',
+//             showarrow: false
+//          }],
+//         //  width: 1000,
+//         //  height: 400,
+//          margin: {
+//             l: 80,
+//             r: 80,
+//             b: 80,
+//             t: 100,
+//             // pad: 4
+//           },
+//         yaxis: {
+//             title: 'Depth (m)',
+//             autorange: 'reversed'
+//         },
+//         xaxis: {
+//             title: {
+//                 text: "Point# (from line start)",
+//                 standoff: 10
+//             },
+//             tickmode: 'auto',
+//             // type: 'category'
+//         },
+//         // modebar: {
+//         //     remove: ["autoScale2d", "autoscale", "zoom", "zoom2d", ]
+//         // },
+//         // dragmode: "select"
+//         // responsive: true
+//     };
+//     var config = {responsive: true}
+//     Plotly.newPlot(plotlyID, [trace], layout,config);
 
-};
+// };
 
 
 
@@ -1703,7 +1937,7 @@ function plotlyVP(varDepth,varValues,lonValues,latValues,varUnit,varformat,plotl
         hovermode: 'closest',
         showlegend: false,
         title:
-            vpname +' '+ statMap +
+            vpname +' '+ statFoliumMap +
             '<br> @ (lat:'+parseFloat(latValues).toFixed(2)+'N,'+
                 'lon:'+parseFloat(lonValues).toFixed(2)+'E)',
         //   autosize: true,
@@ -1780,7 +2014,7 @@ function plotlyTSadd(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
         mode: 'lines+markers',
         marker: { size: 2 },
         line: { shape: 'linear',color: trace2Color },
-        name: varname2,
+        name: var2Value,
         yaxis: 'y2'
     };
 
@@ -1801,7 +2035,7 @@ function plotlyTSadd(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
             overlaying: 'y',
             side: 'right',
             title: {
-                text: varname2 + '(' + tsUnit + ')',
+                text: var2Value + '(' + tsUnit + ')',
                 standoff: 10,
                 font: { color: trace2Color }
             },
@@ -1844,8 +2078,8 @@ function plotlyTS(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
         mode: 'lines+markers',
         marker: { size: 2 },
         line: { shape: 'linear',color: trace1Color },
-        // name: statMap+' time series',
-        name: varname
+        // name: statFoliumMap+' time series',
+        name: varValue
     };
 
     var data = [trace];
@@ -1854,10 +2088,10 @@ function plotlyTS(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
         hovermode: 'closest',
         showlegend: false,
         title:
-            varname +' '+ statMap +'<br>'+
+            varValue +' '+ statFoliumMap +'<br>'+
             '(lat:'+parseFloat(latValues).toFixed(2)+'N,'+
             'lon:'+parseFloat(lonValues).toFixed(2)+'E)',
-        //   autosize: true,
+        autosize: true,
         annotations: [{
             x: 0,
             y: 0,
@@ -1866,8 +2100,8 @@ function plotlyTS(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
             text: 'Source: NOAA CEFI data portal',
             showarrow: false
          }],
-        //  width: 550,
-        //  height: 400,
+         width: 550,
+         height: 400,
          margin: {
             l: 80,
             r: 80,
@@ -1880,7 +2114,7 @@ function plotlyTS(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
         },
         yaxis: {
             title: {
-                text: varname + '(' + tsUnit + ')',
+                text: varValue + '(' + tsUnit + ')',
                 standoff: 10,
                 font: { color: trace1Color }
             },
@@ -1924,7 +2158,7 @@ function plotlyBoxadd(tsValues,yformat) {
     var trace2 = {
         y: tsValues,
         yaxis: 'y2',
-        name: varname2,
+        name: var2Value,
         boxpoints: false,
         // jitter: 0.3,
         // pointpos: -1.8,
@@ -1966,7 +2200,7 @@ function plotlyBox(tsValues,yformat) {
 
     var trace1 = {
         y: tsValues,
-        name: varname,
+        name: varValue,
         boxpoints: false,
         // jitter: 0.3,
         // pointpos: -1.8,
@@ -2029,7 +2263,7 @@ function plotlyHistadd(tsValues,tsUnit,yformat) {
     var trace2 = {
         y: tsValues,
         yaxis: 'y2',
-        name: varname2,
+        name: var2Value,
         autobinx: true, 
         histnorm: "count", 
         marker: {
@@ -2058,7 +2292,7 @@ function plotlyHistadd(tsValues,tsUnit,yformat) {
             overlaying: 'y',
             side: 'right',
             title: {
-                // text: varname + '(' + tsUnit + ')',
+                // text: varValue + '(' + tsUnit + ')',
                 font: { color: trace2Color }
             },
             tickfont: { color: trace2Color }, 
@@ -2077,7 +2311,7 @@ function plotlyHist(tsValues,tsUnit,yformat) {
     var trace1Color = "rgba(113, 29, 176, 0.7)"
     var trace1 = {
         y: tsValues,
-        name: varname,
+        name: varValue,
         autobinx: true, 
         histnorm: "count", 
         marker: {
@@ -2107,7 +2341,7 @@ function plotlyHist(tsValues,tsUnit,yformat) {
         title: 'Histogram',
         yaxis: {
             title: {
-                // text: varname + '(' + tsUnit + ')',
+                // text: varValue + '(' + tsUnit + ')',
                 font: { color: trace1Color }
             },
             tickformat: yformat,
@@ -2172,73 +2406,12 @@ function calculateCorrelation(arr1, arr2) {
   }
 
 
-// functions for timeline tick 
-function generateTick(tickList) {
-    $("div.ticks span").remove();
-    for (let i = 0; i < tickList.length; i++) {
-        // Create a new <span> element
-        const span = $("<span></span>");
-    
-        // Set some content or attributes for the <span>
-        span.text(`${tickList[i]}`);
-        span.addClass("tickYear"); 
-    
-        // Append the <span> to the containerTick <div>
-        containerTick.append(span);
-    };
-};
-
-
-// functions for generating year and date list for timeslider (monthly)
-function generateDateList(startYear = 1993, endYear = 2019) {
-    var dateList = [];
-    var yearList = [];
-
-    for (var year = startYear; year <= endYear; year++) {
-        yearList.push(year)
-        for (var month = 1; month <= 12; month++) {
-            var monthStr = month < 10 ? "0" + month : month;
-            dateList.push(year + "-" + monthStr);
-        }
-    }
-
-    return [yearList, dateList];
-}
-
-// functions for generating year and date list for timeslider (daily)
-function generateDailyDateList(startYear = 1993, endYear = 2019) {
-    var dateList = [];
-    var yearList = [];
-
-    for (var year = startYear; year <= endYear; year++) {
-        yearList.push(year);
-
-        for (var month = 1; month <= 12; month++) {
-            var daysInMonth = new Date(year, month, 0).getDate(); // Get the number of days in the month
-
-            for (var day = 1; day <= daysInMonth; day++) {
-                dateList.push(`${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`);
-            }
-        }
-    }
-
-    return [yearList, dateList];
-}
 
 
 
-// function for advancing/recede to the next option in the list
-//   used directly in html page button with attribute onclick
-function changeTimeStep(timeStep) {
-    var nextTime = parseInt(timeSlider.val())+timeStep;
-    timeSlider.val(nextTime);
-    // $("div.workingTop").removeClass("hidden");
-    // $("div.errorTop").addClass("hidden");
-    // $("div.whiteTop").addClass("hidden");
-    dateFolium = rangeValues[timeSlider.val()];
-    tValue.text(dateFolium);
-    replaceFolium();
-}
+
+
+
 
 
 
@@ -2287,137 +2460,143 @@ function indexes(dashFlag='timeSeries') {
 // functions for regions options lists (Manual entering)
 function momCobaltRegs() {
     let var_options = [
-        "Northwest Atlantic"
+        "Northwest Atlantic",
+        "Northeast Pacific"
     ];
     let var_values = [
-        "northwest_atlantic"
+        "northwest_atlantic",
+        "northeast_pacific"
     ];
     return [var_options, var_values];
 }
 
 
-// functions for options lists (Manual entering)
-function momCobaltVars() {
-    let var_options = [
-        "Sea surface temperature",
-        "Bottom temperature",
-        "Sea surface salinity",
-        "Sea surface height",
-        "Mix layer depth",
-        "Potential temperature (3D)",
-        "Salinity (3D)",
-        "Sea ice concentration",
-        "Chlorophyll (Phytoplankton)",
-        "Dissolved Inorganic Carbon",
-        "Alkalinity",
-        "Carbonate Ion",
-        "Solubility for Aragonite",
-        "NO3",
-        "PO4",
-        "Mesozooplankton (0-200m)",
-        "Bottom oxygen",
-        "Bottom salinity",
-        "Bottom temperature",
-        "Sea surface temperature",
-        "Sea surface salinity",
-        "Sea surface height",
-        "Sea surface velocity (U)",
-        "Sea surface velocity (V)"
-    ];
-    let var_values = [
-        "tos",
-        "tob",
-        "sos",
-        "ssh",
-        "MLD_003",
-        "thetao",
-        "so",
-        "siconc",
-        "chlos",
-        "dissicos",
-        "talkos",
-        "sfc_co3_ion",
-        "sfc_co3_sol_arag",
-        "sfc_no3",
-        "sfc_po4",
-        "mesozoo_200",
-        "btm_o2",
-        "sob",
-        "tob",
-        "tos",
-        "sos",
-        "ssh",
-        "ssu_rotate",
-        "ssv_rotate" 
-    ];
-    let var_freqs = [
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "monthly",
-        "daily",
-        "daily",
-        "daily",
-        "daily",
-        "daily",
-        "daily",
-        "daily",
-        "daily"
-    ];
+// // functions for options lists (Manual entering)
+// function momCobaltVars() {
+//     let var_options = [
+//         "Sea surface temperature",
+//         "Bottom temperature",
+//         "Sea surface salinity",
+//         "Sea surface height",
+//         "Mix layer depth",
+//         "Potential temperature (3D)",
+//         "Salinity (3D)",
+//         "Sea ice concentration",
+//         "Chlorophyll (Phytoplankton)",
+//         "Dissolved Inorganic Carbon",
+//         "Alkalinity",
+//         "Carbonate Ion",
+//         "Solubility for Aragonite",
+//         "NO3",
+//         "PO4",
+//         "Mesozooplankton (0-200m)",
+//         "Bottom oxygen",
+//         "Bottom salinity",
+//         "Bottom temperature",
+//         "Sea surface temperature",
+//         "Sea surface salinity",
+//         "Sea surface height",
+//         "Sea surface velocity (U)",
+//         "Sea surface velocity (V)"
+//     ];
+//     let var_values = [
+//         "tos",
+//         "tob",
+//         "sos",
+//         "ssh",
+//         "MLD_003",
+//         "thetao",
+//         "so",
+//         "siconc",
+//         "chlos",
+//         "dissicos",
+//         "talkos",
+//         "sfc_co3_ion",
+//         "sfc_co3_sol_arag",
+//         "sfc_no3",
+//         "sfc_po4",
+//         "mesozoo_200",
+//         "btm_o2",
+//         "sob",
+//         "tob",
+//         "tos",
+//         "sos",
+//         "ssh",
+//         "ssu_rotate",
+//         "ssv_rotate" 
+//     ];
+//     let var_freqs = [
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "monthly",
+//         "daily",
+//         "daily",
+//         "daily",
+//         "daily",
+//         "daily",
+//         "daily",
+//         "daily",
+//         "daily"
+//     ];
 
-    return [var_options, var_values, var_freqs];
-}
+//     return [var_options, var_values, var_freqs];
+// }
 
-function momCobaltDepth() {
-    let depth = [
-        2.5, 7.5, 12.5, 17.5, 22.5, 27.5, 32.5, 37.5, 42.5, 47.5, 55, 65, 75,
-    85, 95, 105, 115, 125, 135, 145, 162.5, 187.5, 212.5, 237.5, 262.5,
-    287.5, 325, 375, 425, 475, 550, 650, 750, 850, 950, 1050, 1150, 1250,
-    1350, 1450, 1625, 1875, 2125, 2375, 2750, 3250, 3750, 4250, 4750, 5250,
-    5750, 6250
-    ]
-    return depth
-}
+// function momCobaltDepth() {
+//     let depth = [
+//         2.5, 7.5, 12.5, 17.5, 22.5, 27.5, 32.5, 37.5, 42.5, 47.5, 55, 65, 75,
+//     85, 95, 105, 115, 125, 135, 145, 162.5, 187.5, 212.5, 237.5, 262.5,
+//     287.5, 325, 375, 425, 475, 550, 650, 750, 850, 950, 1050, 1150, 1250,
+//     1350, 1450, 1625, 1875, 2125, 2375, 2750, 3250, 3750, 4250, 4750, 5250,
+//     5750, 6250
+//     ]
+//     return depth
+// }
 
-function momCobalt3D() {
-    list_3d = [
-        'thetao',
-        'so'
-    ]
-    return list_3d
-}
+// function momCobalt3D() {
+//     list_3d = [
+//         'thetao',
+//         'so'
+//     ]
+//     return list_3d
+// }
 
-function momCobaltBottom() {
-    list_bottom = [
-        'tob',
-        'btm_o2',
-        'sob'
-    ]
-    return list_bottom
-}
+// function momCobaltBottom() {
+//     list_bottom = [
+//         'tob',
+//         'btm_o2',
+//         'sob'
+//     ]
+//     return list_bottom
+// }
 
 function momCobaltStats() {
-    stats_list = [
+    var statsOptionList = [
+        'mean',
+        'anomaly'
+    ];
+    var statsValueList = [
         'mean',
         'anomaly'
     ]
-    return stats_list
+    return [statsOptionList, statsValueList]
 }
 
 function colorbarOpt() {
-    colorOpt = [
+    var colorOpt = [
         'Accent', 'Accent_r', 'Blues', 'Blues_r', 'BrBG', 'BrBG_r', 'BuGn', 'BuGn_r', 
         'BuPu', 'BuPu_r', 'CMRmap', 'CMRmap_r', 'Dark2', 'Dark2_r', 'GnBu', 'GnBu_r', 
         'Greens', 'Greens_r', 'Greys', 'Greys_r', 'OrRd', 'OrRd_r', 'Oranges', 'Oranges_r', 
@@ -2438,191 +2617,9 @@ function colorbarOpt() {
         'spring', 'spring_r', 'summer', 'summer_r', 'tab10', 'tab10_r', 'tab20', 'tab20_r', 'tab20b', 
         'tab20b_r', 'tab20c', 'tab20c_r', 'terrain', 'terrain_r', 'turbo', 'turbo_r', 'twilight', 
         'twilight_r', 'twilight_shifted', 'twilight_shifted_r', 'winter', 'winter_r'
-    ]
-    exc_list = [
+    ];
+    var exc_list = [
         'flag', 'flag_r','prism', 'prism_r','cividis', 'cividis_r', 'coolwarm', 'coolwarm_r', 'copper', 'copper_r', 'magma', 'magma_r', 'seismic', 'seismic_r','viridis', 'viridis_r'
-    ]
+    ];
     return colorOpt
 }
-
-
-
-
-
-// // functions for options lists (Manual entering)
-// function momCobaltInfo() {
-//     var dateOpt = generateDateList()
-//     let models = {
-//         "MOMCobalt":{
-//             "model":"regional MOM6",
-//             "time":dateOpt
-//         }
-//     };
-//     return models;
-// };
-
-// function createMomCobaltIniOpt(dataCobaltID) {
-//     let elm = document.getElementById('dateMOMCobalt'); // get the select
-//     let info = momCobaltInfo();
-//     let dataname = dataCobaltID;
-//     let iniOption = info[dataname]['time'];
-//     df = optionList(iniOption,iniOption);
-//     elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
-//     // assign last option to be the picked options by default
-//     lastIndex = elm.options.length - 1;
-//     pickedOption = elm.options[lastIndex];
-//     pickedOption.selected = true;
-// };
-
-
-// function createFolium() {
-//     let varFolium = $("#varMOMCobalt");
-//     let dateFolium = $("#dateMOMCobalt");
-//     let maxval = $("#maxval");
-//     let minval = $("#minval");
-//     let nlevel = $("#nlevel");
-
-//     var ajaxGet = "/cgi-bin/cefi_portal/mom_folium.py"
-//         +"?variable="+varFolium.val()
-//         +"&date="+dateFolium.val()
-//         +"&maxval="+maxval.val()
-//         +"&minval="+minval.val()
-//         +"&nlevel="+nlevel.val()
-
-//     fetch(ajaxGet) // Replace with the URL you want to request
-//         .then(response => {
-//             if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//             }
-//             return response.text();
-//         })
-//         .then(data => {
-//             // Process the response data here
-//             momCobaltMap.attr("srcdoc", data)
-//             $("div.workingTop").addClass("hidden");
-//             $("div.errorTop").addClass("hidden");
-//             $("div.whiteTop").removeClass("hidden");
-//         })
-//         .catch(error => {
-//             // Handle errors here
-//             console.error('Fetch error:', error);
-//             $("div.workingTop").addClass("hidden");
-//             $("div.errorTop").removeClass("hidden");
-//             $("div.whiteTop").addClass("hidden");
-//         });
-
-//     // momCobaltMap.attr("src", ajaxGet)
-// }
-
-
-
-// // function to trigger ajax get to server cgi script
-// function fetchDataAndPost(dateFolium) {
-//     let varFolium = $("#varMOMCobalt");
-//     let maxval = $("#maxval");
-//     let minval = $("#minval");
-//     let nlevel = $("#nlevel");
-
-//     console.log(varFolium.val())
-//     console.log(dateFolium)
-//     var ajaxGet = "/cgi-bin/cefi_portal/mom_folium_png.py"
-//                 +"?variable="+varFolium.val()
-//                 +"&date="+dateFolium
-//                 +"&maxval="+maxval.val()
-//                 +"&minval="+minval.val()
-//                 +"&nlevel="+nlevel.val()
-
-//     var xhr = new XMLHttpRequest();
-//     xhr.open('GET', ajaxGet, true);
-//     $("div.workingTop").removeClass("hidden");
-//     $("div.whiteTop").addClass("hidden");
-//     xhr.onreadystatechange = function() {
-//         if (xhr.readyState === 4 && xhr.status === 200) {
-//             image_data = xhr.responseText
-//             // console.log(image_data);  // Use the data in your JavaScript code
-//             // momCobaltMap[0].contentWindow.postMessage(image_data, "*")
-//             // replacing image
-//             var regex1 = /^\s*"data:image\/png;base64,[^,\n]*,\n/gm;
-//             var newHTML = momCobaltMap.attr('srcdoc').replace(regex1, '"'+image_data+'",\n');
-
-//             momCobaltMap.attr("srcdoc", newHTML)
-//             $("div.workingTop").addClass("hidden");
-//             $("div.whiteTop").removeClass("hidden");
-//             $("div.errorTop").addClass("hidden");
-//         } else if (xhr.status === 200) {
-//             $("div.errorTop").addClass("hidden");
-//         }else {
-//             console.log(xhr.readyState);
-//             console.log(xhr.status);
-//             $("div.workingTop").addClass("hidden");
-//             $("div.whiteTop").addClass("hidden");
-//             $("div.errorTop").removeClass("hidden");
-//         }
-//     };
-//     xhr.send();
-// }
-
-// // function for replace folium colorbar
-// function replaceFoliumCbar() {
-//     let cbar = $("#cbarOpts")
-
-//     var ajaxGet = "/cgi-bin/cefi_portal/mom_folium_cbar.py"
-//         +"?cbar="+cbar.val()
-
-//     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
-
-//     fetch(ajaxGet) // Replace with the URL you want to request
-//         .then(response => {
-//             if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//             }
-//             return response.text();
-//         })
-//         .then(data => {
-//             // Process the response data here
-//             console.log(data)
-
-//             //replace colorbar
-//             var regexDom = /^\s*\.domain\([^)]*\)\n/gm;
-//             var matchDoms = data.match(regexDom);
-//             var domainArray1 = text2Array(matchDoms[0]);
-//             var domainArray2 = text2Array(matchDoms[1]);
-//             var regexRange = /^\s*\.range\([^)]*\);\n/gm;
-//             var matchRanges = data.match(regexRange);
-//             var rangeArray = text2Array(matchRanges[0].replace(/'/g, '"'));
-
-//             //replace tickmark
-//             var regexTickVal = /^\s*\.tickValues\([^)]*\);\n/gm;
-//             var matchTickVal = data.match(regexTickVal);
-//             var tickValArray = text2Array(matchTickVal[0]);
-
-//             //replace colorbar label
-//             var regexCLabel = /^\s*\.text\([^)]*\);\n/gm;
-//             var matchCLabel = data.match(regexCLabel);
-//             var textVal = extractText(matchCLabel[0]);
-
-//             cbarData = {
-//                 domain1: domainArray1,
-//                 domain2: domainArray2,
-//                 range: rangeArray,
-//                 tick: tickValArray,
-//                 label: textVal
-//             };
-
-//             // console.log(cbarData)
-//             momCobaltMap[0].contentWindow.postMessage({ type: 'cbarData', data: cbarData }, "*")
-
-//             $("div.workingTop").addClass("hidden");
-//             $("div.errorTop").addClass("hidden");
-//             $("div.whiteTop").removeClass("hidden");
-//         })
-//         .catch(error => {
-//             // Handle errors here
-//             console.error('Fetch error:', error);
-//             $("div.workingTop").addClass("hidden");
-//             $("div.errorTop").removeClass("hidden");
-//             $("div.whiteTop").addClass("hidden");
-//         });
-
-//     // momCobaltMap.attr("src", ajaxGet)
-// }

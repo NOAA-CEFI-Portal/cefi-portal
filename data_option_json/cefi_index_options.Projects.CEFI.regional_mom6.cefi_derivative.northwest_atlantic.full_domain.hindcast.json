@@ -1,0 +1,23 @@
+{
+    "varname": [
+        "nechannel_lsw",
+        "cpi",
+        "nechannel_ssw",
+        "nechannel_wsw",
+        "nao"
+    ],
+    "file": [
+        "/Projects/CEFI/regional_mom6/cefi_derivative/northwest_atlantic/full_domain/hindcast/yearly/raw/r20230520/indexes/nechannel_lsw.nc",
+        "/Projects/CEFI/regional_mom6/cefi_derivative/northwest_atlantic/full_domain/hindcast/yearly/raw/r20230520/indexes/cold_pool_index.nc",
+        "/Projects/CEFI/regional_mom6/cefi_derivative/northwest_atlantic/full_domain/hindcast/yearly/raw/r20230520/indexes/nechannel_ssw.nc",
+        "/Projects/CEFI/regional_mom6/cefi_derivative/northwest_atlantic/full_domain/hindcast/yearly/raw/r20230520/indexes/nechannel_wsw.nc",
+        "/Projects/CEFI/regional_mom6/cefi_derivative/northwest_atlantic/full_domain/hindcast/monthly/raw/r20230520/indexes/nao.mon.nc"
+    ],
+    "longname": [
+        "Labrador Slope Water",
+        "Cold Pool Index",
+        "Scotian Shelf Water",
+        "Warm Slope Water",
+        "North Atlantic Oscillation"
+    ]
+}

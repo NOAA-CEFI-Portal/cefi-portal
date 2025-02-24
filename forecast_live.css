@@ -1,0 +1,53 @@
+#momCobaltBtnFcastLive {
+	margin-top: 20px
+}
+
+#momCobaltMapFcastLive {
+	position: relative;
+	width: 100%;
+	/* text-align: center; */
+	margin: auto;
+}
+
+#momCobaltIFrameFcastLive {
+	/* position: relative; */
+	/* margin: auto; */
+    width: 100%; 
+    height: 400px; 
+    border: 5px solid #d5d7d7;
+	border-radius: 1%;
+}
+
+
+img#modalCbarFigFcastLive {
+	width: 100%;
+}
+
+#timeRangeFcastLive {
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+.ticksFcast {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	margin-top: 20px;
+}
+  
+.ticksFcast span {
+	flex: 1;
+	text-align: center;
+	padding: 1px;
+	display: inline-block;
+	transform: rotate(-20deg); /* You can adjust the degree of rotation */
+}
+
+/* style of the div under the minitab */
+div.viewFcast {
+	padding: 20px;
+	border: 2px solid #ddd;
+	border-radius: 0 0 10px 10px;
+	width: 100%;
+    height: 550px;
+}

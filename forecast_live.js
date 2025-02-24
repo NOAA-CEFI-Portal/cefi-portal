@@ -5,15 +5,14 @@ import { fetchDataOptionVis,fetchVarOptionVis } from './hindcast.js';
 import { showLoadingSpinner,hideLoadingSpinner } from './hindcast.js';
 
 // global constant for object ID
-const momCobaltMapFcast = $('#momCobaltIFrameFcast');
-const momCobaltBtnFcast = $("#momCobaltBtnFcast");
-const clearFigOptBtnFcast = $("#clearFigOptBtnFcast")
+const momCobaltMapFcast = $('#momCobaltIFrameFcastLive');
+const momCobaltBtnFcast = $("#momCobaltBtnFcastLive");
+const clearFigOptBtnFcast = $("#clearFigOptBtnFcastLive")
 
 
 // global info
 var mapDataFcast = {}   // parsed html output
 var locationDataFcast;
-var polygonDataFcast;
 var regValueFcast;
 var freqValueFcast;
 var varValueFcast;
@@ -22,15 +21,15 @@ var varNameFcast;
 
 // Wait for createGeneralOption to complete region options
 //  async needed for freq, var, depth, block options backend fetch
-await createGeneralOption('regMOMCobaltFcast',momCobaltRegs);
-regValueFcast = $('#regMOMCobaltFcast').val();     // initial region value
+await createGeneralOption('regMOMCobaltFcastLive',momCobaltRegs);
+regValueFcast = $('#regMOMCobaltFcastLive').val();     // initial region value
 // Wait for createFreqVarOption to complete
 //  fetch the backend data for the var, freq options
 //  async needed for depth, block options backend fetch
 await createFreqVarOption(regValueFcast);
-freqValueFcast = $('#freqMOMCobaltFcast').val();   // initial frequency value
-varValueFcast = $('#varMOMCobaltFcast').val();     // initial variable value
-varNameFcast = $('#varMOMCobaltFcast option:selected').text();
+freqValueFcast = $('#freqMOMCobaltFcastLive').val();   // initial frequency value
+varValueFcast = $('#varMOMCobaltFcastLive').val();     // initial variable value
+varNameFcast = $('#varMOMCobaltFcastLive option:selected').text();
 
 
 // global variable for model variable name, index, and abbreviation
@@ -40,25 +39,25 @@ varNameFcast = $('#varMOMCobaltFcast option:selected').text();
 // let varValueFcast = varnamelistFcast[1][varindFcast]
 
 // Initial initYear options
-createMomCobaltInitYearOpt('iniYearMOMCobaltFcast');
+createMomCobaltInitYearOpt('iniYearMOMCobaltFcastLive');
 // Initial initMonth options
-createMomCobaltInitMonthOpt('iniMonthMOMCobaltFcast');
+createMomCobaltInitMonthOpt('iniMonthMOMCobaltFcastLive');
 // global variable for initial time 
-let iniYear = $("#iniYearMOMCobaltFcast").val();
-let iniMonth = $("#iniMonthMOMCobaltFcast").find("option:selected").text();
+let iniYear = $("#iniYearMOMCobaltFcastLive").val();
+let iniMonth = $("#iniMonthMOMCobaltFcastLive").find("option:selected").text();
 
 // global time slider related variables
-const timeSliderFcast = $("#timeRangeFcast");
-const tValueFcast = $(".timeValueFcast");
-const initTValueFcast = $(".initTimeValueFcast");
+const timeSliderFcast = $("#timeRangeFcastLive");
+const tValueFcast = $(".timeValueFcastLive");
+const initTValueFcast = $(".initTimeValueFcastLive");
 // default initial time
 initTValueFcast.text(iniMonth +' '+ iniYear)
 // default tick lead time
 const containerTickFcast = $(".ticksFcast");
 var leadMonthList, leadIndex;
 [leadIndex, leadMonthList] = generateFcastLeadMonth(
-    parseInt($("#iniYearMOMCobaltFcast").val()),
-    parseInt($("#iniMonthMOMCobaltFcast").val())
+    parseInt($("#iniYearMOMCobaltFcastLive").val()),
+    parseInt($("#iniMonthMOMCobaltFcastLive").val())
 );
 timeSliderFcast.attr("min", 0);
 timeSliderFcast.attr("max", leadIndex.length - 1);
@@ -71,17 +70,17 @@ tickSpaceChangeFcast(leadMonthList)
 createMomCobaltStatOptFcast();
 
 // Initial depth options
-createMomCobaltDepthOptFcast(varValueFcast,'depthMOMCobaltFcast');
+createMomCobaltDepthOptFcast(varValueFcast,'depthMOMCobaltFcastLive');
 
 // Initial depth block options
-createMomCobaltDepthBlockOptFcast(varValueFcast,'blockMOMCobaltFcast')
+createMomCobaltDepthBlockOptFcast(varValueFcast,'blockMOMCobaltFcastLive')
 
 // setup colorbar option
-createMomCobaltCbarOpt('cbarOptsFcast');
+createMomCobaltCbarOpt('cbarOptsFcastLive');
 
 // initialize plotly
 $(document).ready(function() {
-    asyncInitializePlotlyResize('forecast')
+    asyncInitializePlotlyResize('forecastLive')
 });
 
 /////////////////  event listener  ////////////////
@@ -100,14 +99,14 @@ momCobaltBtnFcast.on("click", function () {
     // update map
     replaceFoliumForecast()
     // update initial time
-    iniYear = $("#iniYearMOMCobaltFcast").val();
-    iniMonth = $("#iniMonthMOMCobaltFcast").find("option:selected").text();
+    iniYear = $("#iniYearMOMCobaltFcastLive").val();
+    iniMonth = $("#iniMonthMOMCobaltFcastLive").find("option:selected").text();
     initTValueFcast.text(iniMonth +' '+ iniYear)
     // update tick lead time
     var newleadIndex, newleadMonthList;
     [newleadIndex, newleadMonthList] = generateFcastLeadMonth(
-        parseInt($("#iniYearMOMCobaltFcast").val()),
-        parseInt($("#iniMonthMOMCobaltFcast").val())
+        parseInt($("#iniYearMOMCobaltFcastLive").val()),
+        parseInt($("#iniMonthMOMCobaltFcastLive").val())
         );
 
     // reassign global variables
@@ -144,47 +143,36 @@ timeSliderFcast.on("input", function() {
 });
 
 // event listen for variable change
-$("#varMOMCobaltFcast").on("change", function(){
+$("#varMOMCobaltFcastLive").on("change", function(){
     // varname
-    varValueFcast = $("#varMOMCobaltFcast").val()
+    varValueFcast = $("#varMOMCobaltFcastLive").val()
 
     // depth option change
-    $("#depthMOMCobaltFcast").empty();
-    createMomCobaltDepthOptFcast(varValueFcast,"depthMOMCobaltFcast");
-    $("#blockMOMCobaltFcast").empty();
-    createMomCobaltDepthBlockOptFcast(varValueFcast,'blockMOMCobaltFcast');
+    $("#depthMOMCobaltFcastLive").empty();
+    createMomCobaltDepthOptFcast(varValueFcast,"depthMOMCobaltFcastLive");
+    $("#blockMOMCobaltFcastLive").empty();
+    createMomCobaltDepthBlockOptFcast(varValueFcast,'blockMOMCobaltFcastLive');
 
 });
 
 
 // event listen for analyses change
-$("#analysisMOMCobaltFcast").on("change", function(){
-    var selectedValue = $('#analysisMOMCobaltFcast :selected').val();
+$("#analysisMOMCobaltFcastLive").on("change", function(){
+    var selectedValue = $('#analysisMOMCobaltFcastLive :selected').val();
     // $('#'+selectedValue.slice(0, -3)+'Tab').prop('checked', true);
     // showDiv(selectedValue.slice(0, -3),'view');
-    $("#dashNavForecast > ul.nav-pills > li.nav-item").removeClass("active"); 
+    $("#dashNavForecastLive > ul.nav-pills > li.nav-item").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)+'Pill').addClass("active");
-    $("#dashNavForecast > ul.nav-tabs > li.nav-item").removeClass("active"); 
+    $("#dashNavForecastLive > ul.nav-tabs > li.nav-item").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)+'Tab').addClass("active");
-    $("#dashContentForecast div.tab-pane").removeClass("active"); 
+    $("#dashContentForecastLive div.tab-pane").removeClass("active"); 
     $("#"+selectedValue.slice(0, -3)).addClass("active");
 })
-
 
 
 // add event listener for the "message" event using jQuery (location click)
 $(window).on("message", receiveMessageFcast);
 
-// // event listener for clicking the minitab
-// $('input[name="fcastAnalysestabs"]').on('click', function() {
-//     console.log('Selected option id:', $(this).attr('id'));
-//     // Check which radio button is clicked
-//     if ($(this).is(':checked')) {
-//         var selectedID = $(this).attr('id');
-//         changeSelectOpt(selectedID.slice(0, -3),'analysisMOMCobaltFcast','viewFcast')
-//         // console.log('Selected option id:', $(this).attr('id'));
-//     }
-// });
 
 
 
@@ -210,68 +198,14 @@ export async function createFreqVarOption(regname) {
 
     // create frequency options
     let freqList = dataAccessJson.output_frequency;
-    createDropdownOptions('freqMOMCobaltFcast',freqList,freqList);
+    createDropdownOptions('freqMOMCobaltFcastLive',freqList,freqList);
 
     // create variable options
     let varOptionList = variableJson.var_options;
     let varValueList = variableJson.var_values;
-    createDropdownOptions('varMOMCobaltFcast',varOptionList,varValueList);
+    createDropdownOptions('varMOMCobaltFcastLive',varOptionList,varValueList);
 
 }
-// function for create option with subgroup
-function optionSubgroupList(listname,listval,listsubgroup) {
-    let df = document.createDocumentFragment(); // create a document fragment to hold the options created later
-    
-    // object subgroup
-    const monthlyGroup = document.createElement('optgroup');
-    monthlyGroup.label = 'Monthly variables';
-    const dailyGroup = document.createElement('optgroup');
-    dailyGroup.label = 'Daily variables';
-    const monthlyIndexGroup = document.createElement('optgroup');
-    monthlyIndexGroup.label = 'Monthly indexes';
-    const annualIndexGroup = document.createElement('optgroup');
-    annualIndexGroup.label = 'Annual indexes';
-    var mvflag = false
-    var dvflag = false
-    var miflag = false
-    var aiflag = false
-
-    for (let i = 0; i < listname.length; i++) {
-        let option = document.createElement('option'); // create the option element
-        option.value = listval[i]; // set the value property
-        option.appendChild(document.createTextNode(listname[i])); // set the textContent in a safe way.
-        if (listsubgroup[i].indexOf("monthly")!==-1){
-            monthlyGroup.appendChild(option);
-            mvflag = true
-        } else if (listsubgroup[i].indexOf("daily")!==-1){
-            dailyGroup.appendChild(option);
-            dvflag = true
-        } else if (listsubgroup[i].indexOf("mon_index")!==-1){
-            monthlyIndexGroup.appendChild(option);
-            miflag = true
-        } else if (listsubgroup[i].indexOf("ann_index")!==-1){
-            annualIndexGroup.appendChild(option);
-            aiflag = true
-        }
-    }
-     
-    // append the subgroup in the desired order
-    if (aiflag) {
-        df.appendChild(annualIndexGroup);
-    }
-    if (mvflag) {
-        df.appendChild(monthlyGroup);
-    }  
-    // df.appendChild(monthlyGroup); // append the option to the document fragment
-    if (miflag) {
-        df.appendChild(monthlyIndexGroup);
-    }
-    // df.appendChild(dailyGroup);
-    if (dvflag) {
-        df.appendChild(dailyGroup);
-    }
-    return df;
-};
 
 
 // function for changing the tick mark of time slider
@@ -315,17 +249,6 @@ function generateTickFcast(tickList) {
     };
 };
 
-// // function for create option for variables
-// function createMomCobaltVarOptFcast(dataCobaltID,selectID) {
-//     let elm = document.getElementById(selectID); 
-//     var varlist;
-//     if (dataCobaltID == "MOMCobaltFcast") {
-//         varlist = momCobaltVarsFcast();
-//     }
-
-//     var df = optionSubgroupList(varlist[0],varlist[1],varlist[2]);
-//     elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
-// };
 
 // function for create option for initial Year
 function createMomCobaltInitYearOpt(selectTagID) {
@@ -346,7 +269,7 @@ function createMomCobaltInitMonthOpt(selectTagID) {
 
 // function for create option for statistics
 function createMomCobaltStatOptFcast() {
-    let elm = document.getElementById('statMOMCobaltFcast');
+    let elm = document.getElementById('statMOMCobaltFcastLive');
     let [stats_list, stats_value] = momCobaltStatsFcast()    
     let df = optionList(stats_list,stats_value);
     elm.appendChild(df);
@@ -414,15 +337,15 @@ function generateFcastLeadMonth(iYear = 1993, iMonth = 3) {
     return [leadIndex, leadMonth];
 };
 
-// function for advancing/recede to the next option in the list
-//   used directly in html page button with attribute onclick
-function changeLeadTimeStep(timeStep) {
-    var nextTime = parseInt(timeSliderFcast.val())+timeStep;
-    timeSliderFcast.val(nextTime);
-    leadFoliumFcast = leadMonthList[timeSliderFcast.val()];
-    tValueFcast.text(leadFoliumFcast);
-    replaceFoliumForecast();
-};
+// // function for advancing/recede to the next option in the list
+// //   used directly in html page button with attribute onclick
+// function changeLeadTimeStep(timeStep) {
+//     var nextTime = parseInt(timeSliderFcast.val())+timeStep;
+//     timeSliderFcast.val(nextTime);
+//     leadFoliumFcast = leadMonthList[timeSliderFcast.val()];
+//     tValueFcast.text(leadFoliumFcast);
+//     replaceFoliumForecast();
+// };
 
 
 // function for replace folium overlap info (image and colorbar)
@@ -431,32 +354,33 @@ let freqFoliumMap;
 let statMapFcast;
 let statMapFcastName;
 let depthMapFcast;
+let blockMapFcast;
 function replaceFoliumForecast() {
-    showLoadingSpinner("loading-spinner-map-Fcast");
-    varFoliumMapFcast = varValueFcast;
-    freqFoliumMap = freqValueFcast;
-    statMapFcast = $("#statMOMCobaltFcast").val();
-    statMapFcastName = $('#statMOMCobaltFcast').find('option:selected').text()
-    depthMapFcast = $("#depthMOMCobaltFcast").val();
-    let block = $("#blockMOMCobaltFcast");
-    let cbar = $("#cbarOptsFcast")
-    let maxval = $("#maxvalFcast");
-    let minval = $("#minvalFcast");
-    let nlevel = $("#nlevelFcast");
+    showLoadingSpinner("loading-spinner-map-FcastLive");
+    varFoliumMapFcast = $("#varMOMCobaltFcastLive").val();
+    freqFoliumMap = $("#freqMOMCobaltFcastLive").val();
+    statMapFcast = $("#statMOMCobaltFcastLive").val();
+    statMapFcastName = $('#statMOMCobaltFcastLive').find('option:selected').text()
+    depthMapFcast = $("#depthMOMCobaltFcastLive").val();
+    blockMapFcast = $("#blockMOMCobaltFcastLive").val();
+    let cbar = $("#cbarOptsFcastLive");
+    let maxval = $("#maxvalFcastLive");
+    let minval = $("#minvalFcastLive");
+    let nlevel = $("#nlevelFcastLive");
 
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_folium_fcast.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_forecast.py"
         +"?variable="+varFoliumMapFcast
-        +"&region="+$("#regMOMCobaltFcast").val()
+        +"&region="+$("#regMOMCobaltFcastLive").val()
         +"&output_frequency="+freqFoliumMap
         +"&subdomain=full_domain"
-        +"&experiment_type=seasonal_reforecast"
+        +"&experiment_type=seasonal_forecast"
         +"&grid_type=regrid"
-        +"&iniyear="+$("#iniYearMOMCobaltFcast").val()
-        +"&inimonth="+$("#iniMonthMOMCobaltFcast").val()
+        +"&iniyear="+$("#iniYearMOMCobaltFcastLive").val()
+        +"&inimonth="+$("#iniMonthMOMCobaltFcastLive").val()
         +"&lead="+timeSliderFcast.val()
         +"&stat="+statMapFcast
         +"&depth="+depthMapFcast
-        +"&block="+block.val()
+        +"&block="+blockMapFcast
         +"&cbar="+cbar.val()
         +"&maxval="+maxval.val()
         +"&minval="+minval.val()
@@ -468,75 +392,31 @@ function replaceFoliumForecast() {
             if (!response.ok) {
             throw new Error('Network response was not ok for forecast map fetch');
             }
-            return response.text();
+            return response.json();
         })
-        .then(data => {
+        .then(jsonData => {
             // Process the response data here
-
-            //replace image
-            var regexImg = /^\s*"data:image\/png;base64,[^,\n]*,\n/gm;
-            var matcheImg = data.match(regexImg);
-            var image = matcheImg[0].match(/"([^"]+)"/)[0].slice(1,-1)
-            // var image = extractText(matcheImg[0]);
-
-            //replace colorbar
-            var regexDom = /^\s*\.domain\([^)]*\)\n/gm;
-            var matchDoms = data.match(regexDom);
-            var domainArray1 = text2Array(matchDoms[0]);
-            var domainArray2 = text2Array(matchDoms[1]);
-            var regexRange = /^\s*\.range\([^)]*\);\n/gm;
-            var matchRanges = data.match(regexRange);
-            var rangeArray = text2Array(matchRanges[0].replace(/'/g, '"'));
-            
-            //replace tickmark
-            var regexTickVal = /^\s*\.tickValues\([^)]*\);\n/gm;
-            var matchTickVal = data.match(regexTickVal);
-            var tickValArray = text2Array(matchTickVal[0]);
-            
-            //replace colorbar label
-            var regexCLabel = /^\s*\.text\([^)]*\);\n/gm;
-            var matchCLabel = data.match(regexCLabel);
-            var textVal = extractText(matchCLabel[0]);
-
-            
-
+            // console.log(jsonData);
             mapDataFcast = {
-                type: 'mapData',   // used in hindcast_mom.js for type check
-                image: image,
-                image_bound: [[5.272542476654053, -98.4422607421875], [58.1607551574707, -36.079986572265625]],
-                map_center: [31.716648817062378, -67.26112365722656],
-                domain1: domainArray1,
-                domain2: domainArray2,
-                range: rangeArray,
-                tick: tickValArray,
-                label: textVal
+                type: 'mapData',
+                image: jsonData.image,
+                image_bound: jsonData.image_bound,
+                map_center: jsonData.map_center,
+                map_crs: jsonData.map_crs,
+                domain1: jsonData.domain1,
+                domain2: jsonData.domain2,
+                range: jsonData.range,
+                tick: jsonData.tick,
+                label: jsonData.label
             };
             // console.log(mapDataFcast)
             momCobaltMapFcast[0].contentWindow.postMessage(mapDataFcast, "*")
 
-            // // get same point time series when points and variable are defined
-            // if (locationDataFcast !== undefined && locationDataFcast !== null) {
-            //     if (varFoliumMapFcast !== undefined && varFoliumMapFcast !== null) {
-            //         if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
-            //             plotTSs(locationDataFcast)
-            //         } else {
-            //             plotTS1(locationDataFcast);
-            //         }
-            //     }
-            //     plotVertProfs(locationDataFcast)
-            // }
-            // // get same polyline transect when polyline and variable are defined
-            // if (polygonDataFcast !== undefined && polygonDataFcast !== null) {
-            //     if (varFoliumMapFcast !== undefined && varFoliumMapFcast !== null) {
-            //         plotTransect(polygonDataFcast)
-            //     }
-            // }
-
-            hideLoadingSpinner("loading-spinner-map-Fcast");
+            hideLoadingSpinner("loading-spinner-map-FcastLive");
         })
         .catch(error => {
             // Handle errors here
-            console.error('Processing forecast folium map error:', error);
+            console.error('Processing forecast live folium map error:', error);
         });
 
     // momCobaltMap.attr("src", ajaxGet)
@@ -556,33 +436,6 @@ function receiveMessageFcast(event) {
             locationDataFcast = event.originalEvent.data;
 
             if (varFoliumMapFcast !== undefined && varFoliumMapFcast !== null) {
-                // // plotting the plotly ts
-                // if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
-                //     plotTSs(locationDataFcast)
-                // } else {
-                //     plotTS1(locationDataFcast);
-                // }
-                // // plotting the plotly vertical profile
-                // plotVertProfs(locationDataFcast)
-                // grabbing the location variable value 
-                // const promisevarValFcast = new Promise((resolve, reject) => {
-                //     getvarValFcast(locationDataFcast)
-                //         .then(value => {
-                //             varDataFcast = value
-                //             // send the value back to iframe
-                //             varDataFcastJson = {
-                //                 type: 'varValFcastData',
-                //                 var: varDataFcast
-                //             };
-                //             momCobaltMapFcast[0].contentWindow.postMessage(varDataFcastJson, "*")
-                //             resolve();
-                //         })
-                //         .catch(error => {
-                //             // Handle errors here
-                //             console.error('Error in createPromiseForvarValFcast:', error);
-                //             reject(error);
-                //         });
-                // });
                 
                 // displaying the variable value on iframe marker
                 const promisevarValFcast = new Promise((resolve, reject) => {
@@ -605,12 +458,7 @@ function receiveMessageFcast(event) {
                 // display forecast spread plotly
                 plotTSFcast(locationDataFcast)
             }
-        } else if (event.originalEvent.data.type === 'polygonData') {
-            // polygonDataFcast = event.originalEvent.data;
-            // if (varFoliumMapFcast !== undefined && varFoliumMapFcast !== null) {
-            //     plotTransect(polygonDataFcast)
-            // }           
-        }
+        } 
 
         // console.log("Received data from iframe:", locationDataFcast);
         // console.log(event.originalEvent.origin);
@@ -619,15 +467,20 @@ function receiveMessageFcast(event) {
 
 // function to get variable value based on locationData and dataFolium
 function getvarValFcast(infoLonLat) {
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_variableValue_fcast.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_forecast_extract_value.py"
         +"?variable="+varFoliumMapFcast
-        +"&region="+$("#regMOMCobaltFcast").val()
+        +"&region="+$("#regMOMCobaltFcastLive").val()
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=seasonal_forecast"
+        +"&grid_type=regrid"
         +"&stat="+statMapFcast
         +"&depth="+depthMapFcast
+        +'&block='+blockMapFcast
         +"&lon="+infoLonLat.longitude
         +"&lat="+infoLonLat.latitude
-        +"&iniyear="+$("#iniYearMOMCobaltFcast").val()
-        +"&inimonth="+$("#iniMonthMOMCobaltFcast").val()
+        +"&iniyear="+$("#iniYearMOMCobaltFcastLive").val()
+        +"&inimonth="+$("#iniMonthMOMCobaltFcastLive").val()
         +"&lead="+timeSliderFcast.val()
     
     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
@@ -660,19 +513,19 @@ function getvarValFcast(infoLonLat) {
 //  2. Fetch forecast TSs (setup promise)
 //  3. create plotly object on webpage (execute when promise resolved)
 function plotTSFcast(infoLonLat) {
-    showLoadingSpinner("loading-spinner-fcast-spread");
+    showLoadingSpinner("loading-spinner-fcast-live-spread");
     getTSFcasts(infoLonLat)     // the function return a promise obj from fetch
         .then((jsonData)=>{
             let singleList = ['ens_min_max','lower_tercile','upper_tercile','middle_tercile'];
             if (singleList.includes(statMapFcast)) {
                 plotlyForecastRange(jsonData)
-                $('#plotly-fcast-box').empty();
+                $('#plotly-fcast-live-box').empty();
             } else {
                 plotlyForecastSpread(jsonData)
                 plotlyForecastBox(jsonData)
             }
             
-            hideLoadingSpinner("loading-spinner-fcast-spread");
+            hideLoadingSpinner("loading-spinner-fcast-live-spread");
         })
         .catch((error)=>{
             console.error(error);
@@ -682,15 +535,20 @@ function plotTSFcast(infoLonLat) {
 // function to fetch all forecast spread based on locationData
 //  response in the json format (testing)
 function getTSFcasts(infoLonLat) {
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries_fcast.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_forecast_extract_ts.py"
         +"?variable="+varFoliumMapFcast
-        +"&region="+$("#regMOMCobaltFcast").val()
+        +"&region="+$("#regMOMCobaltFcastLive").val()
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=seasonal_forecast"
+        +"&grid_type=regrid"
         +"&stat="+statMapFcast
+        +'&block='+blockMapFcast
         +"&depth="+depthMapFcast
         +"&lon="+infoLonLat.longitude
         +"&lat="+infoLonLat.latitude
-        +"&iniyear="+$("#iniYearMOMCobaltFcast").val()
-        +"&inimonth="+$("#iniMonthMOMCobaltFcast").val()
+        +"&iniyear="+$("#iniYearMOMCobaltFcastLive").val()
+        +"&inimonth="+$("#iniMonthMOMCobaltFcastLive").val()
     
     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
 
@@ -703,7 +561,7 @@ function getTSFcasts(infoLonLat) {
         })
         .catch(error => {
             // Handle errors here
-            console.error('Fetch time series error:', error);
+            console.error('Fetch Forecast live time series error:', error);
         });
 
     return ajaxGetPromise
@@ -732,8 +590,9 @@ function plotlyForecastSpread(jsonData) {
     var data = [trace];
 
     var trace2Color = "rgba(113, 29, 176, 0.1)";
-    for (var i=1; i<=10; i++) {
+    for (var i=1; i<=5; i++) {
         var key = 'ens'+i
+        console.log(jsonData[key])
         var trace_ens = {
             x: leadMonthList,
             y: jsonData[key],
@@ -795,7 +654,7 @@ function plotlyForecastSpread(jsonData) {
         responsive: true
     };
 
-    Plotly.newPlot('plotly-fcast-spread', data, layout);
+    Plotly.newPlot('plotly-fcast-live-spread', data, layout);
 };
 
 // function for creating the plotly forecast ensemble range time series
@@ -865,7 +724,7 @@ function plotlyForecastRange(jsonData) {
         responsive: true
     };
     var config = {responsive: true}
-    Plotly.newPlot('plotly-fcast-spread', data, layout,config);
+    Plotly.newPlot('plotly-fcast-live-spread', data, layout,config);
 };
 
 // function for creating the plotly time series box plot
@@ -874,9 +733,9 @@ function plotlyForecastBox(jsonData) {
     var trace1Color = "rgba(113, 29, 176, 0.8)";
     var xData = leadMonthList;
     var yData = [];
-    for (var l=0; l<=11; l++) {
+    for (var l=0; l<=6; l++) {
         var ens = []
-        for (var i=1; i<=10; i++) {
+        for (var i=1; i<=5; i++) {
             var key = 'ens'+i
             ens.push(jsonData[key][l]);
         }
@@ -953,7 +812,7 @@ function plotlyForecastBox(jsonData) {
     };
     var config = {responsive: true}
 
-    Plotly.newPlot('plotly-fcast-box', data, layout,config);
+    Plotly.newPlot('plotly-fcast-live-box', data, layout,config);
 
 };
 
@@ -1019,7 +878,7 @@ function momCobaltRegs() {
 
 
 // functions for generating year list for initial time (monthly)
-function momCobaltInitYear(startYear = 1993, endYear = 2022) {
+function momCobaltInitYear(startYear = 2025, endYear = 2025) {
     var yearList = [];
 
     for (var year = startYear; year <= endYear; year++) {
@@ -1031,8 +890,10 @@ function momCobaltInitYear(startYear = 1993, endYear = 2022) {
 
 // functions for generating month list for initial time (monthly)
 function momCobaltInitMonth() {
-    var monthList = [3,6,9,12];
-    var monthStrList = ['March','June','September','December']
+    // var monthList = [3,6,9,12];
+    var monthList = [2];
+    var monthStrList = ['Feburary']
+    // var monthStrList = ['March','June','September','December']
     return [monthList, monthStrList];
 };
 

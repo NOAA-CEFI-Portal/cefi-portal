@@ -1233,7 +1233,7 @@ function datasetSmonths() {
 
 function lmeNames() {
     let lmes = ['E. Bering Sea', 'Gulf of Alaska', 'California Current',
-    'Gulf of California', 'Gulf of Mexico',
+    'Gulf of California', 'Gulf of America',
     'S.E. U.S. Continental Shelf',
     'N.E. U.S. Continental Shelf', 'Scotian Shelf',
     'Labrador - Newfoundland', 'Insular Pacific-Hawaiian',
@@ -1284,7 +1284,7 @@ function lmeNames() {
 //         ,"East China Sea"
 //         ,"SE U.S. Shelf"
 //         ,"Gulf of California"
-//         ,"Gulf of Mexico"
+//         ,"Gulf of America"
 //         ,"Arabian Sea"
 //         ,"Red Sea"
 //         ,"Insular Pac.-Hawaiian"
