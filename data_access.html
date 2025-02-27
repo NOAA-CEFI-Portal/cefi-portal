@@ -8,6 +8,10 @@
     <!-- Forced refresh for getting the newest data server status -->
     <a class="refresh-link" onclick="location.reload(true);"><img src="img/opendap_status.png" alt="OPeNDAP statusBadge"></a>
   </div>
+
+  <div class="alert alert-success" role="alert">
+    &#10024; If you want to request variables that currently not available, please complete the <a href="#" class="alert-link" data-toggle="modal" data-target="#ModalVariableRequest">request form</a>! &#10024;
+  </div>
   <div class="col-12">
     <p>
       Currently, the regional MOM6 output can be accessed through the PSL THREDDS server.
@@ -511,6 +515,28 @@
 </div>
 
 <br>
+
 <div class="alert alert-info" role="alert">
   &#10024; If you have any questions or feedback, please feel free to contact us via <a href="#" class="alert-link" data-toggle="modal" data-target="#Modalfeedback">google form</a>! &#10024;
+</div>
+
+
+<!-- Modal Feedback form -->
+<div class="modal fade" id="ModalVariableRequest" tabindex="-1" role="dialog" aria-labelledby="ModalVariableRequest_title" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="ModalVariableRequest_title">Requesting Variables</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <iframe class="variable-form" src="https://forms.gle/9Nzf3cc2u7tR1ZTz7" scrolling=no frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
