@@ -743,7 +743,8 @@ function plotlyForecastBox(jsonData) {
     var xData = leadMonthList;
     var yData = [];
     var totalEns = jsonData.total_ens_num;
-    for (var l=0; l<=totalEns+1; l++) {
+    var totalLead = 12;
+    for (var l=0; l<=totalLead-1; l++) {
         var ens = []
         for (var i=1; i<=totalEns; i++) {
             var key = 'ens'+i
