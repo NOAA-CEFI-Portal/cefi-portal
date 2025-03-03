@@ -11,6 +11,12 @@
   margin-right: 2.5%;
 }
 
+.variable-form{
+  width: 100%;
+  height: 2000px;
+  max-height: 2000px;  /* Or set a specific max height if needed */
+}
+
 .google-form{
   width: 100%;
   height: 1000px;
