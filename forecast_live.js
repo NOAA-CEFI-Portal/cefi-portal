@@ -3,6 +3,7 @@ import { optionList,createMomCobaltCbarOpt } from './hindcast.js';
 import { createGeneralOption,createDropdownOptions } from './hindcast.js';
 import { fetchDataOptionVis,fetchVarOptionVis } from './hindcast.js';
 import { showLoadingSpinner,hideLoadingSpinner } from './hindcast.js';
+import { fetchVariableDepthBotOptions } from './hindcast.js';
 
 // global constant for object ID
 const momCobaltMapFcast = $('#momCobaltIFrameFcastLive');
@@ -15,6 +16,8 @@ var mapDataFcast = {}   // parsed html output
 var locationDataFcast;
 var regValueFcast;
 var freqValueFcast;
+var depthValueFcast;
+var blockValueFcast;
 var varValueFcast;
 var varNameFcast;
 
@@ -69,11 +72,8 @@ tickSpaceChangeFcast(leadMonthList)
 // Initial stat options
 createMomCobaltStatOptFcast();
 
-// Initial depth options
-createMomCobaltDepthOptFcast(varValueFcast,'depthMOMCobaltFcastLive');
-
-// Initial depth block options
-createMomCobaltDepthBlockOptFcast(varValueFcast,'blockMOMCobaltFcastLive')
+// Initial depth and bottom options
+updateDepthAndBlockOptions(regValueFcast, freqValueFcast, varValueFcast);
 
 // setup colorbar option
 createMomCobaltCbarOpt('cbarOptsFcastLive');
@@ -149,9 +149,8 @@ $("#varMOMCobaltFcastLive").on("change", function(){
 
     // depth option change
     $("#depthMOMCobaltFcastLive").empty();
-    createMomCobaltDepthOptFcast(varValueFcast,"depthMOMCobaltFcastLive");
     $("#blockMOMCobaltFcastLive").empty();
-    createMomCobaltDepthBlockOptFcast(varValueFcast,'blockMOMCobaltFcastLive');
+    updateDepthAndBlockOptions(regValueFcast, freqValueFcast, varValueFcast);
 
 });
 
@@ -173,6 +172,17 @@ $("#analysisMOMCobaltFcastLive").on("change", function(){
 // add event listener for the "message" event using jQuery (location click)
 $(window).on("message", receiveMessageFcast);
 
+// time step function
+$(document).ready(function() {
+    // Add click event listeners using jQuery
+    $('#lead-time-prev-forecastlive').on('click', function() {
+        changeLeadTimeStep(-1);
+    });
+
+    $('#lead-time-next-forecastlive').on('click', function() {
+        changeLeadTimeStep(1);
+    });
+});
 
 
 
@@ -275,46 +285,43 @@ function createMomCobaltStatOptFcast() {
     elm.appendChild(df);
 };
 
-// function for create option for depth
-function createMomCobaltDepthOptFcast(variable,selectID) {
-    let elm = document.getElementById(selectID);
-    let list_3d = momCobalt3DFcast()
-    const found = list_3d.some(element => element === variable);
-    if (found) {
-        let depthlist = momCobaltDepth();
-        let df = optionList(depthlist,depthlist);
-        elm.appendChild(df);
-    } else {
-        let df = document.createDocumentFragment();
-        let option = document.createElement('option');
-        option.value = 'single_layer';
-        option.appendChild(document.createTextNode('single layer'));
-        df.appendChild(option); 
-        elm.appendChild(df);
-    }
-};
+// function for create option for depth and block depth
+function updateDepthAndBlockOptions(regValue, freqValue, varValue, depthID='depthMOMCobaltFcastLive', blockID='blockMOMCobaltFcastLive') {
+    // Change depth and block options for the new freq
+    // Need to fetch the backend data for the depth options
+    fetchVariableDepthBotOptions(
+        regValue, 'full_domain', 'seasonal_forecast', freqValue, 'regrid', varValue
+    ).then((jsonData) => {
 
-// function for create option for bottom depth block
-function createMomCobaltDepthBlockOptFcast(variable,selectID) {
-    let elm = document.getElementById(selectID);
-    let list_bottom = momCobaltBottomFcast();
+        if (jsonData.depth === 0) {
+            // Create the single layer options
+            createDropdownOptions(depthID, ['single layer'], ['single_layer']);
+        } else {
+            // Create the depth options
+            let depthlist = jsonData.depth;
+            createDropdownOptions(depthID, depthlist, depthlist);
+        }
+        
+        if (jsonData.bottom === 0) {
+            console.log(jsonData.bottom);
+            // Create the single layer options
+            createDropdownOptions(blockID, ['not applicable'], ['not_applicable']);
+        } else {
+            // Create the depth options
+            let bottomlist = jsonData.bottom;
+            createDropdownOptions(blockID, bottomlist, bottomlist);
+        }
 
-    const found = list_bottom.some(element => element === variable);
-    if (found) {
-        let depthlist = momCobaltDepth();
-        let df = optionList(depthlist,depthlist);
-        elm.appendChild(df); 
-        elm.options[0].disabled = true;
-        elm.selectedIndex = depthlist.indexOf(6250);
-    } else {
-        let df = document.createDocumentFragment();
-        let option = document.createElement('option');
-        option.value = 'not_applicable';
-        option.appendChild(document.createTextNode('not applicable'));
-        df.appendChild(option); 
-        elm.appendChild(df);
-    }
-};
+        depthValueFcast = $('#'+depthID).val(); // initial depth value
+        blockValueFcast = $('#'+blockID).val(); // initial block value
+
+    }).catch(error => {
+        console.error('Error in fetching depth options:', error);
+    });
+
+}
+
+
 
 // functions for generating year and date list for timeslider (monthly)
 function generateFcastLeadMonth(iYear = 1993, iMonth = 3) {
@@ -337,15 +344,16 @@ function generateFcastLeadMonth(iYear = 1993, iMonth = 3) {
     return [leadIndex, leadMonth];
 };
 
-// // function for advancing/recede to the next option in the list
-// //   used directly in html page button with attribute onclick
-// function changeLeadTimeStep(timeStep) {
-//     var nextTime = parseInt(timeSliderFcast.val())+timeStep;
-//     timeSliderFcast.val(nextTime);
-//     leadFoliumFcast = leadMonthList[timeSliderFcast.val()];
-//     tValueFcast.text(leadFoliumFcast);
-//     replaceFoliumForecast();
-// };
+
+
+// function for advancing/recede to the next option in the list
+function changeLeadTimeStep(timeStep) {
+    var nextTime = parseInt(timeSliderFcast.val())+timeStep;
+    timeSliderFcast.val(nextTime);
+    leadFoliumFcast = leadMonthList[timeSliderFcast.val()];
+    tValueFcast.text(leadFoliumFcast);
+    replaceFoliumForecast();
+};
 
 
 // function for replace folium overlap info (image and colorbar)
@@ -450,7 +458,7 @@ function receiveMessageFcast(event) {
                             resolve();
                         })
                         .catch(error => {
-                            console.error('Error in promisevarValFcast:', error);
+                            console.error('Error in promisevarValFcastLive:', error);
                             reject(error);
                         });
                 });
@@ -590,7 +598,8 @@ function plotlyForecastSpread(jsonData) {
     var data = [trace];
 
     var trace2Color = "rgba(113, 29, 176, 0.1)";
-    for (var i=1; i<=5; i++) {
+    var totalEns = jsonData.total_ens_num;
+    for (var i=1; i<=totalEns; i++) {
         var key = 'ens'+i
         console.log(jsonData[key])
         var trace_ens = {
@@ -733,9 +742,10 @@ function plotlyForecastBox(jsonData) {
     var trace1Color = "rgba(113, 29, 176, 0.8)";
     var xData = leadMonthList;
     var yData = [];
-    for (var l=0; l<=6; l++) {
+    var totalEns = jsonData.total_ens_num;
+    for (var l=0; l<=totalEns+1; l++) {
         var ens = []
-        for (var i=1; i<=5; i++) {
+        for (var i=1; i<=totalEns; i++) {
             var key = 'ens'+i
             ens.push(jsonData[key][l]);
         }
@@ -828,42 +838,8 @@ function decimal_format(numArray) {
     return format
 };
 
-// function for decomposing the html code
-function text2Array(string) {
-    var stringRegex = /\[.*\]/;
-    var array = string.match(stringRegex);
-    array = JSON.parse(array);
-
-    return array;
-}
-
-// function for decomposing the html code
-function extractText(string) {
-    var stringRegex =/\.text\("([^"]+)"\)/;
-    var text = string.match(stringRegex);
-
-    return text[1];
-}
 
 ///////// information function start /////////
-
-// // functions for options lists (Manual entering)
-// function momCobaltVarsFcast() {
-//     let var_options = [
-//         "Sea surface temperature",
-//         "Bottom temperature"
-//     ];
-//     let var_values = [
-//         "tos",
-//         "tob"
-//     ];
-//     let var_freqs = [
-//         "monthly",
-//         "monthly"
-//     ];
-
-//     return [var_options, var_values, var_freqs];
-// };
 
 // functions for regions options lists (Manual entering)
 function momCobaltRegs() {
@@ -877,7 +853,7 @@ function momCobaltRegs() {
 }
 
 
-// functions for generating year list for initial time (monthly)
+// functions for generating year list for initial time (Manual entering)
 function momCobaltInitYear(startYear = 2025, endYear = 2025) {
     var yearList = [];
 
@@ -888,20 +864,13 @@ function momCobaltInitYear(startYear = 2025, endYear = 2025) {
     return yearList;
 };
 
-// functions for generating month list for initial time (monthly)
+// functions for generating month list for initial time (Manual entering)
 function momCobaltInitMonth() {
     // var monthList = [3,6,9,12];
     var monthList = [2];
     var monthStrList = ['Feburary']
     // var monthStrList = ['March','June','September','December']
     return [monthList, monthStrList];
-};
-
-function momCobaltBottomFcast() {
-    var list_bottom = [
-        'tob'
-    ];
-    return list_bottom
 };
 
 function momCobaltStatsFcast() {
@@ -923,20 +892,3 @@ function momCobaltStatsFcast() {
     ]
     return [stats_list, stats_value];
 };
-
-function momCobalt3DFcast() {
-    var list_3d = [];
-    return list_3d
-};
-
-
-function momCobaltDepth() {
-    let depth = [
-        7.5, 12.5, 17.5, 22.5, 27.5, 32.5, 37.5, 42.5, 47.5, 55, 65, 75,
-    85, 95, 105, 115, 125, 135, 145, 162.5, 187.5, 212.5, 237.5, 262.5,
-    287.5, 325, 375, 425, 475, 550, 650, 750, 850, 950, 1050, 1150, 1250,
-    1350, 1450, 1625, 1875, 2125, 2375, 2750, 3250, 3750, 4250, 4750, 5250,
-    5750, 6250
-    ]
-    return depth
-}

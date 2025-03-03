@@ -3,6 +3,7 @@ import { optionList,createMomCobaltCbarOpt } from './hindcast.js';
 import { createGeneralOption,createDropdownOptions } from './hindcast.js';
 import { fetchDataOptionVis,fetchVarOptionVis } from './hindcast.js';
 import { showLoadingSpinner,hideLoadingSpinner } from './hindcast.js';
+import { fetchVariableDepthBotOptions } from './hindcast.js';
 
 // global constant for object ID
 const momCobaltMapFcast = $('#momCobaltIFrameFcast');
@@ -13,9 +14,10 @@ const clearFigOptBtnFcast = $("#clearFigOptBtnFcast")
 // global info
 var mapDataFcast = {}   // parsed html output
 var locationDataFcast;
-var polygonDataFcast;
 var regValueFcast;
 var freqValueFcast;
+var depthValueFcast;
+var blockValueFcast;
 var varValueFcast;
 var varNameFcast;
 
@@ -70,11 +72,8 @@ tickSpaceChangeFcast(leadMonthList)
 // Initial stat options
 createMomCobaltStatOptFcast();
 
-// Initial depth options
-createMomCobaltDepthOptFcast(varValueFcast,'depthMOMCobaltFcast');
-
-// Initial depth block options
-createMomCobaltDepthBlockOptFcast(varValueFcast,'blockMOMCobaltFcast')
+// Initial depth and bottom options
+updateDepthAndBlockOptions(regValueFcast, freqValueFcast, varValueFcast);
 
 // setup colorbar option
 createMomCobaltCbarOpt('cbarOptsFcast');
@@ -150,9 +149,9 @@ $("#varMOMCobaltFcast").on("change", function(){
 
     // depth option change
     $("#depthMOMCobaltFcast").empty();
-    createMomCobaltDepthOptFcast(varValueFcast,"depthMOMCobaltFcast");
     $("#blockMOMCobaltFcast").empty();
-    createMomCobaltDepthBlockOptFcast(varValueFcast,'blockMOMCobaltFcast');
+    updateDepthAndBlockOptions(regValueFcast, freqValueFcast, varValueFcast);
+
 
 });
 
@@ -175,18 +174,18 @@ $("#analysisMOMCobaltFcast").on("change", function(){
 // add event listener for the "message" event using jQuery (location click)
 $(window).on("message", receiveMessageFcast);
 
-// // event listener for clicking the minitab
-// $('input[name="fcastAnalysestabs"]').on('click', function() {
-//     console.log('Selected option id:', $(this).attr('id'));
-//     // Check which radio button is clicked
-//     if ($(this).is(':checked')) {
-//         var selectedID = $(this).attr('id');
-//         changeSelectOpt(selectedID.slice(0, -3),'analysisMOMCobaltFcast','viewFcast')
-//         // console.log('Selected option id:', $(this).attr('id'));
-//     }
-// });
 
+// time step function
+$(document).ready(function() {
+    // Add click event listeners using jQuery
+    $('#lead-time-prev-forecast').on('click', function() {
+        changeLeadTimeStep(-1);
+    });
 
+    $('#lead-time-next-forecast').on('click', function() {
+        changeLeadTimeStep(1);
+    });
+});
 
 /////////////////////// function section /////////////////////
 
@@ -218,60 +217,6 @@ export async function createFreqVarOption(regname) {
     createDropdownOptions('varMOMCobaltFcast',varOptionList,varValueList);
 
 }
-// function for create option with subgroup
-function optionSubgroupList(listname,listval,listsubgroup) {
-    let df = document.createDocumentFragment(); // create a document fragment to hold the options created later
-    
-    // object subgroup
-    const monthlyGroup = document.createElement('optgroup');
-    monthlyGroup.label = 'Monthly variables';
-    const dailyGroup = document.createElement('optgroup');
-    dailyGroup.label = 'Daily variables';
-    const monthlyIndexGroup = document.createElement('optgroup');
-    monthlyIndexGroup.label = 'Monthly indexes';
-    const annualIndexGroup = document.createElement('optgroup');
-    annualIndexGroup.label = 'Annual indexes';
-    var mvflag = false
-    var dvflag = false
-    var miflag = false
-    var aiflag = false
-
-    for (let i = 0; i < listname.length; i++) {
-        let option = document.createElement('option'); // create the option element
-        option.value = listval[i]; // set the value property
-        option.appendChild(document.createTextNode(listname[i])); // set the textContent in a safe way.
-        if (listsubgroup[i].indexOf("monthly")!==-1){
-            monthlyGroup.appendChild(option);
-            mvflag = true
-        } else if (listsubgroup[i].indexOf("daily")!==-1){
-            dailyGroup.appendChild(option);
-            dvflag = true
-        } else if (listsubgroup[i].indexOf("mon_index")!==-1){
-            monthlyIndexGroup.appendChild(option);
-            miflag = true
-        } else if (listsubgroup[i].indexOf("ann_index")!==-1){
-            annualIndexGroup.appendChild(option);
-            aiflag = true
-        }
-    }
-     
-    // append the subgroup in the desired order
-    if (aiflag) {
-        df.appendChild(annualIndexGroup);
-    }
-    if (mvflag) {
-        df.appendChild(monthlyGroup);
-    }  
-    // df.appendChild(monthlyGroup); // append the option to the document fragment
-    if (miflag) {
-        df.appendChild(monthlyIndexGroup);
-    }
-    // df.appendChild(dailyGroup);
-    if (dvflag) {
-        df.appendChild(dailyGroup);
-    }
-    return df;
-};
 
 
 // function for changing the tick mark of time slider
@@ -315,17 +260,7 @@ function generateTickFcast(tickList) {
     };
 };
 
-// // function for create option for variables
-// function createMomCobaltVarOptFcast(dataCobaltID,selectID) {
-//     let elm = document.getElementById(selectID); 
-//     var varlist;
-//     if (dataCobaltID == "MOMCobaltFcast") {
-//         varlist = momCobaltVarsFcast();
-//     }
 
-//     var df = optionSubgroupList(varlist[0],varlist[1],varlist[2]);
-//     elm.appendChild(df); // append the document fragment to the DOM. this is the better way rather than setting innerHTML a bunch of times (or even once with a long string)
-// };
 
 // function for create option for initial Year
 function createMomCobaltInitYearOpt(selectTagID) {
@@ -352,47 +287,42 @@ function createMomCobaltStatOptFcast() {
     elm.appendChild(df);
 };
 
-// function for create option for depth
-function createMomCobaltDepthOptFcast(variable,selectID) {
-    let elm = document.getElementById(selectID);
-    let list_3d = momCobalt3DFcast()
-    const found = list_3d.some(element => element === variable);
-    if (found) {
-        let depthlist = momCobaltDepth();
-        let df = optionList(depthlist,depthlist);
-        elm.appendChild(df);
-    } else {
-        let df = document.createDocumentFragment();
-        let option = document.createElement('option');
-        option.value = 'single_layer';
-        option.appendChild(document.createTextNode('single layer'));
-        df.appendChild(option); 
-        elm.appendChild(df);
-    }
-};
 
-// function for create option for bottom depth block
-function createMomCobaltDepthBlockOptFcast(variable,selectID) {
-    let elm = document.getElementById(selectID);
-    let list_bottom = momCobaltBottomFcast();
+// function for create option for depth and block depth
+function updateDepthAndBlockOptions(regValue, freqValue, varValue, depthID='depthMOMCobaltFcast', blockID='blockMOMCobaltFcast') {
+    // Change depth and block options for the new freq
+    // Need to fetch the backend data for the depth options
+    fetchVariableDepthBotOptions(
+        regValue, 'full_domain', 'seasonal_reforecast', freqValue, 'regrid', varValue
+    ).then((jsonData) => {
 
-    const found = list_bottom.some(element => element === variable);
-    if (found) {
-        let depthlist = momCobaltDepth();
-        let df = optionList(depthlist,depthlist);
-        elm.appendChild(df); 
-        elm.options[0].disabled = true;
-        elm.selectedIndex = depthlist.indexOf(6250);
-    } else {
-        let df = document.createDocumentFragment();
-        let option = document.createElement('option');
-        option.value = 'not_applicable';
-        option.appendChild(document.createTextNode('not applicable'));
-        df.appendChild(option); 
-        elm.appendChild(df);
-    }
-};
+        if (jsonData.depth === 0) {
+            // Create the single layer options
+            createDropdownOptions(depthID, ['single layer'], ['single_layer']);
+        } else {
+            // Create the depth options
+            let depthlist = jsonData.depth;
+            createDropdownOptions(depthID, depthlist, depthlist);
+        }
+        
+        if (jsonData.bottom === 0) {
+            console.log(jsonData.bottom);
+            // Create the single layer options
+            createDropdownOptions(blockID, ['not applicable'], ['not_applicable']);
+        } else {
+            // Create the depth options
+            let bottomlist = jsonData.bottom;
+            createDropdownOptions(blockID, bottomlist, bottomlist);
+        }
 
+        depthValueFcast = $('#'+depthID).val(); // initial depth value
+        blockValueFcast = $('#'+blockID).val(); // initial block value
+
+    }).catch(error => {
+        console.error('Error in fetching depth options:', error);
+    });
+
+}
 // functions for generating year and date list for timeslider (monthly)
 function generateFcastLeadMonth(iYear = 1993, iMonth = 3) {
 
@@ -415,7 +345,6 @@ function generateFcastLeadMonth(iYear = 1993, iMonth = 3) {
 };
 
 // function for advancing/recede to the next option in the list
-//   used directly in html page button with attribute onclick
 function changeLeadTimeStep(timeStep) {
     var nextTime = parseInt(timeSliderFcast.val())+timeStep;
     timeSliderFcast.val(nextTime);
@@ -431,20 +360,21 @@ let freqFoliumMap;
 let statMapFcast;
 let statMapFcastName;
 let depthMapFcast;
+let blockMapFcast;
 function replaceFoliumForecast() {
     showLoadingSpinner("loading-spinner-map-Fcast");
-    varFoliumMapFcast = varValueFcast;
-    freqFoliumMap = freqValueFcast;
+    varFoliumMapFcast = $("#varMOMCobaltFcast").val();
+    freqFoliumMap = $("#freqMOMCobaltFcast").val();
     statMapFcast = $("#statMOMCobaltFcast").val();
     statMapFcastName = $('#statMOMCobaltFcast').find('option:selected').text()
     depthMapFcast = $("#depthMOMCobaltFcast").val();
-    let block = $("#blockMOMCobaltFcast");
+    blockMapFcast = $("#blockMOMCobaltFcast").val();
     let cbar = $("#cbarOptsFcast")
     let maxval = $("#maxvalFcast");
     let minval = $("#minvalFcast");
     let nlevel = $("#nlevelFcast");
 
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_folium_fcast.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_forecast.py"
         +"?variable="+varFoliumMapFcast
         +"&region="+$("#regMOMCobaltFcast").val()
         +"&output_frequency="+freqFoliumMap
@@ -456,7 +386,7 @@ function replaceFoliumForecast() {
         +"&lead="+timeSliderFcast.val()
         +"&stat="+statMapFcast
         +"&depth="+depthMapFcast
-        +"&block="+block.val()
+        +"&block="+blockMapFcast
         +"&cbar="+cbar.val()
         +"&maxval="+maxval.val()
         +"&minval="+minval.val()
@@ -468,69 +398,25 @@ function replaceFoliumForecast() {
             if (!response.ok) {
             throw new Error('Network response was not ok for forecast map fetch');
             }
-            return response.text();
+            return response.json();
         })
-        .then(data => {
+        .then(jsonData => {
             // Process the response data here
-
-            //replace image
-            var regexImg = /^\s*"data:image\/png;base64,[^,\n]*,\n/gm;
-            var matcheImg = data.match(regexImg);
-            var image = matcheImg[0].match(/"([^"]+)"/)[0].slice(1,-1)
-            // var image = extractText(matcheImg[0]);
-
-            //replace colorbar
-            var regexDom = /^\s*\.domain\([^)]*\)\n/gm;
-            var matchDoms = data.match(regexDom);
-            var domainArray1 = text2Array(matchDoms[0]);
-            var domainArray2 = text2Array(matchDoms[1]);
-            var regexRange = /^\s*\.range\([^)]*\);\n/gm;
-            var matchRanges = data.match(regexRange);
-            var rangeArray = text2Array(matchRanges[0].replace(/'/g, '"'));
-            
-            //replace tickmark
-            var regexTickVal = /^\s*\.tickValues\([^)]*\);\n/gm;
-            var matchTickVal = data.match(regexTickVal);
-            var tickValArray = text2Array(matchTickVal[0]);
-            
-            //replace colorbar label
-            var regexCLabel = /^\s*\.text\([^)]*\);\n/gm;
-            var matchCLabel = data.match(regexCLabel);
-            var textVal = extractText(matchCLabel[0]);
-
-            
-
+            // console.log(jsonData);
             mapDataFcast = {
-                type: 'mapData',   // used in hindcast_mom.js for type check
-                image: image,
-                image_bound: [[5.272542476654053, -98.4422607421875], [58.1607551574707, -36.079986572265625]],
-                map_center: [31.716648817062378, -67.26112365722656],
-                domain1: domainArray1,
-                domain2: domainArray2,
-                range: rangeArray,
-                tick: tickValArray,
-                label: textVal
+                type: 'mapData',
+                image: jsonData.image,
+                image_bound: jsonData.image_bound,
+                map_center: jsonData.map_center,
+                map_crs: jsonData.map_crs,
+                domain1: jsonData.domain1,
+                domain2: jsonData.domain2,
+                range: jsonData.range,
+                tick: jsonData.tick,
+                label: jsonData.label
             };
             // console.log(mapDataFcast)
             momCobaltMapFcast[0].contentWindow.postMessage(mapDataFcast, "*")
-
-            // // get same point time series when points and variable are defined
-            // if (locationDataFcast !== undefined && locationDataFcast !== null) {
-            //     if (varFoliumMapFcast !== undefined && varFoliumMapFcast !== null) {
-            //         if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
-            //             plotTSs(locationDataFcast)
-            //         } else {
-            //             plotTS1(locationDataFcast);
-            //         }
-            //     }
-            //     plotVertProfs(locationDataFcast)
-            // }
-            // // get same polyline transect when polyline and variable are defined
-            // if (polygonDataFcast !== undefined && polygonDataFcast !== null) {
-            //     if (varFoliumMapFcast !== undefined && varFoliumMapFcast !== null) {
-            //         plotTransect(polygonDataFcast)
-            //     }
-            // }
 
             hideLoadingSpinner("loading-spinner-map-Fcast");
         })
@@ -556,33 +442,6 @@ function receiveMessageFcast(event) {
             locationDataFcast = event.originalEvent.data;
 
             if (varFoliumMapFcast !== undefined && varFoliumMapFcast !== null) {
-                // // plotting the plotly ts
-                // if ($('#varMOMCobaltTS2').val() !== undefined && $('#varMOMCobaltTS2').val() !== null) {
-                //     plotTSs(locationDataFcast)
-                // } else {
-                //     plotTS1(locationDataFcast);
-                // }
-                // // plotting the plotly vertical profile
-                // plotVertProfs(locationDataFcast)
-                // grabbing the location variable value 
-                // const promisevarValFcast = new Promise((resolve, reject) => {
-                //     getvarValFcast(locationDataFcast)
-                //         .then(value => {
-                //             varDataFcast = value
-                //             // send the value back to iframe
-                //             varDataFcastJson = {
-                //                 type: 'varValFcastData',
-                //                 var: varDataFcast
-                //             };
-                //             momCobaltMapFcast[0].contentWindow.postMessage(varDataFcastJson, "*")
-                //             resolve();
-                //         })
-                //         .catch(error => {
-                //             // Handle errors here
-                //             console.error('Error in createPromiseForvarValFcast:', error);
-                //             reject(error);
-                //         });
-                // });
                 
                 // displaying the variable value on iframe marker
                 const promisevarValFcast = new Promise((resolve, reject) => {
@@ -605,12 +464,7 @@ function receiveMessageFcast(event) {
                 // display forecast spread plotly
                 plotTSFcast(locationDataFcast)
             }
-        } else if (event.originalEvent.data.type === 'polygonData') {
-            // polygonDataFcast = event.originalEvent.data;
-            // if (varFoliumMapFcast !== undefined && varFoliumMapFcast !== null) {
-            //     plotTransect(polygonDataFcast)
-            // }           
-        }
+        } 
 
         // console.log("Received data from iframe:", locationDataFcast);
         // console.log(event.originalEvent.origin);
@@ -619,11 +473,16 @@ function receiveMessageFcast(event) {
 
 // function to get variable value based on locationData and dataFolium
 function getvarValFcast(infoLonLat) {
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_variableValue_fcast.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_forecast_extract_value.py"
         +"?variable="+varFoliumMapFcast
         +"&region="+$("#regMOMCobaltFcast").val()
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=seasonal_reforecast"
+        +"&grid_type=regrid"
         +"&stat="+statMapFcast
         +"&depth="+depthMapFcast
+        +'&block='+blockMapFcast
         +"&lon="+infoLonLat.longitude
         +"&lat="+infoLonLat.latitude
         +"&iniyear="+$("#iniYearMOMCobaltFcast").val()
@@ -682,10 +541,15 @@ function plotTSFcast(infoLonLat) {
 // function to fetch all forecast spread based on locationData
 //  response in the json format (testing)
 function getTSFcasts(infoLonLat) {
-    var ajaxGet = "/cgi-bin/cefi_portal/mom_extract_timeseries_fcast.py"
+    var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_forecast_extract_ts.py"
         +"?variable="+varFoliumMapFcast
         +"&region="+$("#regMOMCobaltFcast").val()
+        +"&output_frequency="+freqFoliumMap
+        +"&subdomain=full_domain"
+        +"&experiment_type=seasonal_reforecast"
+        +"&grid_type=regrid"
         +"&stat="+statMapFcast
+        +'&block='+blockMapFcast
         +"&depth="+depthMapFcast
         +"&lon="+infoLonLat.longitude
         +"&lat="+infoLonLat.latitude
@@ -732,7 +596,8 @@ function plotlyForecastSpread(jsonData) {
     var data = [trace];
 
     var trace2Color = "rgba(113, 29, 176, 0.1)";
-    for (var i=1; i<=10; i++) {
+    var totalEns = jsonData.total_ens_num;
+    for (var i=1; i<=totalEns; i++) {
         var key = 'ens'+i
         var trace_ens = {
             x: leadMonthList,
@@ -874,9 +739,10 @@ function plotlyForecastBox(jsonData) {
     var trace1Color = "rgba(113, 29, 176, 0.8)";
     var xData = leadMonthList;
     var yData = [];
-    for (var l=0; l<=11; l++) {
+    var totalEns = jsonData.total_ens_num;
+    for (var l=0; l<=totalEns+1; l++) {
         var ens = []
-        for (var i=1; i<=10; i++) {
+        for (var i=1; i<=totalEns; i++) {
             var key = 'ens'+i
             ens.push(jsonData[key][l]);
         }
@@ -969,42 +835,9 @@ function decimal_format(numArray) {
     return format
 };
 
-// function for decomposing the html code
-function text2Array(string) {
-    var stringRegex = /\[.*\]/;
-    var array = string.match(stringRegex);
-    array = JSON.parse(array);
 
-    return array;
-}
-
-// function for decomposing the html code
-function extractText(string) {
-    var stringRegex =/\.text\("([^"]+)"\)/;
-    var text = string.match(stringRegex);
-
-    return text[1];
-}
 
 ///////// information function start /////////
-
-// // functions for options lists (Manual entering)
-// function momCobaltVarsFcast() {
-//     let var_options = [
-//         "Sea surface temperature",
-//         "Bottom temperature"
-//     ];
-//     let var_values = [
-//         "tos",
-//         "tob"
-//     ];
-//     let var_freqs = [
-//         "monthly",
-//         "monthly"
-//     ];
-
-//     return [var_options, var_values, var_freqs];
-// };
 
 // functions for regions options lists (Manual entering)
 function momCobaltRegs() {
@@ -1019,7 +852,7 @@ function momCobaltRegs() {
 
 
 // functions for generating year list for initial time (monthly)
-function momCobaltInitYear(startYear = 1993, endYear = 2022) {
+function momCobaltInitYear(startYear = 1994, endYear = 2023) {
     var yearList = [];
 
     for (var year = startYear; year <= endYear; year++) {
@@ -1031,16 +864,9 @@ function momCobaltInitYear(startYear = 1993, endYear = 2022) {
 
 // functions for generating month list for initial time (monthly)
 function momCobaltInitMonth() {
-    var monthList = [3,6,9,12];
-    var monthStrList = ['March','June','September','December']
+    var monthList = [2,6,9,12];
+    var monthStrList = ['Feburary','June','September','December']
     return [monthList, monthStrList];
-};
-
-function momCobaltBottomFcast() {
-    var list_bottom = [
-        'tob'
-    ];
-    return list_bottom
 };
 
 function momCobaltStatsFcast() {
@@ -1062,20 +888,3 @@ function momCobaltStatsFcast() {
     ]
     return [stats_list, stats_value];
 };
-
-function momCobalt3DFcast() {
-    var list_3d = [];
-    return list_3d
-};
-
-
-function momCobaltDepth() {
-    let depth = [
-        7.5, 12.5, 17.5, 22.5, 27.5, 32.5, 37.5, 42.5, 47.5, 55, 65, 75,
-    85, 95, 105, 115, 125, 135, 145, 162.5, 187.5, 212.5, 237.5, 262.5,
-    287.5, 325, 375, 425, 475, 550, 650, 750, 850, 950, 1050, 1150, 1250,
-    1350, 1450, 1625, 1875, 2125, 2375, 2750, 3250, 3750, 4250, 4750, 5250,
-    5750, 6250
-    ]
-    return depth
-}
