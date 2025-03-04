@@ -76,7 +76,7 @@ $("#freqMOMCobalt").on("change", function(){
 
     // change depth2 and block2 options for the new freq
     // need to fetch the backend data for the depth options
-    updateDepthAndBlockOptions(regValue, freqValue, var2Value, 'depthMOMCobaltTS2', 'blockMOMCobaltTS2')
+    // updateDepthAndBlockOptions(regValue, freqValue, var2Value, 'depthMOMCobaltTS2', 'blockMOMCobaltTS2')
 });
 
 
@@ -251,6 +251,17 @@ $('#indexMOMCobaltTS').on("change", function () {
     plotIndexes()
 });
 
+// time step function
+$(document).ready(function() {
+    // Add click event listeners using jQuery
+    $('#time-prev').on('click', function() {
+        changeTimeStep(-1);
+    });
+
+    $('#time-next').on('click', function() {
+        changeTimeStep(1);
+    });
+});
 
 ///////// functional function start /////////
 // function for advancing/recede to the next option in the list
@@ -399,7 +410,7 @@ export function optionList(listname,listval) {
         let option = document.createElement('option'); // create the option element
         option.value = listval[i]; // set the value property
         // truncate the string if it is too long
-        let truncName = truncateString(listname[i], 50)
+        let truncName = truncateString(listname[i], 40)
         option.appendChild(document.createTextNode(truncName)); // set the textContent in a safe way.
         df.appendChild(option); // append the option to the document fragment
     }
@@ -447,7 +458,8 @@ export async function createFreqVarIndexOption(regname) {
     // create variable options
     let varOptionList = variableJson.var_options;
     let varValueList = variableJson.var_values;
-    createDropdownOptions('varMOMCobalt',varOptionList,varValueList);
+    let combinedList = varOptionList.map((option, index) => `${option} - (${varValueList[index]})`);
+    createDropdownOptions('varMOMCobalt',combinedList,varValueList);
     
     // only when the json file of a index exist
     if (indexJson) {
