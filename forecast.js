@@ -95,7 +95,9 @@ clearFigOptBtnFcast.on("click", function () {
 
 // add event listener on create map button
 momCobaltBtnFcast.on("click", function () {
-
+    $("div.mapForecast > div.workingTop").removeClass("hidden");
+    $("div.mapForecast > div.errorTop").addClass("hidden");
+    $("div.mapForecast > div.whiteTop").addClass("hidden");
     // update map
     replaceFoliumForecast()
     // update initial time
@@ -126,6 +128,9 @@ momCobaltBtnFcast.on("click", function () {
 
 // Update the figure (when mouse up the slider handle)
 timeSliderFcast.on("mouseup", function() {
+    $("div.mapForecast > div.workingTop").removeClass("hidden");
+    $("div.mapForecast > div.errorTop").addClass("hidden");
+    $("div.mapForecast > div.whiteTop").addClass("hidden");
     leadFoliumFcast = leadMonthList[$(this).val()];
     // fetchDataAndPost(dateFolium)
     replaceFoliumForecast()
@@ -348,6 +353,9 @@ function generateFcastLeadMonth(iYear = 1993, iMonth = 3) {
 function changeLeadTimeStep(timeStep) {
     var nextTime = parseInt(timeSliderFcast.val())+timeStep;
     timeSliderFcast.val(nextTime);
+    $("div.workingTopForecast").removeClass("hidden");
+    $("div.errorTopForecast").addClass("hidden");
+    $("div.whiteTopForecast").addClass("hidden");
     leadFoliumFcast = leadMonthList[timeSliderFcast.val()];
     tValueFcast.text(leadFoliumFcast);
     replaceFoliumForecast();
@@ -418,10 +426,21 @@ function replaceFoliumForecast() {
             // console.log(mapDataFcast)
             momCobaltMapFcast[0].contentWindow.postMessage(mapDataFcast, "*")
 
+            $("div.mapForecast > div.workingTop").addClass("hidden");
+            $("div.mapForecast > div.errorTop").addClass("hidden");
+            $("div.mapForecast > div.whiteTop").removeClass("hidden");
             hideLoadingSpinner("loading-spinner-map-Fcast");
         })
         .catch(error => {
             // Handle errors here
+            $("div.mapForecast > div.workingTop").addClass("hidden");
+            $("div.mapForecast > div.errorTop").removeClass("hidden");
+            $("div.mapForecast > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-map-Fcast");
+            $("#fcastView > div.workingTop").addClass("hidden");
+            $("#fcastView > div.errorTop").removeClass("hidden");
+            $("#fcastView > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-fcast-spread");
             console.error('Processing forecast folium map error:', error);
         });
 
@@ -520,6 +539,9 @@ function getvarValFcast(infoLonLat) {
 //  3. create plotly object on webpage (execute when promise resolved)
 function plotTSFcast(infoLonLat) {
     showLoadingSpinner("loading-spinner-fcast-spread");
+    $("#fcastView > div.workingTop").removeClass("hidden");
+    $("#fcastView > div.errorTop").addClass("hidden");
+    $("#fcastView > div.whiteTop").addClass("hidden");
     getTSFcasts(infoLonLat)     // the function return a promise obj from fetch
         .then((jsonData)=>{
             let singleList = ['ens_min_max','lower_tercile','upper_tercile','middle_tercile'];
@@ -530,10 +552,16 @@ function plotTSFcast(infoLonLat) {
                 plotlyForecastSpread(jsonData)
                 plotlyForecastBox(jsonData)
             }
-            
+            $("#fcastView > div.workingTop").addClass("hidden");
+            $("#fcastView > div.errorTop").addClass("hidden");
+            $("#fcastView > div.whiteTop").removeClass("hidden");
             hideLoadingSpinner("loading-spinner-fcast-spread");
         })
         .catch((error)=>{
+            $("#fcastView > div.workingTop").addClass("hidden");
+            $("#fcastView > div.errorTop").removeClass("hidden");
+            $("#fcastView > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-fcast-spread");
             console.error(error);
         })
 };

@@ -148,9 +148,9 @@ $("#dashNavHistrun > ul.nav-tabs > li.nav-item > .nav-link").on('click',function
 
 // event listener for slider change => figure & date
 timeSlider.on("mouseup", function() {
-    $("div.workingTop").removeClass("hidden");
-    $("div.errorTop").addClass("hidden");
-    $("div.whiteTop").addClass("hidden");
+    $("div.mapHindcast > div.workingTop").removeClass("hidden");
+    $("div.mapHindcast > div.errorTop").addClass("hidden");
+    $("div.mapHindcast > div.whiteTop").addClass("hidden");
     dateFolium = rangeValues[$(this).val()];
     replaceFolium()
 });
@@ -164,9 +164,9 @@ timeSlider.on("input", function() {
 
 // event listener for clicking create map button
 momCobaltBtn.on("click", function () {
-    $("div.workingTop").removeClass("hidden");
-    $("div.errorTop").addClass("hidden");
-    $("div.whiteTop").addClass("hidden");
+    $("div.mapHindcast > div.workingTop").removeClass("hidden");
+    $("div.mapHindcast > div.errorTop").addClass("hidden");
+    $("div.mapHindcast > div.whiteTop").addClass("hidden");
     replaceFolium()
     $("#tsView > div.workingTop").removeClass("hidden");
     $("#tsView > div.errorTop").addClass("hidden");
@@ -269,9 +269,9 @@ $(document).ready(function() {
 function changeTimeStep(timeStep) {
     var nextTime = parseInt(timeSlider.val())+timeStep;
     timeSlider.val(nextTime);
-    $("div.workingTop").removeClass("hidden");
-    $("div.errorTop").addClass("hidden");
-    $("div.whiteTop").addClass("hidden");
+    $("div.mapHindcast > div.workingTop").removeClass("hidden");
+    $("div.mapHindcast > div.errorTop").addClass("hidden");
+    $("div.mapHindcast > div.whiteTop").addClass("hidden");
     dateFolium = rangeValues[timeSlider.val()];
     tValue.text(dateFolium);
     replaceFolium();
@@ -1015,16 +1015,16 @@ function replaceFolium() {
                 }
             }
 
-            $("div.workingTop").addClass("hidden");
-            $("div.errorTop").addClass("hidden");
-            $("div.whiteTop").removeClass("hidden");
+            $("div.mapHindcast > div.workingTop").addClass("hidden");
+            $("div.mapHindcast > div.errorTop").addClass("hidden");
+            $("div.mapHindcast > div.whiteTop").removeClass("hidden");
             hideLoadingSpinner("loading-spinner-map");
         })
         .catch(error => {
             // Handle errors here
-            $("div.workingTop").addClass("hidden");
-            $("div.errorTop").removeClass("hidden");
-            $("div.whiteTop").addClass("hidden");
+            $("div.mapHindcast > div.workingTop").addClass("hidden");
+            $("div.mapHindcast > div.errorTop").removeClass("hidden");
+            $("div.mapHindcast > div.whiteTop").addClass("hidden");
             hideLoadingSpinner("loading-spinner-map");
             $("#tsView > div.workingTop").addClass("hidden");
             $("#tsView > div.errorTop").removeClass("hidden");
