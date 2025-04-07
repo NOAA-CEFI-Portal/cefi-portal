@@ -20,6 +20,10 @@ def add_to_dict(data_dict, keys, value):
         add_to_dict(data_dict[keys[0]], keys[1:], value)
 
 if __name__ == '__main__':
+    coderoot = os.environ.get("MYHOME")
+    local_dir = f'{coderoot}cefi_portal/' # git repo
+    webserver_dir = f'{os.environ.get("HTTPTEST")}cefi_portal/' # webserver
+
 
     root_dirs = [
         '/Projects/CEFI/regional_mom6/cefi_portal/'
@@ -42,11 +46,15 @@ if __name__ == '__main__':
                         #  and the last segment which is the filename
                         path_segs = file_path.split('/')[1:-1] 
                         path_segs.append(cefi_category)            # add the category
-                        path_segs.append(file_path.split('/')[-1]) # add the filename
+                        cefi_filename = file_path.split('/')[-1]
+                        path_segs.append(f'{cefi_lname} ({cefi_variable})') # add the variable name
+                        path_segs.append(cefi_variable) # add the variable name short only
+                        path_segs.append(cefi_filename) # add the filename
                         add_to_dict(
                             dict_data_tree,
                             path_segs,
                             {
+                                'cefi_filename': cefi_filename,
                                 'cefi_variable': cefi_variable,
                                 'cefi_long_name': cefi_lname,
                                 'cefi_init_date': 'N/A',
@@ -66,11 +74,15 @@ if __name__ == '__main__':
                             #  and the last segment which is the filename
                             path_segs = file_path.split('/')[1:-1]
                             path_segs.append(cefi_category) # add the category
-                            path_segs.append(file_path.split('/')[-1]) # add the filename
+                            cefi_filename = file_path.split('/')[-1]
+                            path_segs.append(f'{cefi_lname} ({cefi_variable})') # add the variable name
+                            path_segs.append(cefi_variable) # add the variable name short only
+                            path_segs.append(cefi_filename) # add the filename
                             add_to_dict(
                                 dict_data_tree,
                                 path_segs,
                                 {
+                                    'cefi_filename': cefi_filename,
                                     'cefi_variable': cefi_variable,
                                     'cefi_long_name': cefi_lname,
                                     'cefi_init_date' : ds.attrs['cefi_init_date'],
@@ -81,5 +93,19 @@ if __name__ == '__main__':
                             )
 
     # dump the dictionary to a json file
-    with open('cefi_data_tree.json', 'w', encoding='utf-8') as f:
-        json.dump(dict_data_tree, f, indent=4)
+    json_data = json.dumps(dict_data_tree, indent=4)
+
+    # output json format to browser
+    with open(
+        f'{webserver_dir}data_option_json/cefi_data_tree.json',
+        "w",
+        encoding='UTF-8'
+    ) as json_file:
+        json_file.write(json_data)
+
+    with open(
+        f'{local_dir}data_option_json/cefi_data_tree.json',
+        "w",
+        encoding='UTF-8'
+    ) as json_file:
+        json_file.write(json_data)
