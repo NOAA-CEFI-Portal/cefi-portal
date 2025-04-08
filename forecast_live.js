@@ -5,6 +5,91 @@ import { fetchDataOptionVis,fetchVarOptionVis } from './hindcast.js';
 import { showLoadingSpinner,hideLoadingSpinner } from './hindcast.js';
 import { fetchVariableDepthBotOptions } from './hindcast.js';
 
+import { fetchTreeDataPromise, fetchDataTreeJson, treeData, populateDropdown } from './data_access.js';
+
+// async function to wait the treeData to be fetched
+async function useTreeData() {
+  try {
+    // Check if the promise already exists (i.e. pending or resolved)
+    if (!fetchTreeDataPromise) {
+      await fetchDataTreeJson(); // Trigger the fetch if it hasn't started
+    } else {
+      await fetchTreeDataPromise; // Wait for the existing fetch to complete
+    }
+    console.log('treeData loaded in forecast_live.js');
+  } catch (error) {
+    console.error('Error loading the treeData in forecast_live.js:', error);
+  }
+}
+// make sure the treeData is fetched (top level await)
+await useTreeData();
+// console.log(treeData);
+
+// setup local global variable (data structure and filenaming structure)
+var region;
+var subdomain;
+var experiment_type = 'seasonal_forecast';
+var output_frequency;
+var grid_type = 'regrid';
+var release = 'r20250212';     // showing options provided in the json file
+var data_category;
+var variable;
+var iyyyymm;
+var ens_opt;
+
+
+// Createing the data tree dropdowns
+// Get dropdown elements
+const level1 = document.getElementById('regMOMCobaltFcastLive');
+const level2 = document.getElementById('subregMOMCobaltFcastLive');
+const level4 = document.getElementById('freqMOMCobaltFcastLive');
+const level7 = document.getElementById('dataCatMOMCobaltFcastLive');
+const level8 = document.getElementById('varMOMCobaltFcastLive');
+
+// Event listeners for dynamic updates
+// region
+level1.addEventListener('change', function () {
+    region = level1.value;
+    let options = treeData[region];
+    populateDropdown(level2, options);
+    populateDropdown(level4, null);
+    populateDropdown(level7, null);
+    populateDropdown(level8, null);
+});
+
+// subregion
+level2.addEventListener('change', function () {
+    subdomain = level2.value;
+    let options = treeData[region][subdomain][experiment_type];
+    populateDropdown(level4, options);
+    populateDropdown(level7, null);
+    populateDropdown(level8, null);
+});
+
+// output frequency
+level4.addEventListener('change', function () {
+    output_frequency = level4.value;
+    options = treeData[region][subdomain][experiment_type][output_frequency];
+    populateDropdown(level7, options);
+    populateDropdown(level8, null);
+});
+
+// data category
+level7.addEventListener('change', function () {
+    data_category = level7.value;
+    options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release][data_category];
+    populateDropdown(level8, options);
+});
+
+// variable
+level8.addEventListener('change', function () {
+    let variable_name = level8.value;
+    options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release][data_category][variable_name];
+    variable = Object.keys(options)[0];
+});
+
+
+
 // global constant for object ID
 const momCobaltMapFcast = $('#momCobaltIFrameFcastLive');
 const momCobaltBtnFcast = $("#momCobaltBtnFcastLive");
@@ -16,8 +101,6 @@ var mapDataFcast = {}   // parsed html output
 var locationDataFcast;
 var regValueFcast;
 var freqValueFcast;
-var depthValueFcast;
-var blockValueFcast;
 var varValueFcast;
 var varNameFcast;
 

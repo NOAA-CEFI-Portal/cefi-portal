@@ -27,24 +27,33 @@ var ens_opt;
 var scenario;
 
 // Declare a global variable to store the data
-let treeData = null;
+export let treeData = null;
 
-// load the treeData
-export async function fetchDataTreeJson() {
-  try {
-    const response = await fetch('data_option_json/cefi_data_tree.json');
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();  // JSON data 
-    treeData = data['Projects']['CEFI']['regional_mom6']['cefi_portal']; // Store the data globally
+// Shared promise to ensure the data is fetched only once
+export let fetchTreeDataPromise = null;
 
-    console.log('Data successfully fetched and stored globally:', treeData)
-
-  } catch (error) {
-    console.error('There was a problem when async fetchDataTreeJson:', error);
+// Async function to fetch the data and store it globally
+export function fetchDataTreeJson() {
+  if (!fetchTreeDataPromise) {
+    // If the promise doesn't exist, create it
+    fetchTreeDataPromise = (async () => {
+      try {
+        const response = await fetch('data_option_json/cefi_data_tree.json');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json(); // JSON data
+        treeData = data['Projects']['CEFI']['regional_mom6']['cefi_portal']; // Store the data globally
+        console.log('Data successfully fetched and stored globally:', treeData);
+        return treeData; // Resolve the promise with the data
+      } catch (error) {
+        console.error('There was a problem when async fetchDataTreeJson:', error);
+        throw error; // Reject the promise if there's an error
+      }
+    })();
   }
-};
+  return fetchTreeDataPromise; // Return the shared promise
+}
 
 // Createing the data tree dropdowns
 // Get dropdown elements
@@ -58,15 +67,19 @@ const level7 = document.getElementById('dataCategoryDataQuery');
 const level8 = document.getElementById('variableDataQuery');
 
 // Call the fetch function and initialize dropdowns after data is loaded
-fetchDataTreeJson().then(() => {
-  if (treeData) {
-    // Populate the first dropdown after data is loaded
-    populateDropdown(level1, treeData);
-  }
-});
+try {
+  // Call the fetch function and wait for the data to be loaded
+  await fetchDataTreeJson();
+
+  // Populate the first dropdown after data is loaded
+  populateDropdown(level1, treeData);
+} catch (error) {
+  console.error('Error fetching treeData:', error);
+}
+// console.log('should be after the fetchDataTreeJson function');
 
 // Function to populate a dropdown in the data query tool
-function populateDropdown(selectElement, options) {
+export function populateDropdown(selectElement, options) {
     // create default empty option
     selectElement.innerHTML = '<option value="">Select</option>';
     // create all other options based on the data tree keys at each level
