@@ -1,4 +1,4 @@
-import { optionList } from './hindcast.js';
+import { optionList,truncateString } from './hindcast.js';
 
 
 // event lister for region radio button in the variable table section
@@ -80,6 +80,12 @@ try {
 
 // Function to populate a dropdown in the data query tool
 export function populateDropdown(selectElement, options) {
+    
+    // clear all options
+    while (selectElement.firstChild) {
+      selectElement.removeChild(selectElement.firstChild);
+    } 
+
     // create default empty option
     selectElement.innerHTML = '<option value="">Select</option>';
     // create all other options based on the data tree keys at each level
@@ -87,7 +93,11 @@ export function populateDropdown(selectElement, options) {
         Object.keys(options).forEach(key => {
             const option = document.createElement('option');
             option.value = key;
-            option.textContent = key;
+            let truncName = truncateString(key, 40)
+            option.textContent = truncName;
+            // Set the full text as the title for hover tooltip
+            option.title = key;
+            
 
             // // If a metaInfo is provided, use it to set value and textContent
             // if (metaInfo && metaInfo[key]) {

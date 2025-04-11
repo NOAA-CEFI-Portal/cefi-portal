@@ -1,14 +1,14 @@
 import { asyncInitializePlotlyResize } from './hindcast.js';
 import { optionList,createMomCobaltCbarOpt } from './hindcast.js';
-import { createGeneralOption,createDropdownOptions } from './hindcast.js';
-import { fetchDataOptionVis,fetchVarOptionVis } from './hindcast.js';
+import { createDropdownOptions } from './hindcast.js';
 import { showLoadingSpinner,hideLoadingSpinner } from './hindcast.js';
 import { fetchVariableDepthBotOptions } from './hindcast.js';
 
 import { fetchTreeDataPromise, fetchDataTreeJson, treeData, populateDropdown } from './data_access.js';
 
+
 // async function to wait the treeData to be fetched
-async function useTreeData() {
+export async function useTreeData() {
   try {
     // Check if the promise already exists (i.e. pending or resolved)
     if (!fetchTreeDataPromise) {
@@ -16,14 +16,13 @@ async function useTreeData() {
     } else {
       await fetchTreeDataPromise; // Wait for the existing fetch to complete
     }
-    console.log('treeData loaded in forecast_live.js');
+    console.log('treeData loaded in other .js');
   } catch (error) {
-    console.error('Error loading the treeData in forecast_live.js:', error);
+    console.error('Error loading the treeData in  other .js:', error);
   }
 }
-// make sure the treeData is fetched (top level await)
-await useTreeData();
-// console.log(treeData);
+
+
 
 // setup local global variable (data structure and filenaming structure)
 var region;
@@ -33,9 +32,10 @@ var output_frequency;
 var grid_type = 'regrid';
 var release = 'r20250212';     // showing options provided in the json file
 var data_category;
+var variable_name;
 var variable;
-var iyyyymm;
-var ens_opt;
+var depthValueFcast;
+var blockValueFcast;
 
 
 // Createing the data tree dropdowns
@@ -45,6 +45,19 @@ const level2 = document.getElementById('subregMOMCobaltFcastLive');
 const level4 = document.getElementById('freqMOMCobaltFcastLive');
 const level7 = document.getElementById('dataCatMOMCobaltFcastLive');
 const level8 = document.getElementById('varMOMCobaltFcastLive');
+
+
+// make sure the treeData is fetched (top level await)
+// Call the fetch function and initialize dropdowns after data is loaded
+try {
+    // Call the fetch function and wait for the data to be loaded
+    await useTreeData();
+  
+    // Populate the first dropdown after data is loaded
+    populateDropdown(level1, treeData);
+  } catch (error) {
+    console.error('Error fetching treeData:', error);
+}
 
 // Event listeners for dynamic updates
 // region
@@ -69,7 +82,8 @@ level2.addEventListener('change', function () {
 // output frequency
 level4.addEventListener('change', function () {
     output_frequency = level4.value;
-    options = treeData[region][subdomain][experiment_type][output_frequency];
+    let options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release];
+    console.log(options)
     populateDropdown(level7, options);
     populateDropdown(level8, null);
 });
@@ -77,15 +91,20 @@ level4.addEventListener('change', function () {
 // data category
 level7.addEventListener('change', function () {
     data_category = level7.value;
-    options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release][data_category];
+    let options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release][data_category];
     populateDropdown(level8, options);
 });
 
 // variable
 level8.addEventListener('change', function () {
-    let variable_name = level8.value;
-    options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release][data_category][variable_name];
+    variable_name = level8.value;
+    let options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release][data_category][variable_name];
     variable = Object.keys(options)[0];
+
+    // depth option change
+    $("#depthMOMCobaltFcastLive").empty();
+    $("#blockMOMCobaltFcastLive").empty();
+    updateDepthAndBlockOptions(region, output_frequency, variable);
 });
 
 
@@ -99,30 +118,7 @@ const clearFigOptBtnFcast = $("#clearFigOptBtnFcastLive")
 // global info
 var mapDataFcast = {}   // parsed html output
 var locationDataFcast;
-var regValueFcast;
-var freqValueFcast;
-var varValueFcast;
-var varNameFcast;
 
-
-// Wait for createGeneralOption to complete region options
-//  async needed for freq, var, depth, block options backend fetch
-await createGeneralOption('regMOMCobaltFcastLive',momCobaltRegs);
-regValueFcast = $('#regMOMCobaltFcastLive').val();     // initial region value
-// Wait for createFreqVarOption to complete
-//  fetch the backend data for the var, freq options
-//  async needed for depth, block options backend fetch
-await createFreqVarOption(regValueFcast);
-freqValueFcast = $('#freqMOMCobaltFcastLive').val();   // initial frequency value
-varValueFcast = $('#varMOMCobaltFcastLive').val();     // initial variable value
-varNameFcast = $('#varMOMCobaltFcastLive option:selected').text();
-
-
-// global variable for model variable name, index, and abbreviation
-// let varnamelistFcast = momCobaltVarsFcast();
-// let varindFcast = varnamelistFcast[1].indexOf($("#varMOMCobaltFcast").val())
-// let varNameFcast = varnamelistFcast[0][varindFcast]
-// let varValueFcast = varnamelistFcast[1][varindFcast]
 
 // Initial initYear options
 createMomCobaltInitYearOpt('iniYearMOMCobaltFcastLive');
@@ -156,7 +152,7 @@ tickSpaceChangeFcast(leadMonthList)
 createMomCobaltStatOptFcast();
 
 // Initial depth and bottom options
-updateDepthAndBlockOptions(regValueFcast, freqValueFcast, varValueFcast);
+updateDepthAndBlockOptions(region, output_frequency, variable);
 
 // setup colorbar option
 createMomCobaltCbarOpt('cbarOptsFcastLive');
@@ -225,18 +221,6 @@ timeSliderFcast.on("input", function() {
     tValueFcast.text(leadFoliumFcast);
 });
 
-// event listen for variable change
-$("#varMOMCobaltFcastLive").on("change", function(){
-    // varname
-    varValueFcast = $("#varMOMCobaltFcastLive").val()
-
-    // depth option change
-    $("#depthMOMCobaltFcastLive").empty();
-    $("#blockMOMCobaltFcastLive").empty();
-    updateDepthAndBlockOptions(regValueFcast, freqValueFcast, varValueFcast);
-
-});
-
 
 // event listen for analyses change
 $("#analysisMOMCobaltFcastLive").on("change", function(){
@@ -270,36 +254,6 @@ $(document).ready(function() {
 
 
 /////////////////////// function section /////////////////////
-
-// asyn function to get the option list in the json files
-export async function createFreqVarOption(regname) {
-    // fetch hindcast json specific to region
-    var region;
-    var subdomain;
-    var expType = 'seasonal_reforecast';
-    if (regname === 'northwest_atlantic'){
-        region = 'northwest_atlantic';
-        subdomain = 'full_domain';
-    } else if (regname === 'northeast_pacific'){
-        region = 'northeast_pacific';
-        subdomain = 'full_domain';
-    };
-    // get frequeuncy json
-    let dataAccessJson = await fetchDataOptionVis(region,subdomain,expType);
-    // get variable json
-    let variableJson = await fetchVarOptionVis(region,subdomain,expType);
-
-    // create frequency options
-    let freqList = dataAccessJson.output_frequency;
-    createDropdownOptions('freqMOMCobaltFcastLive',freqList,freqList);
-
-    // create variable options
-    let varOptionList = variableJson.var_options;
-    let varValueList = variableJson.var_values;
-    createDropdownOptions('varMOMCobaltFcastLive',varOptionList,varValueList);
-
-}
-
 
 // function for changing the tick mark of time slider
 function tickSpaceChangeFcast(list) {
@@ -373,7 +327,7 @@ function updateDepthAndBlockOptions(regValue, freqValue, varValue, depthID='dept
     // Change depth and block options for the new freq
     // Need to fetch the backend data for the depth options
     fetchVariableDepthBotOptions(
-        regValue, 'full_domain', 'seasonal_forecast', freqValue, 'regrid', varValue
+        regValue, subdomain, experiment_type, freqValue, grid_type, varValue
     ).then((jsonData) => {
 
         if (jsonData.depth === 0) {
@@ -448,7 +402,7 @@ let depthMapFcast;
 let blockMapFcast;
 function replaceFoliumForecast() {
     showLoadingSpinner("loading-spinner-map-FcastLive");
-    varFoliumMapFcast = $("#varMOMCobaltFcastLive").val();
+    varFoliumMapFcast = variable;
     freqFoliumMap = $("#freqMOMCobaltFcastLive").val();
     statMapFcast = $("#statMOMCobaltFcastLive").val();
     statMapFcastName = $('#statMOMCobaltFcastLive').find('option:selected').text()
@@ -675,7 +629,7 @@ function plotlyForecastSpread(jsonData) {
             width: 3 
         },
         // name: statMap+' time series',
-        name: varNameFcast
+        name: variable_name
     };
 
     var data = [trace];
@@ -705,7 +659,7 @@ function plotlyForecastSpread(jsonData) {
         hovermode: 'closest',
         showlegend: false,
         title:
-        varNameFcast +' <br>' +
+        variable_name +' <br>' +
             ' @ (lat:'+parseFloat(jsonData.lat).toFixed(2)+'N,'+
                 'lon:'+parseFloat(jsonData.lon).toFixed(2)+'E)',
         autosize: true,
@@ -766,7 +720,7 @@ function plotlyForecastRange(jsonData) {
             width: 3 
         },
         // name: statMap+' time series',
-        name: varNameFcast
+        name: variable_name
     };
 
     var data = [trace];
@@ -775,7 +729,7 @@ function plotlyForecastRange(jsonData) {
         hovermode: 'closest',
         showlegend: false,
         title:
-        varNameFcast +' <br>' +
+        variable_name +' <br>' +
             ' @ (lat:'+parseFloat(jsonData.lat).toFixed(2)+'N,'+
                 'lon:'+parseFloat(jsonData.lon).toFixed(2)+'E)',
         autosize: true,

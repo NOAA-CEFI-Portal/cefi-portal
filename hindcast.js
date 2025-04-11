@@ -1,3 +1,143 @@
+import { treeData, populateDropdown } from './data_access.js';
+import { useTreeData } from './forecast_live.js';
+
+
+// setup local global variable (data structure and filenaming structure)
+var region;
+var subdomain;
+var experiment_type = 'hindcast';
+var output_frequency;
+var grid_type = 'regrid';
+var release = {
+    'northwest_atlantic':'r20230520',
+    'northeast_pacific':'r20241015'
+};     // showing options provided in the json file
+var data_category;
+var variable_name;
+var variable;
+var statValue;
+var depthValue;
+var blockValue;
+
+var indexJson;
+
+// Createing the data tree dropdowns
+// Get dropdown elements
+const level1 = document.getElementById('regMOMCobalt');
+const level2 = document.getElementById('subregMOMCobalt');
+const level4 = document.getElementById('freqMOMCobalt');
+const level7 = document.getElementById('dataCatMOMCobalt');
+const level8 = document.getElementById('varMOMCobalt');
+
+
+// make sure the treeData is fetched (top level await)
+// Call the fetch function and initialize dropdowns after data is loaded
+try {
+    // Call the fetch function and wait for the data to be loaded
+    await useTreeData();
+  
+    // Populate the first dropdown after data is loaded
+    populateDropdown(level1, treeData);
+
+  } catch (error) {
+    console.error('Error fetching treeData:', error);
+}
+
+// Event listeners for dynamic updates
+// region
+level1.addEventListener('change', function () {
+    region = level1.value;
+    let options = treeData[region];
+    populateDropdown(level2, options);
+    populateDropdown(level4, null);
+    populateDropdown(level7, null);
+    populateDropdown(level8, null);
+
+});
+
+// subregion
+level2.addEventListener('change', async function () {
+    subdomain = level2.value;
+    let options = treeData[region][subdomain][experiment_type];
+    populateDropdown(level4, options);
+    populateDropdown(level7, null);
+    populateDropdown(level8, null);
+
+    try {
+        // Use await to fetch the index JSON
+        console.log('before await')
+        indexJson = await fetchIndexOptionHindVis(region, subdomain, experiment_type);
+        console.log(indexJson)
+        // Only when the JSON file of an index exists
+        if (indexJson) {
+            // Create index options (under index dashboard)
+            let indexOptionList = indexJson.varname;
+            let indexNameOptionList = indexJson.longname;
+            let indexFileLocationList = indexJson.file;
+            createDropdownOptions('indexMOMCobaltTS', indexNameOptionList, indexFileLocationList);
+            plotIndexes();
+        }
+    } catch (error) {
+        console.error('Error fetching index JSON:', error);
+    }
+});
+
+// output frequency
+level4.addEventListener('change', function () {
+    output_frequency = level4.value;
+    let options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release[region]];
+    console.log(options)
+    populateDropdown(level7, options);
+    populateDropdown(level8, null);
+
+    // time slider change
+    if (output_frequency === 'daily'){
+        [yearValues, rangeValues] = generateDailyDateList();
+        timeSlider.attr("min", 0);
+        timeSlider.attr("max", rangeValues.length - 1);
+        const foundIndex = rangeValues.indexOf(dateFolium+"-01");
+        timeSlider.val(foundIndex);
+        dateFolium = rangeValues[timeSlider.val()];
+    } else if (output_frequency === 'monthly'){
+        [yearValues, rangeValues] = generateDateList();
+        timeSlider.attr("min", 0);
+        timeSlider.attr("max", rangeValues.length - 1);
+        const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
+        timeSlider.val(foundIndex);
+        dateFolium = rangeValues[timeSlider.val()];
+    };
+
+    tValue.text(dateFolium);
+
+    // change depth and block options for the new freq
+    // need to fetch the backend data for the depth options
+    updateDepthAndBlockOptions(region, output_frequency, variable)
+
+    // change depth2 and block2 options for the new freq
+    // need to fetch the backend data for the depth options
+    // updateDepthAndBlockOptions(regValue, freqValue, var2Value, 'depthMOMCobaltTS2', 'blockMOMCobaltTS2')
+});
+
+// data category
+level7.addEventListener('change', function () {
+    data_category = level7.value;
+    let options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release[region]][data_category];
+    populateDropdown(level8, options);
+});
+
+// variable
+level8.addEventListener('change', function () {
+    variable_name = level8.value;
+    let options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release[region]][data_category][variable_name];
+    variable = Object.keys(options)[0];
+
+    // depth option change
+    $("#depthMOMCobalt").empty();
+    $("#blockMOMCobalt").empty();
+    updateDepthAndBlockOptions(region, output_frequency, variable);
+});
+
+
 // global constant for object ID
 const momCobaltMap = $('#momCobaltIFrame');
 const momCobaltBtn = $("#momCobaltBtn");
@@ -12,20 +152,13 @@ var locationData;
 var polygonData;
 var dateFolium;
 
+
 // global info for time slider
 var yearValues = [];
 var rangeValues = [];
 
-// global info for options value
-var regValue;
-var freqValue;
-var varValue;
-var statValue;
-var depthValue;
-var blockValue;
 var var2Value;
-var depth2Value;
-var block2Value;
+
 
 // Initial region options (for all region options)
 initialize()
@@ -40,73 +173,54 @@ $(window).resize(function() {
     tickSpaceChange();
 });
 
-// event listen for region change => variable list and frequency options in json
-$("#regMOMCobalt").on("change", function(){
-    regValue  = $('#regMOMCobalt').val();
-    createFreqVarIndexOption(regValue);
 
-});
 
-// event listen for freq change => slider, depth & bottom options
-$("#freqMOMCobalt").on("change", function(){
-    freqValue = $('#freqMOMCobalt').val();
+// // event listen for freq change => slider, depth & bottom options
+// $("#freqMOMCobalt").on("change", function(){
     
-    // time slider change
-    if (freqValue === 'daily'){
-        [yearValues, rangeValues] = generateDailyDateList();
-        timeSlider.attr("min", 0);
-        timeSlider.attr("max", rangeValues.length - 1);
-        const foundIndex = rangeValues.indexOf(dateFolium+"-01");
-        timeSlider.val(foundIndex);
-        dateFolium = rangeValues[timeSlider.val()];
-    } else if (freqValue === 'monthly'){
-        [yearValues, rangeValues] = generateDateList();
-        timeSlider.attr("min", 0);
-        timeSlider.attr("max", rangeValues.length - 1);
-        const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
-        timeSlider.val(foundIndex);
-        dateFolium = rangeValues[timeSlider.val()];
-    };
+//     // time slider change
+//     if (output_frequency === 'daily'){
+//         [yearValues, rangeValues] = generateDailyDateList();
+//         timeSlider.attr("min", 0);
+//         timeSlider.attr("max", rangeValues.length - 1);
+//         const foundIndex = rangeValues.indexOf(dateFolium+"-01");
+//         timeSlider.val(foundIndex);
+//         dateFolium = rangeValues[timeSlider.val()];
+//     } else if (region, output_frequency, variable === 'monthly'){
+//         [yearValues, rangeValues] = generateDateList();
+//         timeSlider.attr("min", 0);
+//         timeSlider.attr("max", rangeValues.length - 1);
+//         const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
+//         timeSlider.val(foundIndex);
+//         dateFolium = rangeValues[timeSlider.val()];
+//     };
 
-    tValue.text(dateFolium);
+//     tValue.text(dateFolium);
 
-    // change depth and block options for the new freq
-    // need to fetch the backend data for the depth options
-    updateDepthAndBlockOptions(regValue, freqValue, varValue)
+//     // change depth and block options for the new freq
+//     // need to fetch the backend data for the depth options
+//     updateDepthAndBlockOptions(region, output_frequency, variable)
 
-    // change depth2 and block2 options for the new freq
-    // need to fetch the backend data for the depth options
-    // updateDepthAndBlockOptions(regValue, freqValue, var2Value, 'depthMOMCobaltTS2', 'blockMOMCobaltTS2')
-});
-
-
-// event listen for variable change => depth & bottom options
-$("#varMOMCobalt").on("change", function(){
-
-    // varValue update
-    varValue = $('#varMOMCobalt').val();
-
-    // change depth and block options for the new freq
-    // need to fetch the backend data for the depth options
-    updateDepthAndBlockOptions(regValue, freqValue, varValue)
+//     // change depth2 and block2 options for the new freq
+//     // need to fetch the backend data for the depth options
+//     // updateDepthAndBlockOptions(regValue, freqValue, var2Value, 'depthMOMCobaltTS2', 'blockMOMCobaltTS2')
+// });
 
 
 
-});
+// // event listen for variable2 change => depth2 & bottom2 options
+// $("#varMOMCobaltTS2").on("change", function(){
 
-// event listen for variable2 change => depth2 & bottom2 options
-$("#varMOMCobaltTS2").on("change", function(){
+//     // varValue update
+//     var2Value = $('#varMOMCobaltTS2').val();
 
-    // varValue update
-    var2Value = $('#varMOMCobaltTS2').val();
+//     // change depth2 and block2 options for the new freq
+//     // need to fetch the backend data for the depth options
+//     updateDepthAndBlockOptions(region, output_frequency, variable, 'depthMOMCobaltTS2', 'blockMOMCobaltTS2')
 
-    // change depth2 and block2 options for the new freq
-    // need to fetch the backend data for the depth options
-    updateDepthAndBlockOptions(regValue, freqValue, var2Value, 'depthMOMCobaltTS2', 'blockMOMCobaltTS2')
-
-    // plot ts2 
-    plotTSs(locationData);
-});
+//     // plot ts2 
+//     plotTSs(locationData);
+// });
 
 // event listen for analyses dashboard dropdown change with nav pil
 $("#analysisMOMCobalt").on("change", function(){
@@ -300,7 +414,7 @@ function generateTick(tickList) {
  * @param {number} maxLength - The maximum length of the truncated string.
  * @returns {string} - The truncated string with ellipsis if it exceeds the maximum length.
  */
-function truncateString(str, maxLength) {
+export function truncateString(str, maxLength) {
     if (str.length > maxLength) {
         return str.substring(0, maxLength - 3) + '...';
     } else {
@@ -345,18 +459,6 @@ function updateDepthAndBlockOptions(regValue, freqValue, varValue, depthID='dept
 
 // initialize the region freq variable optios
 async function initialize() {
-    // Wait for createGeneralOption to complete region options
-    //  async needed for freq, var, depth, block options backend fetch
-    await createGeneralOption('regMOMCobalt',momCobaltRegs);
-    regValue = $('#regMOMCobalt').val();     // initial region value
-
-    // Wait for createFreqVarIndexOption to complete
-    //  fetch the backend data for the var, freq options
-    //  async needed for depth, block options backend fetch
-    await createFreqVarIndexOption(regValue);
-    // $('#freqMOMCobalt').val('monthly');
-    freqValue = $('#freqMOMCobalt').val();   // initial frequency value
-    varValue = $('#varMOMCobalt').val();     // initial variable value
 
     // Default time slider related variables
     [yearValues, rangeValues] = generateDateList(); // initial monthly time slider
@@ -374,7 +476,7 @@ async function initialize() {
 
     // Initial depth options based on variable
     // fetch the backend data for the depth, block options
-    updateDepthAndBlockOptions(regValue, freqValue, varValue)
+    updateDepthAndBlockOptions(region, output_frequency, variable)
 
     // create colorbar options
     createMomCobaltCbarOpt('cbarOpts','RdBu_r')
@@ -391,7 +493,6 @@ async function initialize() {
 
     // create index plotly
     initializePlotly('indexes');
-    plotIndexes()
 
 }
 
@@ -431,98 +532,98 @@ export function createDropdownOptions(selectID,showList,valueList) {
     elm.appendChild(df);
 };
 
-// asyn function to get the option list in the json files
-export async function createFreqVarIndexOption(regname) {
-    // fetch hindcast json specific to region
-    var region;
-    var subdomain;
-    var expType = 'hindcast';
-    if (regname === 'northwest_atlantic'){
-        region = 'northwest_atlantic';
-        subdomain = 'full_domain';
-    } else if (regname === 'northeast_pacific'){
-        region = 'northeast_pacific';
-        subdomain = 'full_domain';
-    };
-    // get frequeuncy json
-    let dataAccessJson = await fetchDataOptionVis(region,subdomain,expType);
-    // get variable json
-    let variableJson = await fetchVarOptionVis(region,subdomain,expType);
-    // get index json
-    let indexJson = await fetchIndexOptionHindVis(region,subdomain,expType);
+// // asyn function to get the option list in the json files
+// export async function createFreqVarIndexOption(regname) {
+//     // fetch hindcast json specific to region
+//     var region;
+//     var subdomain;
+//     var expType = 'hindcast';
+//     if (regname === 'northwest_atlantic'){
+//         region = 'northwest_atlantic';
+//         subdomain = 'full_domain';
+//     } else if (regname === 'northeast_pacific'){
+//         region = 'northeast_pacific';
+//         subdomain = 'full_domain';
+//     };
+//     // get frequeuncy json
+//     let dataAccessJson = await fetchDataOptionVis(region,subdomain,expType);
+//     // get variable json
+//     let variableJson = await fetchVarOptionVis(region,subdomain,expType);
+//     // get index json
+//     let indexJson = await fetchIndexOptionHindVis(region,subdomain,expType);
 
-    // create frequency options
-    let freqList = dataAccessJson.output_frequency;
-    createDropdownOptions('freqMOMCobalt',freqList,freqList);
+//     // create frequency options
+//     let freqList = dataAccessJson.output_frequency;
+//     createDropdownOptions('freqMOMCobalt',freqList,freqList);
 
-    // create variable options
-    let varOptionList = variableJson.var_options;
-    let varValueList = variableJson.var_values;
-    let combinedList = varOptionList.map((option, index) => `${option} - (${varValueList[index]})`);
-    createDropdownOptions('varMOMCobalt',combinedList,varValueList);
+//     // create variable options
+//     let varOptionList = variableJson.var_options;
+//     let varValueList = variableJson.var_values;
+//     let combinedList = varOptionList.map((option, index) => `${option} - (${varValueList[index]})`);
+//     createDropdownOptions('varMOMCobalt',combinedList,varValueList);
     
-    // only when the json file of a index exist
-    if (indexJson) {
-        // create index options (under index dashboard)
-        let indexOptionList = indexJson.varname;
-        let indexNameOptionList = indexJson.longname;
-        let indexFileLocationList = indexJson.file;
-        createDropdownOptions('indexMOMCobaltTS',indexNameOptionList,indexFileLocationList);
-        plotIndexes();
-    }
+//     // only when the json file of a index exist
+//     if (indexJson) {
+//         // create index options (under index dashboard)
+//         let indexOptionList = indexJson.varname;
+//         let indexNameOptionList = indexJson.longname;
+//         let indexFileLocationList = indexJson.file;
+//         createDropdownOptions('indexMOMCobaltTS',indexNameOptionList,indexFileLocationList);
+//         plotIndexes();
+//     }
     
-    // // create 2nd variable options
-    // let var2OptionList = variableJson.var_options;
-    // let var2ValueList = variableJson.var_values;
-    // createDropdownOptions('varMOMCobaltTS2',var2OptionList,var2ValueList);
+//     // // create 2nd variable options
+//     // let var2OptionList = variableJson.var_options;
+//     // let var2ValueList = variableJson.var_values;
+//     // createDropdownOptions('varMOMCobaltTS2',var2OptionList,var2ValueList);
 
-}
+// }
 
-// async fetching the data_access_json cefi_data_option
-export async function fetchDataOptionVis(reg,subDom,expType) {
-    try {
-      const response = await fetch(
-        'data_option_json/cefi_data_options.Projects.CEFI.regional_mom6.cefi_portal.'+
-        reg+
-        '.'+
-        subDom+
-        '.'+
-        expType+
-        '.json'
-      );
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();  // JSON data 
-      // console.log('JSON data:', data);
-      return data;
-    } catch (error) {
-      console.error('There was a problem when async fetchDataOption:', error);
-    }
-}
+// // async fetching the data_access_json cefi_data_option
+// export async function fetchDataOptionVis(reg,subDom,expType) {
+//     try {
+//       const response = await fetch(
+//         'data_option_json/cefi_data_options.Projects.CEFI.regional_mom6.cefi_portal.'+
+//         reg+
+//         '.'+
+//         subDom+
+//         '.'+
+//         expType+
+//         '.json'
+//       );
+//       if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//       }
+//       const data = await response.json();  // JSON data 
+//       // console.log('JSON data:', data);
+//       return data;
+//     } catch (error) {
+//       console.error('There was a problem when async fetchDataOption:', error);
+//     }
+// }
 
-// async fetching the data_access_json cefi_var_option
-export async function fetchVarOptionVis(reg,subDom,expType) {
-    try {
-      const response = await fetch(
-        'data_option_json/cefi_var_options.Projects.CEFI.regional_mom6.cefi_portal.'+
-        reg+
-        '.'+
-        subDom+
-        '.'+
-        expType+
-        '.json'
-      );
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();  // JSON data 
-      // console.log('JSON data:', data);
-      return data;
-    } catch (error) {
-      console.error('There was a problem when async fetchVarOption:', error);
-    }
-}
+// // async fetching the data_access_json cefi_var_option
+// export async function fetchVarOptionVis(reg,subDom,expType) {
+//     try {
+//       const response = await fetch(
+//         'data_option_json/cefi_var_options.Projects.CEFI.regional_mom6.cefi_portal.'+
+//         reg+
+//         '.'+
+//         subDom+
+//         '.'+
+//         expType+
+//         '.json'
+//       );
+//       if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//       }
+//       const data = await response.json();  // JSON data 
+//       // console.log('JSON data:', data);
+//       return data;
+//     } catch (error) {
+//       console.error('There was a problem when async fetchVarOption:', error);
+//     }
+// }
 
 // async fetching the data_access_json cefi_data_option
 async function fetchIndexOptionHindVis(reg,subDom,expType) {
@@ -924,7 +1025,7 @@ let statFoliumMap;
 let depthFoliumMap;
 function replaceFolium() {
     showLoadingSpinner("loading-spinner-map");
-    varFoliumMap = $("#varMOMCobalt").val();
+    varFoliumMap = variable;
     regFoliumMap = $("#regMOMCobalt").val();
     freqFoliumMap = $("#freqMOMCobalt").val();
     statFoliumMap = $("#statMOMCobalt").val();
@@ -1800,7 +1901,7 @@ function plotlyTransectLine(plotlyID,parsedTran) {
         marker: { size: 2 },
         line: { shape: 'linear',color: trace1Color },
         // name: statFoliumMap+' time series',
-        name: varValue
+        name: variable
     };
 
     var data = [trace];
@@ -1809,7 +1910,7 @@ function plotlyTransectLine(plotlyID,parsedTran) {
         hovermode: 'closest',
         showlegend: false,
         title:
-            varValue +' '+ statFoliumMap +
+            variable +' '+ statFoliumMap +
             '<br> along the PolyLine',
         //   autosize: true,
         annotations: [{
@@ -1838,7 +1939,7 @@ function plotlyTransectLine(plotlyID,parsedTran) {
         },
         yaxis: {
             title: {
-                text: varValue + '(' + parsedTran.tranUnit + ')',
+                text: variable + '(' + parsedTran.tranUnit + ')',
                 standoff: 10,
                 font: { color: trace1Color }
             },
@@ -2091,7 +2192,7 @@ function plotlyTS(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
         marker: { size: 2 },
         line: { shape: 'linear',color: trace1Color },
         // name: statFoliumMap+' time series',
-        name: varValue
+        name: variable
     };
 
     var data = [trace];
@@ -2100,7 +2201,7 @@ function plotlyTS(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
         hovermode: 'closest',
         showlegend: false,
         title:
-            varValue +' '+ statFoliumMap +'<br>'+
+            variable +' '+ statFoliumMap +'<br>'+
             '(lat:'+parseFloat(latValues).toFixed(2)+'N,'+
             'lon:'+parseFloat(lonValues).toFixed(2)+'E)',
         autosize: true,
@@ -2126,7 +2227,7 @@ function plotlyTS(tsDates,tsValues,lonValues,latValues,tsUnit,yformat) {
         },
         yaxis: {
             title: {
-                text: varValue + '(' + tsUnit + ')',
+                text: variable + '(' + tsUnit + ')',
                 standoff: 10,
                 font: { color: trace1Color }
             },
@@ -2212,7 +2313,7 @@ function plotlyBox(tsValues,yformat) {
 
     var trace1 = {
         y: tsValues,
-        name: varValue,
+        name: variable,
         boxpoints: false,
         // jitter: 0.3,
         // pointpos: -1.8,
@@ -2304,7 +2405,7 @@ function plotlyHistadd(tsValues,tsUnit,yformat) {
             overlaying: 'y',
             side: 'right',
             title: {
-                // text: varValue + '(' + tsUnit + ')',
+                // text: variable + '(' + tsUnit + ')',
                 font: { color: trace2Color }
             },
             tickfont: { color: trace2Color }, 
@@ -2323,7 +2424,7 @@ function plotlyHist(tsValues,tsUnit,yformat) {
     var trace1Color = "rgba(113, 29, 176, 0.7)"
     var trace1 = {
         y: tsValues,
-        name: varValue,
+        name: variable,
         autobinx: true, 
         histnorm: "count", 
         marker: {
@@ -2353,7 +2454,7 @@ function plotlyHist(tsValues,tsUnit,yformat) {
         title: 'Histogram',
         yaxis: {
             title: {
-                // text: varValue + '(' + tsUnit + ')',
+                // text: variable + '(' + tsUnit + ')',
                 font: { color: trace1Color }
             },
             tickformat: yformat,
