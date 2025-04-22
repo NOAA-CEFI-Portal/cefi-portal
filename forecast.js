@@ -15,7 +15,7 @@ var subdomain;
 var experiment_type = 'seasonal_reforecast';
 var output_frequency;
 var grid_type = 'regrid';
-var release = 'r20250212';     // showing options provided in the json file
+var release = 'r20250413';     // showing options provided in the json file
 var data_category;
 var variable_name;
 var variable;
@@ -914,8 +914,8 @@ function momCobaltInitYear(startYear = 1994, endYear = 2023) {
 
 // functions for generating month list for initial time (monthly)
 function momCobaltInitMonth() {
-    var monthList = [2,6,9,12];
-    var monthStrList = ['Feburary','June','September','December']
+    var monthList = [4];
+    var monthStrList = ['April'];
     return [monthList, monthStrList];
 };
 

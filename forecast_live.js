@@ -30,7 +30,7 @@ var subdomain;
 var experiment_type = 'seasonal_forecast';
 var output_frequency;
 var grid_type = 'regrid';
-var release = 'r20250212';     // showing options provided in the json file
+var release = 'r20250413';     // showing options provided in the json file
 var data_category;
 var variable_name;
 var variable;
@@ -905,8 +905,8 @@ function momCobaltInitYear(startYear = 2025, endYear = 2025) {
 // functions for generating month list for initial time (Manual entering)
 function momCobaltInitMonth() {
     // var monthList = [3,6,9,12];
-    var monthList = [2];
-    var monthStrList = ['Feburary']
+    var monthList = [4];
+    var monthStrList = ['April']
     // var monthStrList = ['March','June','September','December']
     return [monthList, monthStrList];
 };
