@@ -246,8 +246,8 @@
             "3": "AMOC",
             "4": "PDO",
             "5": "Sea Level",
-            "6": "Climate Change",
-            "7": "Climate Indices",
+            "6": "Long term Change",
+            "7": "Long term Indices",
             "8": "Extremes",
             "9": "Marine Heatwaves",
             "10": "Arctic",
@@ -1016,7 +1016,7 @@
         {
             "url": "https://calcofi.org/",
             "title": "California Cooperative Oceanic Fisheries Investigation: ",
-            "desc": "<p>The California Cooperative Oceanic Fisheries Investigations (CalCOFI) is an oceanographic and marine ecosystem research program off the coast of southern California that holistically studies the physics, biogeochemistry, and biology of the marine environment to inform the sustainable management of marine resources in the context of climate change. Maintains collections of ocean and marine ecosystem data </p>\n",
+            "desc": "<p>The California Cooperative Oceanic Fisheries Investigations (CalCOFI) is an oceanographic and marine ecosystem research program off the coast of southern California that holistically studies the physics, biogeochemistry, and biology of the marine environment to inform the sustainable management of marine resources in the context of long term change. Maintains collections of ocean and marine ecosystem data </p>\n",
             "thumbnail": "/cefi_portal/images/calcofi.jpg",
             "ctype": [
                 1,
@@ -1100,7 +1100,7 @@
         },
         {
             "url": "https://psl.noaa.gov/ipcc/",
-            "title": "Climate Change Web Portal: NOAA/PSL",
+            "title": "Long Term Change Web Portal: NOAA/PSL",
             "desc": "<p>Plot maps and time series of selected variables from the CMIP5 and CMIP6 archives. There are specific web applications for ocean and marine ecosystems, land and rivers, and northwest Atlantic and US west coast dynamical downscaling simulations.</p>\n",
             "thumbnail": "/cefi_portal/images/cmip5.ts.sm.png",
             "ctype": [
@@ -1153,8 +1153,8 @@
         },
         {
             "url": "http://iridl.ldeo.columbia.edu/",
-            "title": "Climate Data Library and Plotter: NOAA/IRI",
-            "desc": "<p>The IRI Data Library is a freely accessible online data repository and analysis tool that allows a user to view, analyze, and download hundreds of terabytes of climate-related data through standard web browsers.</p>\n",
+            "title": "IRI Data Library and Plotter: NOAA/IRI",
+            "desc": "<p>The IRI Data Library is a freely accessible online data repository and analysis tool that allows a user to view, analyze, and download hundreds of terabytes of long term period-related data through standard web browsers.</p>\n",
             "thumbnail": "/cefi_portal/images/oceanchem.gif",
             "ctype": [
                 1,
