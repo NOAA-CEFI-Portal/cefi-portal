@@ -16,15 +16,27 @@
                 </td>
             </tr>
             <tr>
+                <td>Subregion : </td>
+                <td>
+                    <select name="subregion" id="subregMOMCobaltFcast"><option value="">Select</option></select>
+                </td>
+            </tr>
+            <tr>
                 <td>Frequency : </td>
                 <td>
-                    <select name="frequency" id="freqMOMCobaltFcast"></select>
+                    <select name="frequency" id="freqMOMCobaltFcast"><option value="">Select</option></select>
+                </td>
+            </tr>
+            <tr>
+                <td>Data Category : </td>
+                <td>
+                    <select name="dataCategory" id="dataCatMOMCobaltFcast"><option value="">Select</option></select>
                 </td>
             </tr>
             <tr>
                 <td>Variable : </td>
                 <td>
-                    <select name="variable" id="varMOMCobaltFcast"></select>
+                    <select name="variable" id="varMOMCobaltFcast"><option value="">Select</option></select>
                 </td>
             </tr>
             <tr>
@@ -122,12 +134,12 @@
 <div class="col-md-12">
     <h3 class="sliderTitle"> Initialization : <span class="initTimeValueFcast"></span></h3>
 </div>
-<div class = "row position-relative">
+<div class = "row position-relative mapForecast">
     <!-- Plotting column -->
 
-    <!-- <div class="workingTop hidden">Creating Map &#9203</div> 
+    <div class="workingTop hidden">Creating Map &#9203</div> 
     <div class="errorTop hidden">Data not available</div> 
-    <div class="whiteTop">.</div>  -->
+    <div class="whiteTop">.</div> 
     <div id="momCobaltMapFcast" class="col-md-12">
         <iframe id="momCobaltIFrameFcast" seamless="seamless" scrolling=no src="hindcast_mom.html"></iframe>
     </div>
@@ -182,6 +194,9 @@
     <div class="tab-content">
         <div id='fcastView' class="tab-pane active view col-12">
         <h3>Forecast Spread</h3>
+        <div class="workingTop hidden">Creating Time Series &#9203</div> 
+        <div class="errorTop hidden">Data not available</div> 
+        <div class="whiteTop">.</div>
         <div class = "row position-relative dashAnalysis">
             <div id="plotly-fcast-spread" class="col-xs-12 col-md-6"></div>
             <div id="plotly-fcast-box" class="col-xs-12 col-md-6"></div>

@@ -83,7 +83,8 @@ def find_ncfiles_info(
 
                     # find all cefi attributes
                     for attr, value in global_attributes.items():
-                        if 'cefi_' in attr:
+                        # rule out the attr add by gfdl team
+                        if 'cefi_' in attr and 'cefi_archive_version_ens' not in attr:
                             dict_end_points[root][file][attr] = value
                         else:
                             pass

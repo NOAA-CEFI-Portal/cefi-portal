@@ -329,31 +329,38 @@
     The data query generator is designed to swiftly generate command line code or code snippets, facilitating user access to the data.
     It is recommended to use the OPeNDAP server for querying data when only a subset is required.
     However, if there is a need to download the entire dataset, please pick the download tab for the wget command and button click download.
-    The query generator also provides the data citation doi depending on different region and version of dataset.
+    The query generator also provides the appropriate data citation DOI based on the selected region, experiment type, and dataset version.
   </p>
   
 
   <div class="userInput col-12">
     <h1 class="userInputTitle"><em>Data Options</em></h1>
-    <!-- region and subdomain radio button should be created seperately -->
-    <input type="radio" class="radioDataQuery" id="radioNWAQuery" name="dataQueryOptions" value="northwest_atlantic" checked>
-    <label for="radioNWAQuery">Northwest Atlantic</label>
-    <input type="radio" class="radioDataQuery" id="radioNEPQuery" name="dataQueryOptions" value="northeast_pacific">
-    <label for="radioNEPQuery">Northeast Pacific</label>
-    <br>
-    <br>
 
+    <!-- Using the NOSQL data tree generated from cefi_data_tree.json -->
     <table class="rowGap">
+        <tr>
+          <td>Regions : </td>
+          <td>
+              <select id="regionDataQuery"></select>
+          </td>
+        </tr>
+        <tr>
+          <td>Subregions : </td>
+          <td>
+              <select id="subregionDataQuery"><option value="">Select</option></select>
+          </td>
+        </tr>
         <tr>
           <td>Experiment Types : </td>
           <td>
-              <select id="expTypeDataQuery"></select>
+              <select id="expTypeDataQuery"><option value="">Select</option></select>
           </td>
         </tr>
         <tr>
           <td>Output Frequencies : </td>
           <td>
               <select id="outFreqDataQuery">
+                <option value="">Select</option>
                 <!-- <option class="default-option" selected disabled>Select an output frequency</option> -->
               </select>
           </td>
@@ -362,6 +369,7 @@
           <td>Grid Types : </td>
           <td>
               <select id="gridTypeDataQuery">
+                <option value="">Select</option>
                 <!-- <option class="default-option" selected disabled>Select a grid type</option> -->
               </select>
           </td>
@@ -370,14 +378,22 @@
           <td>Releases : </td>
           <td>
               <select id="releaseDataQuery">
+                <option value="">Select</option>
                 <!-- <option class="default-option" selected disabled>Select a release date</option> -->
               </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Data Categories : </td>
+          <td>
+              <select id="dataCategoryDataQuery"><option value="">Select</option></select>
           </td>
         </tr>
         <tr>
           <td>Variables : </td>
           <td>
               <select id="variableDataQuery">
+                <option value="">Select</option>
                 <!-- <option class="default-option" selected disabled>Select a variable</option> -->
               </select>
           </td>
