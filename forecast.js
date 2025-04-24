@@ -1,9 +1,98 @@
 import { asyncInitializePlotlyResize } from './hindcast.js';
 import { optionList,createMomCobaltCbarOpt } from './hindcast.js';
-import { createGeneralOption,createDropdownOptions } from './hindcast.js';
-import { fetchDataOptionVis,fetchVarOptionVis } from './hindcast.js';
+import { createDropdownOptions } from './hindcast.js';
 import { showLoadingSpinner,hideLoadingSpinner } from './hindcast.js';
 import { fetchVariableDepthBotOptions } from './hindcast.js';
+
+import { treeData, populateDropdown } from './data_access.js';
+import { useTreeData } from './forecast_live.js';
+
+
+
+// setup local global variable (data structure and filenaming structure)
+var region;
+var subdomain;
+var experiment_type = 'seasonal_reforecast';
+var output_frequency;
+var grid_type = 'regrid';
+var release = 'r20250413';     // showing options provided in the json file
+var data_category;
+var variable_name;
+var variable;
+var depthValueFcast;
+var blockValueFcast;
+
+
+// Createing the data tree dropdowns
+// Get dropdown elements
+const level1 = document.getElementById('regMOMCobaltFcast');
+const level2 = document.getElementById('subregMOMCobaltFcast');
+const level4 = document.getElementById('freqMOMCobaltFcast');
+const level7 = document.getElementById('dataCatMOMCobaltFcast');
+const level8 = document.getElementById('varMOMCobaltFcast');
+
+
+// make sure the treeData is fetched (top level await)
+// Call the fetch function and initialize dropdowns after data is loaded
+try {
+    // Call the fetch function and wait for the data to be loaded
+    await useTreeData();
+  
+    // Populate the first dropdown after data is loaded
+    populateDropdown(level1, treeData);
+  } catch (error) {
+    console.error('Error fetching treeData:', error);
+}
+
+// Event listeners for dynamic updates
+// region
+level1.addEventListener('change', function () {
+    region = level1.value;
+    let options = treeData[region];
+    populateDropdown(level2, options);
+    populateDropdown(level4, null);
+    populateDropdown(level7, null);
+    populateDropdown(level8, null);
+});
+
+// subregion
+level2.addEventListener('change', function () {
+    subdomain = level2.value;
+    let options = treeData[region][subdomain][experiment_type];
+    populateDropdown(level4, options);
+    populateDropdown(level7, null);
+    populateDropdown(level8, null);
+});
+
+// output frequency
+level4.addEventListener('change', function () {
+    output_frequency = level4.value;
+    let options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release];
+    console.log(options)
+    populateDropdown(level7, options);
+    populateDropdown(level8, null);
+});
+
+// data category
+level7.addEventListener('change', function () {
+    data_category = level7.value;
+    let options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release][data_category];
+    populateDropdown(level8, options);
+});
+
+// variable
+level8.addEventListener('change', function () {
+    variable_name = level8.value;
+    let options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release][data_category][variable_name];
+    variable = Object.keys(options)[0];
+
+    // depth option change
+    $("#depthMOMCobaltFcast").empty();
+    $("#blockMOMCobaltFcast").empty();
+    updateDepthAndBlockOptions(region, output_frequency, variable);
+});
+
+
 
 // global constant for object ID
 const momCobaltMapFcast = $('#momCobaltIFrameFcast');
@@ -14,32 +103,7 @@ const clearFigOptBtnFcast = $("#clearFigOptBtnFcast")
 // global info
 var mapDataFcast = {}   // parsed html output
 var locationDataFcast;
-var regValueFcast;
-var freqValueFcast;
-var depthValueFcast;
-var blockValueFcast;
-var varValueFcast;
-var varNameFcast;
 
-
-// Wait for createGeneralOption to complete region options
-//  async needed for freq, var, depth, block options backend fetch
-await createGeneralOption('regMOMCobaltFcast',momCobaltRegs);
-regValueFcast = $('#regMOMCobaltFcast').val();     // initial region value
-// Wait for createFreqVarOption to complete
-//  fetch the backend data for the var, freq options
-//  async needed for depth, block options backend fetch
-await createFreqVarOption(regValueFcast);
-freqValueFcast = $('#freqMOMCobaltFcast').val();   // initial frequency value
-varValueFcast = $('#varMOMCobaltFcast').val();     // initial variable value
-varNameFcast = $('#varMOMCobaltFcast option:selected').text();
-
-
-// global variable for model variable name, index, and abbreviation
-// let varnamelistFcast = momCobaltVarsFcast();
-// let varindFcast = varnamelistFcast[1].indexOf($("#varMOMCobaltFcast").val())
-// let varNameFcast = varnamelistFcast[0][varindFcast]
-// let varValueFcast = varnamelistFcast[1][varindFcast]
 
 // Initial initYear options
 createMomCobaltInitYearOpt('iniYearMOMCobaltFcast');
@@ -73,7 +137,7 @@ tickSpaceChangeFcast(leadMonthList)
 createMomCobaltStatOptFcast();
 
 // Initial depth and bottom options
-updateDepthAndBlockOptions(regValueFcast, freqValueFcast, varValueFcast);
+updateDepthAndBlockOptions(region, output_frequency, variable);
 
 // setup colorbar option
 createMomCobaltCbarOpt('cbarOptsFcast');
@@ -95,7 +159,9 @@ clearFigOptBtnFcast.on("click", function () {
 
 // add event listener on create map button
 momCobaltBtnFcast.on("click", function () {
-
+    $("div.mapForecast > div.workingTop").removeClass("hidden");
+    $("div.mapForecast > div.errorTop").addClass("hidden");
+    $("div.mapForecast > div.whiteTop").addClass("hidden");
     // update map
     replaceFoliumForecast()
     // update initial time
@@ -126,6 +192,9 @@ momCobaltBtnFcast.on("click", function () {
 
 // Update the figure (when mouse up the slider handle)
 timeSliderFcast.on("mouseup", function() {
+    $("div.mapForecast > div.workingTop").removeClass("hidden");
+    $("div.mapForecast > div.errorTop").addClass("hidden");
+    $("div.mapForecast > div.whiteTop").addClass("hidden");
     leadFoliumFcast = leadMonthList[$(this).val()];
     // fetchDataAndPost(dateFolium)
     replaceFoliumForecast()
@@ -140,19 +209,6 @@ timeSliderFcast.on("mouseup", function() {
 timeSliderFcast.on("input", function() {
     leadFoliumFcast = leadMonthList[$(this).val()];
     tValueFcast.text(leadFoliumFcast);
-});
-
-// event listen for variable change
-$("#varMOMCobaltFcast").on("change", function(){
-    // varname
-    varValueFcast = $("#varMOMCobaltFcast").val()
-
-    // depth option change
-    $("#depthMOMCobaltFcast").empty();
-    $("#blockMOMCobaltFcast").empty();
-    updateDepthAndBlockOptions(regValueFcast, freqValueFcast, varValueFcast);
-
-
 });
 
 
@@ -188,36 +244,6 @@ $(document).ready(function() {
 });
 
 /////////////////////// function section /////////////////////
-
-// asyn function to get the option list in the json files
-export async function createFreqVarOption(regname) {
-    // fetch hindcast json specific to region
-    var region;
-    var subdomain;
-    var expType = 'seasonal_reforecast';
-    if (regname === 'northwest_atlantic'){
-        region = 'northwest_atlantic';
-        subdomain = 'full_domain';
-    } else if (regname === 'northeast_pacific'){
-        region = 'northeast_pacific';
-        subdomain = 'full_domain';
-    };
-    // get frequeuncy json
-    let dataAccessJson = await fetchDataOptionVis(region,subdomain,expType);
-    // get variable json
-    let variableJson = await fetchVarOptionVis(region,subdomain,expType);
-
-    // create frequency options
-    let freqList = dataAccessJson.output_frequency;
-    createDropdownOptions('freqMOMCobaltFcast',freqList,freqList);
-
-    // create variable options
-    let varOptionList = variableJson.var_options;
-    let varValueList = variableJson.var_values;
-    createDropdownOptions('varMOMCobaltFcast',varOptionList,varValueList);
-
-}
-
 
 // function for changing the tick mark of time slider
 function tickSpaceChangeFcast(list) {
@@ -348,6 +374,9 @@ function generateFcastLeadMonth(iYear = 1993, iMonth = 3) {
 function changeLeadTimeStep(timeStep) {
     var nextTime = parseInt(timeSliderFcast.val())+timeStep;
     timeSliderFcast.val(nextTime);
+    $("div.workingTopForecast").removeClass("hidden");
+    $("div.errorTopForecast").addClass("hidden");
+    $("div.whiteTopForecast").addClass("hidden");
     leadFoliumFcast = leadMonthList[timeSliderFcast.val()];
     tValueFcast.text(leadFoliumFcast);
     replaceFoliumForecast();
@@ -363,7 +392,7 @@ let depthMapFcast;
 let blockMapFcast;
 function replaceFoliumForecast() {
     showLoadingSpinner("loading-spinner-map-Fcast");
-    varFoliumMapFcast = $("#varMOMCobaltFcast").val();
+    varFoliumMapFcast = variable;
     freqFoliumMap = $("#freqMOMCobaltFcast").val();
     statMapFcast = $("#statMOMCobaltFcast").val();
     statMapFcastName = $('#statMOMCobaltFcast').find('option:selected').text()
@@ -418,10 +447,21 @@ function replaceFoliumForecast() {
             // console.log(mapDataFcast)
             momCobaltMapFcast[0].contentWindow.postMessage(mapDataFcast, "*")
 
+            $("div.mapForecast > div.workingTop").addClass("hidden");
+            $("div.mapForecast > div.errorTop").addClass("hidden");
+            $("div.mapForecast > div.whiteTop").removeClass("hidden");
             hideLoadingSpinner("loading-spinner-map-Fcast");
         })
         .catch(error => {
             // Handle errors here
+            $("div.mapForecast > div.workingTop").addClass("hidden");
+            $("div.mapForecast > div.errorTop").removeClass("hidden");
+            $("div.mapForecast > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-map-Fcast");
+            $("#fcastView > div.workingTop").addClass("hidden");
+            $("#fcastView > div.errorTop").removeClass("hidden");
+            $("#fcastView > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-fcast-spread");
             console.error('Processing forecast folium map error:', error);
         });
 
@@ -520,6 +560,9 @@ function getvarValFcast(infoLonLat) {
 //  3. create plotly object on webpage (execute when promise resolved)
 function plotTSFcast(infoLonLat) {
     showLoadingSpinner("loading-spinner-fcast-spread");
+    $("#fcastView > div.workingTop").removeClass("hidden");
+    $("#fcastView > div.errorTop").addClass("hidden");
+    $("#fcastView > div.whiteTop").addClass("hidden");
     getTSFcasts(infoLonLat)     // the function return a promise obj from fetch
         .then((jsonData)=>{
             let singleList = ['ens_min_max','lower_tercile','upper_tercile','middle_tercile'];
@@ -530,10 +573,16 @@ function plotTSFcast(infoLonLat) {
                 plotlyForecastSpread(jsonData)
                 plotlyForecastBox(jsonData)
             }
-            
+            $("#fcastView > div.workingTop").addClass("hidden");
+            $("#fcastView > div.errorTop").addClass("hidden");
+            $("#fcastView > div.whiteTop").removeClass("hidden");
             hideLoadingSpinner("loading-spinner-fcast-spread");
         })
         .catch((error)=>{
+            $("#fcastView > div.workingTop").addClass("hidden");
+            $("#fcastView > div.errorTop").removeClass("hidden");
+            $("#fcastView > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-fcast-spread");
             console.error(error);
         })
 };
@@ -590,7 +639,7 @@ function plotlyForecastSpread(jsonData) {
             width: 3 
         },
         // name: statMap+' time series',
-        name: varNameFcast
+        name: variable_name
     };
 
     var data = [trace];
@@ -619,7 +668,7 @@ function plotlyForecastSpread(jsonData) {
         hovermode: 'closest',
         showlegend: false,
         title:
-        varNameFcast +' <br>' +
+        variable_name +' <br>' +
             ' @ (lat:'+parseFloat(jsonData.lat).toFixed(2)+'N,'+
                 'lon:'+parseFloat(jsonData.lon).toFixed(2)+'E)',
         autosize: true,
@@ -680,7 +729,7 @@ function plotlyForecastRange(jsonData) {
             width: 3 
         },
         // name: statMap+' time series',
-        name: varNameFcast
+        name: variable_name
     };
 
     var data = [trace];
@@ -689,7 +738,7 @@ function plotlyForecastRange(jsonData) {
         hovermode: 'closest',
         showlegend: false,
         title:
-        varNameFcast +' <br>' +
+        variable_name +' <br>' +
             ' @ (lat:'+parseFloat(jsonData.lat).toFixed(2)+'N,'+
                 'lon:'+parseFloat(jsonData.lon).toFixed(2)+'E)',
         autosize: true,
@@ -865,8 +914,8 @@ function momCobaltInitYear(startYear = 1994, endYear = 2023) {
 
 // functions for generating month list for initial time (monthly)
 function momCobaltInitMonth() {
-    var monthList = [2,6,9,12];
-    var monthStrList = ['Feburary','June','September','December']
+    var monthList = [4];
+    var monthStrList = ['April'];
     return [monthList, monthStrList];
 };
 

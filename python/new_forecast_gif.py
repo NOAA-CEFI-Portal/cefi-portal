@@ -117,7 +117,7 @@ if __name__ == '__main__':
 
     varname = 'tos'
     iyear = 2025
-    imonth = 2
+    imonth = 4
 
     regions = [
         'northwest_atlantic'
@@ -131,7 +131,7 @@ if __name__ == '__main__':
     
     grid_type = ['raw']
 
-    release = ['r20250212']
+    release = ['r20250413']
 
     for region in regions:
 
@@ -158,7 +158,7 @@ if __name__ == '__main__':
         )
         try:
             ds_static = ds_static.drop_vars(['time'])         # time dim not needed in ds_static
-        except KeyError:
+        except KeyError and ValueError:
             pass
 
         ds = xr.merge([ds_static,ds_tos])
@@ -166,6 +166,12 @@ if __name__ == '__main__':
         ds = ds.set_coords(['geolon','geolat'])
 
         da_mmm = ds[f'{varname}_anom'].mean(dim='member').compute()
+
+        # change data long to 0-360
+        da_mmm['geolon'] = da_mmm['geolon'].where(da_mmm['geolon']>0,other=da_mmm['geolon']+360.)
+        # static geolon geolat has NaN which is not allowed in plotting
+        da_mmm['geolon'] = da_mmm['geolon'].where(~da_mmm['geolon'].isnull(),other=0.)
+        da_mmm['geolat'] = da_mmm['geolat'].where(~da_mmm['geolat'].isnull(),other=0.)
 
         ######################## plotting US ###########################
 
