@@ -374,9 +374,9 @@ function generateFcastLeadMonth(iYear = 1993, iMonth = 3) {
 function changeLeadTimeStep(timeStep) {
     var nextTime = parseInt(timeSliderFcast.val())+timeStep;
     timeSliderFcast.val(nextTime);
-    $("div.workingTopForecast").removeClass("hidden");
-    $("div.errorTopForecast").addClass("hidden");
-    $("div.whiteTopForecast").addClass("hidden");
+    $("div.mapForecast > div.workingTop").removeClass("hidden");
+    $("div.mapForecast > div.errorTop").addClass("hidden");
+    $("div.mapForecast > div.whiteTop").addClass("hidden");
     leadFoliumFcast = leadMonthList[timeSliderFcast.val()];
     tValueFcast.text(leadFoliumFcast);
     replaceFoliumForecast();

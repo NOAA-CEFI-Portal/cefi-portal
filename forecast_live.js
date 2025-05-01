@@ -174,7 +174,9 @@ clearFigOptBtnFcast.on("click", function () {
 
 // add event listener on create map button
 momCobaltBtnFcast.on("click", function () {
-
+    $("div.mapForecastLive > div.workingTop").removeClass("hidden");
+    $("div.mapForecastLive > div.errorTop").addClass("hidden");
+    $("div.mapForecastLive > div.whiteTop").addClass("hidden");
     // update map
     replaceFoliumForecast()
     // update initial time
@@ -205,6 +207,9 @@ momCobaltBtnFcast.on("click", function () {
 
 // Update the figure (when mouse up the slider handle)
 timeSliderFcast.on("mouseup", function() {
+    $("div.mapForecastLive > div.workingTop").removeClass("hidden");
+    $("div.mapForecastLive > div.errorTop").addClass("hidden");
+    $("div.mapForecastLive > div.whiteTop").addClass("hidden");
     leadFoliumFcast = leadMonthList[$(this).val()];
     // fetchDataAndPost(dateFolium)
     replaceFoliumForecast()
@@ -387,6 +392,9 @@ function generateFcastLeadMonth(iYear = 1993, iMonth = 3) {
 function changeLeadTimeStep(timeStep) {
     var nextTime = parseInt(timeSliderFcast.val())+timeStep;
     timeSliderFcast.val(nextTime);
+    $("div.mapForecastLive > div.workingTop").removeClass("hidden");
+    $("div.mapForecastLive > div.errorTop").addClass("hidden");
+    $("div.mapForecastLive > div.whiteTop").addClass("hidden");
     leadFoliumFcast = leadMonthList[timeSliderFcast.val()];
     tValueFcast.text(leadFoliumFcast);
     replaceFoliumForecast();
@@ -457,10 +465,21 @@ function replaceFoliumForecast() {
             // console.log(mapDataFcast)
             momCobaltMapFcast[0].contentWindow.postMessage(mapDataFcast, "*")
 
+            $("div.mapForecastLive > div.workingTop").addClass("hidden");
+            $("div.mapForecastLive > div.errorTop").addClass("hidden");
+            $("div.mapForecastLive > div.whiteTop").removeClass("hidden");
             hideLoadingSpinner("loading-spinner-map-FcastLive");
         })
         .catch(error => {
             // Handle errors here
+            $("div.mapForecastLive > div.workingTop").addClass("hidden");
+            $("div.mapForecastLive > div.errorTop").removeClass("hidden");
+            $("div.mapForecastLive > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-map-FcastLive");
+            $("#fcastViewLive > div.workingTop").addClass("hidden");
+            $("#fcastViewLive > div.errorTop").removeClass("hidden");
+            $("#fcastViewLive > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-fcast-live-spread");
             console.error('Processing forecast live folium map error:', error);
         });
 
@@ -559,6 +578,9 @@ function getvarValFcast(infoLonLat) {
 //  3. create plotly object on webpage (execute when promise resolved)
 function plotTSFcast(infoLonLat) {
     showLoadingSpinner("loading-spinner-fcast-live-spread");
+    $("#fcastViewLive > div.workingTop").removeClass("hidden");
+    $("#fcastViewLive > div.errorTop").addClass("hidden");
+    $("#fcastViewLive > div.whiteTop").addClass("hidden");
     getTSFcasts(infoLonLat)     // the function return a promise obj from fetch
         .then((jsonData)=>{
             let singleList = ['ens_min_max','lower_tercile','upper_tercile','middle_tercile'];
@@ -569,10 +591,16 @@ function plotTSFcast(infoLonLat) {
                 plotlyForecastSpread(jsonData)
                 plotlyForecastBox(jsonData)
             }
-            
+            $("#fcastViewLive > div.workingTop").addClass("hidden");
+            $("#fcastViewLive > div.errorTop").addClass("hidden");
+            $("#fcastViewLive > div.whiteTop").removeClass("hidden");
             hideLoadingSpinner("loading-spinner-fcast-live-spread");
         })
         .catch((error)=>{
+            $("#fcastViewLive > div.workingTop").addClass("hidden");
+            $("#fcastViewLive > div.errorTop").removeClass("hidden");
+            $("#fcastViewLive > div.whiteTop").addClass("hidden");
+            hideLoadingSpinner("loading-spinner-fcast-live-spread");
             console.error(error);
         })
 };
