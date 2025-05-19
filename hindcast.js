@@ -10,7 +10,7 @@ var output_frequency;
 var grid_type = 'regrid';
 var release = {
     'northwest_atlantic':'r20230520',
-    'northeast_pacific':'r20241015'
+    'northeast_pacific':'r20250509'
 };     // showing options provided in the json file
 var data_category;
 var variable_name;
