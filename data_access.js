@@ -1,5 +1,5 @@
 import { optionList,truncateString } from './hindcast.js';
-
+import { setDropdownValue } from './hindcast.js';
 
 // event lister for region radio button in the variable table section
 $(document).ready(function(){
@@ -66,6 +66,51 @@ const level6 = document.getElementById('releaseDataQuery');
 const level7 = document.getElementById('dataCategoryDataQuery');
 const level8 = document.getElementById('variableDataQuery');
 
+// Usage in setDefaultDropdowns:
+async function setDefaultDropdowns() {
+  if (level1.options.length > 0) {
+    await setDropdownValue(level1, 'northwest_atlantic');
+    if (level2.options.length > 0) {
+      await setDropdownValue(level2, 'full_domain');
+      if (level3.options.length > 0) {
+        await setDropdownValue(level3, 'hindcast');
+        if (level4.options.length > 0) {
+          await setDropdownValue(level4, 'monthly');
+          if (level5.options.length > 0) {
+            await setDropdownValue(level5, 'raw');
+            if (level6.options.length > 0) {
+              await setDropdownValue(level6, 'r20230520');
+              if (level7.options.length > 0) {
+                await setDropdownValue(level7, 'ocean_monthly (Monthly ocean variables)');
+                if (level8.options.length > 0) {
+                  await setDropdownValue(level8, 'tos (Sea Surface Temperature)');
+                } else {
+                  console.log('level8 options not ready');
+                }
+              } else {
+                console.log('level7 options not ready');
+              }
+            } else {
+              console.log('level6 options not ready');
+            }
+          } else {
+            console.log('level5 options not ready');
+          }
+        } else {
+          console.log('level4 options not ready');
+        }
+      } else {
+        console.log('level3 options not ready');
+      }
+    } else {
+      console.log('level2 options not ready');
+    }
+  } else {
+    console.log('level1 options not ready');
+  }
+};
+
+
 // Call the fetch function and initialize dropdowns after data is loaded
 try {
   // Call the fetch function and wait for the data to be loaded
@@ -109,6 +154,8 @@ export function populateDropdown(selectElement, options) {
         });
     }
 }
+
+
 
 // function to reset the hidden or show dropdown options in the data query tool
 //  based on the experiment type and designed for detail backend info
@@ -304,6 +351,16 @@ level8.addEventListener('change', function () {
   createVariableSpecOptions();
 
 });
+
+// make sure the treeData is fetched (top level await)
+// Call the fetch function and initialize dropdowns after data is loaded
+try {
+    // Set default dropdown values
+    await setDefaultDropdowns();
+
+  } catch (error) {
+    console.error('Error setting default options :', error);
+}
 
 // function to clear option below variable (experiemet specific)
 function variable_below_all_clear(){

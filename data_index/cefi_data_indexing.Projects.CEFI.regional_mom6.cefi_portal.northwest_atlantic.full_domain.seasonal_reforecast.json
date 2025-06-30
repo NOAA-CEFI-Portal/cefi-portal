@@ -18844,7 +18844,7 @@
         "cefi_forcing": "N/A",
         "cefi_data_doi": "10.5281/zenodo.10642295",
         "cefi_paper_doi": "10.5194/os-20-1631-2024",
-        "cefi_aux": "archive format yyyy-mm-e## represents the initialization year (yyyy), month (mm), and ensemble member number (e##)",
+        "cefi_aux": "Postprocessed Data : regrid to regular grid",
         "cefi_ori_filename": "ocean_monthly.variable.nc",
         "cefi_ori_category": "ocean_monthly",
         "cefi_opendap": "http://psl.noaa.gov/thredds/dodsC/Projects/CEFI/regional_mom6/cefi_portal/northwest_atlantic/full_domain/seasonal_reforecast/monthly/regrid/r20240213/tob.nwa.full.ss_refcast.monthly.regrid.r20240213.enss.i200109.nc"
