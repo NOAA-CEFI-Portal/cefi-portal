@@ -48,7 +48,7 @@ export async function setDropdownValue(htmlElementObj, optionVal, delay = 100) {
 }
 
 // Usage in setDefaultDropdowns:
-export async function setDefaultDropdowns() {
+async function setDefaultDropdowns() {
     if (level1.options.length > 0) {
         await setDropdownValue(level1, 'northwest_atlantic');
         // console.log('Set level1 to northwest_atlantic');
