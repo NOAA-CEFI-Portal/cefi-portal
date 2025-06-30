@@ -3,6 +3,7 @@ import { optionList,createMomCobaltCbarOpt } from './hindcast.js';
 import { createDropdownOptions } from './hindcast.js';
 import { showLoadingSpinner,hideLoadingSpinner } from './hindcast.js';
 import { fetchVariableDepthBotOptions } from './hindcast.js';
+import { setDropdownValue } from './hindcast.js'
 
 import { treeData, populateDropdown } from './data_access.js';
 import { useTreeData } from './forecast_live.js';
@@ -31,6 +32,39 @@ const level4 = document.getElementById('freqMOMCobaltFcast');
 const level7 = document.getElementById('dataCatMOMCobaltFcast');
 const level8 = document.getElementById('varMOMCobaltFcast');
 
+// Usage in setDefaultDropdowns:
+export async function setDefaultDropdowns() {
+    if (level1.options.length > 0) {
+        await setDropdownValue(level1, 'northwest_atlantic');
+        // console.log('Set level1 to northwest_atlantic');
+        if (level2.options.length > 0) {
+            await setDropdownValue(level2, 'full_domain');
+            // console.log('Set level2 to full_domain');
+            if (level4.options.length > 0) {
+                await setDropdownValue(level4, 'monthly');
+                // console.log('Set level4 to monthly');
+                if (level7.options.length > 0) {
+                    await setDropdownValue(level7, 'ocean_monthly (Monthly ocean variables)');
+                    // console.log('Set level7 to ocean_monthly (Monthly ocean variables)');
+                    if (level8.options.length > 0) {
+                        await setDropdownValue(level8, 'tos (Sea Surface Temperature)');
+                        // console.log('Set level8 to tos (Sea Surface Temperature)');
+                    } else {
+                        console.log('level8 options not ready');
+                    }
+                } else {
+                    console.log('level7 options not ready');
+                }
+            } else {
+                console.log('level4 options not ready');
+            }
+        } else {
+            console.log('level2 options not ready');
+        }
+    } else {
+        console.log('level1 options not ready');
+    }
+}
 
 // make sure the treeData is fetched (top level await)
 // Call the fetch function and initialize dropdowns after data is loaded
@@ -91,6 +125,16 @@ level8.addEventListener('change', function () {
     $("#blockMOMCobaltFcast").empty();
     updateDepthAndBlockOptions(region, output_frequency, variable);
 });
+
+// make sure the treeData is fetched (top level await)
+// Call the fetch function and initialize dropdowns after data is loaded
+try {
+    // Set default dropdown values
+    await setDefaultDropdowns();
+
+  } catch (error) {
+    console.error('Error setting default options :', error);
+}
 
 
 
@@ -339,6 +383,10 @@ function updateDepthAndBlockOptions(regValue, freqValue, varValue, depthID='dept
             // Create the depth options
             let bottomlist = jsonData.bottom;
             createDropdownOptions(blockID, bottomlist, bottomlist);
+            const bottomElement = document.getElementById(blockID);
+            const lastValue = String(bottomlist[bottomlist.length - 1]);
+            // Set the last option as default when the list is not empty
+            setDropdownValue(bottomElement, lastValue); // set the first option as default
         }
 
         depthValueFcast = $('#'+depthID).val(); // initial depth value
