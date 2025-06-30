@@ -29,6 +29,58 @@ const level4 = document.getElementById('freqMOMCobalt');
 const level7 = document.getElementById('dataCatMOMCobalt');
 const level8 = document.getElementById('varMOMCobalt');
 
+/**
+ * Set a dropdown to a specific value, trigger change event, and wait for options to populate.
+ * @param {HTMLSelectElement} htmlElementObj - The html dropdown element.
+ * @param {string} optionVal - The value to set as selected.
+ */
+export async function setDropdownValue(htmlElementObj, optionVal, delay = 100) {
+    for (let i = 0; i < htmlElementObj.options.length; i++) {
+        if (htmlElementObj.options[i].value === optionVal) {
+            htmlElementObj.selectedIndex = i;
+            // console.log(htmlElementObj.options[i].value, htmlElementObj.selectedIndex)
+            htmlElementObj.dispatchEvent(new Event('change'));
+            break;
+        }
+    }
+    // Wait for the dropdown to populate its dependent options
+    await new Promise(resolve => setTimeout(resolve, delay));
+}
+
+// Usage in setDefaultDropdowns:
+export async function setDefaultDropdowns() {
+    if (level1.options.length > 0) {
+        await setDropdownValue(level1, 'northwest_atlantic');
+        // console.log('Set level1 to northwest_atlantic');
+        if (level2.options.length > 0) {
+            await setDropdownValue(level2, 'full_domain');
+            // console.log('Set level2 to full_domain');
+            if (level4.options.length > 0) {
+                await setDropdownValue(level4, 'monthly');
+                // console.log('Set level4 to monthly');
+                if (level7.options.length > 0) {
+                    await setDropdownValue(level7, 'ocean_monthly (Monthly ocean variables)');
+                    // console.log('Set level7 to ocean_monthly (Monthly ocean variables)');
+                    if (level8.options.length > 0) {
+                        await setDropdownValue(level8, 'tos (Sea Surface Temperature)');
+                        // console.log('Set level8 to tos (Sea Surface Temperature)');
+                    } else {
+                        console.log('level8 options not ready');
+                    }
+                } else {
+                    console.log('level7 options not ready');
+                }
+            } else {
+                console.log('level4 options not ready');
+            }
+        } else {
+            console.log('level2 options not ready');
+        }
+    } else {
+        console.log('level1 options not ready');
+    }
+}
+
 
 // make sure the treeData is fetched (top level await)
 // Call the fetch function and initialize dropdowns after data is loaded
@@ -65,9 +117,7 @@ level2.addEventListener('change', async function () {
 
     try {
         // Use await to fetch the index JSON
-        console.log('before await')
         indexJson = await fetchIndexOptionHindVis(region, subdomain, experiment_type);
-        console.log(indexJson)
         // Only when the JSON file of an index exists
         if (indexJson) {
             // Create index options (under index dashboard)
@@ -86,28 +136,29 @@ level2.addEventListener('change', async function () {
 level4.addEventListener('change', function () {
     output_frequency = level4.value;
     let options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release[region]];
-    console.log(options)
     populateDropdown(level7, options);
     populateDropdown(level8, null);
 
     // time slider change
-    if (output_frequency === 'daily'){
-        [yearValues, rangeValues] = generateDailyDateList();
-        timeSlider.attr("min", 0);
-        timeSlider.attr("max", rangeValues.length - 1);
-        const foundIndex = rangeValues.indexOf(dateFolium+"-01");
-        timeSlider.val(foundIndex);
-        dateFolium = rangeValues[timeSlider.val()];
-    } else if (output_frequency === 'monthly'){
-        [yearValues, rangeValues] = generateDateList();
-        timeSlider.attr("min", 0);
-        timeSlider.attr("max", rangeValues.length - 1);
-        const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
-        timeSlider.val(foundIndex);
-        dateFolium = rangeValues[timeSlider.val()];
-    };
+    if (isDefaultSetting === false) {
+        if (output_frequency === 'daily'){
+            [yearValues, rangeValues] = generateDailyDateList();
+            timeSlider.attr("min", 0);
+            timeSlider.attr("max", rangeValues.length - 1);
+            const foundIndex = rangeValues.indexOf(dateFolium+"-01");
+            timeSlider.val(foundIndex);
+            dateFolium = rangeValues[timeSlider.val()];
+        } else if (output_frequency === 'monthly'){
+            [yearValues, rangeValues] = generateDateList();
+            timeSlider.attr("min", 0);
+            timeSlider.attr("max", rangeValues.length - 1);
+            const foundIndex = rangeValues.indexOf(dateFolium.slice(0, -3));
+            timeSlider.val(foundIndex);
+            dateFolium = rangeValues[timeSlider.val()];
+        };
 
-    tValue.text(dateFolium);
+        tValue.text(dateFolium);
+    };
 
     // change depth and block options for the new freq
     // need to fetch the backend data for the depth options
@@ -137,6 +188,18 @@ level8.addEventListener('change', function () {
     updateDepthAndBlockOptions(region, output_frequency, variable);
 });
 
+// make sure the treeData is fetched (top level await)
+// Call the fetch function and initialize dropdowns after data is loaded
+let isDefaultSetting = false;
+try {
+    // Set default dropdown values
+    isDefaultSetting = true;
+    await setDefaultDropdowns();
+    isDefaultSetting = false;
+
+  } catch (error) {
+    console.error('Error setting default options :', error);
+}
 
 // global constant for object ID
 const momCobaltMap = $('#momCobaltIFrame');
@@ -162,6 +225,8 @@ var var2Value;
 
 // Initial region options (for all region options)
 initialize()
+// Initial variable options (all dropdown options)
+
 
 
 /////////////// event listener ///////////
@@ -439,13 +504,17 @@ function updateDepthAndBlockOptions(regValue, freqValue, varValue, depthID='dept
         }
         
         if (jsonData.bottom === 0) {
-            console.log(jsonData.bottom);
+            // console.log(jsonData.bottom);
             // Create the single layer options
             createDropdownOptions(blockID, ['not applicable'], ['not_applicable']);
         } else {
             // Create the depth options
             let bottomlist = jsonData.bottom;
             createDropdownOptions(blockID, bottomlist, bottomlist);
+            const bottomElement = document.getElementById(blockID);
+            const lastValue = String(bottomlist[bottomlist.length - 1]);
+            // Set the last option as default when the list is not empty
+            setDropdownValue(bottomElement, lastValue); // set the first option as default
         }
 
         depthValue = $('#'+depthID).val(); // initial depth value
@@ -625,7 +694,7 @@ export function createDropdownOptions(selectID,showList,valueList) {
 //     }
 // }
 
-// async fetching the data_access_json cefi_data_option
+// async fetching the Index related json in cefi_data_option (currently only for hindcast)
 async function fetchIndexOptionHindVis(reg,subDom,expType) {
     try {
       const response = await fetch(
@@ -1411,8 +1480,6 @@ function receiveMessage(event) {
     };
 };
 
-
-
 // function to get variable value based on locationData and dataFolium
 function getVarVal(infoLonLat) {
     var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_extract_value.py"
@@ -1763,7 +1830,7 @@ function getIndex(fileLocation) {
             // Handle errors here
             console.error('Fetch indexes error:', error);
         });
-}
+};
 
 
 // function for adding time series to the existing plotly time series plot
@@ -2029,7 +2096,6 @@ function plotlyTransectLine(plotlyID,parsedTran) {
 //     Plotly.newPlot(plotlyID, [trace], layout,config);
 
 // };
-
 
 
 // function for creating the plotly vertical profile
