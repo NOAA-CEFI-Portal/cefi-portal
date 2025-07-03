@@ -454,6 +454,10 @@ $('#genQueryButton').on('click', function() {
           $('#codeBlockWget').text(wgetCode);
           var opendapCode = jsonDataQuery.opendap
           $('#codeBlockOpendap').text(opendapCode);
+          var s3Link = jsonDataQuery.s3_link
+          $('#codeBlockCloudAWS').text(s3Link);
+          var gcsLink = jsonDataQuery.gcs_link
+          $('#codeBlockCloudGCS').text(gcsLink);
           var pythonCode = jsonDataQuery.python
           $('#codeBlockPython').text(pythonCode);
           var rCode = jsonDataQuery.r
@@ -523,6 +527,12 @@ $("#copyButtonWget").click(function () {
 });
 $("#copyButtonOpendap").click(function () {
   copyCode('codeBlockOpendap');
+});
+$("#copyButtonCloudAWS").click(function () {
+  copyCode('codeBlockCloudAWS');
+});
+$("#codeBlockCloudGCS").click(function () {
+  copyCode('codeBlockCloudGCS');
 });
 $("#copyButtonPython").click(function () {
   copyCode('codeBlockPython');
