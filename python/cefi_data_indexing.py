@@ -73,8 +73,12 @@ def find_ncfiles_info(
             for file in sorted(files):
                 if 'static.nc' not in file:
                     ncfile = os.path.join(root, file)
-                    ds = xr.open_dataset(ncfile,chunks={})
-
+                    try:
+                        ds = xr.open_dataset(ncfile,chunks={})
+                    except OSError :
+                        # file broken or still being proccessed
+                        print(f'File {ncfile} is broken or still being processed. Skipping...')
+                        continue
                     # create one dict for one file
                     dict_end_points[root][file] = {}
 

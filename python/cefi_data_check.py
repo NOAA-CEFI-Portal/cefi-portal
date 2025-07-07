@@ -1,12 +1,7 @@
 """
-Create NOSQL database for cefi data tree
-in json format
-
-including the static files!
-
+Performing the data integrity check for CEFI data files.
 """
 import os
-import json
 import xarray as xr
 
 
@@ -16,7 +11,7 @@ if __name__ == '__main__':
     root_dirs = [
         '/Projects/CEFI/regional_mom6/cefi_portal/'
     ]
-      
+
     # walk the data tree to check data file integrity
     for root_dir in root_dirs:
         for dirpath, dirnames, filenames in os.walk(root_dir):

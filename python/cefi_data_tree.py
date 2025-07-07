@@ -6,6 +6,7 @@ including the static files!
 
 """
 import os
+import sys
 import json
 import xarray as xr
 
@@ -86,6 +87,7 @@ if __name__ == '__main__':
         'ocean_monthly_z': 'Monthly 3D ocean variables',
         'ocean_annual_z': 'Annual 3D ocean variables',
         'ice_monthly': 'Monthly sea ice variables',
+        'ice_daily': 'Daily sea ice variables',
         'static': 'Static variables and model grids',
     }
       
@@ -134,7 +136,11 @@ if __name__ == '__main__':
                             #  removing the empty first segment
                             #  and the last segment which is the filename
                             path_segs = file_path.split('/')[1:-1]
-                            path_segs.append(f'{cefi_category} ({cefi_category_dict[cefi_category]})') # add the category
+                            try:
+                                path_segs.append(f'{cefi_category} ({cefi_category_dict[cefi_category]})') # add the category
+                            except KeyError:
+                                # force failure if the category is not found
+                                sys.exit('Error: Category not found in cefi_category_dict. Please check the category name in the file attributes. Or a new category is not added in the cefi_category_dict.')
                             cefi_filename = file_path.split('/')[-1]
                             path_segs.append(f'{cefi_variable} ({cefi_lname})') # add the variable name
                             path_segs.append(cefi_variable) # add the variable name short only
