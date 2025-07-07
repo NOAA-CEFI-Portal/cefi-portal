@@ -308,6 +308,12 @@
         <a href="data_index/cefi_data_indexing.Projects.CEFI.regional_mom6.cefi_portal.northwest_atlantic.full_domain.seasonal_forecast.json" target="_blank">JSON view</a>,
         <a href="data_index/cefi_data_indexing.Projects.CEFI.regional_mom6.cefi_portal.northwest_atlantic.full_domain.seasonal_forecast.xml" target="_blank">XML view</a>
       </li>
+      <li>
+        Decadal Forecast:
+        <a href="data_index/cefi_data_indexing.Projects.CEFI.regional_mom6.cefi_portal.northwest_atlantic.full_domain.decadal_forecast.html" target="_blank">HTML view</a>,
+        <a href="data_index/cefi_data_indexing.Projects.CEFI.regional_mom6.cefi_portal.northwest_atlantic.full_domain.decadal_forecast.json" target="_blank">JSON view</a>,
+        <a href="data_index/cefi_data_indexing.Projects.CEFI.regional_mom6.cefi_portal.northwest_atlantic.full_domain.decadal_forecast.xml" target="_blank">XML view</a>
+      </li>
     </ul>
     <ul class="nepTableOpt hidden">
       <li>
@@ -438,6 +444,9 @@
       <li class="nav-item active" id="opendapPill">
           <a class="nav-link" href="#opendapView" data-toggle="tab" aria-expanded="true">OPeNDAP</a>
       </li>
+      <li class="nav-item" id="cloudPill">
+          <a class="nav-link" href="#cloudView" data-toggle="tab" aria-expanded="true">Cloud Storage</a>
+      </li>
       <li class="nav-item" id="downloadPill">
           <a class="nav-link" href="#downloadView" data-toggle="tab" aria-expanded="true">Download netCDF</a>
       </li>
@@ -448,6 +457,9 @@
   <ul class="nav nav-tabs nav-justified visible-xs" id="tabs-data">
       <li class="nav-item active" id="opendapViewTab">
           <a class="nav-link" href="#opendapView" data-toggle="tab" aria-expanded="false">OPeNDAP</a>
+      </li>
+      <li class="nav-item" id="cloudViewTab">
+          <a class="nav-link" href="#cloudView" data-toggle="tab" aria-expanded="false">Cloud Storage</a>
       </li>
       <li class="nav-item" id="downloadViewTab">
           <a class="nav-link" href="#downloadView" data-toggle="tab" aria-expanded="false">Download netCDF</a>
@@ -502,7 +514,53 @@
         <pre id="codeBlockR"><code class="codeBlockScroll">Please generate query first!</code></pre> 
         <button id="copyButtonR" class="btn btn-psl">Copy R Code</button>            
         <hr class="dot-hr-plot">
-      </div>      
+      </div>
+      
+      <!-- cloud pill -->
+      <div id='cloudView' class="tab-pane view col-12">
+        <!-- URL -->
+        <h4><strong>Cloud Storage Location</strong></h4>
+        <p>
+            Using cloud storage can subset the data to a smaller region or time frame.
+            Currently, we provide AWS S3 bucket and Google Cloud Storage (GCS) as the cloud storage options.
+            The data storage is provided by the NOAA NODD program.
+        </p>
+        <pre id="codeBlockCloudAWS"><code class="codeBlockScroll">Please generate query first!</code></pre> 
+        <button id="copyButtonCloudAWS" class="btn btn-psl">Copy AWS S3 Link</button>      
+        <pre id="codeBlockCloudGCS"><code class="codeBlockScroll">Please generate query first!</code></pre> 
+        <button id="copyButtonCloudGCS" class="btn btn-psl">Copy GCS Link</button>
+        <hr class="dot-hr-plot">
+        <!-- Python code -->
+        <h4><strong>Cloud Storage Access (Python)</strong></h4>
+            <p> 
+                Please follow the 
+                <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/how_to_conda.html" target="_blank">
+                  <strong>environment setup</strong>
+                </a>
+                for the following Python code to work. 
+                <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/data_access/access_cefi/python_get_cefi_cloud.html" target="_blank">
+                  <strong>A comprehensive tutorial (Python) for cloud access can be found here</strong>
+                </a>
+            </p>
+        <!-- <pre id="codeBlockPythonCloud"><code class="codeBlockScroll">Please generate query first!</code></pre> 
+        <button id="copyButtonPython" class="btn btn-psl">Copy Python Code</button> -->
+        <hr class="dot-hr-plot">
+        <!-- R code -->
+        <h4><strong>Cloud Storage Access (R)</strong></h4>
+            <p>
+                Please follow the 
+                <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/how_to_conda.html" target="_blank">
+                  <strong>environment setup</strong>
+                </a>
+                for the following R code to work. 
+                <a href="https://noaa-cefi-portal.github.io/cefi-cookbook/content/data_access/access_cefi/r_get_cefi_cloud.html" target="_blank">
+                  <strong>A comprehensive tutorial (R) for cloud access can be found here</strong>
+                </a>
+            </p>
+        <!-- <pre id="codeBlockRCloud"><code class="codeBlockScroll">Please generate query first!</code></pre> 
+        <button id="copyButtonR" class="btn btn-psl">Copy R Code</button>             -->
+        <hr class="dot-hr-plot">
+      </div>
 
       <!-- netcdf download pill -->
       <div id='downloadView' class="tab-pane view col-12">
