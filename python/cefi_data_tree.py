@@ -128,7 +128,7 @@ if __name__ == '__main__':
                         )
                     # categorize the rest of the files
                     else:
-                        try:
+                        try :
                             with xr.open_dataset(file_path,chunks={}) as ds:
                                 cefi_category = ds.attrs['cefi_ori_category']
                                 cefi_variable = ds.attrs['cefi_variable']
@@ -160,10 +160,9 @@ if __name__ == '__main__':
                                     }
                                 )
                         except OSError:
-                            # if file is still processing or broken, skip it
-                            print(f'Skipping file {file_path} due to OSError. It may be still processing or broken.')
+                            # if the file is not a valid netCDF file, skip it
+                            print(f'File {file_path} is broken or still being processed. Skipping...')
                             continue
-
     # Sort keys at level 10 (category + long name) alphabetically
     dict_data_tree = sort_dict_keys_at_level(dict_data_tree, level=10, sort_key=str.lower)
 
