@@ -1,0 +1,28 @@
+{
+  "northwest_atlantic": {
+    "hindcast": {
+      "monthly": {
+        "regrid": [
+          "tos",
+          "tob"
+        ]
+      },
+      "daily": {
+        "regrid": [
+          "tos",
+          "tob"
+        ]
+      }
+    }
+  },
+  "northeast_pacific": {
+    "hindcast": {
+      "daily": {
+        "regrid": [
+          "siconc",
+          "tob"
+        ]
+      }
+    }
+  }
+}

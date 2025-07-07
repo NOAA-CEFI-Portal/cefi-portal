@@ -1,0 +1,118 @@
+{
+    "Projects": {
+        "CEFI": {
+            "regional_mom6": {
+                "cefi_portal": {
+                    "northwest_atlantic": {
+                        "full_domain": {
+                            "hindcast": {
+                                "monthly": {
+                                    "regrid": {
+                                        "latest": {
+                                            "tob (Sea Water Potential Temperature at Sea Floor)": {
+                                                "tob": {
+                                                    "tob.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc": {
+                                                        "cefi_filename": "tob.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
+                                                        "cefi_variable": "tob",
+                                                        "cefi_long_name": "Sea Water Potential Temperature at Sea Floor",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "199301-201912",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    }
+                                                }
+                                            },
+                                            "tos (Sea Surface Temperature)": {
+                                                "tos": {
+                                                    "tos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc": {
+                                                        "cefi_filename": "tos.nwa.full.hcast.monthly.regrid.r20230520.199301-201912.nc",
+                                                        "cefi_variable": "tos",
+                                                        "cefi_long_name": "Sea Surface Temperature",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "199301-201912",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "daily": {
+                                    "regrid": {
+                                        "latest": {
+                                            "tob (Sea Water Potential Temperature at Sea Floor)": {
+                                                "tob": {
+                                                    "tob.nwa.full.hcast.daily.regrid.r20230520.199301-201912.nc": {
+                                                        "cefi_filename": "tob.nwa.full.hcast.daily.regrid.r20230520.199301-201912.nc",
+                                                        "cefi_variable": "tob",
+                                                        "cefi_long_name": "Sea Water Potential Temperature at Sea Floor",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "199301-201912",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    }
+                                                }
+                                            },
+                                            "tos (Sea Surface Temperature)": {
+                                                "tos": {
+                                                    "tos.nwa.full.hcast.daily.regrid.r20230520.199301-201912.nc": {
+                                                        "cefi_filename": "tos.nwa.full.hcast.daily.regrid.r20230520.199301-201912.nc",
+                                                        "cefi_variable": "tos",
+                                                        "cefi_long_name": "Sea Surface Temperature",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "199301-201912",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "northeast_pacific": {
+                        "full_domain": {
+                            "hindcast": {
+                                "daily": {
+                                    "regrid": {
+                                        "latest": {
+                                            "siconc (ice concentration)": {
+                                                "siconc": {
+                                                    "siconc.nep.full.hcast.daily.regrid.r20250509.199301-202412.nc": {
+                                                        "cefi_filename": "siconc.nep.full.hcast.daily.regrid.r20250509.199301-202412.nc",
+                                                        "cefi_variable": "siconc",
+                                                        "cefi_long_name": "ice concentration",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "199301-202412",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    }
+                                                }
+                                            },
+                                            "tob (Sea Water Potential Temperature at Sea Floor)": {
+                                                "tob": {
+                                                    "tob.nep.full.hcast.daily.regrid.r20250509.199301-202412.nc": {
+                                                        "cefi_filename": "tob.nep.full.hcast.daily.regrid.r20250509.199301-202412.nc",
+                                                        "cefi_variable": "tob",
+                                                        "cefi_long_name": "Sea Water Potential Temperature at Sea Floor",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "199301-202412",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
