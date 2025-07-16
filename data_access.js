@@ -1,8 +1,9 @@
 import { optionList,truncateString } from './hindcast.js';
 import { setDropdownValue } from './hindcast.js';
 
-// event lister for region radio button in the variable table section
+
 $(document).ready(function(){
+  // event lister for region radio button in the variable table section
   $("input[type='radio'].radioDataTable").change(function(){
     if ($("#radioNWATable").is(":checked")) {
       $('.nepTableOpt').addClass('hidden');
@@ -124,7 +125,7 @@ const level4Basic = document.getElementById('outFreqDataQuery_basic');
 const level5Basic = document.getElementById('gridTypeDataQuery_basic');
 const level8Basic = document.getElementById('variableDataQuery_basic');
 
-// Usage in setDefaultDropdowns:
+// set default values for the advance data query dropdowns
 async function setDefaultDropdowns() {
   if (level1.options.length > 0) {
     await setDropdownValue(level1, 'northwest_atlantic');
@@ -168,7 +169,7 @@ async function setDefaultDropdowns() {
   }
 };
 
-// Usage in setDefaultDropdowns:
+// set default values for the basic data query dropdowns
 async function setDefaultDropdownsBasic() {
   if (level1Basic.options.length > 0) {
     await setDropdownValue(level1Basic, 'northwest_atlantic');
@@ -183,7 +184,7 @@ async function setDefaultDropdownsBasic() {
     await setDropdownValue(level5Basic, 'regrid');
   }
   if (level8Basic.options.length > 0) {
-    await setDropdownValue(level8Basic, 'tos (Sea Surface Temperature)');
+    await setDropdownValue(level8Basic, 'Sea Surface Temperature (tos)');
   }
 }
 
@@ -547,12 +548,12 @@ level8Basic.addEventListener('change', function () {
     options =
       treeDataBasic[selectedValue1][selectedValue2][selectedValue3][selectedValue4][selectedValue5][selectedValue6][selectedValue8];
   }
-  console.log('options:', options);
-  console.log('parent level:', treeDataBasic[selectedValue1]);
+  // console.log('options:', options);
+  // console.log('parent level:', treeDataBasic[selectedValue1]);
 
 
   variable_basic = Object.keys(options)[0];
-  console.log('Selected variable:', variable_basic);
+  console.log('Selected basic variable:', variable_basic);
 
   // clear all options below variables type
   // (needed to avoid stacking more options)
@@ -653,6 +654,10 @@ async function createVariableSpecOptions({
           let nameOptions = ens_options_fcast;
           let df = optionList(nameOptions, valueOptions);
           elm.appendChild(df);
+          // for basic options
+          let elm_basic = document.getElementById('ensOptionFcastDataQuery_basic');
+          let df_basic = optionList(nameOptions, valueOptions);
+          elm_basic.appendChild(df_basic);
       }
 
       if ('init_date_fcast' in jsonData) {
@@ -662,6 +667,10 @@ async function createVariableSpecOptions({
           let nameOptions = init_date_fcast;
           let df = optionList(nameOptions, valueOptions);
           elm.appendChild(df);
+          // for basic options
+          let elm_basic = document.getElementById('initialDateFcastDataQuery_basic');
+          let df_basic = optionList(nameOptions, valueOptions);
+          elm_basic.appendChild(df_basic);
       }
 
       if ('ens_options_proj' in jsonData) {
@@ -671,6 +680,10 @@ async function createVariableSpecOptions({
           let nameOptions = ens_options_proj;
           let df = optionList(nameOptions, valueOptions);
           elm.appendChild(df);
+          // for basic options
+          let elm_basic = document.getElementById('ensOptionProjDataQuery_basic');
+          let df_basic = optionList(nameOptions, valueOptions);
+          elm_basic.appendChild(df_basic);
       }
 
       if ('scenario_proj' in jsonData) {
@@ -680,6 +693,10 @@ async function createVariableSpecOptions({
           let nameOptions = scenario_proj;
           let df = optionList(nameOptions, valueOptions);
           elm.appendChild(df);
+          // for basic options
+          let elm_basic = document.getElementById('scenarioProjDataQuery_basic');
+          let df_basic = optionList(nameOptions, valueOptions);
+          elm_basic.appendChild(df_basic);
       }
 
   } catch (error) {
@@ -787,12 +804,12 @@ async function generateBasicDataQuery() {
   ens_opt_basic = 'na';
   scenario_basic = 'na';
   if (experiment_type_basic.includes('forecast')) {
-    iyyyymm_basic = $('#initialDateFcastDataQuery').val();
-    ens_opt_basic = $('#ensOptionFcastDataQuery').val();
+    iyyyymm_basic = $('#initialDateFcastDataQuery_basic').val();
+    ens_opt_basic = $('#ensOptionFcastDataQuery_basic').val();
   };
   if (experiment_type_basic.includes('projection')) {
-    scenario_basic = $('#scenarioProjDataQuery').val();
-    ens_opt_basic = $('#ensOptionProjDataQuery').val();
+    scenario_basic = $('#scenarioProjDataQuery_basic').val();
+    ens_opt_basic = $('#ensOptionProjDataQuery_basic').val();
   };
 
   var ajaxGet = "/cgi-bin/cefi_portal/datatab_generate_data_query.py"

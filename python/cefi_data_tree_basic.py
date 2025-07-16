@@ -6,7 +6,6 @@ need a json file to indivate the needed data
 
 """
 import os
-import sys
 import json
 import glob
 import xarray as xr
@@ -72,37 +71,36 @@ if __name__ == '__main__':
         )
         files = glob.glob(file_path)
         if not files:
-            sys.exit(f'Error: No files found for variable {variable} in {file_path}')
-        elif len(files) != 1:
-            sys.exit(f'Error: More than one file found for variable {variable} in {file_path}')
-        file_path = files[0]
+            print(f'{variable} variable not found in the data path {file_path}')
+            continue
 
-        with xr.open_dataset(file_path,chunks={}) as ds:
-            cefi_category = ds.attrs['cefi_ori_category']
-            cefi_variable = ds.attrs['cefi_variable']
-            cefi_lname = ds[cefi_variable].attrs['long_name']
-            # create path segments start from the root
-            #  removing the empty first segment
-            #  and the last segment which is the filename
-            path_segs = file_path.split('/')[1:-1]
-            # path_segs.append(f'{cefi_category}') # add the category
-            cefi_filename = file_path.split('/')[-1]
-            path_segs.append(f'{cefi_variable} ({cefi_lname})') # add the variable name
-            path_segs.append(cefi_variable) # add the variable name short only
-            path_segs.append(cefi_filename) # add the filename
-            add_to_dict(
-                dict_data_tree,
-                path_segs,
-                {
-                    'cefi_filename': cefi_filename,
-                    'cefi_variable': cefi_variable,
-                    'cefi_long_name': cefi_lname,
-                    'cefi_init_date' : ds.attrs['cefi_init_date'],
-                    'cefi_date_range' : ds.attrs['cefi_date_range'],
-                    'cefi_ensemble_info' : ds.attrs['cefi_ensemble_info'],
-                    'cefi_forcing' : ds.attrs['cefi_forcing']
-                }
-            )
+        for file_path in files:
+            with xr.open_dataset(file_path,chunks={}) as ds:
+                cefi_category = ds.attrs['cefi_ori_category']
+                cefi_variable = ds.attrs['cefi_variable']
+                cefi_lname = ds[cefi_variable].attrs['long_name']
+                # create path segments start from the root
+                #  removing the empty first segment
+                #  and the last segment which is the filename
+                path_segs = file_path.split('/')[1:-1]
+                # path_segs.append(f'{cefi_category}') # add the category
+                cefi_filename = file_path.split('/')[-1]
+                path_segs.append(f'{cefi_lname} ({cefi_variable})') # add the variable name
+                path_segs.append(cefi_variable) # add the variable name short only
+                path_segs.append(cefi_filename) # add the filename
+                add_to_dict(
+                    dict_data_tree,
+                    path_segs,
+                    {
+                        'cefi_filename': cefi_filename,
+                        'cefi_variable': cefi_variable,
+                        'cefi_long_name': cefi_lname,
+                        'cefi_init_date' : ds.attrs['cefi_init_date'],
+                        'cefi_date_range' : ds.attrs['cefi_date_range'],
+                        'cefi_ensemble_info' : ds.attrs['cefi_ensemble_info'],
+                        'cefi_forcing' : ds.attrs['cefi_forcing']
+                    }
+                )
     # Sort keys at level 10 (category + long name) alphabetically
     dict_data_tree = sort_dict_keys_at_level(dict_data_tree, level=10, sort_key=str.lower)
 
