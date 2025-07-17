@@ -185,7 +185,7 @@ try {
     await useTreeDataBasic();
   
     // Populate the first dropdown after data is loaded
-    populateDropdown(level1, treeData);
+    populateDropdown(level1Basic, treeDataBasic);
   } catch (error) {
     console.error('Error fetching treeDataBasic:', error);
 }
