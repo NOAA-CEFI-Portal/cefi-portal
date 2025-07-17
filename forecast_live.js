@@ -181,13 +181,13 @@ try {
 
 // Call the fetch function and initialize dropdowns after data is loaded
 try {
-  // Call the fetch function and wait for the data to be loaded
-  await fetchDataTreeBasicJson();
-
-  // Populate the first dropdown after data is loaded
-  populateDropdown(level1Basic, treeDataBasic);
-} catch (error) {
-  console.error('Error fetching treeDataBasic:', error);
+    // Call the fetch function and wait for the data to be loaded
+    await useTreeDataBasic();
+  
+    // Populate the first dropdown after data is loaded
+    populateDropdown(level1, treeData);
+  } catch (error) {
+    console.error('Error fetching treeDataBasic:', error);
 }
 // console.log('should be after the fetchDataTreeJson function');
 
