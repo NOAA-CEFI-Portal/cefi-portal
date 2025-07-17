@@ -6,7 +6,26 @@ import { fetchVariableDepthBotOptions } from './hindcast.js';
 import { setDropdownValue } from './hindcast.js'
 
 import { fetchTreeDataPromise, fetchDataTreeJson, treeData, populateDropdown } from './data_access.js';
+import { fetchTreeDataBasicPromise, fetchDataTreeBasicJson, treeDataBasic } from './data_access.js';
 
+
+
+$(document).ready(function(){
+  setDefaultBasicOptions();
+  setDefaultAdvanceOptions();
+  // Show/hide tables of basic and advanced forecast_live options
+  $("input[type='radio'].radioBasicOptFcastLive").change(function(){
+    if ($("#radioBasicFcastLive").is(":checked")) {
+      $('.trAdvanceInputFcastLive').addClass('hidden');
+      $('.trBasicInputFcastLive').removeClass('hidden');
+      setDefaultBasicOptions();
+    } else if ($("#radioAdvanceFcastLive").is(":checked")) {
+      $('.trBasicInputFcastLive').addClass('hidden');
+      $('.trAdvanceInputFcastLive').removeClass('hidden');
+      setDefaultAdvanceOptions();
+    }
+  });
+});
 
 // async function to wait the treeData to be fetched
 export async function useTreeData() {
@@ -23,20 +42,68 @@ export async function useTreeData() {
   }
 }
 
-
+// async function to wait the treeData to be fetched
+export async function useTreeDataBasic() {
+  try {
+    // Check if the promise already exists (i.e. pending or resolved)
+    if (!fetchTreeDataBasicPromise) {
+      await fetchDataTreeBasicJson(); // Trigger the fetch if it hasn't started
+    } else {
+      await fetchTreeDataBasicPromise; // Wait for the existing fetch to complete
+    }
+    console.log('treeDataBasic loaded in other .js');
+  } catch (error) {
+    console.error('Error loading the treeDataBasic in  other .js:', error);
+  }
+}
 
 // setup local global variable (data structure and filenaming structure)
 var region;
 var subdomain;
-var experiment_type = 'seasonal_forecast';
+var experiment_type;
 var output_frequency;
-var grid_type = 'regrid';
-var release = 'r20250413';     // showing options provided in the json file
+var grid_type;
+var release;
 var data_category;
 var variable_name;
 var variable;
 var depthValueFcast;
 var blockValueFcast;
+
+function setDefaultAdvanceOptions() {
+    region;
+    subdomain;
+    experiment_type = 'seasonal_forecast';
+    output_frequency;
+    grid_type = 'regrid';
+    release = 'r20250413';     // showing options provided in the json file
+    data_category;
+    variable_name;
+    variable;
+    depthValueFcast;
+    blockValueFcast;
+};
+
+// setup local global variable (data structure and filenaming structure)
+var region_basic;
+var subdomain_basic;
+var experiment_type_basic;
+var output_frequency_basic;
+var grid_type_basic;
+var release_basic;
+var variable_name_basic;
+var variable_basic;
+
+function setDefaultBasicOptions() {
+    region_basic;
+    subdomain_basic = 'full_domain';
+    experiment_type_basic = 'seasonal_forecast';
+    output_frequency_basic;
+    grid_type_basic = 'regrid';
+    release_basic = 'latest';     // showing options provided in the json file
+    variable_name_basic;
+    variable_basic;
+};
 
 
 // Createing the data tree dropdowns
@@ -47,8 +114,14 @@ const level4 = document.getElementById('freqMOMCobaltFcastLive');
 const level7 = document.getElementById('dataCatMOMCobaltFcastLive');
 const level8 = document.getElementById('varMOMCobaltFcastLive');
 
+// Createing the BASIC data tree dropdowns
+// Get dropdown elements
+const level1Basic = document.getElementById('regMOMCobaltFcastLive_basic');
+const level4Basic = document.getElementById('freqMOMCobaltFcastLive_basic');
+const level8Basic = document.getElementById('varMOMCobaltFcastLive_basic');
+
 // Usage in setDefaultDropdowns:
-export async function setDefaultDropdowns() {
+async function setDefaultDropdowns() {
     if (level1.options.length > 0) {
         await setDropdownValue(level1, 'northwest_atlantic');
         // console.log('Set level1 to northwest_atlantic');
@@ -81,6 +154,19 @@ export async function setDefaultDropdowns() {
     }
 }
 
+// set default values for the basic data query dropdowns
+async function setDefaultDropdownsBasic() {
+  if (level1Basic.options.length > 0) {
+    await setDropdownValue(level1Basic, 'northwest_atlantic');
+  }
+  if (level4Basic.options.length > 0) {
+    await setDropdownValue(level4Basic, 'monthly');
+  }
+  if (level8Basic.options.length > 0) {
+    await setDropdownValue(level8Basic, 'Sea Surface Temperature (tos)');
+  }
+}
+
 // make sure the treeData is fetched (top level await)
 // Call the fetch function and initialize dropdowns after data is loaded
 try {
@@ -92,6 +178,18 @@ try {
   } catch (error) {
     console.error('Error fetching treeData:', error);
 }
+
+// Call the fetch function and initialize dropdowns after data is loaded
+try {
+  // Call the fetch function and wait for the data to be loaded
+  await fetchDataTreeBasicJson();
+
+  // Populate the first dropdown after data is loaded
+  populateDropdown(level1Basic, treeDataBasic);
+} catch (error) {
+  console.error('Error fetching treeDataBasic:', error);
+}
+// console.log('should be after the fetchDataTreeJson function');
 
 // Event listeners for dynamic updates
 // region
@@ -117,7 +215,6 @@ level2.addEventListener('change', function () {
 level4.addEventListener('change', function () {
     output_frequency = level4.value;
     let options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release];
-    console.log(options)
     populateDropdown(level7, options);
     populateDropdown(level8, null);
 });
@@ -141,7 +238,67 @@ level8.addEventListener('change', function () {
     updateDepthAndBlockOptions(region, output_frequency, variable);
 });
 
-// make sure the treeData is fetched (top level await)
+
+
+// Event listeners for dynamic updates on BASIC data query
+// region
+level1Basic.addEventListener('change', function () {
+    region_basic = level1Basic.value;
+    let options = null;
+    options = treeDataBasic[region_basic][subdomain_basic][experiment_type_basic];
+    populateDropdown(level4Basic, options);
+    populateDropdown(level8Basic, null);
+});
+
+// outFreq
+level4Basic.addEventListener('change', function () {
+    output_frequency_basic = level4Basic.value;
+    let options = null;
+    options = treeDataBasic[region_basic][subdomain_basic][experiment_type_basic][output_frequency_basic][grid_type_basic][release_basic];
+    populateDropdown(level8Basic, options);
+});
+
+// variable
+level8Basic.addEventListener('change', function () {
+  variable_name_basic = level8Basic.value;
+  let options = null;
+  options =
+      treeDataBasic[region_basic][subdomain_basic][experiment_type_basic][output_frequency_basic][grid_type_basic][release_basic][variable_name_basic];
+  // console.log('options:', options);
+  // console.log('parent level:', treeDataBasic[selectedValue1]);
+  
+
+  variable_basic = Object.keys(options)[0];
+//   console.log('Selected basic variable:', variable_basic);
+
+  // depth option change
+  $("#depthMOMCobaltFcastLive").empty();
+  $("#blockMOMCobaltFcastLive").empty();
+  updateDepthAndBlockOptions(region_basic, output_frequency_basic, variable_basic);
+
+});
+
+function syncAdvanceFromBasic() {
+    region = region_basic;
+    subdomain = subdomain_basic;
+    experiment_type = experiment_type_basic;
+    output_frequency = output_frequency_basic;
+    grid_type = grid_type_basic;
+    release = release_basic;
+    variable_name = variable_name_basic;
+    variable = variable_basic;
+};
+
+// Make sure the basic variables are syncs with the advance variables when in basic mode
+// Live sync: only update advanced values if in basic mode
+$('#regMOMCobaltFcastLive_basic, #freqMOMCobaltFcastLive_basic, #varMOMCobaltFcastLive_basic').on('change', function () {
+    if ($('input[name="basicOptionsFcastLive"]:checked').val() === 'basic') {
+        syncAdvanceFromBasic();
+        // console.log("basic value transfer to advance value")
+    }
+});
+
+
 // Call the fetch function and initialize dropdowns after data is loaded
 try {
     // Set default dropdown values
@@ -149,6 +306,16 @@ try {
 
   } catch (error) {
     console.error('Error setting default options :', error);
+}
+
+
+// Call the fetch function and initialize dropdowns after data is loaded
+try {
+    // Set default dropdown values
+    await setDefaultDropdownsBasic();
+
+  } catch (error) {
+    console.error('Error setting default Basic options :', error);
 }
 
 // global constant for object ID
@@ -387,7 +554,7 @@ function updateDepthAndBlockOptions(regValue, freqValue, varValue, depthID='dept
         }
         
         if (jsonData.bottom === 0) {
-            console.log(jsonData.bottom);
+            // console.log(jsonData.bottom);
             // Create the single layer options
             createDropdownOptions(blockID, ['not applicable'], ['not_applicable']);
         } else {
@@ -712,7 +879,7 @@ function plotlyForecastSpread(jsonData) {
     var totalEns = jsonData.total_ens_num;
     for (var i=1; i<=totalEns; i++) {
         var key = 'ens'+i
-        console.log(jsonData[key])
+        // console.log(jsonData[key])
         var trace_ens = {
             x: leadMonthList,
             y: jsonData[key],
