@@ -19,10 +19,13 @@ $(document).ready(function(){
       $('.trAdvanceInputFcastLive').addClass('hidden');
       $('.trBasicInputFcastLive').removeClass('hidden');
       setDefaultBasicOptions();
+      getCurrentBasicOptions();
+      syncAdvanceFromBasic();
     } else if ($("#radioAdvanceFcastLive").is(":checked")) {
       $('.trBasicInputFcastLive').addClass('hidden');
       $('.trAdvanceInputFcastLive').removeClass('hidden');
       setDefaultAdvanceOptions();
+      getCurrentAdvanceOptions();
     }
   });
 });
@@ -105,6 +108,43 @@ function setDefaultBasicOptions() {
     variable_basic;
 };
 
+function getCurrentAdvanceOptions() {
+    region = document.getElementById('regMOMCobaltFcastLive').value;
+    subdomain = document.getElementById('subregMOMCobaltFcastLive').value;
+    experiment_type = 'seasonal_forecast';
+    output_frequency = document.getElementById('freqMOMCobaltFcastLive').value;
+    grid_type = 'regrid';
+    release = 'r20250413';     // showing options provided in the json file
+    data_category = document.getElementById('dataCatMOMCobaltFcastLive').value;
+    variable_name = document.getElementById('varMOMCobaltFcastLive').value;
+    let options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release][data_category][variable_name];
+    variable = Object.keys(options)[0];
+    // depth option change
+    $("#depthMOMCobaltFcastLive").empty();
+    $("#blockMOMCobaltFcastLive").empty();
+    updateDepthAndBlockOptions(region, output_frequency, variable);
+    // depthValueFcast = document.getElementById('depthMOMCobaltFcast').value;
+    // blockValueFcast = document.getElementById('blockMOMCobaltFcast').value;
+};
+
+
+function getCurrentBasicOptions() {
+    region_basic = document.getElementById('regMOMCobaltFcastLive_basic').value;
+    subdomain_basic = 'full_domain';
+    experiment_type_basic = 'seasonal_forecast';
+    output_frequency_basic = document.getElementById('freqMOMCobaltFcastLive_basic').value;
+    grid_type_basic = 'regrid';
+    release_basic = 'latest';     // showing options provided in the json file
+    variable_name_basic = document.getElementById('varMOMCobaltFcastLive_basic').value;
+    let options = treeDataBasic[region_basic][subdomain_basic][experiment_type_basic][output_frequency_basic][grid_type_basic][release_basic][variable_name_basic];
+    variable_basic = Object.keys(options)[0];
+    // depth option change
+    $("#depthMOMCobaltFcastLive").empty();
+    $("#blockMOMCobaltFcastLive").empty();
+    updateDepthAndBlockOptions(region_basic, output_frequency_basic, variable_basic);
+    // depthValueFcast_basic = document.getElementById('depthMOMCobaltFcast_basic').value;
+    // blockValueFcast_basic = document.getElementById('blockMOMCobaltFcast_basic').value;
+};
 
 // Createing the data tree dropdowns
 // Get dropdown elements
