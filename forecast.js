@@ -287,8 +287,8 @@ level8Basic.addEventListener('change', function () {
 //   console.log('Selected basic variable:', variable_basic);
 
   // depth option change
-  $("#depthMOMCobaltFcastLive").empty();
-  $("#blockMOMCobaltFcastLive").empty();
+  $("#depthMOMCobaltFcast").empty();
+  $("#blockMOMCobaltFcast").empty();
   updateDepthAndBlockOptions(region_basic, output_frequency_basic, variable_basic);
 
 });

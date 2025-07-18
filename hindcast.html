@@ -10,67 +10,98 @@
     <!-- User inputs column -->
     <div class="userInput col-12 col-md-6">
         <h1 class="userInputTitle"><em>Data Options</em></h1>
-        <table class="rowGap">
-            <tr>
-                <td>Region : </td>
-                <td>
-                    <select name="region" id="regMOMCobalt" class="reg-mom-cobalt"></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Subregion : </td>
-                <td>
-                    <select name="subregion" id="subregMOMCobalt"><option value="">Select</option></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Frequency : </td>
-                <td>
-                    <select name="frequency" id="freqMOMCobalt"><option value="">Select</option></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Data Category : </td>
-                <td>
-                    <select name="dataCategory" id="dataCatMOMCobalt"><option value="">Select</option></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Variable : </td>
-                <td>
-                    <select name="variable" id="varMOMCobalt"><option value="">Select</option></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Statistics : </td>
-                <td>
-                    <select name="stat" id="statMOMCobalt"></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Depth : </td>
-                <td>
-                    <select name="depth" id="depthMOMCobalt"></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Blocked depth : </td>
-                <td>
-                    <select name="block" id="blockMOMCobalt"></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Analyses dashboard : </td>
-                <td>
-                    <select name="analysis" id="analysisMOMCobalt">
-                        <option value="tsViewVal">Time Series Analyses</option>
-                        <option value="profileViewVal">Vertical Profile Analyses</option>
-                        <!-- <option value="transectViewVal">Vertical Transect Analyses</option> -->
-                        <option value="indexViewVal">Indexes Analyses</option>
-                    </select>
-                </td>
-            </tr>
-        </table>                
+
+        <!-- Radio buttons to switch -->
+        <input type="radio" class="radioBasicOptHcast" id="radioBasicHcast" name="basicOptionsHcast" value="basic" checked>
+        <label for="radioBasicHcast">Basic</label>
+        <input type="radio" class="radioBasicOptHcast" id="radioAdvanceHcast" name="basicOptionsHcast" value="advance">
+        <label for="radioAdvanceHcast">Advanced</label>
+
+        <div>
+            <table class="rowGap">
+                <!-- advance options -->
+                <tr class="trAdvanceInputHcast hidden">
+                    <td>Region : </td>
+                    <td>
+                        <select name="region" id="regMOMCobalt" class="reg-mom-cobalt"></select>
+                    </td>
+                </tr>
+                <tr class="trAdvanceInputHcast hidden">
+                    <td>Subregion : </td>
+                    <td>
+                        <select name="subregion" id="subregMOMCobalt"><option value="">Select</option></select>
+                    </td>
+                </tr>
+                <tr class="trAdvanceInputHcast hidden">
+                    <td>Frequency : </td>
+                    <td>
+                        <select name="frequency" id="freqMOMCobalt"><option value="">Select</option></select>
+                    </td>
+                </tr>
+                <tr class="trAdvanceInputHcast hidden">
+                    <td>Data Category : </td>
+                    <td>
+                        <select name="dataCategory" id="dataCatMOMCobalt"><option value="">Select</option></select>
+                    </td>
+                </tr>
+                <tr class="trAdvanceInputHcast hidden">
+                    <td>Variable : </td>
+                    <td>
+                        <select name="variable" id="varMOMCobalt"><option value="">Select</option></select>
+                    </td>
+                </tr>
+                <!-- basic options -->
+                <tr class="trBasicInputHcast">
+                    <td>Region : </td>
+                    <td>
+                        <select name="region" id="regMOMCobalt_basic" class="reg-mom-cobalt"></select>
+                    </td>
+                </tr>
+                <tr class="trBasicInputHcast">
+                    <td>Frequency : </td>
+                    <td>
+                        <select name="frequency" id="freqMOMCobalt_basic"><option value="">Select</option></select>
+                    </td>
+                </tr>
+                <tr class="trBasicInputHcast">    
+                    <td>Variable : </td>
+                    <td>
+                        <select name="variable" id="varMOMCobalt_basic"><option value="">Select</option></select>
+                    </td>
+                </tr>
+                <!-- all other options -->
+                <tr>
+                    <td>Statistics : </td>
+                    <td>
+                        <select name="stat" id="statMOMCobalt"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Depth : </td>
+                    <td>
+                        <select name="depth" id="depthMOMCobalt"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Blocked depth : </td>
+                    <td>
+                        <select name="block" id="blockMOMCobalt"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Analyses dashboard : </td>
+                    <td>
+                        <select name="analysis" id="analysisMOMCobalt">
+                            <option value="tsViewVal">Time Series Analyses</option>
+                            <option value="profileViewVal">Vertical Profile Analyses</option>
+                            <!-- <option value="transectViewVal">Vertical Transect Analyses</option> -->
+                            <option value="indexViewVal">Indexes Analyses</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>                
+        </div>
+        
     </div> 
 
     <!-- Seperation column -->
