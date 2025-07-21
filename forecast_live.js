@@ -1186,8 +1186,8 @@ function momCobaltInitYear(startYear = 2025, endYear = 2025) {
 // functions for generating month list for initial time (Manual entering)
 function momCobaltInitMonth() {
     // var monthList = [3,6,9,12];
-    var monthList = [4];
-    var monthStrList = ['April']
+    var monthList = [1,4,7,10];
+    var monthStrList = ['January','April','July','October']
     // var monthStrList = ['March','June','September','December']
     return [monthList, monthStrList];
 };
