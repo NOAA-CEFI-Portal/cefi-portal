@@ -664,7 +664,7 @@ let blockMapFcast;
 function replaceFoliumForecast() {
     showLoadingSpinner("loading-spinner-map-FcastLive");
     varFoliumMapFcast = variable;
-    freqFoliumMap = $("#freqMOMCobaltFcastLive").val();
+    freqFoliumMap = output_frequency
     statMapFcast = $("#statMOMCobaltFcastLive").val();
     statMapFcastName = $('#statMOMCobaltFcastLive').find('option:selected').text()
     depthMapFcast = $("#depthMOMCobaltFcastLive").val();
@@ -676,8 +676,8 @@ function replaceFoliumForecast() {
 
     var ajaxGet = "/cgi-bin/cefi_portal/vistab_mom_folium_forecast.py"
         +"?variable="+varFoliumMapFcast
-        +"&region="+$("#regMOMCobaltFcastLive").val()
-        +"&output_frequency="+freqFoliumMap
+        +"&region="+region
+        +"&output_frequency="+output_frequency
         +"&subdomain=full_domain"
         +"&experiment_type=seasonal_forecast"
         +"&grid_type=regrid"

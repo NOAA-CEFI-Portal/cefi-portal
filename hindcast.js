@@ -1348,14 +1348,19 @@ let depthFoliumMap;
 function replaceFolium() {
     showLoadingSpinner("loading-spinner-map");
     varFoliumMap = variable;
-    regFoliumMap = $("#regMOMCobalt").val();
-    freqFoliumMap = $("#freqMOMCobalt").val();
+    // regFoliumMap = $("#regMOMCobalt").val();
+    // freqFoliumMap = $("#freqMOMCobalt").val();
+    // statFoliumMap = $("#statMOMCobalt").val();
+    // depthFoliumMap = $("#depthMOMCobalt").val();
+    regFoliumMap = region;
+    freqFoliumMap = output_frequency;
     statFoliumMap = $("#statMOMCobalt").val();
     depthFoliumMap = $("#depthMOMCobalt").val();
+    let block = $("#blockMOMCobalt").val();
+
 
     // variables only used on the Folium map
     //  initiated every time when the create map is triggered 
-    let block = $("#blockMOMCobalt").val();
     let cbar = $("#cbarOpts").val();
     let maxval = $("#maxval").val();
     let minval = $("#minval").val();
