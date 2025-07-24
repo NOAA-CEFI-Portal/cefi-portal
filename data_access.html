@@ -341,99 +341,181 @@
 
   <div class="userInput col-12">
     <h1 class="userInputTitle"><em>Data Options</em></h1>
+    <!-- Radio buttons to switch -->
+    <input type="radio" class="radioBasicOpt" id="radioBasic" name="basicOptions" checked>
+    <label for="radioBasic">Basic</label>
+    <input type="radio" class="radioBasicOpt" id="radioAdvance" name="basicOptions">
+    <label for="radioAdvance">Advanced</label>
 
     <!-- Using the NOSQL data tree generated from cefi_data_tree.json -->
-    <table class="rowGap">
-        <tr>
-          <td>Regions : </td>
-          <td>
-              <select id="regionDataQuery"></select>
-          </td>
-        </tr>
-        <tr>
-          <td>Subregions : </td>
-          <td>
-              <select id="subregionDataQuery"><option value="">Select</option></select>
-          </td>
-        </tr>
-        <tr>
-          <td>Experiment Types : </td>
-          <td>
-              <select id="expTypeDataQuery"><option value="">Select</option></select>
-          </td>
-        </tr>
-        <tr>
-          <td>Output Frequencies : </td>
-          <td>
-              <select id="outFreqDataQuery">
-                <option value="">Select</option>
-                <!-- <option class="default-option" selected disabled>Select an output frequency</option> -->
-              </select>
-          </td>
-        </tr>
-        <tr>
-          <td>Grid Types : </td>
-          <td>
-              <select id="gridTypeDataQuery">
-                <option value="">Select</option>
-                <!-- <option class="default-option" selected disabled>Select a grid type</option> -->
-              </select>
-          </td>
-        </tr>
-        <tr>
-          <td>Releases : </td>
-          <td>
-              <select id="releaseDataQuery">
-                <option value="">Select</option>
-                <!-- <option class="default-option" selected disabled>Select a release date</option> -->
-              </select>
-          </td>
-        </tr>
-        <tr>
-          <td>Data Categories : </td>
-          <td>
-              <select id="dataCategoryDataQuery"><option value="">Select</option></select>
-          </td>
-        </tr>
-        <tr>
-          <td>Variables : </td>
-          <td>
-              <select id="variableDataQuery">
-                <option value="">Select</option>
-                <!-- <option class="default-option" selected disabled>Select a variable</option> -->
-              </select>
-          </td>
-        </tr>
+    <div id="advancedTableDiv" class="hidden">
+      <table class="rowGap">
+          <tr>
+            <td>Regions : </td>
+            <td>
+                <select id="regionDataQuery"></select>
+            </td>
+          </tr>
+          <tr>
+            <td>Subregions : </td>
+            <td>
+                <select id="subregionDataQuery"><option value="">Select</option></select>
+            </td>
+          </tr>
+          <tr>
+            <td>Experiment Types : </td>
+            <td>
+                <select id="expTypeDataQuery"><option value="">Select</option></select>
+            </td>
+          </tr>
+          <tr>
+            <td>Output Frequencies : </td>
+            <td>
+                <select id="outFreqDataQuery">
+                  <option value="">Select</option>
+                  <!-- <option class="default-option" selected disabled>Select an output frequency</option> -->
+                </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Grid Types : </td>
+            <td>
+                <select id="gridTypeDataQuery">
+                  <option value="">Select</option>
+                  <!-- <option class="default-option" selected disabled>Select a grid type</option> -->
+                </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Releases : </td>
+            <td>
+                <select id="releaseDataQuery">
+                  <option value="">Select</option>
+                  <!-- <option class="default-option" selected disabled>Select a release date</option> -->
+                </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Data Categories : </td>
+            <td>
+                <select id="dataCategoryDataQuery"><option value="">Select</option></select>
+            </td>
+          </tr>
+          <tr>
+            <td>Variables : </td>
+            <td>
+                <select id="variableDataQuery">
+                  <option value="">Select</option>
+                  <!-- <option class="default-option" selected disabled>Select a variable</option> -->
+                </select>
+            </td>
+          </tr>
 
-        <tr class="forecastOpt hidden">
-          <td>Initial Dates : </td>
-          <td>
-              <select class="default-option" id="initialDateFcastDataQuery">Select initialization date (iYYYYMM)</select>
-          </td>
-        </tr>
-        <tr class="forecastOpt hidden">
-          <td>Ensemble Options : </td>
-          <td>
-              <select class="default-option" id="ensOptionFcastDataQuery">Select ensemble options</select>
-          </td>
-        </tr>
+          <tr class="forecastOpt hidden">
+            <td>Initial Dates : </td>
+            <td>
+                <select class="default-option" id="initialDateFcastDataQuery">Select initialization date (iYYYYMM)</select>
+            </td>
+          </tr>
+          <tr class="forecastOpt hidden">
+            <td>Ensemble Options : </td>
+            <td>
+                <select class="default-option" id="ensOptionFcastDataQuery">Select ensemble options</select>
+            </td>
+          </tr>
 
-        <tr class="projectOpt hidden">
-          <td>Scenarios : </td>
-          <td>
-              <select class="default-option" id="scenarioProjDataQuery">Select scenario</select>
-          </td>
-        </tr>
-        <tr class="projectOpt hidden">
-          <td>Ensemble Options : </td>
-          <td>
-              <select class="default-option" id="ensOptionProjDataQuery">Select ensemble options</select>
-          </td>
-        </tr>
+          <tr class="projectOpt hidden">
+            <td>Scenarios : </td>
+            <td>
+                <select class="default-option" id="scenarioProjDataQuery">Select scenario</select>
+            </td>
+          </tr>
+          <tr class="projectOpt hidden">
+            <td>Ensemble Options : </td>
+            <td>
+                <select class="default-option" id="ensOptionProjDataQuery">Select ensemble options</select>
+            </td>
+          </tr>
 
-    </table>
-    <hr class="dot-hr-plot">
-    <button id="genQueryButton" class="btn btn-psl">Generate Queries</button>
+      </table>
+      <hr class="dot-hr-plot">
+      <button id="genQueryButton" class="btn btn-psl">Generate Queries</button>
+    </div>
+
+
+    <!-- Using the NOSQL data tree generated from cefi_data_tree_basic.json -->
+    <div id="basicTableDiv" class="">
+      <table class="rowGap">
+          <tr>
+            <td>Regions : </td>
+            <td>
+                <select id="regionDataQuery_basic"></select>
+            </td>
+          </tr>
+          <tr>
+            <td>Experiment Types : </td>
+            <td>
+                <select id="expTypeDataQuery_basic"><option value="">Select</option></select>
+            </td>
+          </tr>
+          <tr>
+            <td>Output Frequencies : </td>
+            <td>
+                <select id="outFreqDataQuery_basic">
+                  <option value="">Select</option>
+                  <!-- <option class="default-option" selected disabled>Select an output frequency</option> -->
+                </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Grid Types : </td>
+            <td>
+                <select id="gridTypeDataQuery_basic">
+                  <option value="">Select</option>
+                  <!-- <option class="default-option" selected disabled>Select a grid type</option> -->
+                </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Variables : </td>
+            <td>
+                <select id="variableDataQuery_basic">
+                  <option value="">Select</option>
+                  <!-- <option class="default-option" selected disabled>Select a variable</option> -->
+                </select>
+            </td>
+          </tr>
+
+          <tr class="forecastBasicOpt hidden">
+            <td>Initial Dates : </td>
+            <td>
+                <select class="default-option" id="initialDateFcastDataQuery_basic">Select initialization date (iYYYYMM)</select>
+            </td>
+          </tr>
+          <tr class="forecastBasicOpt hidden">
+            <td>Ensemble Options : </td>
+            <td>
+                <select class="default-option" id="ensOptionFcastDataQuery_basic">Select ensemble options</select>
+            </td>
+          </tr>
+
+          <tr class="projectBasicOpt hidden">
+            <td>Scenarios : </td>
+            <td>
+                <select class="default-option" id="scenarioProjDataQuery_basic">Select scenario</select>
+            </td>
+          </tr>
+          <tr class="projectBasicOpt hidden">
+            <td>Ensemble Options : </td>
+            <td>
+                <select class="default-option" id="ensOptionProjDataQuery_basic">Select ensemble options</select>
+            </td>
+          </tr>
+
+      </table>
+      <hr class="dot-hr-plot">
+      <button id="genQueryButtonBasic" class="btn btn-psl">Generate Queries</button>
+    </div>
   </div>
 </div>
 <br> 
