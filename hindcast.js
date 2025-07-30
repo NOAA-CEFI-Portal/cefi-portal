@@ -2,6 +2,12 @@ import { treeData, treeDataBasic, populateDropdown } from './data_access.js';
 import { useTreeData, useTreeDataBasic } from './forecast_live.js';
 
 
+// visualization data version setup
+const data_version = {
+    'northwest_atlantic':'r20250715',
+    'northeast_pacific':'r20250509'
+}
+
 // setup local global variable (data structure and filenaming structure)
 var region;
 var subdomain;
@@ -33,10 +39,7 @@ function setDefaultAdvanceOptions() {
     experiment_type = 'hindcast';
     output_frequency;
     grid_type = 'regrid';
-    release = {
-        'northwest_atlantic':'r20230520',
-        'northeast_pacific':'r20250509'
-    };     // showing options provided in the json file
+    release = data_version;
     data_category;
     variable_name;
     variable;
@@ -48,10 +51,7 @@ function getCurrentAdvanceOptions() {
     experiment_type = 'hindcast';
     output_frequency = document.getElementById('freqMOMCobalt').value;
     grid_type = 'regrid';
-    release = {
-        'northwest_atlantic':'r20230520',
-        'northeast_pacific':'r20250509'
-    };     // showing options provided in the json file
+    release = data_version;
     data_category = document.getElementById('dataCatMOMCobalt').value;
     variable_name = document.getElementById('varMOMCobalt').value;
     console.log(treeData)
@@ -60,7 +60,7 @@ function getCurrentAdvanceOptions() {
     // depth option change
     $("#depthMOMCobalt").empty();
     $("#blockMOMCobalt").empty();
-    updateDepthAndBlockOptions(region, output_frequency, variable);
+    updateDepthAndBlockOptions(region, output_frequency, release[region],variable);
 };
 
 function setDefaultBasicOptions() {
@@ -94,7 +94,7 @@ function getCurrentBasicOptions() {
     // depth option change
     $("#depthMOMCobalt").empty();
     $("#blockMOMCobalt").empty();
-    updateDepthAndBlockOptions(region_basic, output_frequency_basic, variable_basic);
+    updateDepthAndBlockOptions(region_basic, output_frequency_basic,release_basic[region_basic], variable_basic);
 };
 
 
@@ -298,7 +298,7 @@ level4.addEventListener('change', function () {
 
     // change depth and block options for the new freq
     // need to fetch the backend data for the depth options
-    updateDepthAndBlockOptions(region, output_frequency, variable)
+    updateDepthAndBlockOptions(region, output_frequency,release[region], variable)
 
     // change depth2 and block2 options for the new freq
     // need to fetch the backend data for the depth options
@@ -321,7 +321,7 @@ level8.addEventListener('change', function () {
     // depth option change
     $("#depthMOMCobalt").empty();
     $("#blockMOMCobalt").empty();
-    updateDepthAndBlockOptions(region, output_frequency, variable);
+    updateDepthAndBlockOptions(region, output_frequency,release[region], variable);
 });
 
 
@@ -384,7 +384,7 @@ level4Basic.addEventListener('change', function () {
     // need to fetch the backend data for the depth options
     $("#depthMOMCobaltFcastLive").empty();
     $("#blockMOMCobaltFcastLive").empty();
-    updateDepthAndBlockOptions(region_basic, output_frequency_basic, variable_basic)
+    updateDepthAndBlockOptions(region_basic, output_frequency_basic, release_basic[region_basic],variable_basic)
 });
 
 // variable
@@ -403,7 +403,7 @@ level8Basic.addEventListener('change', function () {
   // depth option change
   $("#depthMOMCobalt").empty();
   $("#blockMOMCobalt").empty();
-  updateDepthAndBlockOptions(region_basic, output_frequency_basic, variable_basic);
+  updateDepthAndBlockOptions(region_basic, output_frequency_basic,release_basic[region_basic], variable_basic);
 
 });
 
@@ -740,11 +740,11 @@ export function truncateString(str, maxLength) {
     }
 }
 
-function updateDepthAndBlockOptions(regValue, freqValue, varValue, depthID='depthMOMCobalt', blockID='blockMOMCobalt') {
+function updateDepthAndBlockOptions(regValue, freqValue,releaseValue, varValue, depthID='depthMOMCobalt', blockID='blockMOMCobalt') {
     // Change depth and block options for the new freq
     // Need to fetch the backend data for the depth options
     fetchVariableDepthBotOptions(
-        regValue, 'full_domain', 'hindcast', freqValue, 'regrid', varValue
+        regValue, 'full_domain', 'hindcast', freqValue, 'regrid', releaseValue,varValue
     ).then((jsonData) => {
 
         if (jsonData.depth === 0) {
@@ -798,7 +798,7 @@ async function initialize() {
 
     // Initial depth options based on variable
     // fetch the backend data for the depth, block options
-    updateDepthAndBlockOptions(region, output_frequency, variable)
+    updateDepthAndBlockOptions(region, output_frequency, release[region], variable)
 
     // create colorbar options
     createMomCobaltCbarOpt('cbarOpts','RdBu_r')
@@ -973,13 +973,14 @@ async function fetchIndexOptionHindVis(reg,subDom,expType) {
 }
 
 // async functions for fetching variable and experiment specific option from backend
-export async function fetchVariableDepthBotOptions(reg,subDom,expType,outFreq,gridType,variable) {
+export async function fetchVariableDepthBotOptions(reg,subDom,expType,outFreq,gridType,releaseOpt,variable) {
     var ajaxGet = "/cgi-bin/cefi_portal/vistab_create_variable_depth_bot_options.py"
     +"?region="+reg
     +"&subdomain="+subDom
     +"&experiment_type="+expType
     +"&output_frequency="+outFreq
     +"&grid_type="+gridType
+    +"&release="+releaseOpt
     +"&variable="+variable;
   
     console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
@@ -998,7 +999,7 @@ export async function fetchVariableDepthBotOptions(reg,subDom,expType,outFreq,gr
   }
 
 // functions for generating year and date list for timeslider (monthly)
-function generateDateList(startYear = 1993, endYear = 2019) {
+function generateDateList(startYear = 1993, endYear = 2023) {
     var dateList = [];
     var yearList = [];
 
@@ -1014,7 +1015,7 @@ function generateDateList(startYear = 1993, endYear = 2019) {
 }
 
 // functions for generating year and date list for timeslider (daily)
-function generateDailyDateList(startYear = 1993, endYear = 2019) {
+function generateDailyDateList(startYear = 1993, endYear = 2023) {
     var dateList = [];
     var yearList = [];
 
@@ -1373,6 +1374,7 @@ function replaceFolium() {
         +"&subdomain=full_domain"
         +"&experiment_type=hindcast"
         +"&grid_type=regrid"
+        +"&release="+release[region]
         +"&date="+dateFolium
         +"&stat="+statFoliumMap
         +"&depth="+depthFoliumMap
@@ -1747,6 +1749,7 @@ function getVarVal(infoLonLat) {
         +"&subdomain=full_domain"
         +"&experiment_type=hindcast"
         +"&grid_type=regrid"
+        +"&release="+release[region]
         +"&stat="+statFoliumMap
         +"&depth="+depthFoliumMap
         +"&lon="+infoLonLat.longitude
@@ -1823,6 +1826,7 @@ function getTransect(infoLine) {
     +"&subdomain=full_domain"
     +"&experiment_type=hindcast"
     +"&grid_type=regrid"
+    +"&release="+release[region]
     +"&stat="+statFoliumMap
     +"&date="+dateFolium
     +"&jsonstring="+infoLine.polygon
@@ -1877,6 +1881,7 @@ function getVerticalProfile(infoLonLat) {
         +"&subdomain=full_domain"
         +"&experiment_type=hindcast"
         +"&grid_type=regrid"
+        +"&release="+release[region]
         +"&date="+dateFolium
         +"&lon="+infoLonLat.longitude
         +"&lat="+infoLonLat.latitude
@@ -1966,6 +1971,7 @@ function getTimeSeries(infoLonLat,addTS) {
         +"&subdomain=full_domain"
         +"&experiment_type=hindcast"
         +"&grid_type=regrid"
+        +"&release="+release[region]
         +"&stat="+statFoliumMap
         +"&depth="+depth2TS
         +"&lon="+infoLonLat.longitude
@@ -1978,6 +1984,7 @@ function getTimeSeries(infoLonLat,addTS) {
         +"&subdomain=full_domain"
         +"&experiment_type=hindcast"
         +"&grid_type=regrid"
+        +"&release="+release[region]
         +"&stat="+statFoliumMap
         +"&depth="+depthFoliumMap
         +"&lon="+infoLonLat.longitude

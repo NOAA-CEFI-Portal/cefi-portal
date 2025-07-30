@@ -9,7 +9,8 @@ import { treeData, treeDataBasic, populateDropdown } from './data_access.js';
 import { useTreeData, useTreeDataBasic } from './forecast_live.js';
 
 
-
+// visualization data version setup
+const data_version = 'r20250413'
 
 
 // setup local global variable (data structure and filenaming structure)
@@ -41,7 +42,7 @@ function setDefaultAdvanceOptions() {
     experiment_type = 'seasonal_reforecast';
     output_frequency;
     grid_type = 'regrid';
-    release = 'r20250413';     // showing options provided in the json file
+    release = data_version;     // showing options provided in the json file
     data_category;
     variable_name;
     variable;
@@ -55,7 +56,7 @@ function getCurrentAdvanceOptions() {
     experiment_type = 'seasonal_reforecast';
     output_frequency = document.getElementById('freqMOMCobaltFcast').value;
     grid_type = 'regrid';
-    release = 'r20250413';     // showing options provided in the json file
+    release = data_version;     // showing options provided in the json file
     data_category = document.getElementById('dataCatMOMCobaltFcast').value;
     variable_name = document.getElementById('varMOMCobaltFcast').value;
     let options = treeData[region][subdomain][experiment_type][output_frequency][grid_type][release][data_category][variable_name];
@@ -63,7 +64,7 @@ function getCurrentAdvanceOptions() {
     // depth option change
     $("#depthMOMCobaltFcast").empty();
     $("#blockMOMCobaltFcast").empty();
-    updateDepthAndBlockOptions(region, output_frequency, variable);
+    updateDepthAndBlockOptions(region, output_frequency, release, variable);
     // depthValueFcast = document.getElementById('depthMOMCobaltFcast').value;
     // blockValueFcast = document.getElementById('blockMOMCobaltFcast').value;
 };
@@ -93,7 +94,7 @@ function getCurrentBasicOptions() {
     // depth option change
     $("#depthMOMCobaltFcast").empty();
     $("#blockMOMCobaltFcast").empty();
-    updateDepthAndBlockOptions(region_basic, output_frequency_basic, variable_basic);
+    updateDepthAndBlockOptions(region_basic, output_frequency_basic, release_basic, variable_basic);
     // depthValueFcast_basic = document.getElementById('depthMOMCobaltFcast_basic').value;
     // blockValueFcast_basic = document.getElementById('blockMOMCobaltFcast_basic').value;
 };
@@ -250,7 +251,7 @@ level8.addEventListener('change', function () {
     // depth option change
     $("#depthMOMCobaltFcast").empty();
     $("#blockMOMCobaltFcast").empty();
-    updateDepthAndBlockOptions(region, output_frequency, variable);
+    updateDepthAndBlockOptions(region, output_frequency, release, variable);
 });
 
 
@@ -289,7 +290,7 @@ level8Basic.addEventListener('change', function () {
   // depth option change
   $("#depthMOMCobaltFcast").empty();
   $("#blockMOMCobaltFcast").empty();
-  updateDepthAndBlockOptions(region_basic, output_frequency_basic, variable_basic);
+  updateDepthAndBlockOptions(region_basic, output_frequency_basic, release_basic, variable_basic);
 
 });
 
@@ -381,7 +382,7 @@ tickSpaceChangeFcast(leadMonthList)
 createMomCobaltStatOptFcast();
 
 // Initial depth and bottom options
-updateDepthAndBlockOptions(region, output_frequency, variable);
+updateDepthAndBlockOptions(region, output_frequency, release, variable);
 
 // setup colorbar option
 createMomCobaltCbarOpt('cbarOptsFcast');
@@ -559,11 +560,11 @@ function createMomCobaltStatOptFcast() {
 
 
 // function for create option for depth and block depth
-function updateDepthAndBlockOptions(regValue, freqValue, varValue, depthID='depthMOMCobaltFcast', blockID='blockMOMCobaltFcast') {
+function updateDepthAndBlockOptions(regValue, freqValue, releaseValue, varValue, depthID='depthMOMCobaltFcast', blockID='blockMOMCobaltFcast') {
     // Change depth and block options for the new freq
     // Need to fetch the backend data for the depth options
     fetchVariableDepthBotOptions(
-        regValue, 'full_domain', 'seasonal_reforecast', freqValue, 'regrid', varValue
+        regValue, 'full_domain', 'seasonal_reforecast', freqValue, 'regrid', releaseValue, varValue
     ).then((jsonData) => {
 
         if (jsonData.depth === 0) {
@@ -658,6 +659,7 @@ function replaceFoliumForecast() {
         +"&subdomain=full_domain"
         +"&experiment_type=seasonal_reforecast"
         +"&grid_type=regrid"
+        +"&release="+release
         +"&iniyear="+$("#iniYearMOMCobaltFcast").val()
         +"&inimonth="+$("#iniMonthMOMCobaltFcast").val()
         +"&lead="+timeSliderFcast.val()
@@ -768,6 +770,7 @@ function getvarValFcast(infoLonLat) {
         +"&subdomain=full_domain"
         +"&experiment_type=seasonal_reforecast"
         +"&grid_type=regrid"
+        +"&release="+release     // showing options provided in the json file
         +"&stat="+statMapFcast
         +"&depth="+depthMapFcast
         +'&block='+blockMapFcast
@@ -845,6 +848,7 @@ function getTSFcasts(infoLonLat) {
         +"&subdomain=full_domain"
         +"&experiment_type=seasonal_reforecast"
         +"&grid_type=regrid"
+        +"&release="+release
         +"&stat="+statMapFcast
         +'&block='+blockMapFcast
         +"&depth="+depthMapFcast
