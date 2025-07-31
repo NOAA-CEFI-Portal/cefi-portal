@@ -6,6 +6,7 @@ including the static files!
 
 """
 import os
+import sys
 import json
 import xarray as xr
 
@@ -86,6 +87,7 @@ if __name__ == '__main__':
         'ocean_monthly_z': 'Monthly 3D ocean variables',
         'ocean_annual_z': 'Annual 3D ocean variables',
         'ice_monthly': 'Monthly sea ice variables',
+        'ice_daily': 'Daily sea ice variables',
         'static': 'Static variables and model grids',
     }
       
@@ -126,32 +128,41 @@ if __name__ == '__main__':
                         )
                     # categorize the rest of the files
                     else:
-                        with xr.open_dataset(file_path,chunks={}) as ds:
-                            cefi_category = ds.attrs['cefi_ori_category']
-                            cefi_variable = ds.attrs['cefi_variable']
-                            cefi_lname = ds[cefi_variable].attrs['long_name']
-                            # create path segments start from the root
-                            #  removing the empty first segment
-                            #  and the last segment which is the filename
-                            path_segs = file_path.split('/')[1:-1]
-                            path_segs.append(f'{cefi_category} ({cefi_category_dict[cefi_category]})') # add the category
-                            cefi_filename = file_path.split('/')[-1]
-                            path_segs.append(f'{cefi_variable} ({cefi_lname})') # add the variable name
-                            path_segs.append(cefi_variable) # add the variable name short only
-                            path_segs.append(cefi_filename) # add the filename
-                            add_to_dict(
-                                dict_data_tree,
-                                path_segs,
-                                {
-                                    'cefi_filename': cefi_filename,
-                                    'cefi_variable': cefi_variable,
-                                    'cefi_long_name': cefi_lname,
-                                    'cefi_init_date' : ds.attrs['cefi_init_date'],
-                                    'cefi_date_range' : ds.attrs['cefi_date_range'],
-                                    'cefi_ensemble_info' : ds.attrs['cefi_ensemble_info'],
-                                    'cefi_forcing' : ds.attrs['cefi_forcing']
-                                }
-                            )
+                        try :
+                            with xr.open_dataset(file_path,chunks={}) as ds:
+                                cefi_category = ds.attrs['cefi_ori_category']
+                                cefi_variable = ds.attrs['cefi_variable']
+                                cefi_lname = ds[cefi_variable].attrs['long_name']
+                                # create path segments start from the root
+                                #  removing the empty first segment
+                                #  and the last segment which is the filename
+                                path_segs = file_path.split('/')[1:-1]
+                                try:
+                                    path_segs.append(f'{cefi_category} ({cefi_category_dict[cefi_category]})') # add the category
+                                except KeyError:
+                                    # force failure if the category is not found
+                                    sys.exit('Error: Category not found in cefi_category_dict. Please check the category name in the file attributes. Or a new category is not added in the cefi_category_dict.')
+                                cefi_filename = file_path.split('/')[-1]
+                                path_segs.append(f'{cefi_variable} ({cefi_lname})') # add the variable name
+                                path_segs.append(cefi_variable) # add the variable name short only
+                                path_segs.append(cefi_filename) # add the filename
+                                add_to_dict(
+                                    dict_data_tree,
+                                    path_segs,
+                                    {
+                                        'cefi_filename': cefi_filename,
+                                        'cefi_variable': cefi_variable,
+                                        'cefi_long_name': cefi_lname,
+                                        'cefi_init_date' : ds.attrs['cefi_init_date'],
+                                        'cefi_date_range' : ds.attrs['cefi_date_range'],
+                                        'cefi_ensemble_info' : ds.attrs['cefi_ensemble_info'],
+                                        'cefi_forcing' : ds.attrs['cefi_forcing']
+                                    }
+                                )
+                        except OSError:
+                            # if the file is not a valid netCDF file, skip it
+                            print(f'File {file_path} is broken or still being processed. Skipping...')
+                            continue
     # Sort keys at level 10 (category + long name) alphabetically
     dict_data_tree = sort_dict_keys_at_level(dict_data_tree, level=10, sort_key=str.lower)
 

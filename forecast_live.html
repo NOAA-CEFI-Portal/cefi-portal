@@ -5,80 +5,112 @@
 </div>
 
 <div class = "row">
+
+
     <!-- User inputs column -->
     <div class="userInput col-12 col-md-6">
         <h1 class="userInputTitle"><em>Data Options</em></h1>
-        <table class="rowGap">
-            <tr>
-                <td>Region : </td>
-                <td>
-                    <select name="region" id="regMOMCobaltFcastLive" class="reg-mom-cobalt"></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Subregion : </td>
-                <td>
-                    <select name="subregion" id="subregMOMCobaltFcastLive"><option value="">Select</option></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Frequency : </td>
-                <td>
-                    <select name="frequency" id="freqMOMCobaltFcastLive"><option value="">Select</option></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Data Category : </td>
-                <td>
-                    <select name="dataCategory" id="dataCatMOMCobaltFcastLive"><option value="">Select</option></select>
-                </td>
-            </tr>
-            <tr>    
-                <td>Variable : </td>
-                <td>
-                    <select name="variable" id="varMOMCobaltFcastLive"><option value="">Select</option></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Initial year : </td>
-                <td>
-                    <select name="iniTime" id="iniYearMOMCobaltFcastLive"></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Initial month : </td>
-                <td>
-                    <select name="iniTime" id="iniMonthMOMCobaltFcastLive"></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Statistics : </td>
-                <td>
-                    <select name="stat" id="statMOMCobaltFcastLive"></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Depth : </td>
-                <td>
-                    <select name="depth" id="depthMOMCobaltFcastLive"></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Blocked depth : </td>
-                <td>
-                    <select name="block" id="blockMOMCobaltFcastLive"></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Analyses dashboard : </td>
-                <td>
-                    <select name="analysis" id="analysisMOMCobaltFcastLive">
-                        <option value="fcastViewVal">Forecast Spread</option>
-                    </select>
-                </td>
-            </tr>
-        </table>                
-    </div> 
+
+        <!-- Radio buttons to switch -->
+        <input type="radio" class="radioBasicOptFcastLive" id="radioBasicFcastLive" name="basicOptionsFcastLive" value="basic" checked>
+        <label for="radioBasicFcastLive">Basic</label>
+        <input type="radio" class="radioBasicOptFcastLive" id="radioAdvanceFcastLive" name="basicOptionsFcastLive" value="advance">
+        <label for="radioAdvanceFcastLive">Advanced</label>
+
+        <div>
+            <table class="rowGap">
+                <!-- advance options -->
+                <tr class="trAdvanceInputFcastLive hidden">
+                    <td>Region : </td>
+                    <td>
+                        <select name="region" id="regMOMCobaltFcastLive" class="reg-mom-cobalt"></select>
+                    </td>
+                </tr>
+                <tr class="trAdvanceInputFcastLive hidden">
+                    <td>Subregion : </td>
+                    <td>
+                        <select name="subregion" id="subregMOMCobaltFcastLive"><option value="">Select</option></select>
+                    </td>
+                </tr>
+                <tr class="trAdvanceInputFcastLive hidden">
+                    <td>Frequency : </td>
+                    <td>
+                        <select name="frequency" id="freqMOMCobaltFcastLive"><option value="">Select</option></select>
+                    </td>
+                </tr>
+                <tr class="trAdvanceInputFcastLive hidden">
+                    <td>Data Category : </td>
+                    <td>
+                        <select name="dataCategory" id="dataCatMOMCobaltFcastLive"><option value="">Select</option></select>
+                    </td>
+                </tr>
+                <tr class="trAdvanceInputFcastLive hidden">    
+                    <td>Variable : </td>
+                    <td>
+                        <select name="variable" id="varMOMCobaltFcastLive"><option value="">Select</option></select>
+                    </td>
+                </tr>
+                <!-- basic options -->
+                <tr class="trBasicInputFcastLive">
+                    <td>Region : </td>
+                    <td>
+                        <select name="region" id="regMOMCobaltFcastLive_basic" class="reg-mom-cobalt"></select>
+                    </td>
+                </tr>
+                <tr class="trBasicInputFcastLive">
+                    <td>Frequency : </td>
+                    <td>
+                        <select name="frequency" id="freqMOMCobaltFcastLive_basic"><option value="">Select</option></select>
+                    </td>
+                </tr>
+                <tr class="trBasicInputFcastLive">    
+                    <td>Variable : </td>
+                    <td>
+                        <select name="variable" id="varMOMCobaltFcastLive_basic"><option value="">Select</option></select>
+                    </td>
+                </tr>
+                <!-- all other options -->
+                <tr>
+                    <td>Initial year : </td>
+                    <td>
+                        <select name="iniTime" id="iniYearMOMCobaltFcastLive"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Initial month : </td>
+                    <td>
+                        <select name="iniTime" id="iniMonthMOMCobaltFcastLive"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Statistics : </td>
+                    <td>
+                        <select name="stat" id="statMOMCobaltFcastLive"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Depth : </td>
+                    <td>
+                        <select name="depth" id="depthMOMCobaltFcastLive"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Blocked depth : </td>
+                    <td>
+                        <select name="block" id="blockMOMCobaltFcastLive"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Analyses dashboard : </td>
+                    <td>
+                        <select name="analysis" id="analysisMOMCobaltFcastLive">
+                            <option value="fcastViewVal">Forecast Spread</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
     <!-- Seperation column -->
     <div class="col-12 col-md-1"></div>

@@ -1,8 +1,9 @@
 import { optionList,truncateString } from './hindcast.js';
 import { setDropdownValue } from './hindcast.js';
 
-// event lister for region radio button in the variable table section
+
 $(document).ready(function(){
+  // event lister for region radio button in the variable table section
   $("input[type='radio'].radioDataTable").change(function(){
     if ($("#radioNWATable").is(":checked")) {
       $('.nepTableOpt').addClass('hidden');
@@ -12,7 +13,20 @@ $(document).ready(function(){
       $('.nepTableOpt').removeClass('hidden');
     }
   });
+
+  // Show/hide tables of basic and advanced data query
+  $("input[type='radio'].radioBasicOpt").change(function(){
+    if ($("#radioBasic").is(":checked")) {
+      $('#advancedTableDiv').addClass('hidden');
+      $('#basicTableDiv').removeClass('hidden');
+    } else if ($("#radioAdvance").is(":checked")) {
+      $('#basicTableDiv').addClass('hidden');
+      $('#advancedTableDiv').removeClass('hidden');
+    }
+  });
 });
+
+
 
 // setup local global variable (data structure and filenaming structure)
 var region;
@@ -26,11 +40,25 @@ var iyyyymm;
 var ens_opt;
 var scenario;
 
+// setup local global variable (basic data structure and filenaming structure)
+var region_basic;
+var subdomain_basic = 'full_domain'; // Default value for basic data
+var experiment_type_basic;
+var output_frequency_basic;
+var grid_type_basic;
+var release_basic = 'latest'; // Default value for basic data
+var variable_basic;
+var iyyyymm_basic;
+var ens_opt_basic;
+var scenario_basic;
+
 // Declare a global variable to store the data
 export let treeData = null;
+export let treeDataBasic = null;
 
 // Shared promise to ensure the data is fetched only once
 export let fetchTreeDataPromise = null;
+export let fetchTreeDataBasicPromise = null;
 
 // Async function to fetch the data and store it globally
 export function fetchDataTreeJson() {
@@ -55,6 +83,29 @@ export function fetchDataTreeJson() {
   return fetchTreeDataPromise; // Return the shared promise
 }
 
+// Async function to fetch the BASIC data and store it globally
+export function fetchDataTreeBasicJson() {
+  if (!fetchTreeDataBasicPromise) {
+    // If the promise doesn't exist, create it
+    fetchTreeDataBasicPromise = (async () => {
+      try {
+        const response = await fetch('data_option_json/cefi_data_tree_basic.json');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json(); // JSON data
+        treeDataBasic = data['Projects']['CEFI']['regional_mom6']['cefi_portal']; // Store the data globally
+        console.log('Data Basic successfully fetched and stored globally:', treeDataBasic);
+        return treeDataBasic; // Resolve the promise with the data
+      } catch (error) {
+        console.error('There was a problem when async fetchDataTreeBasicJson:', error);
+        throw error; // Reject the promise if there's an error
+      }
+    })();
+  }
+  return fetchTreeDataBasicPromise; // Return the shared promise
+}
+
 // Createing the data tree dropdowns
 // Get dropdown elements
 const level1 = document.getElementById('regionDataQuery');
@@ -66,7 +117,15 @@ const level6 = document.getElementById('releaseDataQuery');
 const level7 = document.getElementById('dataCategoryDataQuery');
 const level8 = document.getElementById('variableDataQuery');
 
-// Usage in setDefaultDropdowns:
+// Createing the BASIC data tree dropdowns
+// Get dropdown elements
+const level1Basic = document.getElementById('regionDataQuery_basic');
+const level3Basic = document.getElementById('expTypeDataQuery_basic');
+const level4Basic = document.getElementById('outFreqDataQuery_basic');
+const level5Basic = document.getElementById('gridTypeDataQuery_basic');
+const level8Basic = document.getElementById('variableDataQuery_basic');
+
+// set default values for the advance data query dropdowns
 async function setDefaultDropdowns() {
   if (level1.options.length > 0) {
     await setDropdownValue(level1, 'northwest_atlantic');
@@ -110,6 +169,25 @@ async function setDefaultDropdowns() {
   }
 };
 
+// set default values for the basic data query dropdowns
+async function setDefaultDropdownsBasic() {
+  if (level1Basic.options.length > 0) {
+    await setDropdownValue(level1Basic, 'northwest_atlantic');
+  }
+  if (level3Basic.options.length > 0) {
+    await setDropdownValue(level3Basic, 'hindcast');
+  }
+  if (level4Basic.options.length > 0) {
+    await setDropdownValue(level4Basic, 'monthly');
+  }
+  if (level5Basic.options.length > 0) {
+    await setDropdownValue(level5Basic, 'regrid');
+  }
+  if (level8Basic.options.length > 0) {
+    await setDropdownValue(level8Basic, 'Sea Surface Temperature (tos)');
+  }
+}
+
 
 // Call the fetch function and initialize dropdowns after data is loaded
 try {
@@ -122,6 +200,19 @@ try {
   console.error('Error fetching treeData:', error);
 }
 // console.log('should be after the fetchDataTreeJson function');
+
+// Call the fetch function and initialize dropdowns after data is loaded
+try {
+  // Call the fetch function and wait for the data to be loaded
+  await fetchDataTreeBasicJson();
+
+  // Populate the first dropdown after data is loaded
+  populateDropdown(level1Basic, treeDataBasic);
+} catch (error) {
+  console.error('Error fetching treeDataBasic:', error);
+}
+// console.log('should be after the fetchDataTreeJson function');
+
 
 // Function to populate a dropdown in the data query tool
 export function populateDropdown(selectElement, options) {
@@ -172,6 +263,20 @@ function resetOptionVisibility() {
   } else {
     $('.projectOpt').addClass('hidden');
     $('.forecastOpt').addClass('hidden');
+  };
+}
+function resetBasicOptionVisibility() {
+  // turn on/off forecast/projection related options
+  if (experiment_type_basic.includes('forecast')) {
+    // creating the initialDate options needed!!!!!
+    $('.forecastBasicOpt').removeClass('hidden');
+    $('.projectBasicOpt').addClass('hidden');
+  } else if (experiment_type_basic.includes('projection')) {
+    $('.projectBasicOpt').removeClass('hidden');
+    $('.forecastBasicOpt').addClass('hidden');
+  } else {
+    $('.projectBasicOpt').addClass('hidden');
+    $('.forecastBasicOpt').addClass('hidden');
   };
 }
 
@@ -352,6 +457,122 @@ level8.addEventListener('change', function () {
 
 });
 
+// Event listeners for dynamic updates on BASIC data query
+// regionDataQuery
+level1Basic.addEventListener('change', function () {
+    const selectedValue1 = level1Basic.value;
+    const selectedValue2 = subdomain_basic; // Use the same level2 as in the main data query
+    let options = null;
+    if (selectedValue1 && selectedValue2) {
+        options = treeDataBasic[selectedValue1][selectedValue2];
+    }
+    populateDropdown(level3Basic, options);
+    populateDropdown(level4Basic, null);
+    populateDropdown(level5Basic, null);
+    populateDropdown(level8Basic, null);
+
+    region_basic = level1Basic.value;
+});
+
+// expTypeDataQuery
+level3Basic.addEventListener('change', function () {
+    const selectedValue1 = level1Basic.value;
+    const selectedValue2 = subdomain_basic;
+    const selectedValue3 = level3Basic.value;
+    let options = null;
+    if (selectedValue1 && selectedValue2 && selectedValue3) {
+        options = treeDataBasic[selectedValue1][selectedValue2][selectedValue3];
+    }
+    populateDropdown(level4Basic, options);
+    populateDropdown(level5Basic, null);
+    populateDropdown(level8Basic, null);
+
+    experiment_type_basic = level3Basic.value;
+    // turn on/off forecast/projection related options
+    resetBasicOptionVisibility(experiment_type_basic)
+});
+
+// outFreqDataQuery
+level4Basic.addEventListener('change', function () {
+    const selectedValue1 = level1Basic.value;
+    const selectedValue2 = subdomain_basic;
+    const selectedValue3 = level3Basic.value;
+    const selectedValue4 = level4Basic.value;
+    let options = null;
+    if (selectedValue1 && selectedValue2 && selectedValue3 && selectedValue4) {
+        options = treeDataBasic[selectedValue1][selectedValue2][selectedValue3][selectedValue4];
+    }
+    populateDropdown(level5Basic, options);
+    populateDropdown(level8Basic, null);
+
+    output_frequency_basic = level4Basic.value;
+});
+
+// gridTypeDataQuery
+level5Basic.addEventListener('change', function () {
+    const selectedValue1 = level1Basic.value;
+    const selectedValue2 = subdomain_basic;
+    const selectedValue3 = level3Basic.value;
+    const selectedValue4 = level4Basic.value;
+    const selectedValue5 = level5Basic.value;
+    const selectedValue6 = release_basic;
+
+    let options = null;
+    if (selectedValue1 && selectedValue2 && selectedValue3 && selectedValue4 && selectedValue5 && selectedValue6) {
+        options = treeDataBasic[selectedValue1][selectedValue2][selectedValue3][selectedValue4][selectedValue5][selectedValue6];
+    }
+    populateDropdown(level8Basic, options);
+
+    grid_type_basic = level5Basic.value;
+});
+
+// variableDataQuery
+level8Basic.addEventListener('change', function () {
+  const selectedValue1 = level1Basic.value;
+  const selectedValue2 = subdomain_basic;
+  const selectedValue3 = level3Basic.value;
+  const selectedValue4 = level4Basic.value;
+  const selectedValue5 = level5Basic.value;
+  const selectedValue6 = release_basic;
+  const selectedValue8 = level8Basic.value;
+  let options = null;
+  if (
+    selectedValue1 &&
+    selectedValue2 &&
+    selectedValue3 &&
+    selectedValue4 &&
+    selectedValue5 &&
+    selectedValue6 &&
+    selectedValue8
+  ) {
+    options =
+      treeDataBasic[selectedValue1][selectedValue2][selectedValue3][selectedValue4][selectedValue5][selectedValue6][selectedValue8];
+  }
+  // console.log('options:', options);
+  // console.log('parent level:', treeDataBasic[selectedValue1]);
+
+
+  variable_basic = Object.keys(options)[0];
+  console.log('Selected basic variable:', variable_basic);
+
+  // clear all options below variables type
+  // (needed to avoid stacking more options)
+  basic_variable_below_all_clear();
+
+  // create options specific to variables for foreast and projection
+  createVariableSpecOptions({
+    region: region_basic,
+    subdomain: subdomain_basic,
+    experiment_type: experiment_type_basic,
+    output_frequency: output_frequency_basic,
+    grid_type: grid_type_basic,
+    release: release_basic,
+    variable: variable_basic
+  });
+
+});
+
+
 // make sure the treeData is fetched (top level await)
 // Call the fetch function and initialize dropdowns after data is loaded
 try {
@@ -360,6 +581,16 @@ try {
 
   } catch (error) {
     console.error('Error setting default options :', error);
+}
+
+// make sure the treeDataBasic is fetched (top level await)
+// Call the fetch function and initialize dropdowns after data is loaded
+try {
+    // Set default dropdown values
+    await setDefaultDropdownsBasic();
+
+  } catch (error) {
+    console.error('Error setting default Basic options :', error);
 }
 
 // function to clear option below variable (experiemet specific)
@@ -372,16 +603,34 @@ function variable_below_all_clear(){
 
 };
 
+// function to clear option below variable (experiemet specific)
+function basic_variable_below_all_clear(){
+
+  $('#initialDateFcastDataQuery_basic').empty();
+  $('#ensOptionFcastDataQuery_basic').empty();
+  $('#forcingProjDataQuery_basic').empty();
+  $('#ensOptionProjDataQuery_basic').empty();
+
+};
+
 // async functions for fetching variable and experiment specific option from backend
-async function createVariableSpecOptions() {
+async function createVariableSpecOptions({
+  region: regionParam = region,
+  subdomain: subdomainParam = subdomain,
+  experiment_type: experimentTypeParam = experiment_type,
+  output_frequency: outputFrequencyParam = output_frequency,
+  grid_type: gridTypeParam = grid_type,
+  release: releaseParam = release,
+  variable: variableParam = variable
+} = {}) {
   var ajaxGet = "/cgi-bin/cefi_portal/datatab_create_variable_spec_options.py"
-      + "?region=" + region
-      + "&subdomain=" + subdomain
-      + "&experiment_type=" + experiment_type
-      + "&output_frequency=" + output_frequency
-      + "&grid_type=" + grid_type
-      + "&release=" + release
-      + "&variable=" + variable
+      + "?region=" + regionParam
+      + "&subdomain=" + subdomainParam
+      + "&experiment_type=" + experimentTypeParam
+      + "&output_frequency=" + outputFrequencyParam
+      + "&grid_type=" + gridTypeParam
+      + "&release=" + releaseParam
+      + "&variable=" + variableParam;
 
   console.log('https://webtest.psd.esrl.noaa.gov/' + ajaxGet);
 
@@ -405,6 +654,10 @@ async function createVariableSpecOptions() {
           let nameOptions = ens_options_fcast;
           let df = optionList(nameOptions, valueOptions);
           elm.appendChild(df);
+          // for basic options
+          let elm_basic = document.getElementById('ensOptionFcastDataQuery_basic');
+          let df_basic = optionList(nameOptions, valueOptions);
+          elm_basic.appendChild(df_basic);
       }
 
       if ('init_date_fcast' in jsonData) {
@@ -414,6 +667,10 @@ async function createVariableSpecOptions() {
           let nameOptions = init_date_fcast;
           let df = optionList(nameOptions, valueOptions);
           elm.appendChild(df);
+          // for basic options
+          let elm_basic = document.getElementById('initialDateFcastDataQuery_basic');
+          let df_basic = optionList(nameOptions, valueOptions);
+          elm_basic.appendChild(df_basic);
       }
 
       if ('ens_options_proj' in jsonData) {
@@ -423,6 +680,10 @@ async function createVariableSpecOptions() {
           let nameOptions = ens_options_proj;
           let df = optionList(nameOptions, valueOptions);
           elm.appendChild(df);
+          // for basic options
+          let elm_basic = document.getElementById('ensOptionProjDataQuery_basic');
+          let df_basic = optionList(nameOptions, valueOptions);
+          elm_basic.appendChild(df_basic);
       }
 
       if ('scenario_proj' in jsonData) {
@@ -432,6 +693,10 @@ async function createVariableSpecOptions() {
           let nameOptions = scenario_proj;
           let df = optionList(nameOptions, valueOptions);
           elm.appendChild(df);
+          // for basic options
+          let elm_basic = document.getElementById('scenarioProjDataQuery_basic');
+          let df_basic = optionList(nameOptions, valueOptions);
+          elm_basic.appendChild(df_basic);
       }
 
   } catch (error) {
@@ -454,6 +719,35 @@ $('#genQueryButton').on('click', function() {
           $('#codeBlockWget').text(wgetCode);
           var opendapCode = jsonDataQuery.opendap
           $('#codeBlockOpendap').text(opendapCode);
+          var s3Link = jsonDataQuery.s3_link
+          $('#codeBlockCloudAWS').text(s3Link);
+          var gcsLink = jsonDataQuery.gcs_link
+          $('#codeBlockCloudGCS').text(gcsLink);
+          var pythonCode = jsonDataQuery.python
+          $('#codeBlockPython').text(pythonCode);
+          var rCode = jsonDataQuery.r
+          $('#codeBlockR').text(rCode);
+          var Citation = jsonDataQuery.citation
+          $('#codeBlockCite').text(Citation);
+      })
+});
+
+// event listener for data query button click
+$('#genQueryButtonBasic').on('click', function() {
+  generateBasicDataQuery()     // the function return a promise obj from fetch
+      .then((jsonDataQuery)=>{
+          var dataInfo = jsonDataQuery.data_info;
+          $('#codeBlockDataInfo').text(dataInfo);
+          var http_href = jsonDataQuery.download;
+          $("#downloadHttp").attr("href", http_href);  //direct download link
+          var wgetCode = jsonDataQuery.wget;
+          $('#codeBlockWget').text(wgetCode);
+          var opendapCode = jsonDataQuery.opendap
+          $('#codeBlockOpendap').text(opendapCode);
+          var s3Link = jsonDataQuery.s3_link
+          $('#codeBlockCloudAWS').text(s3Link);
+          var gcsLink = jsonDataQuery.gcs_link
+          $('#codeBlockCloudGCS').text(gcsLink);
           var pythonCode = jsonDataQuery.python
           $('#codeBlockPython').text(pythonCode);
           var rCode = jsonDataQuery.r
@@ -504,6 +798,48 @@ async function generateDataQuery() {
       });
 }
 
+// functions for generating data query 
+async function generateBasicDataQuery() {
+  iyyyymm_basic = 'i999999';
+  ens_opt_basic = 'na';
+  scenario_basic = 'na';
+  if (experiment_type_basic.includes('forecast')) {
+    iyyyymm_basic = $('#initialDateFcastDataQuery_basic').val();
+    ens_opt_basic = $('#ensOptionFcastDataQuery_basic').val();
+  };
+  if (experiment_type_basic.includes('projection')) {
+    scenario_basic = $('#scenarioProjDataQuery_basic').val();
+    ens_opt_basic = $('#ensOptionProjDataQuery_basic').val();
+  };
+
+  var ajaxGet = "/cgi-bin/cefi_portal/datatab_generate_data_query.py"
+  +"?region="+region_basic
+  +"&subdomain="+subdomain_basic
+  +"&experiment_type="+experiment_type_basic
+  +"&output_frequency="+output_frequency_basic
+  +"&grid_type="+grid_type_basic
+  +"&release="+release_basic
+  +"&variable="+variable_basic
+  +"&iyyyymm="+iyyyymm_basic
+  +"&scenario="+scenario_basic
+  +"&ens_opt="+ens_opt_basic
+
+  console.log('https://webtest.psd.esrl.noaa.gov/'+ajaxGet)
+
+  return fetch(ajaxGet)
+      .then(response => {
+          if (!response.ok) {
+          throw new Error('Network response was not ok');
+          }
+          return response.json();
+      })
+      .catch(error => {
+          // Handle errors here
+          console.error('Fetch json data query using basic input failed:', error);
+      });
+}
+
+
 function copyCode(codeBlockID) {
   let code = $("#"+codeBlockID).text();
   // document.getElementById(modalID).focus();
@@ -523,6 +859,12 @@ $("#copyButtonWget").click(function () {
 });
 $("#copyButtonOpendap").click(function () {
   copyCode('codeBlockOpendap');
+});
+$("#copyButtonCloudAWS").click(function () {
+  copyCode('codeBlockCloudAWS');
+});
+$("#codeBlockCloudGCS").click(function () {
+  copyCode('codeBlockCloudGCS');
 });
 $("#copyButtonPython").click(function () {
   copyCode('codeBlockPython');

@@ -41,3 +41,7 @@ if __name__ == "__main__":
     # Define the base directory to start the search
     BASE_DIRECTORY = '/Projects/CEFI/regional_mom6/cefi_portal/'
     create_symlink_to_latest(BASE_DIRECTORY)
+
+    # Define the base directory to start the search
+    DERIVE_BASE_DIRECTORY = '/Projects/CEFI/regional_mom6/cefi_derivative/'
+    create_symlink_to_latest(DERIVE_BASE_DIRECTORY)

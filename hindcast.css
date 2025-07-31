@@ -240,9 +240,9 @@ div.view {
 .ticks span {
 	flex: 1;
 	text-align: center;
-	padding: 1px;
+	padding: 0.2px;
 	display: inline-block;
-	transform: rotate(45deg); /* You can adjust the degree of rotation */
+	transform: rotate(80deg); /* You can adjust the degree of rotation */
 }
 
 .sliderTitle {

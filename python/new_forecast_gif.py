@@ -117,7 +117,7 @@ if __name__ == '__main__':
 
     varname = 'tos'
     iyear = 2025
-    imonth = 4
+    imonth = 7
 
     regions = [
         'northwest_atlantic'
