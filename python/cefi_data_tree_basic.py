@@ -77,6 +77,9 @@ if __name__ == '__main__':
         for file_path in files:
             with xr.open_dataset(file_path,chunks={}) as ds:
                 cefi_category = ds.attrs['cefi_ori_category']
+                extend_lname = ''
+                if '_z' in cefi_category:
+                    extend_lname = ' - 3D'
                 cefi_variable = ds.attrs['cefi_variable']
                 cefi_lname = ds[cefi_variable].attrs['long_name']
                 # create path segments start from the root
@@ -85,7 +88,7 @@ if __name__ == '__main__':
                 path_segs = file_path.split('/')[1:-1]
                 # path_segs.append(f'{cefi_category}') # add the category
                 cefi_filename = file_path.split('/')[-1]
-                path_segs.append(f'{cefi_lname} ({cefi_variable})') # add the variable name
+                path_segs.append(f'{cefi_lname}{extend_lname} ({cefi_variable})') # add the variable name
                 path_segs.append(cefi_variable) # add the variable name short only
                 path_segs.append(cefi_filename) # add the filename
                 add_to_dict(
