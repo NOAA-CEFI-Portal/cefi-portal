@@ -1,7 +1,7 @@
 import os
 import glob
 
-def create_symlink_to_latest(base_dir:str):
+def create_symlink_to_latest(base_dir:str,derivative:bool=False):
     """create a symlink to the latest directory
     in the parent directory of the base directory
 
@@ -17,6 +17,10 @@ def create_symlink_to_latest(base_dir:str):
         if netcdf_files:
             # Find the newest created directory in the immediate parent of root
             parent_dir = os.path.dirname(root)
+            grandparent_dir = os.path.dirname(parent_dir)
+
+            if derivative:
+                parent_dir = grandparent_dir
 
             # store all release directories beside latest
             all_release_dirs = []
@@ -37,11 +41,36 @@ def create_symlink_to_latest(base_dir:str):
                 os.symlink(os.path.join(parent_dir, latest_dir), latest_path)
                 print(f"Created symlink: {os.path.join(parent_dir, latest_dir)} -> {latest_path}")
 
+def remove_latest_symlinks(base_dir: str):
+    """Remove all symlinks named 'latest' in all subdirectories
+    
+    Parameters
+    ----------
+    base_dir : str
+        the base directory to start the search
+    """
+    # Walk through all directories and subdirectories in the base directory
+    for root, dirs, _ in os.walk(base_dir):
+        latest_path = os.path.join(root, 'latest')
+
+        # Check if 'latest' exists and is a symlink
+        if os.path.islink(latest_path):
+            try:
+                os.remove(latest_path)
+                print(f"Removed symlink: {latest_path}")
+            except OSError as e:
+                print(f"Error removing symlink {latest_path}: {e}")
+        elif os.path.exists(latest_path):
+            print(f"Warning: {latest_path} exists but is not a symlink")
+
+
 if __name__ == "__main__":
     # Define the base directory to start the search
     BASE_DIRECTORY = '/Projects/CEFI/regional_mom6/cefi_portal/'
+    remove_latest_symlinks(BASE_DIRECTORY)
     create_symlink_to_latest(BASE_DIRECTORY)
 
     # Define the base directory to start the search
     DERIVE_BASE_DIRECTORY = '/Projects/CEFI/regional_mom6/cefi_derivative/'
-    create_symlink_to_latest(DERIVE_BASE_DIRECTORY)
+    remove_latest_symlinks(DERIVE_BASE_DIRECTORY)
+    create_symlink_to_latest(DERIVE_BASE_DIRECTORY,derivative=True)
