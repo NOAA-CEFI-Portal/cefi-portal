@@ -14,15 +14,23 @@
   </div>
   <div class="col-12">
     <p>
-      Currently, the regional MOM6 output can be accessed through the PSL THREDDS server.
-      Users have the flexibility to choose their preferred method of data retrieval from this server.
-      Additionally, an alternative option involving AWS cloud storage is under consideration and may become available in the near future.
-      This option is currently undergoing testing.
+      Currently, the regional MOM6 output can be accessed through the PSL THREDDS server, AWS S3, and Google Cloud Storage.
+      Users have the flexibility to choose their preferred method of data retrieval from these data server.
+      
       For direct access to the THREDDS server, 
       <a href="https://psl.noaa.gov/thredds/catalog/Projects/CEFI/regional_mom6/cefi_portal/catalog.html" target="_blank">
         <u> go to the <strong>catalog</strong> directly</u>
-      </a>
-      .
+      </a>.
+
+      For direct access to the AWS S3 bucket, 
+      <a href="https://noaa-oar-cefi-regional-mom6-pds.s3.amazonaws.com/index.html" target="_blank">
+        <u> go to the <strong>S3 bucket</strong> directly</u>
+      </a>.
+
+      For direct access to the Google Cloud Storage (GCS), 
+      <a href="https://console.cloud.google.com/storage/browser/noaa-oar-cefi-regional-mom6?inv=1&invt=Ab4Pqw" target="_blank">
+        <u> go to the <strong>GCS</strong> directly</u>
+      </a>.
     </p>
   </div>
   <hr class="dot-hr-plot">
@@ -604,7 +612,15 @@
         <h4><strong>Cloud Storage Location</strong></h4>
         <p>
             Using cloud storage can subset the data to a smaller region or time frame.
-            Currently, we provide AWS S3 bucket and Google Cloud Storage (GCS) as the cloud storage options.
+            Currently, we provide 
+            <a href="https://noaa-oar-cefi-regional-mom6-pds.s3.amazonaws.com/index.html" target="_blank">
+              <strong>AWS S3 bucket</strong>
+            </a> 
+            and 
+            <a href="https://console.cloud.google.com/storage/browser/noaa-oar-cefi-regional-mom6" target="_blank">
+              <strong>Google Cloud Storage (GCS)</strong>
+            </a> 
+            as the cloud storage options.
             The data storage is provided by the NOAA NODD program.
         </p>
         <pre id="codeBlockCloudAWS"><code class="codeBlockScroll">Please generate query first!</code></pre> 

@@ -2330,9 +2330,9 @@
             ]
         },
         {
-            "url": "http://hfrnet.ucsd.edu/thredds/catalog.html",
-            "title": "High Frequency (HF) Radar Distributed Archive Center (DAC) THREDDS: UCSD Scripps Institution of Oceanography",
-            "desc": "<p>High Frequency (HF) Radar DAC THREDDS access</p>\n",
+            "url": "https://dods.ndbc.noaa.gov/thredds/catalog/hfradar.html",
+            "title": "IOOS High Frequency (HF) Radar Distributed Archive Center (DAC) THREDDS: NDBC",
+            "desc": "<p>IOOS High Frequency (HF) Radar DAC THREDDS access</p>\n",
             "thumbnail": "/cefi_portal/images/SIO_logo.png",
             "ctype": [],
             "cdata": [],
