@@ -30,10 +30,24 @@ def create_symlink_to_latest(base_dir:str,derivative:bool=False):
 
             # if the list exists find the latest directory
             if all_release_dirs:
-                latest_dir = max(
-                    all_release_dirs,
-                    key=lambda d: os.path.getctime(os.path.join(parent_dir, d))
-                )
+                # # cause error sometime probably due to time of modification
+                # latest_dir = max(
+                #     all_release_dirs,
+                #     key=lambda d: os.path.getctime(os.path.join(parent_dir, d))
+                # )
+                # using the release directory name without r to find 
+                # largest/latest version
+                release_number = []
+                for release in all_release_dirs:
+                    if release.startswith('r'):
+                        release_version = release[1:]
+                        release_number.append(release_version)
+                # find largest number
+                if release_number:
+                    latest_dir = 'r' + max(release_number)
+                else:
+                    raise ValueError(f"No valid release directories found in {parent_dir}")
+
                 latest_path = os.path.join(parent_dir, 'latest')
                 # create the symlink
                 if os.path.islink(latest_path) or os.path.exists(latest_path):

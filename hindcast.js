@@ -5,7 +5,7 @@ import { useTreeData, useTreeDataBasic } from './forecast_live.js';
 // visualization data version setup
 const data_version = {
     'northwest_atlantic':'r20250715',
-    'northeast_pacific':'r20250509'
+    'northeast_pacific':'r20250818'
 }
 
 // setup local global variable (data structure and filenaming structure)
