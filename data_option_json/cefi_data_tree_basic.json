@@ -12799,157 +12799,14 @@
                                 "monthly": {
                                     "raw": {
                                         "latest": {
-                                            "Chlorophyll - 3D (chl)": {
-                                                "chl": {
-                                                    "chl.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "chl.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "chl",
-                                                        "cefi_long_name": "Chlorophyll",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
                                             "Dissolved Inorganic Carbon Concentration - 3D (dissic)": {
                                                 "dissic": {
-                                                    "dissic.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "dissic.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
+                                                    "dissic.nep.full.hcast.monthly.raw.r20250912.199301-202506.nc": {
+                                                        "cefi_filename": "dissic.nep.full.hcast.monthly.raw.r20250912.199301-202506.nc",
                                                         "cefi_variable": "dissic",
                                                         "cefi_long_name": "Dissolved Inorganic Carbon Concentration",
                                                         "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "ice concentration (siconc)": {
-                                                "siconc": {
-                                                    "siconc.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "siconc.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "siconc",
-                                                        "cefi_long_name": "ice concentration",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Mixed layer depth (delta rho = 0.03) (MLD_003)": {
-                                                "MLD_003": {
-                                                    "MLD_003.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "MLD_003.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "MLD_003",
-                                                        "cefi_long_name": "Mixed layer depth (delta rho = 0.03)",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Nitrate - 3D (no3)": {
-                                                "no3": {
-                                                    "no3.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "no3.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "no3",
-                                                        "cefi_long_name": "Nitrate",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Ocean surface gas concentration of o2 (o2_csurf)": {
-                                                "o2_csurf": {
-                                                    "o2_csurf.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "o2_csurf.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "o2_csurf",
-                                                        "cefi_long_name": "Ocean surface gas concentration of o2",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Oceanic pCO2 (pco2surf)": {
-                                                "pco2surf": {
-                                                    "pco2surf.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "pco2surf.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "pco2surf",
-                                                        "cefi_long_name": "Oceanic pCO2",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Oxygen - 3D (o2)": {
-                                                "o2": {
-                                                    "o2.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "o2.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "o2",
-                                                        "cefi_long_name": "Oxygen",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Sea Surface Height (ssh)": {
-                                                "ssh": {
-                                                    "ssh.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "ssh.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "ssh",
-                                                        "cefi_long_name": "Sea Surface Height",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Sea Surface Salinity (sos)": {
-                                                "sos": {
-                                                    "sos.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "sos.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "sos",
-                                                        "cefi_long_name": "Sea Surface Salinity",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Sea Surface Temperature (tos)": {
-                                                "tos": {
-                                                    "tos.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "tos.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "tos",
-                                                        "cefi_long_name": "Sea Surface Temperature",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Sea Water Potential Temperature - 3D (thetao)": {
-                                                "thetao": {
-                                                    "thetao.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "thetao.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "thetao",
-                                                        "cefi_long_name": "Sea Water Potential Temperature",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
+                                                        "cefi_date_range": "199301-202506",
                                                         "cefi_ensemble_info": "N/A",
                                                         "cefi_forcing": "N/A"
                                                     }
@@ -12957,38 +12814,12 @@
                                             },
                                             "Sea Water Potential Temperature at Sea Floor (tob)": {
                                                 "tob": {
-                                                    "tob.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "tob.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
+                                                    "tob.nep.full.hcast.monthly.raw.r20250912.199301-202506.nc": {
+                                                        "cefi_filename": "tob.nep.full.hcast.monthly.raw.r20250912.199301-202506.nc",
                                                         "cefi_variable": "tob",
                                                         "cefi_long_name": "Sea Water Potential Temperature at Sea Floor",
                                                         "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Sea Water Salinity - 3D (so)": {
-                                                "so": {
-                                                    "so.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "so.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "so",
-                                                        "cefi_long_name": "Sea Water Salinity",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Sea Water Salinity at Sea Floor (sob)": {
-                                                "sob": {
-                                                    "sob.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "sob.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "sob",
-                                                        "cefi_long_name": "Sea Water Salinity at Sea Floor",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
+                                                        "cefi_date_range": "199301-202506",
                                                         "cefi_ensemble_info": "N/A",
                                                         "cefi_forcing": "N/A"
                                                     }
@@ -12996,51 +12827,12 @@
                                             },
                                             "Sea Water X Velocity - 3D (uo)": {
                                                 "uo": {
-                                                    "uo.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "uo.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
+                                                    "uo.nep.full.hcast.monthly.raw.r20250912.199301-202506.nc": {
+                                                        "cefi_filename": "uo.nep.full.hcast.monthly.raw.r20250912.199301-202506.nc",
                                                         "cefi_variable": "uo",
                                                         "cefi_long_name": "Sea Water X Velocity",
                                                         "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Sea Water Y Velocity - 3D (vo)": {
-                                                "vo": {
-                                                    "vo.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "vo.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "vo",
-                                                        "cefi_long_name": "Sea Water Y Velocity",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Surface Dissolved Inorganic Carbon Concentration (dissicos)": {
-                                                "dissicos": {
-                                                    "dissicos.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "dissicos.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "dissicos",
-                                                        "cefi_long_name": "Surface Dissolved Inorganic Carbon Concentration",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Surface Downward X Stress (tauuo)": {
-                                                "tauuo": {
-                                                    "tauuo.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "tauuo.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "tauuo",
-                                                        "cefi_long_name": "Surface Downward X Stress",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
+                                                        "cefi_date_range": "199301-202506",
                                                         "cefi_ensemble_info": "N/A",
                                                         "cefi_forcing": "N/A"
                                                     }
@@ -13048,51 +12840,12 @@
                                             },
                                             "Surface Downward Y Stress (tauvo)": {
                                                 "tauvo": {
-                                                    "tauvo.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "tauvo.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
+                                                    "tauvo.nep.full.hcast.monthly.raw.r20250912.199301-202506.nc": {
+                                                        "cefi_filename": "tauvo.nep.full.hcast.monthly.raw.r20250912.199301-202506.nc",
                                                         "cefi_variable": "tauvo",
                                                         "cefi_long_name": "Surface Downward Y Stress",
                                                         "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Surface NO3 (sfc_no3)": {
-                                                "sfc_no3": {
-                                                    "sfc_no3.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "sfc_no3.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "sfc_no3",
-                                                        "cefi_long_name": "Surface NO3",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Surface pH (phos)": {
-                                                "phos": {
-                                                    "phos.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "phos.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "phos",
-                                                        "cefi_long_name": "Surface pH",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
-                                                        "cefi_ensemble_info": "N/A",
-                                                        "cefi_forcing": "N/A"
-                                                    }
-                                                }
-                                            },
-                                            "Total Alkalinity - 3D (talk)": {
-                                                "talk": {
-                                                    "talk.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "talk.nep.full.hcast.monthly.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "talk",
-                                                        "cefi_long_name": "Total Alkalinity",
-                                                        "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
+                                                        "cefi_date_range": "199301-202506",
                                                         "cefi_ensemble_info": "N/A",
                                                         "cefi_forcing": "N/A"
                                                     }
@@ -13355,79 +13108,191 @@
                                 "daily": {
                                     "raw": {
                                         "latest": {
-                                            "ice concentration (siconc)": {
-                                                "siconc": {
-                                                    "siconc.nep.full.hcast.daily.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "siconc.nep.full.hcast.daily.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "siconc",
-                                                        "cefi_long_name": "ice concentration",
+                                            "Dissolved Inorganic Carbon Concentration - 3D (dissic)": {
+                                                "dissic": {
+                                                    "dissic.nep.full.hcast.daily.raw.r20250912.201201-201212.nc": {
+                                                        "cefi_filename": "dissic.nep.full.hcast.daily.raw.r20250912.201201-201212.nc",
+                                                        "cefi_variable": "dissic",
+                                                        "cefi_long_name": "Dissolved Inorganic Carbon Concentration",
                                                         "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
+                                                        "cefi_date_range": "201201-201212",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    },
+                                                    "dissic.nep.full.hcast.daily.raw.r20250912.201601-201612.nc": {
+                                                        "cefi_filename": "dissic.nep.full.hcast.daily.raw.r20250912.201601-201612.nc",
+                                                        "cefi_variable": "dissic",
+                                                        "cefi_long_name": "Dissolved Inorganic Carbon Concentration",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "201601-201612",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    },
+                                                    "dissic.nep.full.hcast.daily.raw.r20250912.201401-201412.nc": {
+                                                        "cefi_filename": "dissic.nep.full.hcast.daily.raw.r20250912.201401-201412.nc",
+                                                        "cefi_variable": "dissic",
+                                                        "cefi_long_name": "Dissolved Inorganic Carbon Concentration",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "201401-201412",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    },
+                                                    "dissic.nep.full.hcast.daily.raw.r20250912.201001-201012.nc": {
+                                                        "cefi_filename": "dissic.nep.full.hcast.daily.raw.r20250912.201001-201012.nc",
+                                                        "cefi_variable": "dissic",
+                                                        "cefi_long_name": "Dissolved Inorganic Carbon Concentration",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "201001-201012",
                                                         "cefi_ensemble_info": "N/A",
                                                         "cefi_forcing": "N/A"
                                                     }
                                                 }
                                             },
-                                            "Oceanic pCO2 (pco2surf)": {
-                                                "pco2surf": {
-                                                    "pco2surf.nep.full.hcast.daily.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "pco2surf.nep.full.hcast.daily.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "pco2surf",
-                                                        "cefi_long_name": "Oceanic pCO2",
+                                            "Nitrate - 3D (no3)": {
+                                                "no3": {
+                                                    "no3.nep.full.hcast.daily.raw.r20250912.201101-201112.nc": {
+                                                        "cefi_filename": "no3.nep.full.hcast.daily.raw.r20250912.201101-201112.nc",
+                                                        "cefi_variable": "no3",
+                                                        "cefi_long_name": "Nitrate",
                                                         "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
+                                                        "cefi_date_range": "201101-201112",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    },
+                                                    "no3.nep.full.hcast.daily.raw.r20250912.200401-200412.nc": {
+                                                        "cefi_filename": "no3.nep.full.hcast.daily.raw.r20250912.200401-200412.nc",
+                                                        "cefi_variable": "no3",
+                                                        "cefi_long_name": "Nitrate",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "200401-200412",
                                                         "cefi_ensemble_info": "N/A",
                                                         "cefi_forcing": "N/A"
                                                     }
                                                 }
                                             },
-                                            "Sea Surface Height (ssh)": {
-                                                "ssh": {
-                                                    "ssh.nep.full.hcast.daily.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "ssh.nep.full.hcast.daily.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "ssh",
-                                                        "cefi_long_name": "Sea Surface Height",
+                                            "Oxygen - 3D (o2)": {
+                                                "o2": {
+                                                    "o2.nep.full.hcast.daily.raw.r20250912.200901-200912.nc": {
+                                                        "cefi_filename": "o2.nep.full.hcast.daily.raw.r20250912.200901-200912.nc",
+                                                        "cefi_variable": "o2",
+                                                        "cefi_long_name": "Oxygen",
                                                         "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
+                                                        "cefi_date_range": "200901-200912",
                                                         "cefi_ensemble_info": "N/A",
                                                         "cefi_forcing": "N/A"
                                                     }
                                                 }
                                             },
-                                            "Sea Surface Temperature (tos)": {
-                                                "tos": {
-                                                    "tos.nep.full.hcast.daily.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "tos.nep.full.hcast.daily.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "tos",
-                                                        "cefi_long_name": "Sea Surface Temperature",
+                                            "Sea Water Potential Temperature - 3D (thetao)": {
+                                                "thetao": {
+                                                    "thetao.nep.full.hcast.daily.raw.r20250912.200101-200112.nc": {
+                                                        "cefi_filename": "thetao.nep.full.hcast.daily.raw.r20250912.200101-200112.nc",
+                                                        "cefi_variable": "thetao",
+                                                        "cefi_long_name": "Sea Water Potential Temperature",
                                                         "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
+                                                        "cefi_date_range": "200101-200112",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    },
+                                                    "thetao.nep.full.hcast.daily.raw.r20250912.200501-200512.nc": {
+                                                        "cefi_filename": "thetao.nep.full.hcast.daily.raw.r20250912.200501-200512.nc",
+                                                        "cefi_variable": "thetao",
+                                                        "cefi_long_name": "Sea Water Potential Temperature",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "200501-200512",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    },
+                                                    "thetao.nep.full.hcast.daily.raw.r20250912.200701-200712.nc": {
+                                                        "cefi_filename": "thetao.nep.full.hcast.daily.raw.r20250912.200701-200712.nc",
+                                                        "cefi_variable": "thetao",
+                                                        "cefi_long_name": "Sea Water Potential Temperature",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "200701-200712",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    },
+                                                    "thetao.nep.full.hcast.daily.raw.r20250912.200301-200312.nc": {
+                                                        "cefi_filename": "thetao.nep.full.hcast.daily.raw.r20250912.200301-200312.nc",
+                                                        "cefi_variable": "thetao",
+                                                        "cefi_long_name": "Sea Water Potential Temperature",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "200301-200312",
                                                         "cefi_ensemble_info": "N/A",
                                                         "cefi_forcing": "N/A"
                                                     }
                                                 }
                                             },
-                                            "Sea Water Potential Temperature at Sea Floor (tob)": {
-                                                "tob": {
-                                                    "tob.nep.full.hcast.daily.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "tob.nep.full.hcast.daily.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "tob",
-                                                        "cefi_long_name": "Sea Water Potential Temperature at Sea Floor",
+                                            "Sea Water Salinity - 3D (so)": {
+                                                "so": {
+                                                    "so.nep.full.hcast.daily.raw.r20250912.201001-201012.nc": {
+                                                        "cefi_filename": "so.nep.full.hcast.daily.raw.r20250912.201001-201012.nc",
+                                                        "cefi_variable": "so",
+                                                        "cefi_long_name": "Sea Water Salinity",
                                                         "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
+                                                        "cefi_date_range": "201001-201012",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    },
+                                                    "so.nep.full.hcast.daily.raw.r20250912.200201-200212.nc": {
+                                                        "cefi_filename": "so.nep.full.hcast.daily.raw.r20250912.200201-200212.nc",
+                                                        "cefi_variable": "so",
+                                                        "cefi_long_name": "Sea Water Salinity",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "200201-200212",
                                                         "cefi_ensemble_info": "N/A",
                                                         "cefi_forcing": "N/A"
                                                     }
                                                 }
                                             },
-                                            "Surface pH (phos)": {
-                                                "phos": {
-                                                    "phos.nep.full.hcast.daily.raw.r20250818.199301-202312.nc": {
-                                                        "cefi_filename": "phos.nep.full.hcast.daily.raw.r20250818.199301-202312.nc",
-                                                        "cefi_variable": "phos",
-                                                        "cefi_long_name": "Surface pH",
+                                            "Sea Water X Velocity - 3D (uo)": {
+                                                "uo": {
+                                                    "uo.nep.full.hcast.daily.raw.r20250912.202401-202412.nc": {
+                                                        "cefi_filename": "uo.nep.full.hcast.daily.raw.r20250912.202401-202412.nc",
+                                                        "cefi_variable": "uo",
+                                                        "cefi_long_name": "Sea Water X Velocity",
                                                         "cefi_init_date": "N/A",
-                                                        "cefi_date_range": "199301-202312",
+                                                        "cefi_date_range": "202401-202412",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    },
+                                                    "uo.nep.full.hcast.daily.raw.r20250912.200001-200012.nc": {
+                                                        "cefi_filename": "uo.nep.full.hcast.daily.raw.r20250912.200001-200012.nc",
+                                                        "cefi_variable": "uo",
+                                                        "cefi_long_name": "Sea Water X Velocity",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "200001-200012",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    },
+                                                    "uo.nep.full.hcast.daily.raw.r20250912.201201-201212.nc": {
+                                                        "cefi_filename": "uo.nep.full.hcast.daily.raw.r20250912.201201-201212.nc",
+                                                        "cefi_variable": "uo",
+                                                        "cefi_long_name": "Sea Water X Velocity",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "201201-201212",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    }
+                                                }
+                                            },
+                                            "Sea Water Y Velocity - 3D (vo)": {
+                                                "vo": {
+                                                    "vo.nep.full.hcast.daily.raw.r20250912.200101-200112.nc": {
+                                                        "cefi_filename": "vo.nep.full.hcast.daily.raw.r20250912.200101-200112.nc",
+                                                        "cefi_variable": "vo",
+                                                        "cefi_long_name": "Sea Water Y Velocity",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "200101-200112",
+                                                        "cefi_ensemble_info": "N/A",
+                                                        "cefi_forcing": "N/A"
+                                                    },
+                                                    "vo.nep.full.hcast.daily.raw.r20250912.201301-201312.nc": {
+                                                        "cefi_filename": "vo.nep.full.hcast.daily.raw.r20250912.201301-201312.nc",
+                                                        "cefi_variable": "vo",
+                                                        "cefi_long_name": "Sea Water Y Velocity",
+                                                        "cefi_init_date": "N/A",
+                                                        "cefi_date_range": "201301-201312",
                                                         "cefi_ensemble_info": "N/A",
                                                         "cefi_forcing": "N/A"
                                                     }
