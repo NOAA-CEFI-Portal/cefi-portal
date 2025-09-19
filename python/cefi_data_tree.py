@@ -143,7 +143,7 @@ if __name__ == '__main__':
                                 except KeyError:
                                     # force failure if the category is not found
                                     print('Error: Category not found in cefi_category_dict. Please check the category name in the file attributes. Or a new category is not added in the cefi_category_dict.')
-                                    pass
+                                    continue
                                 cefi_filename = file_path.split('/')[-1]
                                 path_segs.append(f'{cefi_variable} ({cefi_lname})') # add the variable name
                                 path_segs.append(cefi_variable) # add the variable name short only
