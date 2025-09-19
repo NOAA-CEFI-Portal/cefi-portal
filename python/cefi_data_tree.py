@@ -69,6 +69,7 @@ if __name__ == '__main__':
         'ocean_cobalt_fluxes_int': 'Level intergrated COBALT fluxes',
         'ocean_cobalt_tracers_instant': 'Instantaneous COBALT tracers',
         'ocean_cobalt_daily': 'Daily COBALT variables',
+        'ocean_cobalt_daily_z': 'Daily 3D COBALT variables',
         'ocean_cobalt_tracers_int': 'Level integrated COBALT tracers',
         'ocean_cobalt_daily_2d': 'Daily 2D COBALT variables',
         'ocean_cobalt_rates_year_z': 'Annual 3D COBALT rates',
@@ -141,7 +142,8 @@ if __name__ == '__main__':
                                     path_segs.append(f'{cefi_category} ({cefi_category_dict[cefi_category]})') # add the category
                                 except KeyError:
                                     # force failure if the category is not found
-                                    sys.exit('Error: Category not found in cefi_category_dict. Please check the category name in the file attributes. Or a new category is not added in the cefi_category_dict.')
+                                    print('Error: Category not found in cefi_category_dict. Please check the category name in the file attributes. Or a new category is not added in the cefi_category_dict.')
+                                    pass
                                 cefi_filename = file_path.split('/')[-1]
                                 path_segs.append(f'{cefi_variable} ({cefi_lname})') # add the variable name
                                 path_segs.append(cefi_variable) # add the variable name short only
