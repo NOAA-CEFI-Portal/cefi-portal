@@ -87,6 +87,7 @@ if __name__ == '__main__':
         'ocean_annual': 'Annual ocean variables',
         'ocean_monthly_z': 'Monthly 3D ocean variables',
         'ocean_annual_z': 'Annual 3D ocean variables',
+        'ocean_daily_z': 'Daily 3D ocean variables',
         'ice_monthly': 'Monthly sea ice variables',
         'ice_daily': 'Daily sea ice variables',
         'static': 'Static variables and model grids',
